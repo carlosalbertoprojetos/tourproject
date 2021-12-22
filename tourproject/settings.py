@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'basics',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tourproject.wsgi.application'
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

@@ -1,15 +1,9 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.translation import gettext_lazy as _
 
 
 class DocumentMixin(models.Model):
     
-    # document_number = models.ForeignKey(
-    #     User,
-    #     on_delete=models.CASCADE,
-    #     unique=True,
-    #     
     document_number = models.CharField(
         _('Documento'),
         max_length=18,
@@ -69,8 +63,7 @@ class ContactMixin(models.Model):
         abstract = True
 
 
-
-class SocialMediaMixin(models.Model):
+class SocialMediaMixin(models.Model):    
     
     social_media = models.CharField(
         _("Rede Social"),
