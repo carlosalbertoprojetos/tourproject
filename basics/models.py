@@ -3,13 +3,13 @@ from django.utils.translation import gettext_lazy as _
 
 
 class DocumentMixin(models.Model):
-    
+
     document_number = models.CharField(
         _('Documento'),
         max_length=18,
         unique=True
     )
-    
+
     class Meta:
         abstract = True
 
@@ -45,28 +45,6 @@ class AddressMixin(models.Model):
 
     state = models.CharField(
         _('Estado'),
-        max_length=100
-    )
-
-    class Meta:
-        abstract = True
-
-
-class ContactMixin(models.Model):
-    
-    cel_phone = models.CharField(
-        _("Celular"),
-        max_length=15
-    )
-
-    class Meta:
-        abstract = True
-
-
-class SocialMediaMixin(models.Model):    
-    
-    social_media = models.CharField(
-        _("Rede Social"),
         max_length=100
     )
 

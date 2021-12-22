@@ -1,19 +1,22 @@
 from django.contrib import admin
 
-from .models import User
-
-# @admin.register(User)
-# class UserAdmin(admin.ModelAdmin):
-#     ...
+from .models import ContactMixin, SocialMediaMixin, User
 
 
+class ContactMixinAdmin(admin.TabularInline):
+    model = ContactMixin
+    extra = 1
+
+
+class SocialMediaMixinAdmin(admin.TabularInline):
+    model = SocialMediaMixin
+    extra = 1
+
+
+@admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    search_fields = ['email', 'option', ]
-
-    fieldsets = [
-        ('Usuário', {'fields': [('option', 'email'), 'document_number']}),
-        ('Endereço', {'fields': [('street', 'number', 'complement', 'city')]}),
+    inlines = [
+        ContactMixinAdmin,
+        SocialMediaMixinAdmin
     ]
-
-
-admin.site.register(User, UserAdmin)
+    ...

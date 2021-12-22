@@ -30,3 +30,36 @@ class User(DocumentMixin, AddressMixin, AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = DefaultUserManager()
+
+
+class ContactMixin(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+
+    cel_phone = models.CharField(
+        _("Celular"),
+        max_length=15
+    )
+
+
+
+class SocialMediaMixin(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+
+    social_media = models.CharField(
+        _("Rede Social"),
+        max_length=100
+    )
+
+ 
