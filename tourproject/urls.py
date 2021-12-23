@@ -23,10 +23,10 @@ urlpatterns = [
 
     # path('', include('dashboard.urls', namespace='dashboard')),
     
-    path('admin/', admin.site.urls),
-
-    # path('accounts/', include('accounts.urls', namespace='accounts')),
+    # path('account/', include('accounts.urls', namespace='accounts')),
     
     path('accounts/', include('allauth.urls')),
+    
+    path('admin/', admin.site.urls),
 
 ]
