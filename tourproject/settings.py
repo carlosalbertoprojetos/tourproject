@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'basics',
-    'accounts',
+    'user',
 ]
 
 
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'tourproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,7 +82,7 @@ SITE_ID = 1
 
 WSGI_APPLICATION = 'tourproject.wsgi.application'
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'user.User'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -90,11 +90,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 ACCOUNT_FORMS = {
-#     # 'login': 'accounts.forms.CustomLoginForm',
-    'signup': 'accounts.forms.CustomSignupForm',
+    # 'login': 'authentication.forms.CustomLoginForm',
+    'signup': 'user.forms.CustomSignupForm',
 }
-
-# ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -151,7 +149,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'staticfiles')
 
 STATICFILES_DIRS = [
-    #os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'basics', 'static'),
 ]
 
