@@ -1,4 +1,5 @@
 from basics.models import AddressMixin, DocumentMixin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -6,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from .managers import DefaultUserManager
 
 
-class User(DocumentMixin, AddressMixin, AbstractUser):
+class User(AbstractUser):
 
     email = models.EmailField(
         _('Email'),
@@ -15,7 +16,7 @@ class User(DocumentMixin, AddressMixin, AbstractUser):
 
     option = models.CharField(
         _('Opção'),
-        max_length=8
+        max_length=8,
     )
 
     EMAIL_FIELD = 'email'
@@ -40,7 +41,6 @@ class ContactMixin(models.Model):
     )
 
 
-
 class SocialMediaMixin(models.Model):
 
     user = models.ForeignKey(
@@ -54,5 +54,3 @@ class SocialMediaMixin(models.Model):
         _("Rede Social"),
         max_length=100
     )
-
- 

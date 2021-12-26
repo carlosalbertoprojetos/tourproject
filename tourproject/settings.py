@@ -94,6 +94,9 @@ ACCOUNT_FORMS = {
     'signup': 'user.forms.CustomSignupForm',
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -156,6 +159,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# após efetuar o login, será redirecionado para:
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'index' 
+LOGOUT_REDIRECT_URL = 'index'
+
+
 
 
 

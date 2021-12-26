@@ -1,22 +1,21 @@
 from allauth.account.forms import SignupForm
 from django import forms
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
-from .models import User
 
 
 class CustomSignupForm(SignupForm):
 
-    OPTION_CHOICES = (
+    OPTION_CHOICES = [
         ('1', _('Agência')),
         ('2', _('Cliente')),
         ('3', _('Parceiro')),
-    )
+    ]
 
     option = forms.ChoiceField(
         label=_('Opção'),
         choices=OPTION_CHOICES,
+        widget=forms.Select
     )
 
     def clean_password1(self):
@@ -34,7 +33,8 @@ class CustomSignupForm(SignupForm):
 
         return password
 
-    # def save(self, request):
-    #     user = super().save(request)
-    #     user.type_of_register = self.cleaned_data.get('type_of_register')
-    #     user.save()
+    def save(self, request):
+        user = super(CustomSignupForm, self).save(request)
+        user.option = self.cleaned_data.get('option')
+        user.save()
+        return user
