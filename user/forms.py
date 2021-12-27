@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 class CustomSignupForm(SignupForm):
 
     OPTION_CHOICES = [
-        ('1', _('Agência')),
-        ('2', _('Cliente')),
+        ('1', _('Cliente')),
+        ('2', _('Agência')),
         ('3', _('Parceiro')),
     ]
 
