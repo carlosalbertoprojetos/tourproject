@@ -15,14 +15,17 @@
                         {% csrf_token %}
 
                         <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" name="option" value="1" class="btn-check" id="id_option" autocomplete="off" checked>
+                            <input type="radio" name="option" value="1" class="btn-check" id="id_option"
+                                autocomplete="off" checked>
                             <label class="btn btn-outline-primary text-uppercase" for="id_option">Cliente</label>
 
-                            <input type="radio" name="option" value="2" class="btn-check" id="id_option" autocomplete="off">
-                            <label class="btn btn-outline-primary text-uppercase" for="id_option">Agência</label>
-    
-                            <input type="radio" name="option" value="3" class="btn-check" id="id_option" autocomplete="off">
-                            <label class="btn btn-outline-primary text-uppercase" for="id_option">Parceiro</label>
+                            <input type="radio" name="option" value="2" class="btn-check" id="id_option2"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary text-uppercase" for="id_option2">Agência</label>
+
+                            <input type="radio" name="option" value="3" class="btn-check" id="id_option3"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary text-uppercase" for="id_option3">Parceiro</label>
                         </div>
 
                         <div class="form-group">
@@ -47,7 +50,8 @@
 
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Eu concordo com todas as afirmações em <a href="#" class="term-service">Termos de serviço</a></label>
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>Eu concordo com
+                                todas as afirmações em <a href="#" class="term-service">Termos de serviço</a></label>
                         </div>
 
                         <div class="form-group form-button">
