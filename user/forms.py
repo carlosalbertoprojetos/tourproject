@@ -3,6 +3,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from user.models import User
+
 
 class CustomSignupForm(SignupForm):
 
@@ -10,6 +12,7 @@ class CustomSignupForm(SignupForm):
         ('1', _('Cliente')),
         ('2', _('Agência')),
         ('3', _('Parceiro')),
+        ('4', _('Agente')),
     ]
 
     option = forms.ChoiceField(
@@ -38,3 +41,4 @@ class CustomSignupForm(SignupForm):
         user.option = self.cleaned_data.get('option')
         user.save()
         return user
+
