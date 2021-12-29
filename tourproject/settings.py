@@ -96,11 +96,6 @@ ACCOUNT_FORMS = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-
-
-
-
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -166,11 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # após efetuar o login, será redirecionado para:
+ACCOUNT_SIGNUP_REDIRECT_URL = 'user:dashboard'
 LOGIN_REDIRECT_URL = 'user:dashboard'
-LOGIN_URL = 'index' 
+LOGIN_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
-
-
-
-
-

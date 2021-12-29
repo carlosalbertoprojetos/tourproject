@@ -12,6 +12,7 @@ class DefaultUserManager(UserManager):
             username=email,
             email=email,
             password=password,
+            option='0',
             is_staff=True,
             is_superuser=True
         )
