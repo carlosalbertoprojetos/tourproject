@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from .managers import DefaultUserManager
 
 
-class User(AbstractUser):
+class User(AddressMixin, DocumentMixin, AbstractUser):
 
     email = models.EmailField(
         _('Email'),

@@ -90,11 +90,15 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 ACCOUNT_FORMS = {
-    # 'login': 'authentication.forms.CustomLoginForm',
     'signup': 'user.forms.CustomSignupForm',
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+
+
+
 
 
 # Database
@@ -162,7 +166,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # após efetuar o login, será redirecionado para:
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'user:dashboard'
 LOGIN_URL = 'index' 
 LOGOUT_REDIRECT_URL = 'index'
 
