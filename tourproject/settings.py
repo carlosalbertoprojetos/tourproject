@@ -89,6 +89,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+ACCOUNT_EMAIL_VERIFICATION = None
+
 ACCOUNT_FORMS = {
     'signup': 'user.forms.CustomSignupForm',
 }

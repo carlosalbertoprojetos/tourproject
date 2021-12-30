@@ -9,6 +9,14 @@ from .managers import DefaultUserManager
 
 class User(AddressMixin, DocumentMixin, AbstractUser):
 
+    OPTION_CHOICES = [
+        ('0', _('Admin')),
+        ('1', _('Cliente')),
+        ('2', _('Agência')),
+        ('3', _('Parceiro')),
+        ('4', _('Agente')),
+    ]
+
     email = models.EmailField(
         _('Email'),
         unique=True
@@ -17,6 +25,7 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
     option = models.CharField(
         _('Opção'),
         max_length=8,
+        choices=OPTION_CHOICES
     )
 
     EMAIL_FIELD = 'email'

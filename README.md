@@ -7,32 +7,32 @@ Desenvolver um sistema de cadastro e login para diferentes tipos de usuários (a
 
 * models
     - User - email, opção
-        -> Agência - nome da agência, outras informações
-            + Agente - nome, nome da agência, outras informações
-        -> Cliente - nome, outras informações
-        -> Parceiro - nome, documento, nome da empresa, outras informações
-        -> Documento - CNPJ/CPF
-        -> Endereço - logradouro, numero, complemento, bairro, cidade, estado, CEP
-        -> Telefone - telefone
-        -> Rede social - rede social
+        * Tipos de usuários:
+			- Agência - nome da agência, outras informações
+            	* Agente - nome, nome da agência, outras informações
+				* Cliente - nome, outras informações
+				* Parceiro - nome, documento, nome da empresa, outras informações
+		* Demais dados:
+			- Documento - CNPJ/CPF
+			- Endereço - logradouro, numero, complemento, bairro, cidade, estado, CEP
+			- Telefone - telefone
+			- Rede social - rede social
 
 # Funcionalidades
 
-* cadastro (email e senha):
-	- com o cadastro concluído, será enviado link no email informado, para confirmar o cadastro;
-	- o link direcionará para um formulário de conclusão de cadastro;
-	- concluído o cadastro, o usuário será automaticamente logado.
-* login (email e senha):
-	- link para recuperação de senha.
-	- formulário para informar email cadastrado para envio do link de recuperação de senha.
-	- o link enviado redicionará para o formulário de renovação de senha.
+* cadastro:
+	- o usuário serleciona uma entre as opções Cliente, Agência ou parceiro, insere usuario, email, senha e confirmar senha
+	- concluído o cadastro, o usuário será automaticamente logado
+* login:
+	- o usuário insere username/email e senha
+	- o template possui link para recuperação de senha e cadastrar
 * logout:
-	- tela para confirmar logout.
+	- o usuário optar por clicar no botão 'sair' para confirmar logout.
 
 * perfil de usuários:
 	- tela para exibir
 	- formulário para editar
-	- tela para confirmar exclusão
+
 
 * contato
 	- formuláro para envio de mensagens ao administrador do framework;
@@ -51,15 +51,15 @@ python.exe -m pip install --upgrade pip
 ### Criar e acessar pasta do projeto
 
 ```
-mkdir nome_projeto
-cd nome_projeto
+mkdir projetotour
+cd projetotour
 ```
 
 
 ### Criar ambiente virtual
 
 ```
-py -m venv venv_nome_projeto
+py -m venv venv_projetotour
 ```
 
 
@@ -67,24 +67,25 @@ py -m venv venv_nome_projeto
 
 ```
 - Windows -
-venv_nome_projeto/scripts/activate.bat
+venv_projetotour/scripts/activate.bat
 
 - Linux -
-venv_nome_projeto\bin\activate
+venv_projetotour\bin\activate
 ```
 
 
 ### Clonar o projeto
 
 ```
-git clone 
+git clone https://github.com/carlosalbertoprojetos/tourproject.git
 ```
 
 
 ### Acessar a pasta do projeto
 
 ```
-cd cl_completo
+cd projetotour
+
 ```
 
 ### Instalar dependências
