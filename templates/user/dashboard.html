@@ -27,7 +27,7 @@
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="padding: 8px 0px;" >
         <a class="navbar-brand ps-3" href="/">Turismo</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <h6 class="navbar-brand ps-3">{{ user.username }} / {{ user.get_option_display }}</h6>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -94,9 +94,9 @@
                                         </a>
                                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                             <nav class="sb-sidenav-menu-nested nav">
-                                                <a class="nav-link" href="login.html">Login</a>
-                                                <a class="nav-link" href="register.html">Register</a>
-                                                <a class="nav-link" href="password.html">Esqueceu a senha</a>
+                                                <a class="nav-link" href="#">Login</a>
+                                                <a class="nav-link" href="#">Register</a>
+                                                <a class="nav-link" href="#">Esqueceu a senha</a>
                                             </nav>
                                         </div>
                                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -105,9 +105,9 @@
                                         </a>
                                         <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                             <nav class="sb-sidenav-menu-nested nav">
-                                                <a class="nav-link" href="401.html">Dados da agência</a>
-                                                <a class="nav-link" href="404.html">Redes Sociais</a>
-                                                <a class="nav-link" href="500.html">Foto</a>
+                                                <a class="nav-link" href="#">Dados da agência</a>
+                                                <a class="nav-link" href="#">Redes Sociais</a>
+                                                <a class="nav-link" href="#">Foto</a>
                                             </nav>
                                         </div>
                                     </nav>
@@ -121,8 +121,8 @@
                                 </a>
                                 <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="layout-static.html">Cadastrar</a>
-                                        <a class="nav-link" href="layout-sidenav-light.html">Editar</a>
+                                        <a class="nav-link" href="#">Cadastrar</a>
+                                        <a class="nav-link" href="{% url 'user:edit_user' user.pk %}">Editar</a>
                                     </nav>
                                 </div>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -132,8 +132,8 @@
                                 </a>
                                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="layout-static.html">Tipos</a>
-                                        <a class="nav-link" href="layout-sidenav-light.html">Reservas</a>
+                                        <a class="nav-link" href="#">Tipos</a>
+                                        <a class="nav-link" href="#">Reservas</a>
                                     </nav>
                                 </div>
                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -149,9 +149,9 @@
                                         </a>
                                         <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                             <nav class="sb-sidenav-menu-nested nav">
-                                                <a class="nav-link" href="login.html">Hotel</a>
-                                                <a class="nav-link" href="register.html">Hostel</a>
-                                                <a class="nav-link" href="password.html">Pousada</a>
+                                                <a class="nav-link" href="#">Hotel</a>
+                                                <a class="nav-link" href="#">Hostel</a>
+                                                <a class="nav-link" href="#">Pousada</a>
                                             </nav>
                                         </div>
                                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -160,9 +160,9 @@
                                         </a>
                                         <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                             <nav class="sb-sidenav-menu-nested nav">
-                                                <a class="nav-link" href="401.html">Adultos</a>
-                                                <a class="nav-link" href="404.html">Crianças</a>
-                                                <a class="nav-link" href="500.html">Especiais</a>
+                                                <a class="nav-link" href="#">Adultos</a>
+                                                <a class="nav-link" href="#">Crianças</a>
+                                                <a class="nav-link" href="#">Especiais</a>
                                             </nav>
                                         </div>
                                     </nav>

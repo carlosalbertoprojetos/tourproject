@@ -3,11 +3,10 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from user.models import User
+from .models import User
 
 
 class CustomSignupForm(SignupForm):
-
 
     option = forms.CharField(
         label=_('Opção'),
@@ -37,8 +36,15 @@ class CustomSignupForm(SignupForm):
         return user
 
 
+class EditUserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 # class AgentSignupForm(SignupForm):
-    
+
 #     option = forms.CharField(max_length=1)
 
 #     def clean_password1(self):
@@ -63,7 +69,7 @@ class CustomSignupForm(SignupForm):
 #         return user
 
 # class AgentSignupForm(forms.ModelForm):
-    
+
 #     password = forms.CharField(widget=forms.PasswordInput)
 #     password_2 = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
 
