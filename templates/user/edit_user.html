@@ -1,12 +1,30 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load account %}
+{% load static %}
+
+{% block content %}
+
 <div class="main">
+    <div class="container-form">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title" style="margin-bottom: 33px;">Editar</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-    <form method="POST">
+                    <div class="form-group form-button">
+                        <input type="submit" value="Salvar" />
+                    </div>
+                </form>
 
-        {% csrf_token %}
-        {{ form.as_p }}
- 
-        <input type="submit" value="Update">
-    </form>
- 
+            </div>
+        </div>
+    </div>
 </div>
 
+
+
+{% endblock content %}

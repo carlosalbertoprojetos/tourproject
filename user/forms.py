@@ -37,10 +37,17 @@ class CustomSignupForm(SignupForm):
 
 
 class EditUserForm(forms.ModelForm):
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        queryset = User.objects.filter(
+            email=email).exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise forms.ValidationError('Email já cadastrado')
+        return email
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['username', 'document_number', 'postal_code', 'street', 'number', 'complement', 'city', 'state', 'email']
 
 
 # class AgentSignupForm(SignupForm):

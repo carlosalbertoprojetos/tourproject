@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load account %}
+{% load static %}
+
+
+{% block title %}Perfil{% endblock title %}
+
+
+{% block content %}
+
+<br>
+<div class="container justify-content-center" style='margin-top:2px'>
+    <div class="card">
+        <div class="card-header">
+            <h1>Lista de usuários</h1>
+        </div>
+    </div>
+    <br>
+
+    {% for user in object %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="title">Email: <a href="{ url 'usuario:editar_usuario_admin' user.pk %}"> {{ user.email }}</a></h3>
+            <h4>Usuário: {{ user.username }}</h4>
+            <h4>Documento: {{ user.document_number }}</h4>
+            <fieldset id='id_endereco'>
+                <h6>Logradouro: {{ user.street }} / Número: {{ user.number }} / Complemento: {{ user.complement }}
+                </h6>
+                <h6>
+                Cidade: {{ user.city }} / Estado: {{ user.state }} / CEP: {{ user.postal_code }}
+                </h6>                
+            </fieldset>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock content %}
