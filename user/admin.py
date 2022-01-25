@@ -17,9 +17,9 @@ class SocialMediaMixinAdmin(admin.TabularInline):
 class UserAdmin(admin.ModelAdmin):
     inlines = [
         ContactMixinAdmin,
-        SocialMediaMixinAdmin
+        SocialMediaMixinAdmin,
     ]
     readonly_fields = ('option',)
-    fields = ['option', ('username', 'email', 'document_number'), 'first_name',
-              'last_name', ('postal_code', 'street', 'number', 'complement', 'state')]
-    ...
+    fields = ['option', ('username', 'email'), 'document_number',
+              ('postal_code', 'street', 'number', 'complement', 'state')
+              ]

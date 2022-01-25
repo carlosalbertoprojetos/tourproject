@@ -1,5 +1,4 @@
 from basics.models import AddressMixin, DocumentMixin
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -11,9 +10,9 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
 
     OPTION_CHOICES = [
         ('0', _('Admin')),
-        ('1', _('Cliente')),
+        # ('1', _('Cliente')),
         ('2', _('Agência')),
-        ('3', _('Parceiro')),
+        ('3', _('Fornecedor')),
         ('4', _('Agente')),
     ]
 
@@ -33,6 +32,24 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = DefaultUserManager()
+
+
+# class DocumentImageMixin(models.Model):
+
+#     user = models.ForeignKey(
+#         User,
+#         on_delete=models.CASCADE,
+#         blank=True,
+#         null=True
+#     )
+
+#     document_name = models.CharField(
+#         _('Nome documento'),
+#         max_length=50,
+#     )
+
+#     document_image = models.ImageField(
+#         upload_to='images/%d/%m/%Y/', blank=True)
 
 
 class ContactMixin(models.Model):

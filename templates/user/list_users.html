@@ -4,39 +4,195 @@
 {% load account %}
 {% load static %}
 
-
-{% block title %}Perfil{% endblock title %}
-
-
 {% block content %}
 
-<br>
-<div class="container justify-content-center" style='margin-top:2px'>
-    <div class="card">
-        <div class="card-header">
-            <h1>Lista de usuários</h1>
+    
+<main>
+    <div class="container-flex">
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="{% url 'user:dashboard' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            {% if user.option == '0' %}
+                            <div class="sb-sidenav-menu-heading">Cadastros</div>                                
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Usuários
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'user:list_users' %}">Listar</a>
+                                    <a class="nav-link" href="#">Editar</a>
+                                    <a class="nav-link" href="#">Outros dados</a>
+                                </nav>
+                            </div>
+                            {% endif %}
+
+                            {% if user.option == '2' %}
+                            <div class="sb-sidenav-menu-heading">Agentes</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Dados
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Cadastrar
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="#">Login</a>
+                                            <a class="nav-link" href="#">Register</a>
+                                            <a class="nav-link" href="#">Esqueceu a senha</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Editar
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="#">Dados da agência</a>
+                                            <a class="nav-link" href="#">Redes Sociais</a>
+                                            <a class="nav-link" href="#">Foto</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            {% endif %}
+                            <div class="sb-sidenav-menu-heading">Produtos</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts" aria-expanded="false" aria-controls="collapseProdocts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Registros
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Cadastrar</a>
+                                    <a class="nav-link" href="{% url 'user:edit_user_admin' user.pk %}">Editar</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
+                                Restaurantes
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="#">Tipos</a>
+                                    <a class="nav-link" href="#">Reservas</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-hotel"></i></div>
+                                Hotéis
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Categorias
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="#">Hotel</a>
+                                            <a class="nav-link" href="#">Hostel</a>
+                                            <a class="nav-link" href="#">Pousada</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Reservas
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="#">Adultos</a>
+                                            <a class="nav-link" href="#">Crianças</a>
+                                            <a class="nav-link" href="#">Especiais</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Gráficos
+                            </a>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tabelas
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>            
+            <div class="container-fluid px-4 mt-2">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-0.5"></i>
+                        Lista de usuários
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                <th>Usuário</th>
+                                <th>Email</th>
+                                <th>Documento</th>
+                                <th>Cidade</th>
+                                <th>Editar</th>
+                                </tr>
+                            </thead>
+    
+                            <tbody>
+                                {% for user in object %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.document_number }}</td>
+                                    <td>{{ user.city }}</td>
+                                    <td>
+                                        <a href="{% url 'user:edit_user_admin' user.pk %}" class="btn">
+                                        <i href="static/icons/bi-pencil"></i>
+                                        {{user.pk}}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <br>
+</main>
 
-    {% for user in object %}
-    <div class="card">
-        <div class="card-body">
-            <h3 class="title">Email: <a href="{ url 'usuario:editar_usuario_admin' user.pk %}"> {{ user.email }}</a></h3>
-            <h4>Usuário: {{ user.username }}</h4>
-            <h4>Documento: {{ user.document_number }}</h4>
-            <fieldset id='id_endereco'>
-                <h6>Logradouro: {{ user.street }} / Número: {{ user.number }} / Complemento: {{ user.complement }}
-                </h6>
-                <h6>
-                Cidade: {{ user.city }} / Estado: {{ user.state }} / CEP: {{ user.postal_code }}
-                </h6>                
-            </fieldset>
+<footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">Copyright &copy; Your Website 2021</div>
+            <div>
+                <a href="#">Privacy Policy</a>
+                &middot;
+                <a href="#">Terms &amp; Conditions</a>
+            </div>
         </div>
     </div>
-    {% endfor %}
-
-</div>
+</footer>
 
 
 {% endblock content %}
+
+

@@ -4,13 +4,21 @@ from django.utils.translation import gettext_lazy as _
 
 class DocumentMixin(models.Model):
 
+    document_kind = models.CharField(
+        _('Tipo de documento'),
+        max_length=50,
+    )
+    
     document_number = models.CharField(
-        _('Documento'),
+        _('Número do Documento'),
         max_length=18,
-        unique=True, 
+        unique=True,
         blank=False,
         null=True,
     )
+    
+    document_image = models.ImageField(
+        upload_to='images/%d/%m/%Y/', blank=True)
 
     class Meta:
         abstract = True
@@ -26,7 +34,7 @@ class AddressMixin(models.Model):
     )
 
     street = models.CharField(
-        _("Endereço"),
+        _("Logradouro"),
         max_length=200,
         blank=False,
         null=True,

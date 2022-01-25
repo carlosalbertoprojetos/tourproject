@@ -95,6 +95,9 @@ ACCOUNT_FORMS = {
     'signup': 'user.forms.CustomSignupForm',
 }
 
+ACCOUNT_SIGNUP_REDIRECT_URL = '/user/signup/complement/'
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
@@ -163,7 +166,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # após efetuar o login, será redirecionado para:
-ACCOUNT_SIGNUP_REDIRECT_URL = 'user:dashboard'
+# ACCOUNT_SIGNUP_REDIRECT_URL = 'user:dashboard'
+
 LOGIN_REDIRECT_URL = 'user:dashboard'
 LOGIN_URL = 'index'
+
 LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_URL = '/accounts/logout/'
