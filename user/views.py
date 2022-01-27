@@ -86,7 +86,7 @@ def edit_user_admin(request, pk):
 
 class SignupComplementView(LoginRequiredMixin, UpdateView):
     model = User
-    template_name = 'account/signup_complement.html'
+    template_name = 'account/signup_2.html'
     form_class = SignupComplementForm
     success_url = reverse_lazy('user:dashboard')
 

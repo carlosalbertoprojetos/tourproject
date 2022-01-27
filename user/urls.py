@@ -8,7 +8,7 @@ app_name = 'user'
 urlpatterns = [
     path('', TemplateView.as_view(
         template_name='user/dashboard.html'), name='dashboard'),
-
+    
     path('signup/complement/', signup_step_2, name='signup_complement'),
 
     path('<int:pk>/edit/', edit_user_view, name='edit_user'),
@@ -17,5 +17,4 @@ urlpatterns = [
 
     path('<int:pk>/editadmin/', edit_user_admin, name='edit_user_admin'),
 
-    # path('', AgentCreatView.as_view(), name='agent_signup'),
 ]

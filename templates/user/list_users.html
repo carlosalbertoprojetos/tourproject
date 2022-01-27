@@ -137,43 +137,47 @@
                     </div>
                 </nav>
             </div>            
-            <div class="container-fluid px-4 mt-2">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-0.5"></i>
-                        Lista de usuários
+            <div id="layoutSidenav_content">
+                <main>            
+                    <div class="container-fluid px-4 mt-2">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-0.5"></i>
+                                Lista de usuários
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                        <th>Usuário</th>
+                                        <th>Email</th>
+                                        <th>Documento</th>
+                                        <th>Cidade</th>
+                                        <th>Editar</th>
+                                        </tr>
+                                    </thead>
+            
+                                    <tbody>
+                                        {% for user in object %}
+                                        <tr>
+                                            <td>{{ user.username }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.document_number }}</td>
+                                            <td>{{ user.city }}</td>
+                                            <td>
+                                                <a href="{% url 'user:edit_user_admin' user.pk %}" class="btn">
+                                                <i href="static/icons/bi-pencil"></i>
+                                                {{user.pk}}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple">
-                            <thead>
-                                <tr>
-                                <th>Usuário</th>
-                                <th>Email</th>
-                                <th>Documento</th>
-                                <th>Cidade</th>
-                                <th>Editar</th>
-                                </tr>
-                            </thead>
-    
-                            <tbody>
-                                {% for user in object %}
-                                <tr>
-                                    <td>{{ user.username }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.document_number }}</td>
-                                    <td>{{ user.city }}</td>
-                                    <td>
-                                        <a href="{% url 'user:edit_user_admin' user.pk %}" class="btn">
-                                        <i href="static/icons/bi-pencil"></i>
-                                        {{user.pk}}
-                                        </a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                </main>
             </div>
         </div>
     </div>
