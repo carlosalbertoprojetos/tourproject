@@ -11,26 +11,14 @@ from .models import User
 
 
 @login_required
-def edit_user_view(request, pk):
-    user = get_object_or_404(User, pk=pk)
+def edit_user_view(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
     form = EditUserForm(instance=user)
 
     if(request.method == 'POST'):
         form = EditUserForm(request.POST, instance=user)
-
         if(form.is_valid()):
-            user = form.save(commit=False)
-            user.document_kind = form.cleaned_data['document_kind']
-            user.document_number = form.cleaned_data['document_number']
-            user.document_image = form.cleaned_data['document_image']
-            user.postal_code = form.cleaned_data['postal_code']
-            user.street = form.cleaned_data['street']
-            user.number = form.cleaned_data['number']
-            user.complement = form.cleaned_data['complement']
-            user.city = form.cleaned_data['city']
-            user.state = form.cleaned_data['state']
-
-            user.save()
+            user = form.save(commit=True)
 
             return redirect('user:edit_user', user.pk)
         else:
@@ -38,8 +26,6 @@ def edit_user_view(request, pk):
 
     elif(request.method == 'GET'):
         return render(request, 'user/edit_user.html', {'form': form})
-
-
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -61,20 +47,8 @@ def edit_user_admin(request, pk):
 
     if(request.method == 'POST'):
         form = EditUserForm(request.POST, instance=user)
-
         if(form.is_valid()):
-            user = form.save(commit=False)
-            user.document_kind = form.cleaned_data['document_kind']
-            user.document_number = form.cleaned_data['document_number']
-            user.document_image = form.cleaned_data['document_image']
-            user.postal_code = form.cleaned_data['postal_code']
-            user.street = form.cleaned_data['street']
-            user.number = form.cleaned_data['number']
-            user.complement = form.cleaned_data['complement']
-            user.city = form.cleaned_data['city']
-            user.state = form.cleaned_data['state']
-
-            user.save()
+            user = form.save(commit=True)
 
             return redirect('user:list_users')
         else:

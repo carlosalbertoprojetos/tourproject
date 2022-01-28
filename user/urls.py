@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('signup/complement/', signup_step_2, name='signup_complement'),
 
-    path('<int:pk>/edit/', edit_user_view, name='edit_user'),
+    path('<user_pk>/edit/', edit_user_view, name='edit_user'),
 
     path('list/', list_users, name='list_users'),
 
