@@ -17,14 +17,3 @@ class DefaultUserManager(UserManager):
             is_superuser=True
         )
         return user
-
-
-# @login_required
-# def create_agent_user(self, *args, **kwargs):
-#     user = self.model(
-#         email=self.normalize_email(*args, **kwargs),
-#     )
-#     user.option = 'Agente'
-#     user.set_password(*args, **kwargs)
-#     user.save(using=self._db)
-#     return user

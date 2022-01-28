@@ -34,24 +34,6 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
     objects = DefaultUserManager()
 
 
-# class DocumentImageMixin(models.Model):
-
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#         blank=True,
-#         null=True
-#     )
-
-#     document_name = models.CharField(
-#         _('Nome documento'),
-#         max_length=50,
-#     )
-
-#     document_image = models.ImageField(
-#         upload_to='images/%d/%m/%Y/', blank=True)
-
-
 class ContactMixin(models.Model):
 
     user = models.ForeignKey(
