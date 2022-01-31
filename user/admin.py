@@ -20,6 +20,6 @@ class UserAdmin(admin.ModelAdmin):
         SocialMediaMixinAdmin,
     ]
     readonly_fields = ('option',)
-    fields = ['option', ('username', 'email'), 'document_number',
+    fields = ['option', ('username', 'email'), 'groups', 'document_number',
               ('postal_code', 'street', 'number', 'complement', 'state')
               ]

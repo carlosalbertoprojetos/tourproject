@@ -1,36 +1,119 @@
-{% extends 'base.html' %}
+{% extends 'user/dashboard_clean.html' %}
 
 {% load i18n %}
 {% load account %}
 {% load static %}
 
-{% block content %}
 
-<div class="text-center">
-    <div class="row">
-        <div class="text-center">               
-            <div id="layoutAuthentication">
-                <div id="layoutAuthentication_content">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-7">
-                                <div class="card shadow-lg border-0 rounded-lg mt-3">
-                                    <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4">Editar</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <form class="pure-form" method="POST">
-                                            {% csrf_token %}
-                                            {{ form.as_p }}
+{% block dashboard %}
 
-                                            <div class="mt-4 mb-0">
-                                                <input type="submit" value="Editar" class="btn btn-primary" />
-                                            </div>
-                                        </form>
+
+<div id="layoutSidenav_content">
+    <div class="container-fluid px-4">
+        <div class="container-form">
+            <div class="container-fluid mt-4 mb-4">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-light my-4">Editar Cadastro</h3>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        <input class="form-control" type="text" name="company" id="id_company"
+                                            value="{{ user.company }}" />
+                                        <label for="id_company">Razão Social</label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="document_number"
+                                            id="id_document_number" value="{{ user.document_number }}" />
+                                        <label for="inputLastName">CNPJ</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <div class="form-control-file">
+                                            <input class="btn-light" type="file" name="document_image"
+                                                id="id_document_image" value="{{ user.document_image }}" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input class="form-control" id="id_username" name="username" type="text"
+                                            value="{{ user.username }}" />
+                                        <label for="id_username">Username</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input class="form-control" id="id_email" name="email" type="email"
+                                            value="{{ user.email }}" />
+                                        <label for="id_email">Email</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="street" id="id_street"
+                                            value="{{ user.street }}" />
+                                        <label for="id_street">Logradouro</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="number" name="number" id="id_number"
+                                            value="{{ user.number }}" />
+                                        <label for="id_number">Número</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="complement" id="id_complement"
+                                            value="{{ user.complement }}" />
+                                        <label for="id_complement">Complemento</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="city" id="id_city"
+                                            value="{{ user.city }}" placeholder="Cidade" />
+                                        <label for="id_city">Cidade</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="state" id="id_state"
+                                            value="{{ user.state }}" placeholder="Estado" />
+                                        <label for="id_state">Estado</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" name="postal_code" id="id_postal_code"
+                                            value="{{ user.postal_code }}" placeholder="CEP" />
+                                        <label for="id_complement">CEP</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-button">
+                                <input type="submit" class="form-submit" value="Salvar" />
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -38,59 +121,5 @@
     </div>
 </div>
 
-<div class="main">
-    <section class="signup">
-        <div class="container-form">
-            <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title" style="margin-bottom: 33px;">Cadastrar</h2>
-                    <form method="POST" class="register-form" id="register-form" action="/accounts/signup/">
-                        {% csrf_token %}
 
-                        <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" name="option" value="2" class="btn-check" id="id_option2"
-                                autocomplete="off">
-                            <label class="btn btn-outline-primary" for="id_option2">Agência</label>
-
-                            <input type="radio" name="option" value="3" class="btn-check" id="id_option3"
-                                autocomplete="off">
-                            <label class="btn btn-outline-primary" for="id_option3">Fornecedor</label>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="id_username" placeholder="Usuário" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="id_email" placeholder="Email" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="id_password1"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password1" id="id_password1" placeholder="Senha" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="re-id_password2"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="password2" id="id_password2" placeholder="Confirmar Senha" />
-                        </div>
-
-                        <div class="form-group form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
-                        </div>
-                    </form>
-
-                </div>               
-
-                <div class="signup-image">
-                    <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>
-                    <a href="{% url 'account_login' %}" class="signup-image-link">Já sou Cadastrado</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-{% endblock content %}
+{% endblock dashboard %}

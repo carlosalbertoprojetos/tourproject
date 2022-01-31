@@ -19,7 +19,7 @@
                                 Dashboard
                             </a>
                             {% if user.option == '0' %}
-                            <div class="sb-sidenav-menu-heading">Cadastros</div>                                
+                            <div class="sb-sidenav-menu-heading">Gestão</div>                                
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Usuários
@@ -38,35 +38,16 @@
                             <div class="sb-sidenav-menu-heading">Agentes</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Dados
+                                Cadastro
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Cadastrar
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="#">Login</a>
-                                            <a class="nav-link" href="#">Register</a>
-                                            <a class="nav-link" href="#">Esqueceu a senha</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Editar
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="#">Dados da agência</a>
-                                            <a class="nav-link" href="#">Redes Sociais</a>
-                                            <a class="nav-link" href="#">Foto</a>
-                                        </nav>
-                                    </div>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'user:create_agent' %}">Cadastrar</a>
+                                    <a class="nav-link" href="#">Listar</a>
                                 </nav>
                             </div>
+
                             {% endif %}
                             <div class="sb-sidenav-menu-heading">Produtos</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts" aria-expanded="false" aria-controls="collapseProdocts">
@@ -693,18 +674,6 @@
                         </div>
                     </div>
                 </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
     </div>

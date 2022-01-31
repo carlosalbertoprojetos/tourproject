@@ -1,18 +1,19 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
                               redirect, render)
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, UpdateView
 
 from .forms import EditUserForm, SignupComplementForm
 from .models import User
 
 
 @login_required
-def edit_user_view(request, user_pk):
-    user = get_object_or_404(User, pk=user_pk)
+def edit_user_view(request, pk):
+    user = get_object_or_404(User, pk=pk)
     form = EditUserForm(instance=user)
 
     if(request.method == 'POST'):
@@ -33,7 +34,7 @@ def list_users(request):
     '''
     Lista usuários cadastrados
     '''
-    object = User.objects.filter(is_superuser=False)
+    object = User.objects.all()
     context = {
         'object': object,
     }
@@ -59,6 +60,7 @@ def edit_user_admin(request, pk):
 
 
 class SignupComplementView(LoginRequiredMixin, UpdateView):
+
     model = User
     template_name = 'account/signup_2.html'
     form_class = SignupComplementForm
@@ -67,7 +69,6 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         self.object = self.request.user
         return self.object
-
     def get_initial(self):
         initials = {}
         for field in self.form_class._meta.fields:
@@ -80,5 +81,17 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
         # logout(self.request)
         return HttpResponseRedirect(self.get_success_url())
 
-
 signup_step_2 = SignupComplementView.as_view()
+
+
+def create_agent(request):
+    form = UserCreationForm(User, request.POST or None)
+
+    if form.is_valid():
+        form = form.save()
+        form.username = request.user.company
+        return redirect('user:dashboard')
+    context = {
+        'form': form
+    }
+    return render(request, 'account/signup_agent.html', context)

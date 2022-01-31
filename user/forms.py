@@ -11,7 +11,6 @@ class CustomSignupForm(SignupForm):
 
     option = forms.CharField(
         label=_('Opção'),
-        # choices=OPTION_CHOICES,
         widget=forms.Select
     )
 
@@ -41,16 +40,17 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['document_kind', 'document_number', 'document_image',
-                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
+        # fields = ('__all__')
+        fields = ['company', 'document_number', 'document_image','postal_code', 'street', 'number', 'complement', 'city', 'state']
 
 
 class SignupComplementForm(forms.ModelForm):
 
     class Meta:
         model = User
+        # fields = '__all__'
         fields = (
-            'document_kind',
+            'company',
             'document_number',
             'document_image',
             'postal_code',
@@ -74,15 +74,15 @@ class SignupComplementForm(forms.ModelForm):
         return sanitize_number(data)
 
     def save(self, commit=False):
-        instance = super().save(commit=commit)
-        instance.save()
-        return instance
+        user = super().save(commit=commit)
+        user.save()
+        return user
 
-    def get_name(self, data):
-        splited = data.split(' ', maxsplit=1)
-        if len(splited) > 1:
-            return splited
-        return data, ''
+    # def get_name(self, data):
+    #     splited = data.split(' ', maxsplit=1)
+    #     if len(splited) > 1:
+    #         return splited
+    #     return data, ''
 
 
 class PhoneFormSet(forms.Form):
@@ -108,6 +108,7 @@ class SocialFormSet(forms.Form):
         fields = '__all__'
 
     def save(self, commit=False):
-        instance = super().save(commit=commit)
-        instance.save()
-        return instance
+        user = super().save(commit=commit)
+        user.save()
+        return user
+

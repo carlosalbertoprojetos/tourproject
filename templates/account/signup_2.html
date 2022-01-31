@@ -1,43 +1,64 @@
-{% extends 'base.html' %}
-
-{% load i18n %}
-{% load account %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load i18n %} {% load account %} {% load static %} {% block content %}
 
 <div class="main">
     <section class="signup">
-        <div class="container-form">
+        <div class="container-form mb-4">
             <div class="signup-content">
-                <div class="signup-form">
-                    <h2 class="form-title" style="margin-bottom: 33px;">Completar Cadastro</h2>
+                <div class="signup-image ">
+                    <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>
+                </div>
+
+                <div class="signup-form" style="margin: 0 75px 0 10px;">
+                    <h2 class="form-title" style="margin-bottom: 10px;">Completar Cadastro</h2>
                     <form method="POST">
-                        {% csrf_token %}
+                        {% csrf_token %} 
+                        
                         <div class="form-group">
-                            <input type="text" name="document_number" id="id_document_number"
-                                placeholder="Número do Documento">
-                            <input type="text" name="document_kind" id="id_document_kind"
-                                placeholder="Tipo do Documento">
-                            <input type="file" name="document_image" id="id_document_image"
-                                placeholder="Imagem do Documento">
+                            <input type="text" name="company" id="id_company" placeholder="Razão Social">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
+                            <input type="text" name="document_number" id="id_document_number" placeholder="Número do Documento">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
+                            <input type="file" name="document_image" id="id_document_image" placeholder="Imagem do Documento">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                             <input type="text" name="postal_code" id="id_postal_code" placeholder="CEP">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                             <input type="text" name="street" id="id_street" placeholder="Logradouro">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                             <input type="number" name="number" id="id_number" placeholder="Número">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                             <input type="text" name="complement" id="id_complement" placeholder="Complemento">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                             <input type="text" name="city" id="id_city" placeholder="Cidade">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                             <input type="text" name="state" id="id_state" placeholder="Estado">
+                            <div class="invalid-feedback form-text">
+                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            </div>
                         </div>
 
-                        <div class="mt-4 mb-0">
-                            <input type="submit" value="Salvar" class="btn btn-primary" />
+                        <div class="form-group form-button">
+                            <input type="submit" class="form-submit" value="Salvar" />
                         </div>
                     </form>
                 </div>
 
-                <div class="signup-image">
-                    <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>
-                </div>
+
             </div>
         </div>
     </section>
