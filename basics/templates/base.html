@@ -15,7 +15,7 @@
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'%}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'fonts/all.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'fonts/all.min.css' %}"> -->
     
     <!-- DataTables -->
     <link rel="stylesheet" href="{% static 'datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
@@ -32,15 +32,13 @@
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
 
     <!-- dashboard -->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
 </head>
-
-
+<body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="padding: 8px 0px;">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -95,9 +93,10 @@
 
     <main>
         {% block content %} {% endblock content %}
+
     </main>
-    <br>
-    <br>
+<br><br>
+<br>
 
     <footer class="bg-light fixed-bottom py-4">
         <div class="container-fluid px-4">
@@ -130,5 +129,5 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
 
-
+</body>
 </html>

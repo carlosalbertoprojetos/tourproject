@@ -5,35 +5,41 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
                               redirect, render)
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import UpdateView
 
 from .forms import EditUserForm, SignupComplementForm
 from .models import User
 
 
-@login_required
-def edit_user_view(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    form = EditUserForm(instance=user)
+class UserEditForm(UpdateView):
+    
+    model = User
+    template_name = 'user/edit_user.html'
+    form_class = EditUserForm
+    success_url = reverse_lazy('user:dashboard')    
+    
+edit_user_view = UserEditForm.as_view()
 
-    if(request.method == 'POST'):
-        form = EditUserForm(request.POST, instance=user)
-        if(form.is_valid()):
-            user = form.save(commit=True)
+# @login_required
+# def edit_user_view(request, pk):
+#     user = get_object_or_404(User, pk=pk)
+#     form = EditUserForm(instance=user)
 
-            return redirect('user:edit_user', user.pk)
-        else:
-            return render(request, 'user/edit_user.html', {'form': form})
+#     if(request.method == 'POST'):
+#         form = EditUserForm(request.POST, instance=user)
+#         if(form.is_valid()):
+#             user = form.save(commit=True)
 
-    elif(request.method == 'GET'):
-        return render(request, 'user/edit_user.html', {'form': form})
+#             return redirect('user:edit_user', user.pk)
+#         else:
+#             return render(request, 'user/edit_user.html', {'form': form})
+
+#     elif(request.method == 'GET'):
+#         return render(request, 'user/edit_user.html', {'form': form})
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def list_users(request):
-    '''
-    Lista usuários cadastrados
-    '''
     object = User.objects.all()
     context = {
         'object': object,
@@ -46,9 +52,10 @@ def edit_user_admin(request, pk):
     user = get_object_or_404(User, pk=pk)
     form = EditUserForm(instance=user)
 
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         form = EditUserForm(request.POST, instance=user)
-        if(form.is_valid()):
+
+        if form.is_valid():
             user = form.save(commit=True)
 
             return redirect('user:list_users')
@@ -57,6 +64,7 @@ def edit_user_admin(request, pk):
 
     elif(request.method == 'GET'):
         return render(request, 'user/edit_user.html', {'form': form})
+
 
 
 class SignupComplementView(LoginRequiredMixin, UpdateView):
@@ -69,7 +77,7 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         self.object = self.request.user
         return self.object
-    
+
     def get_initial(self):
         initials = {}
         for field in self.form_class._meta.fields:
@@ -80,6 +88,7 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
         form.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
 
 signup_step_2 = SignupComplementView.as_view()
 

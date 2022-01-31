@@ -8,57 +8,49 @@
 
 
 <div id="layoutSidenav_content">
-    <div class="container-fluid px-4">
-        <div class="container-form">
-            <div class="container-fluid mt-4 mb-4">
-                <section class="container-fluid">
-                    <div class="content-header">
-                        <div class="row mb-2">
-                            <h1>Gestão dos usuários</h1>
-                        </div>
-                    </div>
-                </section>
-                <div class="card-header">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Lista de usuários</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Usuário</th>
-                                        <th>Mod.</th>
-                                        <th>Email</th>
-                                        <th>Documento</th>
-                                        <th>Cidade</th>
-                                        <th>Editar</th>
-                                    </tr>
-                                </thead>
+    <section class="container-fluid">
+        <div class="content-header">
+            <div class="row mb-2">
+                <h1>Gestão dos Usuários</h1>
+            </div>
+        </div>
+    </section>
+    <div class="card-header">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de usuários</h3>
+            </div>
+            <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Mod.</th>
+                            <th>Email</th>
+                            <th>Documento</th>
+                            <th>Cidade</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
 
-                                <tbody>
-                                    {% for user in object %}
-                                    <tr>
-                                        <td>{{ user.username }}</td>
-                                        <td>{{ user.option }}</td>
-                                        <td>{{ user.email }}</td>
-                                        <td>{{ user.document_number }}</td>
-                                        <td>{{ user.city }}</td>
-                                        <td>
-                                            <a href="{% url 'user:edit_user_admin' user.pk %}" class="btn">
-                                                <i href="static/icons/bi-pencil"></i>
-                                                {{user.pk}}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>                            
+                    <tbody>
+                        {% for user in object %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.get_option_display }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.document_number }}</td>
+                            <td>{{ user.city }}</td>
+                            <td align="center">
+                                <a href="{% url 'user:edit_user_admin' user.pk %}" class="btn">
+                                    <i class="zmdi zmdi-edit material-icons-name"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -9,114 +9,110 @@
 
 
 <div id="layoutSidenav_content">
-    <div class="container-fluid px-4">
-        <div class="container-form">
-            <div class="container-fluid mt-4 mb-4">
-                <div class="card-header">
-                    <h3 class="text-center font-weight-light my-4">Editar Cadastro</h3>
-                    <div class="card-body">
-                        <form method="POST">
-                            {% csrf_token %}
+    <section class="container-fluid">
+        <div class="content-header">
+            <div class="row mb-2">
+                <h1>Editar Cadastro</h1>
+            </div>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
 
-                            <div class="row mb-3">
-                                <div class="col-md-12">
-                                    <div class="form-floating mb-3 mb-md-0">
-                                        <input class="form-control" type="text" name="company" id="id_company"
-                                            value="{{ user.company }}" />
-                                        <label for="id_company">Razão Social</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="text" name="document_number"
-                                            id="id_document_number" value="{{ user.document_number }}" />
-                                        <label for="inputLastName">CNPJ</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <div class="form-control-file">
-                                            <input class="btn-light" type="file" name="document_image"
-                                                id="id_document_image" value="{{ user.document_image }}" />
-                                        </div>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="document_image">Usuário</label><br>
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_email">Email</label><br>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                    </div>
+                </div><br>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_company">Razão Social</label><br>
+                            {{ form.company }}
+                            {{ form.company.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_document_number">CNPJ</label><br>
+                            {{ form.document_number }}
+                            {{ form.document_number.errors }}
+                        </div>
+                    </div>
+                </div><br>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_document_image">Imagem do documento</label><br>
+                            {{ form.document_image }}
+                            {{ form.document_image.errors }}
+                        </div>
+                    </div>
+                </div><br>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_street">Logradouro</label><br>
+                            {{ form.street }}
+                            {{ form.street.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_number">Número</label><br>
+                            {{ form.number }}
+                            {{ form.number.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_complement">complemento</label><br>
+                            {{ form.complement }}
+                            {{ form.complement.errors }}
+                        </div>
+                    </div>
+                </div><br>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" id="id_username" name="username" type="text"
-                                            value="{{ user.username }}" />
-                                        <label for="id_username">Username</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" id="id_email" name="email" type="email"
-                                            value="{{ user.email }}" />
-                                        <label for="id_email">Email</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="text" name="street" id="id_street"
-                                            value="{{ user.street }}" />
-                                        <label for="id_street">Logradouro</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="number" name="number" id="id_number"
-                                            value="{{ user.number }}" />
-                                        <label for="id_number">Número</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="text" name="complement" id="id_complement"
-                                            value="{{ user.complement }}" />
-                                        <label for="id_complement">Complemento</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="text" name="city" id="id_city"
-                                            value="{{ user.city }}" placeholder="Cidade" />
-                                        <label for="id_city">Cidade</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="text" name="state" id="id_state"
-                                            value="{{ user.state }}" placeholder="Estado" />
-                                        <label for="id_state">Estado</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <input class="form-control" type="text" name="postal_code" id="id_postal_code"
-                                            value="{{ user.postal_code }}" placeholder="CEP" />
-                                        <label for="id_complement">CEP</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group form-button">
-                                <input type="submit" class="form-submit" value="Salvar" />
-                            </div>
-
-                        </form>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_city">Cidade</label><br>
+                            {{ form.city }}
+                            {{ form.city.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_state">Estado</label><br>
+                            {{ form.state }}
+                            {{ form.state.errors }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <label for="id_postal_code">CEP</label><br>
+                            {{ form.postal_code }}
+                            {{ form.postal_code.errors }}
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="form-group form-button">
+                    <input type="submit" class="form-submit" value="Salvar" />
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

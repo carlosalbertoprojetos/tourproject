@@ -41,7 +41,8 @@ class EditUserForm(forms.ModelForm):
     class Meta:
         model = User
         # fields = ('__all__')
-        fields = ['company', 'document_number', 'document_image','postal_code', 'street', 'number', 'complement', 'city', 'state']
+        fields = ['company', 'username', 'email', 'document_number', 'document_image',
+                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
 
 
 class SignupComplementForm(forms.ModelForm):
@@ -74,9 +75,9 @@ class SignupComplementForm(forms.ModelForm):
         return sanitize_number(data)
 
     def save(self, commit=False):
-        user = super().save(commit=commit)
-        user.save()
-        return user
+        instance = super().save(commit=commit)
+        instance.save()
+        return instance
 
     # def get_name(self, data):
     #     splited = data.split(' ', maxsplit=1)
@@ -108,7 +109,6 @@ class SocialFormSet(forms.Form):
         fields = '__all__'
 
     def save(self, commit=False):
-        user = super().save(commit=commit)
-        user.save()
-        return user
-
+        instance = super().save(commit=commit)
+        instance.save()
+        return instance
