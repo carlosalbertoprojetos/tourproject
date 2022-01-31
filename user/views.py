@@ -69,6 +69,7 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         self.object = self.request.user
         return self.object
+    
     def get_initial(self):
         initials = {}
         for field in self.form_class._meta.fields:
@@ -76,9 +77,8 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
         return initials
 
     def form_valid(self, form):
-
         form.save()
-        # logout(self.request)
+
         return HttpResponseRedirect(self.get_success_url())
 
 signup_step_2 = SignupComplementView.as_view()
