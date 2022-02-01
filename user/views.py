@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
@@ -11,31 +10,22 @@ from .forms import EditUserForm, SignupComplementForm
 from .models import User
 
 
-class UserEditForm(UpdateView):
-    
-    model = User
-    template_name = 'user/edit_user.html'
-    form_class = EditUserForm
-    success_url = reverse_lazy('user:dashboard')    
-    
-edit_user_view = UserEditForm.as_view()
+@login_required
+def edit_user_view(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    form = EditUserForm(instance=user)
 
-# @login_required
-# def edit_user_view(request, pk):
-#     user = get_object_or_404(User, pk=pk)
-#     form = EditUserForm(instance=user)
+    if(request.method == 'POST'):
+        form = EditUserForm(request.POST, instance=user)
+        if(form.is_valid()):
+            user = form.save(commit=True)
 
-#     if(request.method == 'POST'):
-#         form = EditUserForm(request.POST, instance=user)
-#         if(form.is_valid()):
-#             user = form.save(commit=True)
+            return redirect('user:edit_user', user.pk)
+        else:
+            return render(request, 'user/edit_user.html', {'form': form})
 
-#             return redirect('user:edit_user', user.pk)
-#         else:
-#             return render(request, 'user/edit_user.html', {'form': form})
-
-#     elif(request.method == 'GET'):
-#         return render(request, 'user/edit_user.html', {'form': form})
+    elif(request.method == 'GET'):
+        return render(request, 'user/edit_user.html', {'form': form})
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -66,7 +56,6 @@ def edit_user_admin(request, pk):
         return render(request, 'user/edit_user.html', {'form': form})
 
 
-
 class SignupComplementView(LoginRequiredMixin, UpdateView):
 
     model = User
@@ -91,16 +80,3 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
 
 
 signup_step_2 = SignupComplementView.as_view()
-
-
-def create_agent(request):
-    form = UserCreationForm(User, request.POST or None)
-
-    if form.is_valid():
-        form = form.save()
-        form.username = request.user.company
-        return redirect('user:dashboard')
-    context = {
-        'form': form
-    }
-    return render(request, 'account/signup_agent.html', context)
