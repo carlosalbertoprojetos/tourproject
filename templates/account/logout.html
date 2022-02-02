@@ -1,16 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'user/dashboard_clean.html' %}
 
 {% load i18n %}
 {% load account %}
 {% load static %}
 
-{% block content %}
+{% block dashboard %}
 
-<div class="container">
-    <div class="text-center mt-5">
-        <div class="row">
-            <div class="text-center">
-                <h1>Desconectar</h1>
+
+
+<div id="layoutSidenav_content">
+    <div class="container-fluid text-center mt-5">
+        <div class="content-header">
+            <div class="content-header text-center">
+                <h1 class="mb-2">Sair</h1>
                 <p>Você tem certeza que deseja sair, <strong>{{ request.user.username }}</strong>?</p>
 
                 <form method="post" action="/accounts/logout/">
@@ -22,4 +24,4 @@
     </div>
 </div>
 
-{% endblock content %}
+{% endblock dashboard %}
