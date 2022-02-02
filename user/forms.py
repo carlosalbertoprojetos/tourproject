@@ -2,6 +2,7 @@ from allauth.account.forms import SignupForm
 from basics.utils import sanitize_number
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
 from .models import ContactMixin, SocialMediaMixin, User
@@ -38,17 +39,27 @@ class CustomSignupForm(SignupForm):
 
 class EditUserForm(forms.ModelForm):
 
+    document_image = forms.ImageField(
+        widget=ClearableFileInput
+    )
+
     class Meta:
         model = User
         # fields = ('__all__')
-        fields = ['company', 'document_number', 'document_image','postal_code', 'street', 'number', 'complement', 'city', 'state']
+        fields = ['company', 'username', 'email', 'document_number', 'document_image',
+                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['document_number'].widget.attrs.update(
+            {'class': 'mask-cnpj'})
+        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
 
 
 class SignupComplementForm(forms.ModelForm):
 
     class Meta:
         model = User
-        # fields = '__all__'
         fields = (
             'company',
             'document_number',
@@ -60,6 +71,12 @@ class SignupComplementForm(forms.ModelForm):
             'city',
             'state'
         )
+
+    def __init__(self, *args, **kwargs):
+        super(SignupComplementForm, self).__init__(*args, **kwargs)
+        self.fields['document_number'].widget.attrs.update(
+            {'class': 'mask-cnpj'})
+        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
 
     def clean_document_number(self):
         data = self.cleaned_data['document_number']
@@ -74,15 +91,9 @@ class SignupComplementForm(forms.ModelForm):
         return sanitize_number(data)
 
     def save(self, commit=False):
-        user = super().save(commit=commit)
-        user.save()
-        return user
-
-    # def get_name(self, data):
-    #     splited = data.split(' ', maxsplit=1)
-    #     if len(splited) > 1:
-    #         return splited
-    #     return data, ''
+        instance = super().save(commit=commit)
+        instance.save()
+        return instance
 
 
 class PhoneFormSet(forms.Form):
@@ -108,7 +119,6 @@ class SocialFormSet(forms.Form):
         fields = '__all__'
 
     def save(self, commit=False):
-        user = super().save(commit=commit)
-        user.save()
-        return user
-
+        instance = super().save(commit=commit)
+        instance.save()
+        return instance

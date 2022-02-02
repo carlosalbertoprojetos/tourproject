@@ -8,22 +8,15 @@
 
 
 <div id="layoutSidenav_content">
-    <div class="container-fluid px-4">
-        <div class="container-form">
-            <div class="container-fluid mt-4 mb-4">
-                <section class="container-fluid">
-                    <div class="content-header">
-                        <div class="row mb-2">
-                            <h1>Gestão dos usuários</h1>
-                        </div>
-                    </div>
-                </section>
-                <div class="card-header">
+    <div class="container-fluid">
+        <div class="content-header">   
+            <div class="content-header">
+                <h1 class="mb-2" >Gestão dos Usuários</h1>
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Lista de usuários</h3>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
@@ -41,14 +34,13 @@
                                     {% for user in object %}
                                     <tr>
                                         <td>{{ user.username }}</td>
-                                        <td>{{ user.option }}</td>
+                                        <td>{{ user.get_option_display }}</td>
                                         <td>{{ user.email }}</td>
-                                        <td>{{ user.document_number }}</td>
+                                        <td class="mask-cnpj">{{ user.document_number }}</td>
                                         <td>{{ user.city }}</td>
-                                        <td>
+                                        <td align="center">
                                             <a href="{% url 'user:edit_user_admin' user.pk %}" class="btn">
-                                                <i href="static/icons/bi-pencil"></i>
-                                                {{user.pk}}
+                                                <i class="zmdi zmdi-edit material-icons-name"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -58,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-            </div>                            
+            </div>
         </div>
     </div>
 </div>
