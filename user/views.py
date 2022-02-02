@@ -16,7 +16,7 @@ def edit_user_view(request, pk):
     form = EditUserForm(instance=user)
 
     if(request.method == 'POST'):
-        form = EditUserForm(request.POST, instance=user)
+        form = EditUserForm(request.POST, request.FILES, instance=user)
         if(form.is_valid()):
             user = form.save(commit=True)
 
@@ -43,7 +43,7 @@ def edit_user_admin(request, pk):
     form = EditUserForm(instance=user)
 
     if request.method == 'POST':
-        form = EditUserForm(request.POST, instance=user)
+        form = EditUserForm(request.POST, request.FILES, instance=user)
 
         if form.is_valid():
             user = form.save(commit=True)
@@ -66,17 +66,6 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         self.object = self.request.user
         return self.object
-
-    def get_initial(self):
-        initials = {}
-        for field in self.form_class._meta.fields:
-            initials[field] = getattr(self.object, field, '')
-        return initials
-
-    def form_valid(self, form):
-        form.save()
-
-        return HttpResponseRedirect(self.get_success_url())
 
 
 signup_step_2 = SignupComplementView.as_view()

@@ -10,7 +10,7 @@
                 </div>
                 
                 <div class="signup-form">
-                    <form method="POST" class="register-form">
+                    <form method="POST" class="register-form" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         {{ form.non_field_errors }}

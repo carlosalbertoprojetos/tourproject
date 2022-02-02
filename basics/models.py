@@ -18,8 +18,9 @@ class DocumentMixin(models.Model):
         null=True,
     )
 
-    document_image = models.FileField(
-        null=True, upload_to='imagem/', blank=True)
+    document_image = models.ImageField(
+        upload_to='documentos/', blank=True
+    )
 
     class Meta:
         abstract = True
