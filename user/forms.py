@@ -76,9 +76,6 @@ class SignupComplementForm(forms.ModelForm):
         super(SignupComplementForm, self).__init__(*args, **kwargs)
         self.fields['document_number'].widget.attrs.update(
             {'class': 'mask-cnpj'})
-
-    def __init__(self, *args, **kwargs):
-        super(SignupComplementForm, self).__init__(*args, **kwargs)
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
 
     def clean_document_number(self):
