@@ -1,64 +1,104 @@
 {% extends 'base.html' %} {% load i18n %} {% load account %} {% load static %} {% block content %}
 
-<div class="main">
+<div class="main p-3">
     <section class="signup">
-        <div class="container-form mb-4">
+        <div class="container-form">
             <div class="signup-content">
-                <div class="signup-image ">
-                    <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>
-                </div>
 
-                <div class="signup-form" style="margin: 0 75px 0 10px;">
-                    <h2 class="form-title" style="margin-bottom: 10px;">Completar Cadastro</h2>
-                    <form method="POST">
-                        {% csrf_token %} 
-                        
-                        <div class="form-group">
-                            <input type="text" name="company" id="id_company" placeholder="Razão Social">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                <div class="signup-image ">
+                    <figure><img src="{% static 'images/signup2-image.jpg' %}" alt="sing up image"></figure>
+                </div>
+                
+                <div class="signup-form">
+                    <form method="POST" class="register-form">
+                        {% csrf_token %}
+
+                        {{ form.non_field_errors }}
+                        <h2 class="form-title">Completar Cadastro</h2>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input class="form-control" id="id_company" name="company" type="text" />
+                                    {{ form.company.errors }}
+                                    <label for="id_company">Razão Social</label>
+                                </div>
                             </div>
-                            <input type="text" name="document_number" id="id_document_number" placeholder="Número do Documento">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="mask-cnpj form-control" id="id_document_number" name="document_number" type="text" />
+                                    {{ form.document_number.errors }}
+                                    <label for="id_document_number">CNPJ</label>
+                                </div>
                             </div>
-                            <input type="file" name="document_image" id="id_document_image" placeholder="Imagem do Documento">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="btn btn-flat" id="id_document_image" name="document_image" accept="image/*" type="file" />
+                                    {{ form.document_image.errors }}
+                                </div>
                             </div>
-                            <input type="text" name="postal_code" id="id_postal_code" placeholder="CEP">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input class="form-control" id="id_street" name="street" type="text" />
+                                    {{ form.street.errors }}
+                                    <label for="id_street">Logradouro</label>
+                                </div>
                             </div>
-                            <input type="text" name="street" id="id_street" placeholder="Logradouro">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" id="id_number" name="number" type="number" />
+                                    {{ form.number.errors }}
+                                    <label for="id_number">Número</label>
+                                </div>
                             </div>
-                            <input type="number" name="number" id="id_number" placeholder="Número">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            <div class="col-md-8">
+                                <div class="form-floating">
+                                    <div class="form-floating">
+                                        <input class="form-control" id="id_complement" name="complement" type="text" />
+                                        {{ form.complement.errors }}
+                                        <label for="id_complement">Complemento</label>
+                                    </div>
+                                </div>
                             </div>
-                            <input type="text" name="complement" id="id_complement" placeholder="Complemento">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="form-control" id="id_city" name="city" type="text" />
+                                    {{ form.city.errors }}
+                                    <label for="id_city">Cidade</label>
+                                </div>
                             </div>
-                            <input type="text" name="city" id="id_city" placeholder="Cidade">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <div class="form-floating">
+                                        <input class="form-control" id="id_state" name="state" type="text" />
+                                        {{ form.state.errors }}
+                                        <label for="id_state">Estado</label>
+                                    </div>
+                                </div>
                             </div>
-                            <input type="text" name="state" id="id_state" placeholder="Estado">
-                            <div class="invalid-feedback form-text">
-                                {% for error in form.errors.full_name %} {{ error|escape }} {% endfor%}
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <div class="form-floating">
+                                        <input class="mask-cep form-control" id="id_postal_code" name="postal_code" type="text" />
+                                        {{ form.postal_code.errors }}
+                                        <label for="id_postal_code">CEP</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group form-button">
+                        <div class="form-group form-button ">
                             <input type="submit" class="form-submit" value="Salvar" />
                         </div>
                     </form>
                 </div>
-
-
             </div>
         </div>
     </section>

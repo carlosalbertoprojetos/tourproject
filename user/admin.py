@@ -15,11 +15,13 @@ class SocialMediaMixinAdmin(admin.TabularInline):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'username', 'option', 'is_active', 'document_number')
     inlines = [
         ContactMixinAdmin,
         SocialMediaMixinAdmin,
     ]
     readonly_fields = ('option',)
-    fields = ['option', ('username', 'email'), 'groups', 'document_number',
+    fields = ['option', ('is_active', 'username', 'email'), 'groups', ('document_number', 'document_image'), 
               ('postal_code', 'street', 'number', 'complement', 'state')
               ]
+    

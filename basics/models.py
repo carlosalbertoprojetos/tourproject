@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 
@@ -10,15 +11,15 @@ class DocumentMixin(models.Model):
     )
 
     document_number = models.CharField(
-        _('Número do Documento'),
+        _('CNPJ'),
         max_length=18,
         unique=True,
-        blank=False,
+        blank=True,
         null=True,
     )
 
-    document_image = models.ImageField(
-        'Documento', blank=True, upload_to='doc/%d/%m/%Y')
+    document_image = models.FileField(
+        null=True, upload_to='imagem/', blank=True)
 
     class Meta:
         abstract = True

@@ -6,55 +6,72 @@
 
 {% block content %}
 
-<div class="main">
+<div class="main p-3">
     <section class="signup">
         <div class="container-form">
             <div class="signup-content">
+
                 <div class="signup-form">
-                    <h2 class="form-title" style="margin-bottom: 33px;">Cadastrar</h2>
+                    <h2 class="form-title">Cadastrar</h2>
                     <form method="POST" class="register-form" id="register-form" action="/accounts/signup/">
                         {% csrf_token %}
 
-                        <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                            <!-- <input type="radio" name="option" value="1" class="btn-check" id="id_option"
-                                autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="id_option">Cliente</label> -->
+                        {{ form.non_field_errors }}
+                        <div class="row mb-1">
+                            <div class="btn-group w-100" role="group" >
+                                <input type="radio" name="option" value="2" class="btn-check" id="id_option2"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-outline-primary" for="id_option2">Agência</label>
 
-                            <input type="radio" name="option" value="2" class="btn-check" id="id_option2"
-                                autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="id_option2">Agência</label>
-
-                            <input type="radio" name="option" value="3" class="btn-check" id="id_option3"
-                                autocomplete="off">
-                            <label class="btn btn-outline-primary" for="id_option3">Fornecedor</label>
+                                <input type="radio" name="option" value="3" class="btn-check" id="id_option3"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-primary" for="id_option3">Fornecedor</label>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="id_username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="id_username" placeholder="Usuário" />
+                        <div class="row mb-1">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="id_username" name="username" type="text" />
+                                    {{ form.username.errors }}
+                                    <label for="id_username">Username</label>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="id_email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="id_email" placeholder="Email" />
+                        <div class="row mb-1">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="id_email" name="email" type="email" />
+                                    {{ form.email.errors }}
+                                    <label for="id_email">Email</label>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="id_password1"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password1" id="id_password1" placeholder="Senha" />
+                        <div class="row mb-1">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="id_password1" name="password1" type="password" />
+                                    {{ form.password1.errors }}
+                                    <label for="id_password1">Senha</label>
+                                    
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="re-id_password2"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="password2" id="id_password2" placeholder="Confirmar Senha" />
+                        <div class="row mb-1">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3 mb-md-0">
+                                    <input class="form-control" id="password2" name="password2" type="password" />
+                                    {{ form.password1.errors }}
+                                    <label for="id_password2">Confirmar Senha</label>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
                         </div>
-                    </form>
 
-                </div>               
+                    </form>
+                </div>
 
                 <div class="signup-image">
                     <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image"></figure>

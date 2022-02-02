@@ -19,3 +19,4 @@ urlpatterns = [
     path('<int:pk>/editadmin/', edit_user_admin, name='edit_user_admin'),
 
 ]
+

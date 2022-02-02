@@ -626,6 +626,10 @@ progress {
   color: #6c757d;
 }
 
+footer {
+  margin-top: auto;
+}
+
 .container,
 .container-fluid,
 .container-xxl,
@@ -678,8 +682,8 @@ progress {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  padding-right: calc(var(--bs-gutter-x) * 0.3);
+  padding-left: calc(var(--bs-gutter-x) * 0.4);
   margin-top: var(--bs-gutter-y);
 }
 
@@ -11362,7 +11366,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 90%;
   background: #000;
   z-index: 1037;
   opacity: 0.5;
@@ -11435,7 +11439,7 @@ body {
   z-index: 1039;
 }
 .sb-topnav .navbar-brand {
-  width: 225px;
+  width: 125px;
   margin: 0;
 }
 .sb-topnav.navbar-dark #sidebarToggle {

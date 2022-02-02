@@ -41,7 +41,7 @@
 </head>
 
 <body>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="padding: 8px 0px;">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark pt-8">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <a class="navbar-brand ps-3" href="/">Turismo</a>
@@ -91,9 +91,9 @@
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ms-md-0 me-lg-4">
                 <li class="nav-item dropdown">
-                <li class="nav-item"><a class="navbar-brand ps-3" aria-current="page"
+                <li class="nav-item"><a class="navbar-brand " aria-current="page"
                         href="{% url 'account_signup' %}">Cadastrar</a></li>
-                <li class="nav-item"><a class="navbar-brand ps-3" aria-current="page"
+                <li class="nav-item"><a class="navbar-brand" aria-current="page"
                         href="{% url 'account_login' %}">Entrar</a></li>
                 </li>
             </ul>
@@ -101,12 +101,7 @@
         {% endif %}
     </nav>
 
-    <main>
-        {% block content %} {% endblock content %}
-
-    </main>
-    <br><br>
-    <br>
+    {% block content %} {% endblock content %}
 
     <footer class="bg-light fixed-bottom py-4">
         <div class="container-fluid px-4">
@@ -130,6 +125,8 @@
     <!-- JS -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'js/mascara.js' %}"></script>
 
 
     <!-- dashboard -->
