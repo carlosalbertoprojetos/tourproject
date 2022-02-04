@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, CreateView
 
 from .forms import EditUserForm, EditUserAdminForm, SignupComplementForm
 from .models import User
@@ -67,3 +67,18 @@ class SignupComplementView(LoginRequiredMixin, UpdateView):
 
 
 signup_step_2 = SignupComplementView.as_view()
+
+
+# class SignupComplementView(LoginRequiredMixin, CreateView):
+    
+#     model = User
+#     template_name = 'account/signup_2.html'
+#     form_class = SignupComplementForm
+#     success_url = reverse_lazy('user:dashboard')
+
+#     def get_object(self):
+#         self.object = self.request.user
+#         return self.object
+
+
+# signup_step_2 = SignupComplementView.as_view()

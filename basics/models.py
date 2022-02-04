@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class DocumentMixin(models.Model):
 
-    company_name = models.CharField(
+    company = models.CharField(
         _('Razão Social'),
         max_length=100,
     )
