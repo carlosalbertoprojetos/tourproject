@@ -3,9 +3,10 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 
+
 class DocumentMixin(models.Model):
 
-    company = models.CharField(
+    company_name = models.CharField(
         _('Razão Social'),
         max_length=100,
     )
@@ -72,3 +73,5 @@ class AddressMixin(models.Model):
 
     class Meta:
         abstract = True
+
+

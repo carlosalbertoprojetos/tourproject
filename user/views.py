@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import (get_object_or_404,
-                              redirect, render)
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
 
-from .forms import EditUserForm, SignupComplementForm
+from .forms import EditUserForm, EditUserAdminForm, SignupComplementForm
 from .models import User
 
 
@@ -14,9 +13,9 @@ def edit_user_view(request, pk):
     user = get_object_or_404(User, pk=pk)
     form = EditUserForm(instance=user)
 
-    if(request.method == 'POST'):
-        form = EditUserForm(request.POST, request.FILES, instance=user)
-        if(form.is_valid()):
+    if request.method == 'POST':
+        form = EditUserForm(request.POST or None, request.FILES, instance=user)
+        if form.is_valid():
             user = form.save(commit=True)
 
             return redirect('user:edit_user', user.pk)
@@ -39,20 +38,20 @@ def list_users(request):
 @user_passes_test(lambda u: u.is_superuser)
 def edit_user_admin(request, pk):
     user = get_object_or_404(User, pk=pk)
-    form = EditUserForm(instance=user)
+    form = EditUserAdminForm(instance=user)
 
     if request.method == 'POST':
-        form = EditUserForm(request.POST or None, request.FILES, instance=user)
+        form = EditUserAdminForm(request.POST or None, request.FILES, instance=user)
 
         if form.is_valid():
             user = form.save(commit=True)
 
             return redirect('user:list_users')
         else:
-            return render(request, 'user/edit_user.html', {'form': form})
+            return render(request, 'user/edit_user_admin.html', {'form': form})
 
     elif(request.method == 'GET'):
-        return render(request, 'user/edit_user.html', {'form': form})
+        return render(request, 'user/edit_user_admin.html', {'form': form})
 
 
 class SignupComplementView(LoginRequiredMixin, UpdateView):

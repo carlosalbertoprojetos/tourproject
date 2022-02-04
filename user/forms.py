@@ -45,9 +45,26 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        # fields = ('__all__')
         fields = ['company', 'username', 'email', 'document_number', 'document_image',
-                  'postal_code', 'street', 'number', 'complement', 'city', 'state', 'is_active']
+                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['document_number'].widget.attrs.update(
+            {'class': 'mask-cnpj'})
+        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
+
+
+class EditUserAdminForm(forms.ModelForm):
+
+    document_image = forms.ImageField(
+        widget=ClearableFileInput
+    )
+
+    class Meta:
+        model = User
+        fields = ['is_active', 'company', 'username', 'email', 'document_number', 'document_image',
+                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

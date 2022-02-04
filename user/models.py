@@ -27,7 +27,6 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
         choices=OPTION_CHOICES
     )
 
-
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -63,3 +62,13 @@ class SocialMediaMixin(models.Model):
         _("Rede Social"),
         max_length=100
     )
+
+
+# class Company(DocumentMixin, AddressMixin):
+
+#     user = models.ForeignKey(
+#         User,
+#         on_delete=models.CASCADE,
+#         blank=True,
+#         null=True
+#     )
