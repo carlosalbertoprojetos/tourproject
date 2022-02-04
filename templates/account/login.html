@@ -6,8 +6,8 @@
 
 {% block content %}
 
-<div class="main p-3">
-    <section class="sign-in">
+<div class="main p-3 pb-5">
+    <section class="sign-in mb-5">
         <div class="container-form">
             <div class="signin-content">
 
@@ -22,18 +22,19 @@
                         
                         {{ form.non_field_errors }}
                     <h2 class="form-title">Acessar</h2>
-                        <div class="row mb-1">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" type="text" name="login" id="id_login" placeholder="Usuário" />
+                                <div class="form-floating mb-1">
+                                    <input class="form-control" id="id_login" name="login" type="text"  value=""/>
                                     {{ form.login.errors }}
-                                    <label for="id_login">Usuário/Email</label>
+                                    <label for="id_login">Usuário/Email
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-1">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="form-floating mb-3 mb-md-0">
+                                <div class="form-floating mb-1">
                                     <input class="form-control" id="id_password" name="password" type="password"  value=""/>
                                     {{ form.password1.errors }}
                                     <label for="id_password">Senha</label>                                
@@ -44,9 +45,10 @@
                         <div class="form-group form-button mb-2">
                             <input type="submit" name="signin" id="signin" class="form-submit" value="Acessar" />
                         </div>
+                        
                     </form>
-                    <p>
-                        <a class="button secondaryAction" href="/accounts/password/reset/">Esqueceu a sua senha?</a>
+                    <p id="novasenha">
+                        <a class="secondaryAction" href="/accounts/password/reset/">Esqueceu a sua senha?</a>
                     </p>
                     <div class="social-login">
                         <span class="social-label">Redes Sociais</span>

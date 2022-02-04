@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -49,39 +51,9 @@
             {% if user.is_authenticated %}
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4"></ul>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i
-                class="fas fa-bars"></i></button>
+                    class="fas fa-bars"></i></button>
             </ul>
         </div>
-        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div> -->
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <a class="nav-link active ps-3" href="{% url 'user:dashboard' %}">Dashboard</a>
@@ -105,9 +77,38 @@
         {% endif %}
     </nav>
 
-    {% block content %} {% endblock content %}
+    <div id="layoutSidenav_content">
+        <div class="container-fluid">
+            <div class="content-header">
+                <div class="content-header">
+                    <h1 class="mb-2">Editar Cadastro</h1>
 
-    
+                    <form class="pure-form pure-form-stacked uniForm" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if success %}
+                        <h1 class="font-weight-bold" style='margin: 10px 0 0 0'>Dados alterados com sucesso!!!</h1>
+                        {% endif %}
+                        <fieldset>
+                            {{ form.non_field_errors }}
+
+                            {% for field in form %}
+                            <div class="pure-control-group">
+                                {{ field.label_tag }}
+                                {{ field|as_crispy_field:"bootstrap" }}
+                                {{ field.errors }}
+                            </div>
+                            {% endfor %}
+
+                            <div class="pure-controls">
+                                <button type="submit" class="pure-button pure-button-primary">Editar</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="bg-light fixed-bottom py-4">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
@@ -119,21 +120,21 @@
             </div>
         </div>
     </footer>
-    
+
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    
+
+
     <!-- Core theme JS-->
     <script src="{% static 'js/scripts.js' %}"></script>
-    
+
     <!-- JS -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/jquery.mask.min.js' %}"></script>
     <script src="{% static 'js/mascara.js' %}"></script>
-    
-    
+
+
     <!-- dashboard -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
@@ -143,3 +144,81 @@
 </body>
 
 </html>
+
+
+
+
+{% extends 'user/dashboard_clean.html' %}
+
+{% load i18n %}
+{% load account %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block dashboard %}
+
+<div id="layoutSidenav_content">
+    <div class="container-fluid">
+        <div class="content-header">
+            <div class="content-header">
+                <h1 class="mb-2">Editar Cadastro</h1>
+
+                <form class="pure-form pure-form-stacked" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if success %}
+                    <h1 class="font-weight-bold" style='margin: 10px 0 0 0'>Dados alterados com sucesso!!!</h1>
+                    {% endif %}
+                    <fieldset>
+                        {{ form.non_field_errors }}
+
+                        {% for field in form %}
+                        <div class="pure-control-group">
+                            <!-- {{ field.label_tag }} -->
+                            {{ field|as_crispy_field:"bootstrap" }}
+                            {{ field.errors }}
+                        </div>
+                        {% endfor %}
+
+                        <div class="pure-controls">
+                            <button type="submit" class="pure-button pure-button-primary">Editar</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock dashboard %}
+
+
+<div class="col-md-2">
+    <div class="form-floating form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+        <label class="form-check-label" for="flexSwitchCheckChecked">Inativo/Ativo</label>
+    </div>
+</div>
+
+<div class="col-md-2">
+    <div class="form-floating">
+        <input class="form-control" id="id_is_active" name="is_active" type="checkbox"
+            value="{{ form.is_active.value }}" />
+        <label for="id_is_active">Usuário ativo</label>
+    </div>
+</div>
+
+
+<div class="pure-control-group">
+    <!-- <label for="id_is_active">Ativo:</label> -->
+    <div id="div_id_is_active" class="control-group">
+        <div class="controls">
+            <label for="id_is_active" class="checkbox ">
+                <input type="checkbox" name="is_active" class="checkboxinput" id="id_is_active">
+                Ativo
+            </label>
+            <p id="hint_id_is_active" class="help-block">Indica que o usuário será tratado como ativo. Ao invés de
+            excluir contas de usuário, desmarque isso.</p>
+        </div>
+    </div>
+</div>

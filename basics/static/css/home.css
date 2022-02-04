@@ -59,7 +59,7 @@
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.5;
+  --bs-body-line-height: 1;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
@@ -252,7 +252,7 @@ code,
 kbd,
 samp {
   font-family: var(--bs-font-monospace);
-  font-size: 1em;
+  font-size: 0.5em;
   direction: ltr /* rtl:ignore */;
   unicode-bidi: bidi-override;
 }
@@ -628,6 +628,7 @@ progress {
 
 footer {
   margin-top: auto;
+  overflow: visible;
 }
 
 .container,
@@ -2515,17 +2516,17 @@ textarea.form-control-lg {
   background-color: #6dabe4;
   border-color: #6dabe4;
 }
-.form-check-input:checked[type=checkbox] {
+/* .form-check-input:checked[type=checkbox] {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
-}
+} */
 .form-check-input:checked[type=radio] {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
-.form-check-input[type=checkbox]:indeterminate {
+/* .form-check-input[type=checkbox]:indeterminate {
   background-color: #6dabe4;
   border-color: #6dabe4;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
-}
+} */
 .form-check-input:disabled {
   pointer-events: none;
   filter: none;
@@ -11640,7 +11641,7 @@ body {
 .dataTable-table > thead > tr > td,
 .dataTable-table > thead > tr > th {
   vertical-align: top;
-  padding: 0.5rem 0.5rem;
+  padding: 0.25rem 0.25rem;
 }
 
 .dataTable-table > thead > tr > th {

@@ -47,7 +47,7 @@ class EditUserForm(forms.ModelForm):
         model = User
         # fields = ('__all__')
         fields = ['company', 'username', 'email', 'document_number', 'document_image',
-                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
+                  'postal_code', 'street', 'number', 'complement', 'city', 'state', 'is_active']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

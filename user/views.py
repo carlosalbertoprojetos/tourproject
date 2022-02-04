@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.shortcuts import (HttpResponseRedirect, get_object_or_404,
+from django.shortcuts import (get_object_or_404,
                               redirect, render)
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
@@ -43,7 +42,7 @@ def edit_user_admin(request, pk):
     form = EditUserForm(instance=user)
 
     if request.method == 'POST':
-        form = EditUserForm(request.POST, request.FILES, instance=user)
+        form = EditUserForm(request.POST or None, request.FILES, instance=user)
 
         if form.is_valid():
             user = form.save(commit=True)

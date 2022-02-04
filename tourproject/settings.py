@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    
+    'crispy_forms',
 
     'basics',
     'user',
@@ -173,3 +175,6 @@ LOGIN_URL = 'index'
 
 LOGOUT_REDIRECT_URL = 'index'
 LOGOUT_URL = '/accounts/logout/'
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

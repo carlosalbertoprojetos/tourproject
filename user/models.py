@@ -27,6 +27,7 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
         choices=OPTION_CHOICES
     )
 
+
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
