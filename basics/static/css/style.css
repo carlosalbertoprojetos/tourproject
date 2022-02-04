@@ -181,11 +181,10 @@ body {
 }
 
 
-/* .signup {
-  margin-bottom: 150px; } */
-
-.signup-content {
+.signup-content{
     padding: 15px;
+    min-height: 750px;
+    max-height: 1100px;
 }
 
 .signup-form,
@@ -438,6 +437,7 @@ label.valid:after {
 .signin-content {
     padding-top: 30px;
     padding-bottom: 30px;
+    height: 750px;
 }
 
 .social-login {
@@ -575,7 +575,7 @@ label.valid:after {
         -ms-justify-content: center;
     }
 
-    .form-button, #novasenha {
+    .form-button, #novasenha, .img{
         text-align: center;
     }
 

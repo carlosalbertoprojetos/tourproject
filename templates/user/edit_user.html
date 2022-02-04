@@ -21,8 +21,8 @@
                             <div class="form-floating mb-1">
                                 <input class="form-control" id="id_username" name="username" type="text"
                                     value="{{ form.username.value }}" />
-                                    {{ form.username.errors }}
-                                    <label for="id_username">Username</label>
+                                {{ form.username.errors }}
+                                <label for="id_username">Username</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -53,10 +53,12 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating mb-1">
-                                <p class="file-upload mb-0" style="font-size:14px">Atualmente: <a href="/media/{{ form.document_image.value }}/">{{ form.document_image.value }}</a></p>
+                                <p class="file-upload mb-0" style="font-size:14px">Atualmente: <a
+                                        href="/media/{{ form.document_image.value }}/">{{ form.document_image.value }}</a></p>
                                 <div class="input-group input-group-sm mb-0 form-control-file">
-                                    <input class="btn input-group-text mb-0" type="file" name="document_image" id="id_document_image"
-                                    value="{{ form.document_image.value }}" placeholder="Imagem" />
+                                    <input class="btn input-group-text mb-0" type="file" name="document_image"
+                                        id="id_document_image" value="{{ form.document_image.value }}"
+                                        placeholder="Imagem" />
                                 </div>
                             </div>
                         </div>
@@ -112,68 +114,41 @@
                                 <label for="id_postal_code">CEP</label>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- 
+                    </div>                    
                     {% if user.is_superuser %}
-                    <div class="pure-control-group">
-                        <div id="div_id_is_active" class="control-group">
-                            <div class="controls">
-                                <label class="mr-1" for="id_is_active" class="checkbox">
-                                    Ativo
-                                </label>
-                                {{ form.is_active }} 
-                                <p id="hint_id_is_active" class="help-block">Indica que o usuário será tratado como ativo. Ao invés de
-                                excluir contas de usuário, desmarque isso.</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-floating">
                             </div>
                         </div>
-                    </div>                        
-                    {% endif %} -->
-                    
+                        
+                        <div class="form-check ml-3 mt-3">
+                            <label>Ativo <br>{{ form.is_active }}</label>
+                            <label class="col-md-5 ml-5 form-check-label" >Indica que o usuário será tratado como ativo. Ao invés de excluir contas de usuário, desmarque isso.</label>
+                        </div>
+                    </div>
+                    {% endif %}    
                     <div class="row">
-                        <div class="col-md-3 mb-2">
+                        <div class="col-md-8 mb-2">
                             <div class="form-floating mb-1">
                                 <div class="form-group form-button">
                                     <input type="submit" class="form-submit" value="Salvar" />
                                 </div>
                             </div>
                         </div>
+                        {% if form.document_image %}
+                        <div class="col-md-4">
+                            <div class="form-floating mb-1">
+                                <div class="form-group form-button">
+                                    <img class="img-thumbnail" style="width: 75%;"
+                                        src="{{ form.document_image.value.url }}" placeholder="Imagem do documento" />
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    <br>
-                    
-                    <!-- <h1>aqui {{ form.is_active }} </h1>
-                        <p id="hint_id_is_active" class="help-block">Indica que o usuário será tratado como ativo. Ao invés de
-                            excluir contas de usuário, desmarque isso.</p> -->
                 </form>
 
-                {% if form.document_image %}
-                <div class="col-md-4">
-                    <div class="form-floating mb-1">
-                        <div class="row align-content-center">
-                            <img src="{{ form.document_image.value.url }}" class="form-group img-responsive"
-                                style="width: 50%; float: right; margin-right: 10px;"
-                                placeholder="Imagem do documento" />
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                <div class="col-md-4">
-                    <div class="form-floating mb-1">
-                        situação: {{ form.is_active.value }}
-                        <div class="form-group checkbox">
-                            <input class="checkboxinput mr-1" for="id_is_active" name="is_active" value="{% if form.is_active.value %}checked{% endif %}">
-
-                            <input type="checkbox" for="id_is_active" name="is_active" value="{% if form.is_active.value %}checked{% endif %}">ativo
-                            <p id="hint_id_is_active" class="help-block">Indica que o usuário será tratado como ativo. Ao invés de
-                            excluir contas de usuário, desmarque isso.</p>
-                        </div>
-                        <form>
-                            <INPUT TYPE="checkbox" NAME="OPCAO" VALUE="op1"> opção1
-                            <INPUT TYPE="checkbox" NAME="OPCAO" VALUE="op2"> opção2
-                            <INPUT TYPE="checkbox" NAME="OPCAO" VALUE="op3"> opção3
-                            </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
