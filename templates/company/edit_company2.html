@@ -1,0 +1,106 @@
+{% extends 'user/edit_user.html' %}
+
+
+{% load static %}
+
+
+{% block company %}
+
+<h1 class="mb-2">Editar Cadastro da Empresa</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-floating mb-1">
+                <input class="form-control" type="text" name="company_name" id="id_company_name"
+                    value="{{ form.company_name.value }}" />
+                {{ form.company_name.errors }}
+                <label for="id_company_name">Razão Social</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating mb-1">
+                <input class="mask-cnpj form-control" type="text" name="document_number"
+                    id="id_document_number" value="{{ form.document_number.value }}" />
+                {{ form.document_number.errors }}
+                <label for="id_document_number">CNPJ</label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-floating mb-1">
+                <p class="file-upload mb-0" style="font-size:14px">Atualmente: <a href="/media/{{ form.document_image.value }}/">{{ form.document_image.value }}</a></p>
+                <div class="input-group input-group-sm mb-0 form-control-file">
+                    <input class="btn input-group-text mb-0" type="file" name="document_image"
+                        id="id_document_image" value="{{ form.document_image.value }}"
+                        placeholder="Imagem" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-floating mb-1">
+                <input class="form-control" type="text" name="street" id="id_street"
+                    value="{{ form.street.value }}" />
+                {{ form.street.errors }}
+                <label for="id_street">Logradouro</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating mb-1">
+                <input class="form-control" type="number" name="number" id="id_number"
+                    value="{{ form.number.value }}" />
+                {{ form.number.errors }}
+                <label for="id_number">Número</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating mb-1">
+                <input class="form-control" type="text" name="complement" id="id_complement"
+                    value="{{ form.complement.value }}" />
+                {{ form.complement.errors }}
+                <label for="id_complement">Complemento</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-floating mb-1">
+                <input class="form-control" type="text" name="city" id="id_city"
+                    value="{{ form.city.value }}" placeholder="Cidade" />
+                {{ form.city.errors }}
+                <label for="id_city">Cidade</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating mb-1">
+                <input class="form-control" type="text" name="state" id="id_state"
+                    value="{{ form.state.value }}" placeholder="Estado" />
+                {{ form.state.errors }}
+                <label for="id_state">Estado</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating mb-1">
+                <input class="mask-cep form-control" type="text" name="postal_code" id="id_postal_code"
+                    value="{{ form.postal_code.value }}" placeholder="CEP" />
+                {{ form.postal_code.errors }}
+                <label for="id_postal_code">CEP</label>
+            </div>
+        </div>
+    </div>                    
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-floating mb-1">
+                <div class="form-group form-button">
+                    <input type="submit" class="form-submit" value="Salvar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock company %}

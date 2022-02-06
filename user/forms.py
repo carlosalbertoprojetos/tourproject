@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
-from .models import ContactMixin, SocialMediaMixin, User
+from .models import Contact, SocialMedia, User
 
 
 class CustomSignupForm(SignupForm):
@@ -37,6 +37,45 @@ class CustomSignupForm(SignupForm):
         return user
 
 
+# class Signup2Form(forms.ModelForm):
+#     class Meta:
+#         model = Company
+#         fields = (
+#             'company_name',
+#             'document_number',
+#             'document_image',
+#             'street',
+#             'number',
+#             'complement',
+#             'postal_code',
+#             'city',
+#             'state'
+#         )
+
+#     def __init__(self, *args, **kwargs):
+#         super(Signup2Form, self).__init__(*args, **kwargs)
+#         self.fields['document_number'].widget.attrs.update(
+#             {'class': 'mask-cnpj'})
+#         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
+
+#     def clean_document_number(self):
+#         data = self.cleaned_data['document_number']
+#         data = sanitize_number(data)
+#         if Company.objects.filter(document_number=data).count():
+#             raise ValidationError(
+#                 'Já existe um usuário cadastrado com esse documento.')
+#         return data
+
+#     def clean_postal_code(self):
+#         data = self.cleaned_data['postal_code']
+#         return sanitize_number(data)
+
+#     def save(self, commit=False):
+#         instance = super().save(commit=commit)
+#         instance.save()
+#         return instance
+
+
 class EditUserForm(forms.ModelForm):
 
     document_image = forms.ImageField(
@@ -45,78 +84,32 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['company', 'username', 'email', 'document_number', 'document_image',
-                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['document_number'].widget.attrs.update(
-            {'class': 'mask-cnpj'})
-        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
+        fields = ['id', 'username', 'email', ]
 
 
-class EditUserAdminForm(forms.ModelForm):
+# class EditCompanyForm(forms.ModelForm):
 
-    document_image = forms.ImageField(
-        widget=ClearableFileInput
-    )
+#     document_image = forms.ImageField(
+#         widget=ClearableFileInput
+#     )
 
-    class Meta:
-        model = User
-        fields = ['is_active', 'company', 'username', 'email', 'document_number', 'document_image',
-                  'postal_code', 'street', 'number', 'complement', 'city', 'state']
+#     class Meta:
+#         model = Company
+#         fields = '__all__'
+        # fields = ('id', 'company_name', 'document_number', 'document_image',
+        #           'street', 'number', 'complement', 'city', 'state', 'postal_code', 'user',)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['document_number'].widget.attrs.update(
-            {'class': 'mask-cnpj'})
-        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
-
-
-class SignupComplementForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = (
-            'company',
-            'document_number',
-            'document_image',
-            'postal_code',
-            'street',
-            'number',
-            'complement',
-            'city',
-            'state'
-        )
-
-    def __init__(self, *args, **kwargs):
-        super(SignupComplementForm, self).__init__(*args, **kwargs)
-        self.fields['document_number'].widget.attrs.update(
-            {'class': 'mask-cnpj'})
-        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
-
-    def clean_document_number(self):
-        data = self.cleaned_data['document_number']
-        data = sanitize_number(data)
-        if User.objects.filter(document_number=data).count():
-            raise ValidationError(
-                'Já existe um usuário cadastrado com esse documento.')
-        return data
-
-    def clean_postal_code(self):
-        data = self.cleaned_data['postal_code']
-        return sanitize_number(data)
-
-    def save(self, commit=False):
-        instance = super().save(commit=commit)
-        instance.save()
-        return instance
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['document_number'].widget.attrs.update(
+    #         {'class': 'mask-cnpj'})
+    #     self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
 
 
 class PhoneFormSet(forms.Form):
 
     class Meta:
-        model = ContactMixin
+        model = Contact
         fields = '__all__'
 
     def clean_cel_phone(self):
@@ -132,7 +125,7 @@ class PhoneFormSet(forms.Form):
 class SocialFormSet(forms.Form):
 
     class Meta:
-        model = SocialMediaMixin
+        model = SocialMedia
         fields = '__all__'
 
     def save(self, commit=False):

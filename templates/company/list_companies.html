@@ -4,45 +4,40 @@
 {% load account %}
 {% load static %}
 
-{% load crispy_forms_tags %}
-
 {% block dashboard %}
 
 <div id="layoutSidenav_content">
     <div class="container-fluid">
         <div class="content-header">   
             <div class="content-header">
-                <h1 class="mb-2" >Gestão dos Usuários</h1>
+                <h1 class="mb-2">Empresas</h1>
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Lista de usuários</h3>
+                            <h3 class="card-title">Lista</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-hover dataTable-table">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Usuário</th>
-                                        <th>Mod.</th>
-                                        <th>Email</th>
-                                        <th>Conta ativa</th>
+                                        <th>Empresa</th>
+                                        <th>Documento</th>
+                                        <th>Estado</th>
+                                        <th>Cidade</th>
                                         <th>Último acesso</th>
                                         <th>Editar</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     {% for user in object %}
                                     <tr>
-                                        <td>{{ user.id }}</td>
-                                        <td>{{ user.username }}</td>
-                                        <td>{{ user.get_option_display }}</td>
-                                        <td>{{ user.email }}</td>
-                                        <td >{{ user.is_active }}</td>
+                                        <td>{{ user.company_name }}</td>
+                                        <td>{{ user.document_number }}</td>
+                                        <td>{{ user.state }}</td>
+                                        <td >{{ user.city }}</td>
                                         <td>{{ user.last_login|date }}</td>
                                         <td align="center">
-                                            <a href="{% url 'user:edit_user' user.pk %}" class="btn">
+                                            <a href="{% url 'user:edit_company' user.id %}" class="btn">
                                                 <i class="zmdi zmdi-edit material-icons-name"></i>
                                             </a>
                                         </td>

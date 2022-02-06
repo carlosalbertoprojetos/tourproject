@@ -1,18 +1,16 @@
 from django.db import models
-from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 
+class CompanyMixin(models.Model):
 
-class DocumentMixin(models.Model):
-
-    company = models.CharField(
+    company_name = models.CharField(
         _('Razão Social'),
         max_length=100,
     )
 
     document_number = models.CharField(
-        _('CNPJ'),
+        _('CPF/CNPJ'),
         max_length=18,
         unique=True,
         blank=True,
@@ -20,24 +18,21 @@ class DocumentMixin(models.Model):
     )
 
     document_image = models.ImageField(
-        upload_to='documentos/', blank=True
+        upload_to='documentos/',
+        blank=True,
     )
 
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.company_name 
+
 
 class AddressMixin(models.Model):
 
-    postal_code = models.CharField(
-        _('CEP'),
-        max_length=11,
-        blank=False,
-        null=True,
-    )
-
     street = models.CharField(
-        _("Logradouro"),
+        _('Logradouro'),
         max_length=200,
         blank=False,
         null=True,
@@ -57,6 +52,13 @@ class AddressMixin(models.Model):
         blank=True
     )
 
+    postal_code = models.CharField(
+        _('CEP'),
+        max_length=11,
+        blank=False,
+        null=True,
+    )
+
     city = models.CharField(
         _('Cidade'),
         max_length=100,
@@ -73,5 +75,3 @@ class AddressMixin(models.Model):
 
     class Meta:
         abstract = True
-
-

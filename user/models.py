@@ -1,4 +1,5 @@
-from basics.models import AddressMixin, DocumentMixin
+from django.urls import reverse
+# from basics.models import AddressMixin, CompanyMixin
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -6,14 +7,14 @@ from django.utils.translation import gettext_lazy as _
 from .managers import DefaultUserManager
 
 
-class User(AddressMixin, DocumentMixin, AbstractUser):
+class User(AbstractUser):
 
     OPTION_CHOICES = [
         ('0', _('Admin')),
-        # ('1', _('Cliente')),
-        ('2', _('Agência')),
-        ('3', _('Fornecedor')),
-        ('4', _('Agente')),
+        ('1', _('Agência')),
+        ('2', _('Fornecedor')),
+        # ('3', _('Agente')),
+        # ('4', _('Cliente')),
     ]
 
     email = models.EmailField(
@@ -31,14 +32,38 @@ class User(AddressMixin, DocumentMixin, AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+
+    def get_absolute_url_edit_user(self):
+            return reverse('user:edit_user', args=[self.pk])
+    class Meta:
+        verbose_name_plural = 'Usuários'
+
     objects = DefaultUserManager()
 
 
-class ContactMixin(models.Model):
+# class Company(CompanyMixin, AddressMixin):
+
+#     user = models.ForeignKey(
+#         User,
+#         on_delete=models.DO_NOTHING,
+#         related_name='company',
+#         blank=True,
+#         null=True,
+#     )
+
+#     class Meta:
+        # verbose_name_plural = 'Empresas'
+    
+    # def get_absolute_company(self):
+    #     return reverse('user:edit_company', kwargs={'pk': self.user.pk})
+
+
+class Contact(models.Model):
 
     user = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
+        related_name='contact',
         blank=True,
         null=True
     )
@@ -48,12 +73,17 @@ class ContactMixin(models.Model):
         max_length=15
     )
 
+    class Meta:
+        verbose_name = 'Contato'
+        # verbose_name_plural = 'Contatos'
 
-class SocialMediaMixin(models.Model):
+
+class SocialMedia(models.Model):
 
     user = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
+        related_name='social_media',
         blank=True,
         null=True
     )
@@ -63,12 +93,5 @@ class SocialMediaMixin(models.Model):
         max_length=100
     )
 
-
-# class Company(DocumentMixin, AddressMixin):
-
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#         blank=True,
-#         null=True
-#     )
+    class Meta:
+        verbose_name_plural = 'Redes Sociais'

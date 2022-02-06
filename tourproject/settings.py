@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'basics',
     'user',
+    'company',
 ]
 
 
@@ -97,7 +98,7 @@ ACCOUNT_FORMS = {
     'signup': 'user.forms.CustomSignupForm',
 }
 
-ACCOUNT_SIGNUP_REDIRECT_URL = '/user/signup/complement/'
+ACCOUNT_SIGNUP_REDIRECT_URL = '/company/signup/2/'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

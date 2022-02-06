@@ -1,27 +1,24 @@
 from django.contrib import admin
 
-from .models import ContactMixin, SocialMediaMixin, User
+from .models import Contact, SocialMedia, User
 
 
-class ContactMixinAdmin(admin.TabularInline):
-    model = ContactMixin
-    extra = 1
+class ContactAdmin(admin.TabularInline):
+    model = Contact
+    extra = 0
 
 
-class SocialMediaMixinAdmin(admin.TabularInline):
-    model = SocialMediaMixin
-    extra = 1
+class SocialMediaAdmin(admin.TabularInline):
+    model = SocialMedia
+    extra = 0
 
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'username', 'option', 'is_active', 'document_number')
+    list_display = ('email', 'username', 'option', 'is_active')
     inlines = [
-        ContactMixinAdmin,
-        SocialMediaMixinAdmin,
+        ContactAdmin,
+        SocialMediaAdmin,
     ]
     readonly_fields = ('option',)
-    fields = ['option', ('is_active', 'username', 'email'), 'groups', ('document_number', 'document_image'), 
-              ('postal_code', 'street', 'number', 'complement', 'state')
-              ]
-    
+    fields = ['option', ('email', 'username', 'is_active')]

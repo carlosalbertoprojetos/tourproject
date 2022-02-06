@@ -28,7 +28,17 @@
                             <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{% url 'user:list_users' %}">Listar</a>
-                                    <a class="nav-link" href="#">Editar</a>
+                                    <a class="nav-link" href="#">Outros dados</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth2" aria-expanded="false" aria-controls="pagesCollapseAuth2">
+                                <div class="sb-nav-link-icon"><i class="fas fa-business-time"></i></div>
+                                Empresas
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseAuth2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'company:list_companies' %}">Listar</a>
                                     <a class="nav-link" href="#">Outros dados</a>
                                 </nav>
                             </div>
@@ -58,7 +68,7 @@
                             <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="#">Cadastrar</a>
-                                    <a class="nav-link" href="{% url 'user:edit_user' user.pk %}">Editar</a>
+                                    <a class="nav-link" href="{ url 'user:edit_user' user.pk %}">Editar</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
