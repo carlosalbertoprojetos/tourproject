@@ -36,7 +36,7 @@ def companies_list(request):
         'object': object,
     }
 
-    return render(request, 'company/companies_list.html', context)
+    return render(request, 'user/table.html', context)
 
 
 @login_required
