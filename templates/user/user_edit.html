@@ -1,9 +1,9 @@
-{% extends 'user/dashboard_clean.html' %}
+{% extends 'dashboard.html' %}
 
-{% load i18n %}
-{% load account %}
-{% load static %}
 
+{% load i18n account static %}
+
+{% block title %} Editar Usuário {% endblock title %} 
 
 {% block dashboard %}
 
@@ -11,7 +11,8 @@
     <div class="container-fluid">
         <div class="content-header">
             <div class="content-header">
-                <h1 class="mb-2">Editar Cadastro</h1>
+                <h1 class="mb-2">Editar Cadastro
+                </a></h1>
 
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -42,13 +43,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-md-3 ml-0">
-                            <div class="form-floating">
-                                <div class="form-group form-button">
-                                    <a class="form-submit" href="{% url 'user:edit_company' user.pk %}">Empresa</a>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </form>
                 <br>
@@ -58,4 +52,4 @@
     </div>
 </div>
 
-{% endblock dashboard %}
+{% endblock %}

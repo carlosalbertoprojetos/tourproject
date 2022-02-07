@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
-{% load i18n %}
-{% load account %}
-{% load static %}
+
+{% load i18n account static %}
 
 {% block content %}
 
@@ -13,12 +12,26 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Usuário</div>
-                            <a class="nav-link" href="{% url 'user:edit_user' user.pk %}">
+
+                            {% if user.is_authenticated %}
+                            <div class="sb-sidenav-menu-heading">Perfil</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                data-bs-target="#pagesCollapseAuth1" aria-expanded="false"
+                                aria-controls="pagesCollapseAuth1">
                                 <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
                                 Editar
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            {% if user.option == '0' %}
+                            <div class="collapse" id="pagesCollapseAuth1" aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">
+                                        Username/Email
+                                    <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>
+                                </nav>
+                            </div>
+
+                            {% if user.is_superuser %}
                             <div class="sb-sidenav-menu-heading">Gestão</div>                                
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -27,7 +40,7 @@
                             </a>
                             <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'user:list_users' %}">Listar</a>
+                                    <a class="nav-link" href="{% url 'user:users_list' %}">Listar</a>
                                     <a class="nav-link" href="#">Outros dados</a>
                                 </nav>
                             </div>
@@ -38,7 +51,7 @@
                             </a>
                             <div class="collapse" id="pagesCollapseAuth2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'company:list_companies' %}">Listar</a>
+                                    <a class="nav-link" href="{% url 'company:companies_list' %}">Listar</a>
                                     <a class="nav-link" href="#">Outros dados</a>
                                 </nav>
                             </div>
@@ -57,8 +70,10 @@
                                     <a class="nav-link" href="#">Listar</a>
                                 </nav>
                             </div>
+                            {% endif %}
 
                             {% endif %}
+
                             <div class="sb-sidenav-menu-heading">Produtos</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts" aria-expanded="false" aria-controls="collapseProdocts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
@@ -68,7 +83,7 @@
                             <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="#">Cadastrar</a>
-                                    <a class="nav-link" href="{ url 'user:edit_user' user.pk %}">Editar</a>
+                                    <a class="nav-link" href="#">Editar</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -112,8 +127,7 @@
                                         </nav>
                                     </div>
                                 </nav>
-                            </div>
-                            
+                            </div>                            
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -123,83 +137,22 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tabelas
                             </a>
+
                         </div>
                     </div>
                 </nav>
             </div>
 
-        
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Painel</li>
-                        </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Usuários</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Fornecedores</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Produtos</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Serviços</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Produtos utilizados
-                                    </div>
-                                    <div class="card-bosdy"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Serviços prestados
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main><br>
-            </div>
+            <!-- Page content-->
+            {% block content_dashboard%}            
+            {% endblock content_dashboard%}
+
+            {% block dashboard %}
+            {% endblock dashboard %}
+
         </div>
     </div>
 </main><br><br>
 <br>
 
-{% endblock content %}
+{% endblock %}

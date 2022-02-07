@@ -1,10 +1,9 @@
-{% extends 'user/dashboard_clean.html' %}
+{% extends 'dashboard.html' %}
 
-{% load i18n %}
-{% load account %}
-{% load static %}
 
-{% load crispy_forms_tags %}
+{% load i18n account static %}
+
+{% block title %} Lista Usuários {% endblock title %} 
 
 {% block dashboard %}
 
@@ -42,7 +41,7 @@
                                         <td >{{ user.is_active }}</td>
                                         <td>{{ user.last_login|date }}</td>
                                         <td align="center">
-                                            <a href="{% url 'user:edit_user' user.pk %}" class="btn">
+                                            <a href="{% url 'user:user_edit' user.pk %}" class="btn">
                                                 <i class="zmdi zmdi-edit material-icons-name"></i>
                                             </a>
                                         </td>
@@ -59,4 +58,4 @@
 </div>
 
 
-{% endblock dashboard %}
+{% endblock %}

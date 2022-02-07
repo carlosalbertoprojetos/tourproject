@@ -1,0 +1,117 @@
+{% extends 'dashboard.html' %}
+
+
+{% load i18n account static %}
+
+{% block title %} Cadastrar Empresa {% endblock title %} 
+
+{% block dashboard %}
+
+<div id="layoutSidenav_content">
+    <div class="container-fluid">
+        <div class="main p-3 pb-5">
+            <section class="signup mb-4">
+                <div class="container-form">
+                    <div class="signup2-content">
+                        <div class="signup-image ">
+                            <figure><img src="{% static 'images/signup2-image.jpg' %}" alt="sing up image"></figure>
+                        </div>
+                        
+                        <div class="signup-form signup-form2">
+                            <form method="POST" class="register-form" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                {{ form.non_field_errors }}
+                                <h2 class="form-title">Completar Cadastro</h2>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-1">
+                                            <input class="form-control" id="id_company_name" name="company_name" type="text" />
+                                            {{ form.company_name.errors }}
+                                            <label for="id_company_name">Razão Social</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-1">
+                                            <input class="mask-cnpj form-control" id="id_document_number" name="document_number" type="text" />
+                                            {{ form.document_number.errors }}
+                                            <label for="id_document_number">CNPJ</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-1">
+                                            <input class="btn btn-flat" id="id_document_image" name="document_image" accept="image/*" type="file" />
+                                            {{ form.document_image.errors }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-floating mb-1">
+                                            <input class="form-control" id="id_street" name="street" type="text" />
+                                            {{ form.street.errors }}
+                                            <label for="id_street">Logradouro</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-floating mb-1">
+                                            <input class="form-control" id="id_number" name="number" type="number" />
+                                            {{ form.number.errors }}
+                                            <label for="id_number">Número</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-floating mb-1">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="id_complement" name="complement" type="text" />
+                                                {{ form.complement.errors }}
+                                                <label for="id_complement">Complemento</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-1">
+                                            <input class="form-control" id="id_city" name="city" type="text" />
+                                            {{ form.city.errors }}
+                                            <label for="id_city">Cidade</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-1">
+                                            <div class="form-floating">
+                                                <input class="form-control" id="id_state" name="state" type="text" />
+                                                {{ form.state.errors }}
+                                                <label for="id_state">Estado</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating mb-1">
+                                            <div class="form-floating">
+                                                <input class="mask-cep form-control" id="id_postal_code" name="postal_code" type="text" />
+                                                {{ form.postal_code.errors }}
+                                                <label for="id_postal_code">CEP</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-button ">
+                                    <input type="submit" class="form-submit" value="Salvar" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

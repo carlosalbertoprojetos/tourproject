@@ -1,8 +1,9 @@
-{% extends 'user/dashboard_clean.html' %}
+{% extends 'dashboard.html' %}
 
-{% load i18n %}
-{% load account %}
-{% load static %}
+
+{% load i18n account static %}
+
+{% block title %} Redefinir Senha {% endblock title %} 
 
 {% block dashboard %}
 
@@ -37,7 +38,7 @@
                                         <td >{{ user.city }}</td>
                                         <td>{{ user.last_login|date }}</td>
                                         <td align="center">
-                                            <a href="{% url 'user:edit_company' user.id %}" class="btn">
+                                            <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
                                                 <i class="zmdi zmdi-edit material-icons-name"></i>
                                             </a>
                                         </td>
@@ -54,4 +55,4 @@
 </div>
 
 
-{% endblock dashboard %}
+{% endblock %}

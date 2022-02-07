@@ -1,5 +1,3 @@
-{% load crispy_forms_tags %}
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -10,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Home</title>
+
     <!-- Favicon-->
     <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon">
 
@@ -28,9 +26,10 @@
 
     <!-- signup and signin -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     <!-- base and index -->
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/home.css' %}"> -->
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
@@ -39,6 +38,8 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
         crossorigin="anonymous"></script>
+        
+    <title> {% block title %} {% endblock title%} </title>
 
 </head>
 
@@ -48,12 +49,12 @@
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <a class="navbar-brand ps-3" href="/">Turismo</a>
             </ul>
-            {% if user.is_authenticated %}
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4"></ul>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i
-                    class="fas fa-bars"></i></button>
+                class="fas fa-bars"></i></button>
             </ul>
         </div>
+        {% if user.is_authenticated %}
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <a class="nav-link active ps-3" href="{% url 'user:dashboard' %}">Dashboard</a>
@@ -77,37 +78,9 @@
         {% endif %}
     </nav>
 
-    <div id="layoutSidenav_content">
-        <div class="container-fluid">
-            <div class="content-header">
-                <div class="content-header">
-                    <h1 class="mb-2">Editar Cadastro</h1>
 
-                    <form class="pure-form pure-form-stacked uniForm" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% if success %}
-                        <h1 class="font-weight-bold" style='margin: 10px 0 0 0'>Dados alterados com sucesso!!!</h1>
-                        {% endif %}
-                        <fieldset>
-                            {{ form.non_field_errors }}
+    {% block content %} {% endblock content %}
 
-                            {% for field in form %}
-                            <div class="pure-control-group">
-                                {{ field.label_tag }}
-                                {{ field|as_crispy_field:"bootstrap" }}
-                                {{ field.errors }}
-                            </div>
-                            {% endfor %}
-
-                            <div class="pure-controls">
-                                <button type="submit" class="pure-button pure-button-primary">Editar</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <footer class="bg-light fixed-bottom py-4">
         <div class="container-fluid px-4">
@@ -144,81 +117,3 @@
 </body>
 
 </html>
-
-
-
-
-{% extends 'user/dashboard_clean.html' %}
-
-{% load i18n %}
-{% load account %}
-{% load static %}
-
-{% load crispy_forms_tags %}
-
-{% block dashboard %}
-
-<div id="layoutSidenav_content">
-    <div class="container-fluid">
-        <div class="content-header">
-            <div class="content-header">
-                <h1 class="mb-2">Editar Cadastro</h1>
-
-                <form class="pure-form pure-form-stacked" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% if success %}
-                    <h1 class="font-weight-bold" style='margin: 10px 0 0 0'>Dados alterados com sucesso!!!</h1>
-                    {% endif %}
-                    <fieldset>
-                        {{ form.non_field_errors }}
-
-                        {% for field in form %}
-                        <div class="pure-control-group">
-                            <!-- {{ field.label_tag }} -->
-                            {{ field|as_crispy_field:"bootstrap" }}
-                            {{ field.errors }}
-                        </div>
-                        {% endfor %}
-
-                        <div class="pure-controls">
-                            <button type="submit" class="pure-button pure-button-primary">Editar</button>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% endblock dashboard %}
-
-
-<div class="col-md-2">
-    <div class="form-floating form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-        <label class="form-check-label" for="flexSwitchCheckChecked">Inativo/Ativo</label>
-    </div>
-</div>
-
-<div class="col-md-2">
-    <div class="form-floating">
-        <input class="form-control" id="id_is_active" name="is_active" type="checkbox"
-            value="{{ form.is_active.value }}" />
-        <label for="id_is_active">Usuário ativo</label>
-    </div>
-</div>
-
-
-<div class="pure-control-group">
-    <!-- <label for="id_is_active">Ativo:</label> -->
-    <div id="div_id_is_active" class="control-group">
-        <div class="controls">
-            <label for="id_is_active" class="checkbox ">
-                <input type="checkbox" name="is_active" class="checkboxinput" id="id_is_active">
-                Ativo
-            </label>
-            <p id="hint_id_is_active" class="help-block">Indica que o usuário será tratado como ativo. Ao invés de
-            excluir contas de usuário, desmarque isso.</p>
-        </div>
-    </div>
-</div>
