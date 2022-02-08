@@ -7,91 +7,40 @@
 
 {% block dashboard %}
 
-<h1 class="mb-2">Empresas</h1>
-
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Lista</h3>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-hover dataTable-table">
-            <thead>
-                <tr>
-                    <th>Empresa</th>
-                    <th>Documento</th>
-                    <th>Estado</th>
-                    <th>Cidade</th>
-                    <!-- <th>Último acesso</th> -->
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in object %}
-                <tr>
-                    <td>{{ user.company_name }}</td>
-                    <td>{{ user.document_number }}</td>
-                    <td>{{ user.state }}</td>
-                    <td >{{ user.city }}</td>
-                    <!-- <td>{{ user.last_login|date }}</td> -->
-                    <td align="center">
-                        <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
-                            <i class="zmdi zmdi-edit material-icons-name"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="container-fluid">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Empresas</h3>
+        </div>
+        <div class="table-responsive">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Documento</th>
+                        <th>Estado</th>
+                        <th>Cidade</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in object %}
+                    <tr>
+                        <td>{{ user.company_name }}</td>
+                        <td>{{ user.document_number }}</td>
+                        <td>{{ user.state }}</td>
+                        <td >{{ user.city }}</td>
+                        <td align="center">
+                            <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
+                                <i class="zmdi zmdi-edit material-icons-name"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
-
-<br>
-<div class="card">
-    <div class="card-header">
-        <h1>Lista de Empresas</h1>
-    </div>
-    <div class="card-body">
-        <table id="datatablesSimple">
-            <thead>
-                <tr>
-                    <th>Empresa</th>
-                    <th>Documento</th>
-                    <th>Estado</th>
-                    <th>Cidade</th>
-                    <!-- <th>Último acesso</th> -->
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Empresa</th>
-                    <th>Documento</th>
-                    <th>Estado</th>
-                    <th>Cidade</th>
-                    <!-- <th>Último acesso</th> -->
-                    <th>Editar</th>
-                </tr>
-            </tfoot>
-            <tbody>
-                {% for user in object %}
-                <tr>
-                    <td>{{ user.company_name }}</td>
-                    <td>{{ user.document_number }}</td>
-                    <td>{{ user.state }}</td>
-                    <td >{{ user.city }}</td>
-                    <!-- <td>{{ user.last_login|date }}</td> -->
-                    <td align="center">
-                        <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
-                            <i class="zmdi zmdi-edit material-icons-name"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
 
 {% endblock %}

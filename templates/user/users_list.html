@@ -8,13 +8,14 @@
 {% block dashboard %}
 
 <div class="container-fluid">
-    <h1 class="mt-4">Usuários</h1>
-    <div class="card">
-        <div class="table table-hover dataTable-table">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Usuários</h3>
+        </div>
+        <div class="table-responsive">
             <table id="datatablesSimple">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Usuário</th>
                         <th>Mod.</th>
                         <th>Email</th>
@@ -25,7 +26,6 @@
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>ID</th>
                         <th>Usuário</th>
                         <th>Mod.</th>
                         <th>Email</th>
@@ -37,7 +37,6 @@
                 <tbody>
                     {% for user in object %}
                     <tr>
-                        <td>{{ user.id }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.get_option_display }}</td>
                         <td>{{ user.email }}</td>

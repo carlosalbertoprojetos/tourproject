@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
+from user.models import User
 
 from .forms import EditCompanyForm, Signup2Form
 from .models import Company
-from user.models import User
 
 
 class Signup2View(LoginRequiredMixin, CreateView):
@@ -41,11 +41,16 @@ def companies_list(request):
 
 @login_required
 def company_edit(request, pk):
+
+    notregister = Company.objects.filter(user_id=pk)
+    if not notregister:
+        return redirect('company:signup2')
+
     user = get_object_or_404(Company, user_id=pk)
     form = EditCompanyForm(instance=user)
 
     if request.method == 'POST':
-        form = EditCompanyForm(request.POST or None,
+        form = EditCompanyForm(request.POST,
                                request.FILES, instance=user)
 
         if form.is_valid():
@@ -75,33 +80,3 @@ def company_edit_admin_view(request, pk):
 
     elif request.method == 'GET':
         return render(request, 'company/company_edit.html', {'form': form})
-
-
-class CompanyUserEditView(UpdateView):
-    model = Company
-    form_class = EditCompanyForm
-    template_name = 'user/edit_company.html'
-    success_url = reverse_lazy('user:dashboard')
-    success_message = 'Editado com sucesso!'
-
-
-edit_company_view = CompanyUserEditView.as_view()
-
-
-# @login_required
-# def edit_company_view(request, pk):
-#     user = get_object_or_404(User, pk=pk)
-#     form = EditCompanyForm(instance=user)
-
-#     if request.method == 'POST':
-#         form = EditCompanyForm(request.POST or None,
-#                                request.FILES, instance=user)
-
-#         if form.is_valid():
-#             user = form.save(commit=True)
-#             return redirect('user:list_companies')
-#         else:
-#             return render(request, 'user/edit_company.html', {'form': form})
-
-#     elif request.method == 'GET' :
-#         return render(request, 'user/edit_company.html', {'form': form})

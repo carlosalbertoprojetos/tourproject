@@ -8,51 +8,54 @@
 {% block dashboard %}
 
 <div class="container-fluid">
-    <div class="container-fluid">
-        <div class="col-md-12">
-            <div class="card card-primary">
-                <div class="card-header">
-                <h3 class="card-title">Editar Cadastro</h3>
-                </div>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}                
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" id="id_username" name="username" type="text"
-                                        value="{{ form.username.value }}" />
-                                    {{ form.username.errors }}
-                                    <label for="id_username">Username</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" id="id_email" name="email" type="email"
-                                        value="{{ form.email.value }}" />
-                                    {{ form.email.errors }}
-                                    <label for="id_email">Email</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-floating">
-                                <button type="submit" class="btn btn-primary">Salvar</button>        
-                            </div>
-                        </div>
-                        {% if user.is_superuser %}
-                        <div class="form-check mt-3">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Usuário Ativo</label>
-                        </div>
-                        {% endif %}
-                    </div>
-                </form>
-            </div>
+    <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">Editar Cadastro</h3>
         </div>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}                
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input class="form-control" id="id_username" name="username" type="text"
+                                value="{{ form.username.value }}" />
+                            {{ form.username.errors }}
+                            <label for="id_username">Username</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input class="form-control" id="id_email" name="email" type="email"
+                                value="{{ form.email.value }}" />
+                            {{ form.email.errors }}
+                            <label for="id_email">Email</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <button type="submit" class="btn btn-primary">Salvar</button>        
+                    </div>
+                </div>
+                {% if user.is_superuser %}
+                <div class="col-md-12">
+                    <div class="form-floating mb-1">
+                        <input id="id_is_active" name="is_active" type="checkbox"
+                        value="{{ form.is_active }}" />
+                        {{ form.is_active.errors }}
+                        <label for="id_is_active">Ativo</label>
+                    </div>
+                </div>
+                <div class="form-check mt-3">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Usuário Ativo</label>
+                </div>
+                {% endif %}
+            </div>
+        </form>
     </div>
 </div>
-
 
 {% endblock %}

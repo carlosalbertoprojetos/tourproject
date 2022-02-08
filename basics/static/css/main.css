@@ -599,9 +599,6 @@ html {
     margin-left: auto;
   }
 
-
-
-
     @media (prefers-reduced-motion: no-preference) {
         :root {
           scroll-behavior: smooth;
@@ -3074,9 +3071,7 @@ html {
         height: 1.5em;
         border-radius: 0.25rem;
       }
-      
-      
-      
+
       .form-select, .dataTable-selector {
         display: block;
         width: 100%;
@@ -12233,6 +12228,7 @@ html {
       
       .dataTable-top {
         padding: 0 0 1rem;
+        margin: auto;
       }
       
       .dataTable-bottom {
@@ -12256,8 +12252,8 @@ html {
       .dataTable-selector {
         width: auto;
         display: inline-block;
-        padding-left: 1.125rem;
-        padding-right: 2.125rem;
+        /* padding-left: 1.125rem;
+        padding-right: 2.125rem; */
         margin-right: 0.25rem;
       }
       
@@ -63366,4 +63362,19 @@ html {
       .dark-mode .border-dark {
         border-color: #4b545c !important;
       }
-      /*# sourceMappingURL=adminlte.css.map */
+
+
+.dataTable-top {
+  justify-content:space-between;
+  
+}
+
+.dataTable-top > .dataTable-dropdown > label {
+  margin: 20px 0 0 0;
+  position: relative;
+}
+
+.dataTable-dropdown > label > .dataTable-selector {
+  width: 40%;
+  padding: 0 6px;
+}

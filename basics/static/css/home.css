@@ -2668,7 +2668,7 @@ textarea.form-control-lg {
   line-height: 1.25;
 }
 .form-floating > label {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   height: 100%;
@@ -2735,7 +2735,6 @@ textarea.form-control-lg {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
-
 .input-group {
   position: relative;
   display: flex;
@@ -7987,6 +7986,16 @@ textarea.form-control-lg {
 
 .invisible {
   visibility: hidden !important;
+}
+
+
+.dataTable-dropdown > label {
+  position: relative;
+  padding: 0;
+}
+
+.dataTable-selector {
+  padding: 0;
 }
 
 @media (min-width: 576px) {
