@@ -45,7 +45,7 @@ class EditUserForm(forms.ModelForm):
 
 
 class EditUserAdminForm(forms.ModelForm):
-    
+
     class Meta:
         model = User
         fields = ['username', 'email', 'is_active']

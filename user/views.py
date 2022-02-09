@@ -21,7 +21,7 @@ def user_edit(request, pk):
     form = EditUserForm(instance=user)
 
     if request.method == 'POST':
-        form = EditUserForm(request.POST or None, instance=user)
+        form = EditUserForm(request.POST, instance=user)
 
         if form.is_valid():
             user = form.save(commit=True)
@@ -39,7 +39,7 @@ def user_edit_admin(request, pk):
     form = EditUserAdminForm(instance=user)
 
     if request.method == 'POST':
-        form = EditUserAdminForm(request.POST or None, instance=user)
+        form = EditUserAdminForm(request.POST, instance=user)
 
         if form.is_valid():
             user = form.save(commit=True)

@@ -26,6 +26,7 @@ class Signup2Form(forms.ModelForm):
         super(Signup2Form, self).__init__(*args, **kwargs)
         self.fields['document_number'].widget.attrs.update(
             {'class': 'mask-cnpj'})
+        self.fields['state'].widget.attrs.update({'class': 'mask-state'})
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
 
     def clean_document_number(self):
@@ -44,6 +45,8 @@ class Signup2Form(forms.ModelForm):
         instance = super().save(commit=commit)
         instance.save()
         return instance
+
+
 class EditCompanyForm(forms.ModelForm):
 
     document_image = forms.ImageField(
@@ -58,4 +61,5 @@ class EditCompanyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['document_number'].widget.attrs.update(
             {'class': 'mask-cnpj'})
+        self.fields['state'].widget.attrs.update({'class': 'mask-state'})
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
