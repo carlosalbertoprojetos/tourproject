@@ -267,7 +267,7 @@ html {
   }
   
   th {
-    text-align: inherit;
+    text-align: center;
     text-align: -webkit-match-parent;
   }
   
@@ -12307,7 +12307,7 @@ html {
       
       .dataTable-table > thead > tr > th {
         vertical-align: bottom;
-        text-align: left;
+        text-align: center;
         border-bottom: none;
       }
       

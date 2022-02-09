@@ -16,6 +16,21 @@
             {% csrf_token %}
             {{ form.non_field_errors }}                
             <div class="card-body">
+                {% if user.is_superuser %}
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-1">
+                            <div class="form-check">
+                                <label for="id_is_active">Usuário Ativo</label>
+                            </div>
+                            <div class="class-md-3">
+                                {{ form.is_active }}
+                                {{ form.is_active.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
                 <div class="form-group">
                     <div class="col-md-12">
                         <div class="form-floating mb-1">
@@ -34,25 +49,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-floating">
-                        <button type="submit" class="btn btn-primary">Salvar</button>        
+                <div class="row ml-0">
+                    <div class="col-md-1">
+                        <div class="form-floating">
+                            <button type="submit" class="btn btn-primary">Salvar</button>        
+                        </div>
                     </div>
                 </div>
-                {% if user.is_superuser %}
-                <div class="col-md-12">
-                    <div class="form-floating mb-1">
-                        <input id="id_is_active" name="is_active" type="checkbox"
-                        value="{{ form.is_active }}" />
-                        {{ form.is_active.errors }}
-                        <label for="id_is_active">Ativo</label>
-                    </div>
-                </div>
-                <div class="form-check mt-3">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Usuário Ativo</label>
-                </div>
-                {% endif %}
             </div>
         </form>
     </div>

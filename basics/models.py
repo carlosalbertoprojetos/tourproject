@@ -68,7 +68,7 @@ class AddressMixin(models.Model):
 
     state = models.CharField(
         _('Estado'),
-        max_length=100,
+        max_length=2,
         blank=False,
         null=True,
     )

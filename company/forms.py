@@ -44,8 +44,6 @@ class Signup2Form(forms.ModelForm):
         instance = super().save(commit=commit)
         instance.save()
         return instance
-
-
 class EditCompanyForm(forms.ModelForm):
 
     document_image = forms.ImageField(
@@ -55,8 +53,6 @@ class EditCompanyForm(forms.ModelForm):
     class Meta:
         model = Company
         fields = '__all__'
-        # fields = ('id', 'company_name', 'document_number', 'document_image',
-        #           'street', 'number', 'complement', 'city', 'state', 'postal_code', 'user',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

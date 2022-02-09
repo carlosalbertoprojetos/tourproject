@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (companies_list, company_edit, company_edit_admin_view,
+from .views import (companies_list, company_edit, company_edit_admin,
                     signup_step_2)
 
 app_name = 'company'
@@ -12,5 +12,5 @@ urlpatterns = [
     path('<int:pk>/edit/company/', company_edit, name='company_edit'),
 
     path('<int:pk>/admin/edit/company/',
-         company_edit_admin_view, name='admin_company_edit'),
+         company_edit_admin, name='admin_company_edit'),
 ]

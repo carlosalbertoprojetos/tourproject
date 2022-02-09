@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView
-from user.models import User
+from django.views.generic.edit import CreateView
 
 from .forms import EditCompanyForm, Signup2Form
 from .models import Company
@@ -11,17 +10,13 @@ from .models import Company
 
 class Signup2View(LoginRequiredMixin, CreateView):
     model = Company
-    template_name = 'company/company_signup.html'
     form_class = Signup2Form
+    template_name = 'company/company_signup.html'
     success_url = reverse_lazy('user:dashboard')
-
-    def get_object(self):
-        self.object = self.request.user
-        return self.object
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.user_id = self.request.user.id
+        obj.user = self.request.user
         obj.save()
         return super().form_valid(form)
 
@@ -36,17 +31,38 @@ def companies_list(request):
         'object': object,
     }
 
-    return render(request, 'user/table.html', context)
+    return render(request, 'company/companies_list.html', context)
 
 
 @login_required
-def company_edit(request, pk):
+def company_edit(request, pk, queryset=None):
 
-    notregister = Company.objects.filter(user_id=pk)
-    if not notregister:
-        return redirect('company:signup2')
+    try:
+        user = get_object_or_404(Company, user_id=pk)
+        form = EditCompanyForm(instance=user)
 
-    user = get_object_or_404(Company, user_id=pk)
+        if request.method == 'POST':
+            form = EditCompanyForm(request.POST,
+                                   request.FILES, instance=user)
+
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.user_id = request.user
+                obj.save()
+                return redirect('user:dashboard')
+            else:
+                return render(request, 'company/company_edit.html', {'form': form})
+
+        elif request.method == 'GET':
+            return render(request, 'company/company_edit.html', {'form': form})
+    except:
+        if queryset is None:
+            return redirect('company:signup2')
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def company_edit_admin(request, pk):
+    user = get_object_or_404(Company, pk=pk)
     form = EditCompanyForm(instance=user)
 
     if request.method == 'POST':
@@ -55,26 +71,8 @@ def company_edit(request, pk):
 
         if form.is_valid():
             user = form.save(commit=True)
-            return redirect('company:company_edit', user.pk)
-        else:
-            return render(request, 'company/company_edit.html', {'form': form})
 
-    elif request.method == 'GET':
-        return render(request, 'company/company_edit.html', {'form': form})
-
-
-@user_passes_test(lambda u: u.is_superuser)
-def company_edit_admin_view(request, pk):
-    user = get_object_or_404(Company, pk=pk)
-    form = EditCompanyForm(instance=user)
-
-    if request.method == 'POST':
-        form = EditCompanyForm(request.POST or None,
-                               request.FILES, instance=user)
-
-        if form.is_valid():
-            user = form.save(commit=True)
-            return redirect('user:company_edit', user.pk)
+            return redirect('company:companies_list')
         else:
             return render(request, 'company/company_edit.html', {'form': form})
 

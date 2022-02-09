@@ -1,7 +1,7 @@
-from django.urls import reverse
 # from basics.models import AddressMixin, CompanyMixin
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from .managers import DefaultUserManager
@@ -32,30 +32,10 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-
-    def get_absolute_url_edit_user(self):
-            return reverse('user:edit_user', args=[self.pk])
     class Meta:
         verbose_name_plural = 'Usuários'
 
     objects = DefaultUserManager()
-
-
-# class Company(CompanyMixin, AddressMixin):
-
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.DO_NOTHING,
-#         related_name='company',
-#         blank=True,
-#         null=True,
-#     )
-
-#     class Meta:
-        # verbose_name_plural = 'Empresas'
-    
-    # def get_absolute_company(self):
-    #     return reverse('user:edit_company', kwargs={'pk': self.user.pk})
 
 
 class Contact(models.Model):

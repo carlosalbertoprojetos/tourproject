@@ -9,7 +9,7 @@ from .models import Contact, SocialMedia, User
 
 
 class CustomSignupForm(SignupForm):
-    
+
     option = forms.CharField(
         label=_('Opção'),
         widget=forms.Select
@@ -39,13 +39,16 @@ class CustomSignupForm(SignupForm):
 
 class EditUserForm(forms.ModelForm):
 
-    document_image = forms.ImageField(
-        widget=ClearableFileInput
-    )
-
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', ]
+        fields = ['username', 'email']
+
+
+class EditUserAdminForm(forms.ModelForm):
+    
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'is_active']
 
 
 class PhoneFormSet(forms.Form):
