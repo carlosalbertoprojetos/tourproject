@@ -7,38 +7,44 @@
 
 {% block dashboard %}
 
+
 <div class="container-fluid">
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Empresas</h3>
-        </div>
-        <div class="table-responsive">
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>Empresa</th>
-                        <th>Documento</th>
-                        <th>Estado</th>
-                        <th>Cidade</th>
-                        <th>Editar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in object %}
-                    <tr>
-                        <td>{{ user.company_name }}</td>
-                        <td class="mask-cnpj">{{ user.document_number }}</td>
-                        <td>{{ user.state }}</td>
-                        <td >{{ user.city }}</td>
-                        <td align="center">
-                            <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
-                                <i class="zmdi zmdi-edit material-icons-name"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <div class="card">
+        <div class="container-form">
+            <div class="card-header">
+                <h2 class="form-title" style="margin-bottom: 33px;">Lista de Empresas</h2>
+
+
+
+                <div class="table-responsive">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Empresa</th>
+                                <th>Documento</th>
+                                <th>Estado</th>
+                                <th>Cidade</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in object %}
+                            <tr>
+                                <td>{{ user.company_name }}</td>
+                                <td class="mask-cnpj">{{ user.document_number }}</td>
+                                <td>{{ user.state }}</td>
+                                <td >{{ user.city }}</td>
+                                <td align="center">
+                                    <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
+                                        <i class="zmdi zmdi-edit material-icons-name"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
