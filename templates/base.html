@@ -51,7 +51,7 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark pt-8">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse w-25" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <a class="navbar-brand ps-3" href="/">TourProject</a>
             </ul>
@@ -62,9 +62,6 @@
         </div>
         {% if user.is_authenticated %}
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <a class="nav-link active ps-3" href="{% url 'user:dashboard' %}">Dashboard</a>
-            </ul>
             <ul class="navbar-nav ms-auto ms-md-0 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link active ps-3" href="{% url 'account_logout' %}">Sair</a>
@@ -74,7 +71,7 @@
         {% else %}
 
         <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto ms-md-0 me-lg-4">
+            <ul class="navbar-nav ms-auto ms-md-0 me-lg-3">
                 <li class="nav-item dropdown">
                 <li class="nav-item"><a class="nav-link active" href="{% url 'account_signup' %}">Cadastrar</a></li>
                 <li class="nav-item"><a class="nav-link active" href="{% url 'account_login' %}">Entrar</a></li>

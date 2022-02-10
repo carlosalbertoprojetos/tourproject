@@ -4682,7 +4682,7 @@ input[type="button"].btn-block {
   display: -ms-flexbox !important;
   display: flex !important;
   -ms-flex-preferred-size: auto;
-  flex-basis: auto;
+  /* flex-basis: auto; */
 }
 
 .navbar-expand .navbar-toggler {

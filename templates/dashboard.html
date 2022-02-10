@@ -9,8 +9,12 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated %}                                
                 <div class="sb-sidenav-menu-heading">Perfil {{ user.username }}</div>
+                <a class="nav-link ps-3" href="{% url 'user:dashboard' %}">
+                    <div class="sb-nav-link-icon"><i class="fa fa-address-card"></i></div>
+                    Dashboard
+                </a>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                     data-bs-target="#pagesCollapseAuth1" aria-expanded="false"
                     aria-controls="pagesCollapseAuth1">
