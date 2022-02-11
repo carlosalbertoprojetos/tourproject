@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'basics',
     'user',
     'company',
+    'client',
+    'bootstrapform',
 ]
 
 

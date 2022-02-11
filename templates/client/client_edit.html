@@ -2,8 +2,8 @@
 
 
 {% load i18n account static %}
-{% load bootstrap %}
-{% block title %} Editar Usuário {% endblock title %} 
+
+{% block title %} Editar Cliente {% endblock title %} 
 
 {% block dashboard %}
 
@@ -14,7 +14,6 @@
         </div>
         <form method="POST">
             {% csrf_token %}
-            
             {{ form.non_field_errors }}                
             <div class="card-body">
                 {% if user.is_superuser %}
@@ -22,7 +21,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-1">
                             <div class="form-check">
-                                <label for="id_is_active">Usuário Ativo</label>
+                                <label for="id_is_active">Cliente Ativo</label>
                             </div>
                             <div class="class-md-3">
                                 {{ form.is_active }}
