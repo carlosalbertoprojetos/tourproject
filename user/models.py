@@ -1,11 +1,10 @@
-# from basics.models import AddressMixin, CompanyMixin
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from .managers import DefaultUserManager
 
+from company.models import Company
 
 class User(AbstractUser):
 
@@ -13,8 +12,6 @@ class User(AbstractUser):
         ('0', _('Admin')),
         ('1', _('Agência')),
         ('2', _('Fornecedor')),
-        # ('3', _('Agente')),
-        # ('4', _('Cliente')),
     ]
 
     email = models.EmailField(
@@ -28,6 +25,8 @@ class User(AbstractUser):
         choices=OPTION_CHOICES
     )
 
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
+
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -36,42 +35,3 @@ class User(AbstractUser):
         verbose_name_plural = 'Usuários'
 
     objects = DefaultUserManager()
-
-
-class Contact(models.Model):
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.DO_NOTHING,
-        related_name='contact',
-        blank=True,
-        null=True
-    )
-
-    cel_phone = models.CharField(
-        _("Celular"),
-        max_length=15
-    )
-
-    class Meta:
-        verbose_name = 'Contato'
-        # verbose_name_plural = 'Contatos'
-
-
-class SocialMedia(models.Model):
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.DO_NOTHING,
-        related_name='social_media',
-        blank=True,
-        null=True
-    )
-
-    social_media = models.CharField(
-        _("Rede Social"),
-        max_length=100
-    )
-
-    class Meta:
-        verbose_name_plural = 'Redes Sociais'

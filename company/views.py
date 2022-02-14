@@ -14,11 +14,17 @@ class Signup2View(LoginRequiredMixin, CreateView):
     template_name = 'company/company_signup.html'
     success_url = reverse_lazy('user:dashboard')
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.user = self.request.user
-        obj.save()
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        form = Signup2Form(request.POST or None)
+        if form.is_valid():
+            company = form.save(commit=True)
+            company.save()            
+            user = request.user
+            user.company_id = company.id
+            user.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 signup_step_2 = Signup2View.as_view()

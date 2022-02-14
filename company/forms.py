@@ -1,4 +1,4 @@
-from basics.utils import sanitize_number
+from company.utils import sanitize_number
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.widgets import ClearableFileInput

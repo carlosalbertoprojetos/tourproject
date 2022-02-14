@@ -1,11 +1,10 @@
 from allauth.account.forms import SignupForm
-from basics.utils import sanitize_number
+from company.utils import sanitize_number
 from django import forms
 from django.core.exceptions import ValidationError
-from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
-from .models import Contact, SocialMedia, User
+from .models import User
 
 
 class CustomSignupForm(SignupForm):
@@ -51,29 +50,29 @@ class EditUserAdminForm(forms.ModelForm):
         fields = ['username', 'email', 'is_active']
 
 
-class PhoneFormSet(forms.Form):
+# class PhoneFormSet(forms.Form):
 
-    class Meta:
-        model = Contact
-        fields = '__all__'
+#     class Meta:
+#         model = Contact
+#         fields = '__all__'
 
-    def clean_cel_phone(self):
-        data = self.cleaned_data['cel_phone']
-        return sanitize_number(data)
+#     def clean_cel_phone(self):
+#         data = self.cleaned_data['cel_phone']
+#         return sanitize_number(data)
 
-    def save(self, commit=False):
-        instance = super().save(commit=commit)
-        instance.save()
-        return instance
+#     def save(self, commit=False):
+#         instance = super().save(commit=commit)
+#         instance.save()
+#         return instance
 
 
-class SocialFormSet(forms.Form):
+# class SocialFormSet(forms.Form):
 
-    class Meta:
-        model = SocialMedia
-        fields = '__all__'
+#     class Meta:
+#         model = SocialMedia
+#         fields = '__all__'
 
-    def save(self, commit=False):
-        instance = super().save(commit=commit)
-        instance.save()
-        return instance
+#     def save(self, commit=False):
+#         instance = super().save(commit=commit)
+#         instance.save()
+#         return instance
