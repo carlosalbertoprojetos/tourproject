@@ -599,6 +599,15 @@ html {
     margin-left: auto;
   }
 
+.justify-content-center > .content-header{
+    min-height: 500px
+  }
+
+.footer {
+  position:absolute;
+  width:100%;
+}
+
     @media (prefers-reduced-motion: no-preference) {
         :root {
           scroll-behavior: smooth;

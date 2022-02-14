@@ -15,20 +15,16 @@
                     <div class="sb-nav-link-icon"><i class="fa fa-address-card"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseAuth1" aria-expanded="false"
-                    aria-controls="pagesCollapseAuth1">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
                     <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
                     Configurações
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="pagesCollapseAuth1" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordionPages">
+                <div class="collapse" id="collapseSettings" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">
-                            Usuário/Email</a>
+                        <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">Usuário/Email</a>
                         <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>    
-                        <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>                     
+                        <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>  
                     </nav>
                 </div>
                 {% if user.is_superuser %}
@@ -146,19 +142,6 @@
 
         </div>
     </main>
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                <div>
-                    <a href="#">Privacy Policy</a>
-                    &middot;
-                    <a href="#">Terms &amp; Conditions</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 </div>
-
 
 {% endblock %}
