@@ -7,10 +7,10 @@
 
 {% block content %}
 
-<div class="container-fluid mt-5">
+<div class="container-fluid">
     <div class="justify-content-center">
         <div class="content-header p-0">
-            <div class="container mt-2">
+            <div class="container">
                 <div class="text-center">
                     <div class="row">
                         <div class="container-fluid">
@@ -29,7 +29,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-floating mb-1">
-                                                            <input class="form-control" id="id_company_name" name="company_name" type="text" />
+                                                            <input class="form-control" id="id_company_name" name="company_name" type="text" value="{{ form.company.value }}"/>
                                                             {{ form.company_name.errors }}
                                                             <label for="id_company_name">Razão Social</label>
                                                         </div>
@@ -38,14 +38,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-floating mb-1">
-                                                            <input class="mask-cnpj form-control" id="id_document_number" name="document_number" type="text" />
+                                                            <input class="mask-cnpj form-control" id="id_document_number" name="document_number" type="text"value="{{ form.document_number.value }}"/>
                                                             {{ form.document_number.errors }}
                                                             <label for="id_document_number">CNPJ</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-floating mb-1">
-                                                            <input class="btn btn-flat" id="id_document_image" name="document_image" accept="image/*" type="file" />
+                                                            <input class="btn btn-flat" id="id_document_image" name="document_image" accept="image/*" type="file" value="{{ form.document_image.value }}"/>
                                                             {{ form.document_image.errors }}
                                                         </div>
                                                     </div>
@@ -53,7 +53,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-floating mb-1">
-                                                            <input class="form-control" id="id_street" name="street" type="text" />
+                                                            <input class="form-control" id="id_street" name="street" type="text" value="{{ form.street.value }}"/>
                                                             {{ form.street.errors }}
                                                             <label for="id_street">Logradouro</label>
                                                         </div>
@@ -62,7 +62,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-floating mb-1">
-                                                            <input class="form-control" id="id_number" name="number" type="number" />
+                                                            <input class="form-control" id="id_number" name="number" type="number" value="{{ form.number.value }}"/>
                                                             {{ form.number.errors }}
                                                             <label for="id_number">Número</label>
                                                         </div>
@@ -70,7 +70,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-floating mb-1">
                                                             <div class="form-floating">
-                                                                <input class="form-control" id="id_complement" name="complement" type="text" />
+                                                                <input class="form-control" id="id_complement" name="complement" type="text" value="{{ form.complement.value }}"/>
                                                                 {{ form.complement.errors }}
                                                                 <label for="id_complement">Complemento</label>
                                                             </div>
@@ -80,7 +80,7 @@
                                                 <div class="row">
                                                     <div class="col-md-5">
                                                         <div class="form-floating mb-1">
-                                                            <input class="form-control" id="id_city" name="city" type="text" />
+                                                            <input class="form-control" id="id_city" name="city" type="text" value="{{ form.city.value }}"/>
                                                             {{ form.city.errors }}
                                                             <label for="id_city">Cidade</label>
                                                         </div>
@@ -88,7 +88,7 @@
                                                     <div class="col-md-3">
                                                         <div class="form-floating mb-1">
                                                             <div class="form-floating">
-                                                                <input class="mask-state form-control" style="text-transform:uppercase" id="id_state" name="state" type="text" />
+                                                                <input class="mask-state form-control" style="text-transform:uppercase" id="id_state" name="state" type="text" value="{{ form.state.value }}"/>
                                                                 {{ form.state.errors }}
                                                                 <label for="id_state">Estado</label>
                                                             </div>
@@ -97,7 +97,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-floating mb-1">
                                                             <div class="form-floating">
-                                                                <input class="mask-cep form-control" id="id_postal_code" name="postal_code" type="text" />
+                                                                <input class="mask-cep form-control" id="id_postal_code" name="postal_code" type="text"value="{{ form.postal_code.value }}"/>
                                                                 {{ form.postal_code.errors }}
                                                                 <label for="id_postal_code">CEP</label>
                                                             </div>

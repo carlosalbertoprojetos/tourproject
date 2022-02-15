@@ -105,7 +105,12 @@ ACCOUNT_FORMS = {
 ACCOUNT_SIGNUP_REDIRECT_URL = '/company/signup/2/'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '187b88ac805f83'
+EMAIL_HOST_PASSWORD = '446e98ebfc9de3'
+EMAIL_PORT = '2525'
 
 
 # Database
@@ -167,7 +172,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'basics', 'static', 'staticfiles')
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -184,8 +188,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# após efetuar o login, será redirecionado para:
-# ACCOUNT_SIGNUP_REDIRECT_URL = 'user:dashboard'
+# após efetuar o primeiro login, será redirecionado para:
+# ACCOUNT_SIGNUP_REDIRECT_URL = 'company:signup2'
 
 LOGIN_REDIRECT_URL = 'user:dashboard'
 LOGIN_URL = 'index'
@@ -197,3 +201,6 @@ LOGOUT_URL = '/accounts/logout/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
+
+
+

@@ -200,6 +200,7 @@ body {
 .signin-image {
     width: 50%;
     overflow: hidden;
+    margin-left: 90px;
 }
 
 .signup-image {
