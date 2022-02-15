@@ -47,7 +47,7 @@ class Signup2Form(forms.ModelForm):
         return instance
 
 
-class EditCompanyForm(forms.ModelForm):
+class CompanyEditForm(forms.ModelForm):
 
     document_image = forms.ImageField(
         widget=ClearableFileInput
@@ -63,3 +63,5 @@ class EditCompanyForm(forms.ModelForm):
             {'class': 'mask-cnpj'})
         self.fields['state'].widget.attrs.update({'class': 'mask-state'})
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
+
+

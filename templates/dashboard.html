@@ -23,8 +23,10 @@
                 <div class="collapse" id="collapseSettings" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">Usuário/Email</a>
-                        <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>    
-                        <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>  
+                        <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>
+                        {% if not user.is_superuser %}     
+                        <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a> 
+                        {% endif %} 
                     </nav>
                 </div>
                 {% if user.is_superuser %}
@@ -142,6 +144,12 @@
 
         </div>
     </main>
+
 </div>
 
+
 {% endblock %}
+
+
+
+

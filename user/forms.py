@@ -40,14 +40,7 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
-
-
-class EditUserAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'is_active']
+        fields = ['username', 'email', 'is_active', ]
 
 
 # class PhoneFormSet(forms.Form):

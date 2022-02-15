@@ -3,7 +3,7 @@
 
 {% load i18n account static %}
 
-{% block title %} Lista Empresas {% endblock title %} 
+{% block title %} Lista Empresas {% endblock title %}
 
 {% block dashboard %}
 
@@ -33,9 +33,9 @@
                                 <td>{{ user.company_name }}</td>
                                 <td class="mask-cnpj">{{ user.document_number }}</td>
                                 <td>{{ user.state }}</td>
-                                <td >{{ user.city }}</td>
+                                <td>{{ user.city }}</td>
                                 <td align="center">
-                                    <a href="{% url 'company:admin_company_edit' user.pk %}" class="btn">
+                                    <a href="{% url 'company:company_edit' user.pk %}" class="btn">
                                         <i class="zmdi zmdi-edit material-icons-name"></i>
                                     </a>
                                 </td>
