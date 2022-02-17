@@ -24,7 +24,8 @@ class Signup2View(LoginRequiredMixin, CreateView):
             user.save()
             return self.form_valid(form)
         else:
-            return self.form_invalid(form)
+            return super(Signup2View, self).post(request, *args,
+                                                 **kwargs)
 
 
 signup_step_2 = Signup2View.as_view()
@@ -41,30 +42,28 @@ def companies_list(request):
 
 
 @login_required
-def company_edit(request, pk, queryset=None):
-    try:
-        user = request.user
-        if user.is_superuser:
-            company = get_object_or_404(Company, pk=pk)
+def company_edit(request, pk):
+    user = request.user
+    if user.is_superuser:
+        company = get_object_or_404(Company, pk=pk)
+    else:
+        company = get_object_or_404(Company, pk=user.company_id)        
+        
+    form = CompanyEditForm(instance=company)
+    
+    if request.method == 'POST':
+        form = CompanyEditForm(
+            request.POST,
+            request.FILES,
+            instance=company
+        )
+        
+        if form.is_valid():
+            company = form.save(commit=True)
+            return redirect('company:company_edit', company.pk)        
         else:
-            company = get_object_or_404(Company, pk=user.company_id)
-
-        form = CompanyEditForm(instance=company)
-        if request.method == 'POST':
-            form = CompanyEditForm(request.POST,
-                                   request.FILES, instance=company)
-            if form.is_valid():
-                company = form.save(commit=True)
-                if user.is_superuser:
-                    return redirect('company:companies_list')
-                else:
-                    return redirect('company:company_edit', user.company_id)
-            else:
-                return render(request, 'company/company_edit.html', {'form': form})
-
-        elif request.method == 'GET':
-            return render(request, 'company/company_edit.html', {'form': form})
-
-    except:
-        if queryset is None:
-            return redirect('company:signup2')
+            return render(request, 'company/company_edit.html', {'form':form})
+        
+    elif request.method == 'GET':
+        return render(request, 'company/company_edit.html', {'form': form})
+    

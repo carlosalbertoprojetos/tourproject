@@ -1,6 +1,24 @@
 from django.db import models
-from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from smart_selects.db_fields import ChainedForeignKey
+
+class States(models.Model):
+    name = models.CharField('Estado', max_length=20)
+    initials = models.CharField('UF', max_length=2)
+    
+    class Meta:
+        ordering =['name']
+        
+    def __str__(self):
+        return self.name
+    
+
+class Cities(models.Model):
+    state = models.ForeignKey(States, on_delete=models.CASCADE)
+    name = models.CharField('Cidade', max_length=100)
+    
+    class Meta:
+        ordering = ('state__name', 'name',)
 
 
 class Company(models.Model):
@@ -51,6 +69,13 @@ class Company(models.Model):
         null=True,
     )
 
+    state = models.CharField(
+        _('Estado'),
+        max_length=2,
+        blank=False,
+        null=True,
+    )
+
     city = models.CharField(
         _('Cidade'),
         max_length=100,
@@ -58,12 +83,24 @@ class Company(models.Model):
         null=True,
     )
 
-    state = models.CharField(
-        _('Estado'),
-        max_length=2,
-        blank=False,
-        null=True,
-    )
+    # state = models.ForeignKey(
+    #     States, 
+    #     _('Estado'),
+    #     on_delete=models.DO_NOTHING,        
+    #     max_length=2,
+    # )
+
+    # city = ChainedForeignKey(
+    #     Cities,
+    #     _('Cidade'),
+    #     on_delete=models.DO_NOTHING,
+    #     max_length=100,
+    #     chained_field='state',
+    #     chained_model_field='state',
+    #     show_all=False,
+    #     auto_choose=True,
+    #     sort=True,
+    # )
 
     def __str__(self):
         return self.company_name

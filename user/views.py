@@ -24,7 +24,7 @@ def user_edit(request, pk):
         form = EditUserForm(request.POST, instance=user)
 
         if form.is_valid():
-            user = form.save(commit=True)
+            user = form.save(commit=True)            
             return redirect('user:user_edit', user.pk)
         else:
             return render(request, 'user/user_edit.html', {'form': form})

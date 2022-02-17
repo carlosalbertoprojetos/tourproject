@@ -7,15 +7,11 @@
 
 {% block dashboard %}
 
-
 <div class="container-fluid">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title" style="margin-bottom: 33px;">Lista de Empresas</h2>
-
-
-
+                <h2 class="form-title">Lista de Empresas</h2>
                 <div class="table-responsive">
                     <table id="datatablesSimple">
                         <thead>
@@ -48,5 +44,39 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"></script>
+
+<script type="text/javascript">
+
+    $('#datatablesSimple').DataTable({
+        "language": {
+            "sProcessing":    "Procesando...",
+            "sLengthMenu":    "Exibir _MENU_ registros por página",
+            "sZeroRecords":   "Nenhum resultado encontrado",
+            "sEmptyTable":    "Nenhum resultado encontrado",
+            "sInfo":          "Exibindo do _START_ até _END_ de um total de _TOTAL_ registros",
+            "sInfoEmpty":     "Exibindo do 0 até 0 de um total de 0 registros",
+            "sInfoFiltered":  "(Filtrado de um total de _MAX_ registros)",
+            "sInfoPostFix":   "",
+            "sSearch":        "Buscar:",
+            "sUrl":           "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":    "Último",
+                "sNext":    "Próximo",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending":  ": Ativar para ordenar a columna de maneira ascendente",
+                "sSortDescending": ": Ativar para ordenar a columna de maneira descendente"
+            }
+        }
+    });
+    
+</script>
 
 {% endblock %}
