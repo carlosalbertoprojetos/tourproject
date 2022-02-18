@@ -610,7 +610,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 }
 
 footer {
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width:100%;
 }
@@ -619,11 +619,12 @@ footer {
   margin-top: 1rem;
   padding: 1rem;
   background-color: rgb(235, 195, 64);
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   left: 0;
   width: 100%;
 }
+
 
     @media (prefers-reduced-motion: no-preference) {
         :root {
@@ -12103,7 +12104,7 @@ footer {
       }
       .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
         width: 225px;
-        height: 100vh;
+        /* height: 100vh; */
         z-index: 1038;
       }
       /* .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
