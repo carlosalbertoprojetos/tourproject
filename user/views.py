@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 
+
 from .forms import EditUserForm
 from .models import User
 
@@ -15,13 +16,14 @@ def users_list(request):
     return render(request, 'user/users_list.html', context)
 
 
+
 @login_required
 def user_edit(request, pk):
     user = get_object_or_404(User, pk=pk)
     form = EditUserForm(instance=user)
 
     if request.method == 'POST':
-        form = EditUserForm(request.POST, instance=user)
+        form = EditUserForm(request.POST or None, instance=user)
 
         if form.is_valid():
             user = form.save(commit=True)            

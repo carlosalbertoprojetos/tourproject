@@ -8,7 +8,7 @@
 
 {% block dashboard %}
             
-<div class="container-fluid">
+<div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
@@ -18,21 +18,15 @@
                     {% csrf_token %}
                     {{ form.non_field_errors }}                
  
-                    {% if user.is_superuser %}
+                    <!-- {% if user.is_superuser %}
                     <div class="form-group">
-                        <div class="col-md-6">
-                            <div class="form-floating mb-1">
-                                <div class="form-check">
-                                    <label for="id_is_active">Usuário Ativo</label>
-                                </div>
-                                <div class="class-md-3">
-                                    {{ form.is_active }}
-                                    {{ form.is_active.errors }}
-                                </div>
-                            </div>
+                        {{ form.is_active.label_tag }}
+                        <div class="custom-control p-0 custom-checkbox custom-control-inline">
+                            <input id="id_is_active" name="is_active" type="checkbox" class=""
+                             {% if form.is_active.value %} checked {% endif %}/>
                         </div>
                     </div>
-                    {% endif %}
+                    {% endif %} -->
                     <div class="form-group mb-0">
                         <div class="col-md-12">
                             <div class="form-floating mb-1">

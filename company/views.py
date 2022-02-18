@@ -41,29 +41,32 @@ def companies_list(request):
     return render(request, 'company/companies_list.html', context)
 
 
+
 @login_required
-def company_edit(request, pk):
+def company_edit(request, pk):    
     user = request.user
     if user.is_superuser:
-        company = get_object_or_404(Company, pk=pk)
+        company = get_object_or_404(Company, pk=pk)    
     else:
-        company = get_object_or_404(Company, pk=user.company_id)        
-        
-    form = CompanyEditForm(instance=company)
+        company = get_object_or_404(Company, pk=user.company_id)
     
+    form = CompanyEditForm(instance=company)
+
     if request.method == 'POST':
-        form = CompanyEditForm(
-            request.POST,
-            request.FILES,
-            instance=company
-        )
-        
+        form = CompanyEditForm(request.POST or None, request.FILES or None, instance=company)
+
         if form.is_valid():
             company = form.save(commit=True)
-            return redirect('company:company_edit', company.pk)        
+            if user.is_superuser:
+                return redirect('company:companies_list')
+            else:
+                return redirect('company:company_edit', user.company_id)
+
         else:
-            return render(request, 'company/company_edit.html', {'form':form})
-        
+            return render(request, 'company/company_edit.html', {'form': form})
+
     elif request.method == 'GET':
         return render(request, 'company/company_edit.html', {'form': form})
     
+
+
