@@ -71,6 +71,7 @@ class Company(models.Model):
     city = models.CharField(
         _('Cidade'),
         max_length=100,
+        null=True
     )
 
     def __str__(self):

@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
-import django_heroku
-
 
 import django_heroku
 
@@ -201,6 +199,3 @@ LOGOUT_URL = '/accounts/logout/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
-
-
-
