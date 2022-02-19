@@ -74,11 +74,12 @@ class Company(models.Model):
         null=True
     )
 
-    def __str__(self):
-        return self.company_name
-
     class Meta:
         verbose_name_plural = 'Empresas'
+
+
+    def __str__(self):
+        return self.company_name
 
 
 class Contact(models.Model):

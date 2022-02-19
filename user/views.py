@@ -4,19 +4,18 @@ from django.urls import reverse_lazy as _
 
 from .forms import EditUserForm, SignupAgentForm
 from .models import User
+from company.models import Company
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def users_list(request):
-    object = User.objects.all()
+    object = User.objects.all()    
     context = {
         'object': object,
     }
-
     return render(request, 'user/users_list.html', context)
 
 
-# @user_passes_test(lambda u: (u.is_superuser or u.is_staff))
 @login_required
 def user_edit(request, pk):
     obj = get_object_or_404(User, pk=pk)
