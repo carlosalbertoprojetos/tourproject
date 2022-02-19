@@ -11,7 +11,8 @@ class User(AbstractUser):
     OPTION_CHOICES = [
         ('0', _('Admin')),
         ('1', _('Agência')),
-        ('2', _('Fornecedor')),
+        ('2', _('Agente')),
+        ('3', _('Fornecedor')),
     ]
 
     email = models.EmailField(

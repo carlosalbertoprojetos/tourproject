@@ -19,7 +19,7 @@
                                     <div class="signup2-content mt-2pl-0">
                                         <div class="signup-image ">
                                             <figure><img src="{% static 'images/signup2-image.jpg' %}" alt="sing up image"></figure>
-                                        </div>                                        
+                                        </div>
                                         <div class="signup-form signup-form2">
                                             <form method="POST" class="register-form" enctype="multipart/form-data">
                                                 {% csrf_token %}
@@ -45,7 +45,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-floating mb-1">
-                                                            <input class="btn btn-flat" id="id_document_image" name="document_image" accept="image/*" type="file" value="{{ form.document_image.value }}"/>
+                                                            <input class="btn btn-flat" id="id_document_image" name="document_image" accept="documentos/*" type="file" value="{{ form.document_image.value }}"/>
                                                             {{ form.document_image.errors }}
                                                         </div>
                                                     </div>

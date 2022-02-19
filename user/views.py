@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy as _
 
-
-from .forms import EditUserForm
+from .forms import EditUserForm, SignupAgentForm
 from .models import User
 
 
@@ -16,6 +16,7 @@ def users_list(request):
     return render(request, 'user/users_list.html', context)
 
 
+# @user_passes_test(lambda u: (u.is_superuser or u.is_staff))
 @login_required
 def user_edit(request, pk):
     obj = get_object_or_404(User, pk=pk)
@@ -36,3 +37,23 @@ def user_edit(request, pk):
 
     elif request.method == 'GET':
         return render(request, 'user/user_edit.html', {'form': form})
+
+
+@user_passes_test(lambda u: u.is_staff)
+def agent_signup(request):
+    if request.method == "POST":
+        form = SignupAgentForm(request.POST)
+        if form.is_valid():
+            agent = form.save(commit=False)
+            user = request.user
+            agent.company_id = user.company_id
+            agent.option = '2'
+            agent = form.save()
+            return redirect('company:company_agents_list')
+
+    form = SignupAgentForm()
+    template_name = "account/signup_agent.html"
+    context = {
+        "form": form
+    }
+    return render(request, template_name, context)

@@ -74,7 +74,7 @@ class CompanyEditForm(forms.ModelForm):
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
         
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get['email']
         email = sanitize_number(email)
         queryset = Company.objects.filter(email=email)
         if queryset.exists():
