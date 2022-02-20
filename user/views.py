@@ -1,15 +1,15 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 
 from .forms import EditUserForm, SignupAgentForm
 from .models import User
-from company.models import Company
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def users_list(request):
-    object = User.objects.all()    
+    object = User.objects.all()
     context = {
         'object': object,
     }
@@ -27,6 +27,7 @@ def user_edit(request, pk):
 
         if form.is_valid():
             obj = form.save(commit=True)
+            messages.success(request, 'Dados alterados com sucesso!!!')
             if user.is_superuser:
                 return redirect('user:users_list')
             else:
@@ -48,6 +49,7 @@ def agent_signup(request):
             agent.company_id = user.company_id
             agent.option = '2'
             agent = form.save()
+            messages.success(request, 'Agente cadastrado com sucesso!!!')
             return redirect('company:company_agents_list')
 
     form = SignupAgentForm()

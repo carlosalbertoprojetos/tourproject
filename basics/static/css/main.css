@@ -609,6 +609,16 @@ table.dataTable tbody th, table.dataTable tbody td {
     vertical-align: middle;
 }
 
+/* .masthead {
+  max-height: 920px;
+  margin-bottom: 50px;
+  background: no-repeat center center;
+  background-color: #868e96;
+  background-attachment: scroll;
+  position: relative;
+  background-size: cover;
+} */
+
 footer {
     /* position: fixed; */
     bottom: 0;
@@ -1244,7 +1254,7 @@ footer {
       .row > * {
         flex-shrink: 0;
         width: 100%;
-        max-width: 99.5%;
+        /* max-width: 99.5%; */
         padding-right: calc(var(--bs-gutter-x) * 0.3);
         padding-left: calc(var(--bs-gutter-x) * 0.4);
         margin-top: var(--bs-gutter-y);
@@ -12435,9 +12445,9 @@ footer {
         text-align: center;
       }
 
-      .dataTables_filter {
+      /* .dataTables_filter {
         margin-right: 0.3em;
-      }
+      } */
       
       .dataTable-top::after,
       .dataTable-bottom::after {

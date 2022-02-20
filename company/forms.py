@@ -43,7 +43,7 @@ class Signup2Form(forms.ModelForm):
         queryset = Company.objects.filter(
             document_number=document_number).exclude(pk=self.instance.pk)
         if queryset.exists():
-            raise forms.ValidationError('Documento já cadastrado!')
+            raise forms.ValidationError('Documento já cadastrado.')
         return document_number
 
     def clean_postal_code(self):
@@ -87,7 +87,7 @@ class CompanyEditForm(forms.ModelForm):
         queryset = Company.objects.filter(
             document_number=document_number).exclude(pk=self.instance.pk)
         if queryset.exists():
-            raise forms.ValidationError('Documento já cadastrado!')
+            raise forms.ValidationError('Documento já cadastrado.')
         return document_number
     
     def clean_postal_code(self):

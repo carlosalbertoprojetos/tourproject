@@ -1,8 +1,8 @@
 from allauth.account.forms import SignupForm
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.forms import UserCreationForm
 
 from .models import User
 
@@ -37,23 +37,25 @@ class CustomSignupForm(SignupForm):
 
 
 class SignupAgentForm(UserCreationForm):
-    
-    email = forms.EmailField(required=True, help_text='Campo obrigatório! Insira um email válido!')
+
+    email = forms.EmailField(
+        required=True, help_text='Campo obrigatório! Insira um email válido!')
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'email',]
+        fields = ['username', 'email', ]
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Este email já está cadastrado, por favor insira outro.')
-        return email    
-    
+            raise forms.ValidationError(
+                'Este email já está cadastrado, por favor insira outro.')
+        return email
+
     def clean_password1(self):
         password = self.data.get('password1')
         lpassword = len(password)
-        
+
         if lpassword < 8 or lpassword > 16:
             raise ValidationError('A senha deve ter de 8 a 16 caracteres')
 
@@ -63,17 +65,13 @@ class SignupAgentForm(UserCreationForm):
         if not any(char.isalpha() for char in password):
             raise ValidationError('A senha deve conter pelo menos 1 letra')
         return password
-    
-    
+
     def save(self, commit=True):
         user = super(SignupAgentForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
-        return user 
-
-
-
+        return user
 
 
 class EditUserForm(forms.ModelForm):
@@ -81,7 +79,6 @@ class EditUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
-
 
 
 # class PhoneFormSet(forms.Form):

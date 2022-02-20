@@ -212,6 +212,10 @@ table {
   border-collapse: collapse;
 }
 
+.Table1_Wrapper > .row > .Table1_info {
+  text-align: left;
+}
+
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;

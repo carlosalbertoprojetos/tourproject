@@ -8,26 +8,28 @@
 {% block base %}
 
 <div class="container-fluid">
-    <div class="justify-content-center">
-        <div class="content-header">
-            <div class="container">
-                <div class="text-center mt-5">
-                    <div class="row">
-                        <h1>HOMEPAGE</h1>
-                        <p>Bem vindo, {{ request.user.username|default:'Visitante' }}</p>
-                        
-                        {% if user.is_authenticated %}
-                        <div class="button mt-3"><a href="{% url 'user:dashboard' %}">Dashboard</a></div>
-                        <div class="button mt-3"><a href="{% url 'account_logout' %}">Sair</a></div>
-                        {% else %}
-                        <div class="button mt-3"><a href="{% url 'account_signup' %}">Cadastrar</a></div>
-                        <div class="button mt-3"><a href="{% url 'account_login' %}">Entrar</a></div>
-                        {% endif %}
+    <!-- <dir class="masthead" style="background-image: url(/static/images/mapa2.jpg)"> -->
+        <div class="justify-content-center">
+            <div class="content-header">
+                <div class="container">
+                    <div class="text-center mt-5">
+                        <div class="row">
+                            <h1>HOMEPAGE</h1>
+                            <p>Bem vindo, {{ request.user.username|default:'Visitante' }}</p>
+                            
+                            {% if user.is_authenticated %}
+                            <div class="button mt-3"><a href="{% url 'user:dashboard' %}">Dashboard</a></div>
+                            <div class="button mt-3"><a href="{% url 'account_logout' %}">Sair</a></div>
+                            {% else %}
+                            <div class="button mt-3"><a href="{% url 'account_signup' %}">Cadastrar</a></div>
+                            <div class="button mt-3"><a href="{% url 'account_login' %}">Entrar</a></div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </dir> -->
 </div>
 
 {% endblock %}
