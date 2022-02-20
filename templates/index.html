@@ -7,7 +7,7 @@
 
 {% block base %}
 
-<div class="container-fluid">
+<div class="container-fluid" id="index">
     <!-- <dir class="masthead" style="background-image: url(/static/images/mapa2.jpg)"> -->
         <div class="justify-content-center">
             <div class="content-header">
@@ -18,11 +18,11 @@
                             <p>Bem vindo, {{ request.user.username|default:'Visitante' }}</p>
                             
                             {% if user.is_authenticated %}
-                            <div class="button mt-3"><a href="{% url 'user:dashboard' %}">Dashboard</a></div>
-                            <div class="button mt-3"><a href="{% url 'account_logout' %}">Sair</a></div>
+                            <div class="button mt-3"><h4><a href="{% url 'user:dashboard' %}">Dashboard</a></h4></div>
+                            <div class="button mt-3"><h4><a href="{% url 'account_logout' %}">Sair</a></h4></div>
                             {% else %}
-                            <div class="button mt-3"><a href="{% url 'account_signup' %}">Cadastrar</a></div>
-                            <div class="button mt-3"><a href="{% url 'account_login' %}">Entrar</a></div>
+                            <div class="button mt-3"><h4><a href="{% url 'account_signup' %}">Cadastrar</a></h4></div>
+                            <div class="button mt-3"><h4><a href="{% url 'account_login' %}">Entrar</a></h4></div>
                             {% endif %}
                         </div>
                     </div>
