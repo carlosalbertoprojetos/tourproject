@@ -1265,8 +1265,7 @@ footer {
       }
 
       .card-header > .card > .container-form > .dataTables_wrapper > .row {
-        min-height: 200px;
-      
+        min-height: 200px;      
       }
       
       .row-cols-auto > * {
@@ -12069,7 +12068,7 @@ footer {
         justify-content: space-between;
         min-width: 0;
         flex-grow: 1;
-        min-height: calc(100vh - 56px);
+        min-height: calc(100vh - 125px);
         margin-left: -225px;
       }
       
@@ -12463,9 +12462,6 @@ footer {
         border-radius: 0.25rem !important;
       }
 
-
-
-      /* ======================================================== */
       @media (min-width: 992px) {
         .col-lg {
           -ms-flex-preferred-size: 0;
