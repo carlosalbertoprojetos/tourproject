@@ -19,7 +19,7 @@
                             <th>Usuário</th>
                             <th>Mod.</th>
                             <th>Email</th>
-                            <th>Conta ativa</th>
+                            <th>Conta</th>
                             <th>Empresa</th>
                             <th>Editar</th>
                         </tr>
@@ -29,7 +29,7 @@
                             <th>Usuário</th>
                             <th>Mod.</th>
                             <th>Email</th>
-                            <th>Conta ativa</th>
+                            <th>Conta</th>
                             <th>Empresa</th>
                             <th>Editar</th>
                         </tr>
@@ -40,8 +40,18 @@
                             <td>{{ user.username }}</td>
                             <td>{{ user.get_option_display }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.is_active }}</td>
-                            <td>{{ user.company }}</td>
+                            <td >{% if user.is_active == 'True' %}
+                                Inativa
+                                {% else %}
+                                Ativa
+                                {% endif %}
+                            </td>
+                            <td >{% if user.company == None %}
+                                Não Cadastrado
+                                {% else %}
+                                {{ user.company }}
+                                {% endif %}
+                            </td>
                             <td align="center">
                                 <a href="{% url 'user:user_edit' user.pk %}" class="btn">
                                     <i class="zmdi zmdi-edit material-icons-name"></i>
