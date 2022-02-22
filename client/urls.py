@@ -1,12 +1,12 @@
 from django.urls import path
 
-from . import views
+from .views import client_list
 
 app_name = 'client'
 
 urlpatterns = [   
      
-    path('list/', views.list_view),
+    path('list/', client_list,name='client_list'),
     
     #path('register/', RegisterClientView.as_view(), name='client_register'),
 
