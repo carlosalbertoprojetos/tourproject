@@ -600,7 +600,7 @@ html {
   }
 
 .justify-content-center > .content-header{
-    min-height: 500px;
+    min-height: 600px;
   }
 
 table.dataTable tbody th, table.dataTable tbody td {
@@ -633,6 +633,11 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
+}
+
+.button > h4 > a {
+  color: rgb(64, 90, 235);
+  text-shadow: 2px 2px 8px rgb(64, 90, 235);
 }
 
 
@@ -12073,7 +12078,8 @@ footer {
       #index {
         background-image: url("/static/images/home2.jpg");
         background-repeat: no-repeat;
-        background-size: 95% 110%;
+        background-size: 95%;
+        background-position: center;
         position: relative;
       }
       
@@ -14711,11 +14717,11 @@ footer {
         border-bottom-right-radius: 0;
       }
       
-      .btn-group > .btn:not(:first-child),
+      /* .btn-group > .btn:not(:first-child),
       .btn-group > .btn-group:not(:first-child) > .btn {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-      }
+      } */
       
       .dropdown-toggle-split {
         padding-right: 0.5625rem;
