@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from user.models import User
+from users.models import User
 
 from .forms import CompanyEditForm, Signup2Form
 from .models import Company
