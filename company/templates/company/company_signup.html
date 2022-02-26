@@ -29,24 +29,25 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-floating mb-1">
+                                                            <input class="form-control" id="id_responsible" name="responsible" type="text" value="{{ form.responsible.value|default:''  }}"/>
+                                                            {{ form.responsible.errors }}
+                                                            <label for="id_responsible">Nome Completo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="form-floating mb-1">
                                                             <input class="form-control" id="id_company_name" name="company_name" type="text" value="{{ form.company_name.value|default:'' }}"/>
                                                             {{ form.company_name.errors }}
                                                             <label for="id_company_name">Razão Social</label>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-5">
                                                         <div class="form-floating mb-1">
                                                             <input class="mask-cnpj form-control" id="id_document_number" name="document_number" type="text"value="{{ form.document_number.value }}"/>
                                                             {{ form.document_number.errors }}
                                                             <label for="id_document_number">CNPJ</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-floating mb-1">
-                                                            <input class="btn btn-flat" id="id_document_image" name="document_image" accept="documentos/*" type="file" value="{{ form.document_image.value }}"/>
-                                                            {{ form.document_image.errors }}
                                                         </div>
                                                     </div>
                                                 </div>

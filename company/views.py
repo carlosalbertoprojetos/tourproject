@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from users.models import User
+from user.models import User
 
 from .forms import CompanyEditForm, Signup2Form
 from .models import Company
@@ -76,30 +76,6 @@ def company_edit(request, pk):
 
     except:
         return redirect('company:signup2')
-
-
-# def company_edit_admin(request, pk):
-#     user = request.user
-#     if user.is_superuser:
-#         company = get_object_or_404(Company, pk=pk)
-#         form = CompanyEditForm(instance=company)
-
-#         if request.method == 'POST':
-#             form = CompanyEditForm(
-#                 request.POST or None, request.FILES or None, instance=company)
-
-#             if form.is_valid():
-#                 company = form.save(commit=True)
-#                 if user.is_superuser:
-#                     return redirect('company:companies_list')
-#                 else:
-#                     return redirect('company:company_edit', user.company_id)
-
-#             else:
-#                 return render(request, 'company/company_edit.html', {'form': form})
-
-#         elif request.method == 'GET':
-#             return render(request, 'company/company_edit.html', {'form': form})
 
 
 @user_passes_test(lambda u: u.is_staff)

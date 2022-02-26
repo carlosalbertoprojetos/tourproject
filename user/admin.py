@@ -15,10 +15,10 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'username', 'option', 'is_active', 'last_login')
+    list_display = ('email', 'option', 'is_active', 'last_login')
     # inlines = [
     #     ContactAdmin,
     #     SocialMediaAdmin,
     # ]
     readonly_fields = ('last_login',)
-    fields = ['option', ('email', 'username', 'is_active')]
+    fields = ['option', ('email', 'is_active')]

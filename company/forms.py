@@ -1,6 +1,5 @@
 from company.utils import sanitize_number
 from django import forms
-from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
 from .models import Company
@@ -10,9 +9,9 @@ class Signup2Form(forms.ModelForm):
     class Meta:
         model = Company
         fields = (
+            'responsible',
             'company_name',
             'document_number',
-            'document_image',
             'street',
             'number',
             'complement',
@@ -57,10 +56,6 @@ class Signup2Form(forms.ModelForm):
 
 
 class CompanyEditForm(forms.ModelForm):
-
-    document_image = forms.ImageField(
-        widget=ClearableFileInput
-    )
 
     class Meta:
         model = Company

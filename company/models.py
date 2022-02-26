@@ -23,53 +23,20 @@ class Cities(models.Model):
 
 class Company(models.Model):
 
-    company_name = models.CharField(
-        _('Razão Social'),
-        max_length=100,
+    responsible = models.CharField(_('Nome Completo'), max_length=100)
+    company_name = models.CharField(_('Razão Social'), max_length=100)
+    document_number = models.CharField(_('CPF/CNPJ'), 
+                                       max_length=18, unique=True,
     )
-
-    document_number = models.CharField(
-        _('CPF/CNPJ'),
-        max_length=18,
-        unique=True,
-    )
-
-    document_image = models.ImageField(
-        upload_to='documentos/',
-        default=None,
-        blank=True,
-        null=True,
-    )
-
-    street = models.CharField(
-        _('Logradouro'),
-        max_length=200,
-    )
-
-    number = models.CharField(
-        _('Número'),
-        max_length=30,
-    )
-
+    street = models.CharField(_('Logradouro'), max_length=200)
+    number = models.CharField(_('Número'), max_length=30)
     complement = models.CharField(
-        _('Complemento'),
-        max_length=100,
-        blank=True,
-        null=True,
+        _('Complemento'), max_length=100,
+        blank=True, null=True,
     )
-
-    postal_code = models.CharField(
-        _('CEP'),
-        max_length=11,
-    )
-
-    state = models.CharField(
-        _('Estado'),
-        max_length=2,
-    )
-
-    city = models.CharField(
-        _('Cidade'),
+    postal_code = models.CharField(_('CEP'), max_length=11)
+    state = models.CharField(_('Estado'), max_length=2)
+    city = models.CharField(_('Cidade'),
         max_length=100,
         null=True
     )
@@ -77,9 +44,8 @@ class Company(models.Model):
     class Meta:
         verbose_name_plural = 'Empresas'
 
-
     def __str__(self):
-        return self.company_name
+        return self.responsible or self.company_name
 
 
 class Contact(models.Model):

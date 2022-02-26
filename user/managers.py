@@ -9,7 +9,7 @@ class DefaultUserManager(UserManager):
 
     def create_superuser(self, email, password=None):
         user = self.create_user(
-            username=email,
+            # username=email,
             email=email,
             password=password,
             option='0',

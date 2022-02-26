@@ -6,6 +6,6 @@ from .models import Company
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['company_name', 'document_number', ]
-    fields = [('company_name', 'document_number', 'document_image'),
+    fields = [('responsible', 'company_name', 'document_number'),
               ('street', 'number', 'complement'), ('city', 'state', 'postal_code')]
 

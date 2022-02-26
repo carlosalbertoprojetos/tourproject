@@ -94,14 +94,20 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = None
-
 ACCOUNT_FORMS = {
     'signup': 'user.forms.CustomSignupForm',
 }
 
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
 ACCOUNT_SIGNUP_REDIRECT_URL = '/company/signup/2/'
 
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET=False
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

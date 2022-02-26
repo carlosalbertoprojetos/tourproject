@@ -43,7 +43,7 @@ class SignupAgentForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'email', ]
+        fields = ['email', ]
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -78,7 +78,7 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'is_active']
+        fields = ['email', 'is_active']
 
 # class PhoneFormSet(forms.Form):
 
