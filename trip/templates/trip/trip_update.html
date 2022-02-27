@@ -3,30 +3,29 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Editar Produto{% endblock title %}
+{% block title %}Editar Passeio{% endblock title %}
 
 
 {% block dashboard %}
 
 
-<main id="form-dash">
-    <div class="col-lg-6 col-md-12 container pt-4">
-        <div class="card ms-2">
+<div class="container-fluid mt-2">
+    <div class="card">
+        <div class="container-form">
             <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                Editar Produto
-            </div>
-            <div class="card-body">
+                <h2 class="form-title">Editar Cadastro de Passeio</h2>
+
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
+                    {{ form.non_field_errors }}
                     {{ form|crispy }}
-                    <div class="mt-2">
-                        <div class="">
-                            <input type="submit" class="btn btn-dark" value="Salvar" />
+                    <div class="col-md-12 mb-2">
+                        <div class="form-group form-button">
+                            <input type="submit" class="form-submit" value="Salvar" />
                         </div>
                     </div>
                 </form>
-            </div>  
+            </div>
         </div>
     </div>
 </main>

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'basics',
     'user',
     'company',
+    'trip',
 ]
 
 

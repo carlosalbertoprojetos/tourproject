@@ -1,34 +1,27 @@
 from django import forms
 
-from .models import Products
+from .models import Trip
 
 
-class ProductForm(forms.ModelForm):
-    fieldsets = [
-        ('Identificação', {'fields': [
-            ('category', 'name'),
-        ]}),
-        ('Detalhes', {'fields': [
-            ('price', 'available'),
-            'description', 
-        ]}),
+class TripForm(forms.ModelForm):
+    # fieldsets = [
+    #     ('Passeio', {'fields': [
+    #         ('name', 'slug', 'image'),
+    #     ]}),
+    #     ('Detalhes', {'fields': [
+    #         ('trip_description', 'short_description'),
+    #         'politic', 
+    #     ]}),
         
-        ('Controle', {'fields': [
-            'created_at',
-            'updated',
-        ]}),
-        
-        ('Situação/Etnia', {'fields': [
-            'status',
-        ]}),
-    ]
+    #     ('Percurso', {'fields': [
+    #         'trip_duration',
+    #         'travel_time',
+    #         'travel_time_untoplace',
+    #         'limit_load',
+    #     ]}),
+    # ]
 
     class Meta:
-        model = Products
+        model = Trip
         fields = '__all__'
-        exclude = ['user',]
-        readonly_fields = ['created_at', 'updated_at']
-
-
-
 

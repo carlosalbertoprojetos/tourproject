@@ -3,70 +3,67 @@ from django.urls import reverse_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .forms import ProductForm
-from .models import Categories, Products
-
-
+from .forms import TripForm
+from .models import Categories, Trip
 
 
 class CategoryRegisterView(CreateView):
     model = Categories
-    template_name = 'product/category_register.html'
     fields = '__all__'
+    template_name = 'trip/category_register.html'
     success_message = 'Categoria cadastrada com sucesso!!!'
-    success_url = _('product:products_list')
+    success_url = _('trip:trip_list')
 
 
 category_register = CategoryRegisterView.as_view()
 
 
-class ProductRegisterView(SuccessMessageMixin, CreateView):
-    model = Products
-    form_class = ProductForm
-    template_name = 'product/product_register.html'
-    success_message = 'Produto cadastrado com sucesso!!!'
-    success_url = _('product:products_list')
+class TripRegisterView(SuccessMessageMixin, CreateView):
+    model = Trip
+    form_class = TripForm
+    template_name = 'trip/trip_register.html'
+    success_message = 'Passeio cadastrado com sucesso!!!'
+    success_url = _('trip:trip_list')
 
 
-product_register = ProductRegisterView.as_view()
+trip_register = TripRegisterView.as_view()
 
 
-class ProductsListView(ListView):
-    model = Products
+class TripListView(ListView):
+    model = Trip
     paginate_by = 4
-    template_name = 'product/products_list.html'
-    # template_name = 'product/products_list_dash.html'
+    template_name = 'trip/trip_list.html'
 
 
-products_list = ProductsListView.as_view()
+trip_list = TripListView.as_view()
 
 
-class ProductsDetailView(DetailView):
-    model = Products
-    template_name = 'product/product_details.html'
+class TripDetailView(DetailView):
+    model = Trip
+    template_name = 'trip/trip_details.html'
 
 
-product_details = ProductsDetailView.as_view()
+trip_details = TripDetailView.as_view()
 
 
-class ProductUpdateView(UpdateView):
-    model = Products
-    form_class = ProductForm
-    template_name = 'product/product_update.html'
-    success_message = 'Produto atualizado com sucesso!!!'
-    success_url = _('product:products_list')
+class TripUpdateView(UpdateView):
+    model = Trip
+    form_class = TripForm
+    template_name = 'trip/trip_update.html'
+    success_message = 'Passeio atualizado com sucesso!!!'
+    success_url = _('trip:trip_list')
 
 
-product_update = ProductUpdateView.as_view()
+trip_update = TripUpdateView.as_view()
 
 
-# class ProductsDeleteView(DeleteView):
-#     model = Products
-#     template_name = 'products/products_delete.html'
-#     success_url = reverse_lazy('produto:listar_produtos')
+# class TripDeleteView(DeleteView):
+#     model = Trip
+#     template_name = 'trip/trip_delete.html'
+#     success_url = _('trip:trip_list')
 
 #     def delete(self, request, *args, **kwargs):
-#         return super(ProductsDeleteView, self).delete(request, *args, **kwargs)
+#         return super(TripDeleteView, self).delete(request, *args, **kwargs)
 
 
-# product_delete = ProductsDeleteView.as_view()
+# trip_delete = TripDeleteView.as_view()

@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Novo Cliente{% endblock title %}
+{% block title %}Detalhes do Passeio{% endblock title %}
 
 
 {% block dashboard %}
@@ -16,20 +16,42 @@
                 <div class="card-body">
                     <div class="row p-0">
                         <div class="col-5 card-body pb-0">
-                            <h2>{{ object.name }}</h2><br>
-                            <p>Detalhes: <b>{{ object.description | safe}}</b></p>
-                            <p>Valor: <b>R$ {{ object.price }}</b></p>
+                            <p>{{ object.name }}</p>
+                            <p>{{ object.slug }}</p>
+                            <p>{{ object.image }}</p>
+                            <p>{{ object.trip_description }}</p>
+                            <p>{{ object.short_description }}</p>
+                            <p>{{ object.politic }}</p>
+                            <p>{{ object.trip_duration }}</p>
+                            <p>{{ object.travel_time }}</p>
+                            <p>{{ object.travel_time_untoplace }}</p>
+                            <p>{{ object.ride_distance }}</p>
+                            <p>{{ object.limit_load }}</p>
+                            <p>{{ object.commission }}</p>
+                            <p>{{ object.category }}</p>
+                            <p>{{ object.provider }}</p>
+                            <p>{{ object.tour_notes }}</p>
+                            <p>{{ object.featured_image }}</p>
+                            <p>{{ object.seo }}</p>
+                            <p>{{ object.title }}</p>
+                            <p>{{ object.description }}</p>
+                            <p>{{ object.description }}</p>
+                            <p>{{ object.btms }}</p>
+
+
+                            <!-- <h2>{{ object.name }}</h2><br>
+                            <p>Detalhes: <b>{{ object.description | safe}}</b></p> -->
                         </div>
-                        <div class="col-5 card-body pb-0">    
-                            {% if product.image %}
+                        <!-- <div class="col-5 card-body pb-0">    
+                            {% if object.image %}
                             <img class="card-img-top" src="media/{{produtos.image}}" alt="">
                             {% else %}
                             <img class="card" src="media/no_image.jpg" alt="">
                             {% endif %}
-                        </div>
+                        </div> -->
                         <div class="row m-1">
                             <div class="card-body pt-0">
-                                <a href="{% url 'product:product_update' object.pk %}" class='btn btn-dark'>Editar</a>
+                                <a href="{% url 'trip:trip_update' object.pk %}" class='btn btn-dark'>Editar</a>
                             </div>
                         </div>
                     </div>

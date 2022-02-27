@@ -46,7 +46,7 @@ def companies_list(request):
 
 
 @user_passes_test(lambda u: u.option != '2')
-def company_edit(request, pk):
+def company_update(request, pk):
 
     user = request.user
     try:
@@ -66,13 +66,13 @@ def company_edit(request, pk):
                 if user.is_superuser:
                     return redirect('company:companies_list')
                 else:
-                    return redirect('company:company_edit', user.company_id)
+                    return redirect('company:company_update', user.company_id)
 
             else:
-                return render(request, 'company/company_edit.html', {'form': form})
+                return render(request, 'company/company_update.html', {'form': form})
 
         elif request.method == 'GET':
-            return render(request, 'company/company_edit.html', {'form': form})
+            return render(request, 'company/company_update.html', {'form': form})
 
     except:
         return redirect('company:signup2')

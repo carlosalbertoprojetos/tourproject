@@ -1,3 +1,4 @@
+from company.models import Company
 from django.db import models
 
 
@@ -30,30 +31,27 @@ class Trip(models.Model):
     travel_time_untoplace = models.CharField('Tempo de percurso até o local do passeio', max_length=255)
     
     ride_distance = models.CharField('Distância do passeio', max_length=255)
+    
     limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)
     
-    commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2)
+    commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)
     
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    
+    provider = models.ForeignKey(Company, on_delete=models.CASCADE)
     
     tour_notes = models.TextField('Descrição do passeio', blank=True)
     
-    document_image = models.ImageField(
-        upload_to='documentos/',
-        default=None,
-    )
-    view_tours = models.CharField('Distância do passeio', max_length=255)
-    
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')    
     
-    seo = models.DecimalField('Dados para SEO', max_digits=155)
+    seo = models.CharField('Dados para SEO', max_length=155)
                               
     title = models.CharField('Títilo', max_length=150)
+    
     description = models.CharField('Descrição', max_length=300)
 
-
-    description = models.CharField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)
+    description_BTMS = models.CharField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)
+    
     btms = models.CharField('Codigo BTMS', max_length=300)
 
     class Meta:

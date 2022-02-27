@@ -43,10 +43,10 @@
                     <div class="collapse" id="collapseSettings" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">Usuário/Email</a>
+                            <a class="nav-link" href="{% url 'user:user_update' user.pk %}">Usuário/Email</a>
                             <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>
                             {% if user.option == '1' or user.option == '3' %}
-                            <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>
+                            <a class="nav-link" href="{% url 'company:company_update' user.pk %}">Empresa</a>
                             {% endif %}
                         </nav>
                     </div>
@@ -104,14 +104,14 @@
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts"
                         aria-expanded="false" aria-controls="collapseProdocts">
                         <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
-                        Registros
+                        Passeios
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Cadastrar</a>
-                            <a class="nav-link" href="#">Editar</a>
+                            <a class="nav-link" href="{% url 'trip:trip_register' %}">Registrar</a>
+                            <a class="nav-link" href="{% url 'trip:trip_list' %}">Listar</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"

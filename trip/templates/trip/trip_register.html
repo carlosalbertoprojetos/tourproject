@@ -3,38 +3,28 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Novo Produto{% endblock title %}
+{% block title %}Novo Passeio{% endblock title %}
 
 
 {% block dashboard %}
 
 
-<div class="container justify-content-center" style='margin-top:20px'>
+<div class="container-fluid mt-2">
     <div class="card">
-        <div class="card-header">
-            <h1>Novo Produto</h1>
+        <div class="container-form">
+            <div class="card-header">
+                <h2 class="form-title">Novo Passeio</h2>
+                <form method="POST" class="register-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form|crispy }}
+                    <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
+                    </div> 
+                </form>
+            </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <form method="POST" enctype="multipart/form-data">
-                <div class="mt-2 pb-2">
-                    <div class="">
-                        <a href="{% url 'product:category_register' %}" type="button" class="btn btn-dark" value="">Nova Categoria</a>
-                    </div>
-                </div>
-                {% csrf_token %}
-                {{ form.non_field_errors }}
-                {{ form|crispy }}
-                <div class="mt-2">
-                    <div class="">
-                        <input type="submit" class="btn btn-dark" value="Salvar" />
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> 
 </div>
 
 {% endblock %}
-

@@ -17,7 +17,7 @@ def users_list(request):
 
 
 @login_required
-def user_edit(request, pk):
+def user_update(request, pk):
     obj = get_object_or_404(User, pk=pk)
     form = EditUserForm(instance=obj)
     user = request.user
@@ -31,12 +31,12 @@ def user_edit(request, pk):
             if user.is_superuser:
                 return redirect('user:users_list')
             else:
-                return redirect('user:user_edit', user.pk)
+                return redirect('user:user_update', user.pk)
         else:
-            return render(request, 'user/user_edit.html', {'form': form})
+            return render(request, 'user/user_update.html', {'form': form})
 
     elif request.method == 'GET':
-        return render(request, 'user/user_edit.html', {'form': form})
+        return render(request, 'user/user_update.html', {'form': form})
 
 
 @user_passes_test(lambda u: u.is_staff)
