@@ -19,8 +19,8 @@
                             <th>Usuário</th>
                             <th>Mod.</th>
                             <th>Email</th>
-                            <th>Conta</th>
                             <th>Empresa</th>
+                            <th>Ativo</th>
                             <th>Editar</th>
                         </tr>
                     </thead>
@@ -29,8 +29,8 @@
                             <th>Usuário</th>
                             <th>Mod.</th>
                             <th>Email</th>
-                            <th>Conta</th>
                             <th>Empresa</th>
+                            <th>Ativo</th>
                             <th>Editar</th>
                         </tr>
                     </tfoot>
@@ -40,21 +40,21 @@
                             <td>{{ user.username }}</td>
                             <td>{{ user.get_option_display }}</td>
                             <td>{{ user.email }}</td>
-                            <td >{% if user.is_active == 'True' %}
-                                Inativa
-                                {% else %}
-                                Ativa
-                                {% endif %}
-                            </td>
-                            <td >{% if user.company == None %}
+                            <td>{% if user.company == None %}
                                 Não Cadastrado
                                 {% else %}
                                 {{ user.company }}
                                 {% endif %}
                             </td>
+                            <td align="center">{% if user.is_active %}
+                                <i class="fas fa-user-check"></i>
+                                {% else %}
+                                <i class="fas fa-user-times"></i>
+                                {% endif %}
+                            </td>
                             <td align="center">
                                 <a href="{% url 'user:user_update' user.pk %}" class="btn">
-                                    <i class="zmdi zmdi-edit material-icons-name"></i>
+                                    <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>
                         </tr>
