@@ -5,7 +5,7 @@ from django.contrib.auth.models import UserManager
 class DefaultUserManager(UserManager):
 
     def create_user(self, email, option, password=None, is_staff=False, is_superuser=False, is_active=True):
-
+    
         user_obj = self.model(
             email=self.normalize_email(email),
         )
