@@ -1,0 +1,54 @@
+{% extends 'dashboard.html' %}
+
+{% load i18n account static %}
+
+{% block title %} Lista de Clientes {% endblock title %} 
+
+{% block dashboard %}
+
+<div class="container-fluid">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Clientes</h3>
+        </div>
+        <div class="table-responsive">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>                  
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Cel</th>
+                        <th>Conta Ativa</th>
+                        <th>Editar</th>
+                    </tr>				
+                </thead>
+                <tbody>
+                    {% for c in clients %}
+                    <tr>
+                        <td>{{ c.name }}</td>
+                        <td>{{ c.email }}</td>
+                        <td>{{ c.cel }}</td>                        
+                        <td align="center">
+                            <a href="#" class="btn">
+                                {% if c.is_active is True%}
+                                    <i class="zmdi zmdi-assignment-check material-icons-name"></i>
+                                    {% else %}
+                                        <i class="zmdi zmdi-square-o material-icons-name"></i>
+                                {% endif%}
+                            </a>
+                        </td>                        
+                        <td align="center">
+                            <a href="{% url 'client:client_edit' c.id%}" class="btn">
+                                
+                                <i class="zmdi zmdi-edit material-icons-name"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}                          
+                <tbody>               
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

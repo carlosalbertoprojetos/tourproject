@@ -1,0 +1,54 @@
+{% extends 'dashboard.html' %}
+
+{% load i18n account static %}
+
+{% block title %} Transporte {% endblock title %} 
+
+{% block dashboard %}
+
+<div class="container-fluid">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Transporte</h3>
+        </div>
+        <div class="table-responsive">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>                  
+                        <th>Trecho</th>
+                        <th>Acessos</th>
+                        <th>Ativo</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    </tr>				
+                </thead>
+                <tbody>
+                    {% for t in transports %}
+                    <tr>
+                        <td>{{ t.trecho }}</td>
+                        <td align="center">{{ t.acessos }}</td>
+                        
+                        <td align="center">
+                            <a href="#" class="btn">
+                                <i class="zmdi zmdi-assignment-check material-icons-name"></i>
+                            </a>
+                        </td>                        
+                        <td align="center">
+                            <a href="{% url 'transport:transport_update' t.pk %}" class="btn">
+                                <i class="zmdi zmdi-edit material-icons-name"></i>
+                            </a>
+                        </td>
+                        <td align="center">
+                            <a href="{% url 'transport:transport_delete' t.pk %}" class="btn">
+                                <i class="zmdi zmdi-delete material-icons-name"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}                          
+                <tbody>               
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

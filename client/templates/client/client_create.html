@@ -1,0 +1,56 @@
+{% extends 'dashboard.html' %}
+
+{% load i18n account static %}
+
+{% block title %} Cadastrar Cliente {% endblock title %} 
+
+{% block dashboard %} 
+
+<div class="container-fluid">
+    <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">Cadastrar Cliente</h3>
+        </div>        
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}                
+            <div class="card-body">                
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input class="form-control" id="id_client_name" name="name" type="text"
+                                value="{{ form.name.value }}" />
+                            {{ form.name.errors }}
+                            <label for="id_client_name">Nome</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input class="form-control" id="id_client_email" name="email" type="email"
+                                value="{{ form.email.value }}"/>
+                            {{ form.email.errors }}
+                            <label for="id_client_email">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating mb-1">
+                            <input class="form-control" id="id_client_cel" name="cel" type="cel"
+                                value="{{ form.cel.value }}"/>
+                            {{ form.cel.errors }}
+                            <label for="id_client_cel">Celular</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ml-0">
+                    <div class="col-md-1">
+                        <div class="form-floating">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

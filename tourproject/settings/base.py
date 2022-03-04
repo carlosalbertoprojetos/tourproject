@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+*&_mmj9d2+1342gf#!4k&#67g=b_+y=y7u^_5tqxtkyn8ja%&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -52,6 +52,10 @@ INSTALLED_APPS = [
     'user',
     'company',
     'trip',
+    
+    'client',
+    # 'bootstrapform',
+    'transport',
 ]
 
 
@@ -133,8 +137,8 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {'default': dj_database_url.config()}
 
 # utilizado pelo heroku
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
