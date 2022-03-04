@@ -1,21 +1,21 @@
 from django import forms
-from .models import Client
+from .models import Transport
  
  
 # creating a form
-class RegisterClientForm(forms.ModelForm):
+class RegisterTransportForm(forms.ModelForm):
  
     # create meta class
     class Meta:
         # specify model to be used
-        model = Client
+        model = Transport
  
         # specify fields to be used
         fields = '__all__'
     
 
-class EditClientForm(forms.ModelForm):
+class EditTransportForm(forms.ModelForm):
 
     class Meta:
-        model = Client
-        fields = '__all__'
+        model = Transport
+        fields = ['trecho','acessos'] 

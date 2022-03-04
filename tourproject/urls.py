@@ -28,6 +28,8 @@ urlpatterns = [
     
     path('company/', include('company.urls'), name='company'),
 
+    path('transport/', include('transport.urls'),name='transport'),
+
     path('accounts/', include('allauth.urls')),
 
     path('admin/', admin.site.urls),

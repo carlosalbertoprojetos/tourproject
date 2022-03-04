@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'company',
     'client',
     'bootstrapform',
+    'transport',
 ]
 
 

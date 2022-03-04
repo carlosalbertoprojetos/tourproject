@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% load i18n account static %}
 
 {% block content %}
@@ -10,59 +9,74 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 {% if user.is_authenticated %}
-                <div class="sb-sidenav-menu-heading">Perfil {{ user.username }}</div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseAuth1" aria-expanded="false"
-                    aria-controls="pagesCollapseAuth1">
-                    <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
-                    Configurações
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="pagesCollapseAuth1" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordionPages">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">
-                            Username/Email
-                        <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>                     
-                    </nav>
-                </div>
-                {% if user.is_superuser %}
-                <div class="sb-sidenav-menu-heading">Gestão</div>                                
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Usuários
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'user:users_list' %}">Listar</a>
-                        <a class="nav-link" href="#">Outros dados</a>
-                    </nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth2" aria-expanded="false" aria-controls="pagesCollapseAuth2">
-                    <div class="sb-nav-link-icon"><i class="fas fa-business-time"></i></div>
-                    Empresas
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="pagesCollapseAuth2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'company:companies_list' %}">Listar</a>
-                        <a class="nav-link" href="#">Outros dados</a>
-                    </nav>
-                </div>
+                    <div class="sb-sidenav-menu-heading">Perfil {{ user.username }}</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#pagesCollapseAuth1" aria-expanded="false"
+                        aria-controls="pagesCollapseAuth1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
+                        Configurações
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                    <div class="collapse" id="pagesCollapseAuth1" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'user:user_edit' user.pk %}">
+                                Username/Email
+                                <a class="nav-link" href="{% url 'company:company_edit' user.pk %}">Empresa</a>                     
+                            </nav>
+                    </div>
+                    {% if user.is_superuser %}
+                        <div class="sb-sidenav-menu-heading">Gestão</div>                                
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Usuários
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'user:users_list' %}">Listar</a>
+                                <a class="nav-link" href="#">Outros dados</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth2" aria-expanded="false" aria-controls="pagesCollapseAuth2">
+                            <div class="sb-nav-link-icon"><i class="fas fa-business-time"></i></div>
+                            Empresas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseAuth2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'company:companies_list' %}">Listar</a>
+                                <a class="nav-link" href="#">Outros dados</a>
+                            </nav>
+                        </div>
 
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Cliente
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
-                        <a class="nav-link" href="#">Outros dados</a>
-                    </nav>
-                </div>
-                {% endif %}
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            Cliente
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
+                                <a class="nav-link" href="{% url 'client:client_register' %}">Cadastrar</a>
+                                <a class="nav-link" href="#">Outros dados</a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTransport" aria-expanded="false" aria-controls="collapseTransport">
+                            <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+                            Transporte
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        
+                        <div class="collapse" id="collapseTransport" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'transport:transport_list' %}">Listar</a>
+                                <a class="nav-link" href="{% url 'transport:transport_register' %}">Cadastrar</a>
+                                <a class="nav-link" href="#">Outros dados</a>                                
+                            </nav>
+                        </div>
+                    {% endif %}
 
                 {% if user.option == '2' %}
                 <div class="sb-sidenav-menu-heading">Agentes</div>
@@ -89,13 +103,11 @@
                 
                 <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Cadastro de Passeio</a>
-                        <a class="nav-link" href="#">Cadastro de Ingresso</a>
-                        <a class="nav-link" href="#">Cadastro de Transferência</a>
-                        <a class="nav-link" href="#">Cadastro de Hospedagem</a>
-                        <a class="nav-link" href="#">Editar</a>
+                        <a class="nav-link" href="#">Cadastrar</a>
+                        <a class="nav-link" href="#">Listar</a>
                     </nav>
-                </div>
+                </div>                
+
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRegisters" aria-expanded="false" aria-controls="collapseRegisters">
                     <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                     Registros
