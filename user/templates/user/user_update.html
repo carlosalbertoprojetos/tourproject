@@ -18,7 +18,7 @@
                 <form method="POST">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
-                    {{ form|crispy}}
+                    {{ form|crispy }}
                     <div class="col-md-12 mb-2">
                         <div class="form-group form-button">
                             <input type="submit" class="form-submit" value="Salvar" />

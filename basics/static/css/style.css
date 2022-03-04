@@ -527,6 +527,7 @@ label.valid:after {
     margin-top: 10px;
 }
 
+
 @media screen and (max-width: 1200px) {
     .container {
         width: calc( 100% - 30px);
