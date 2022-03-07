@@ -14,9 +14,6 @@ urlpatterns = [
 
     path('<int:pk>/edit/', transport_update, name='transport_update'),
 
-    path('<int:pk>/delete/', Transport_Delete, name='transport_delete'),
-
-    #path('<int:pk>/delete/', transport_delete, name='transport_delete'),
-    
+    path('<int:pk>/delete/', Transport_Delete, name='transport_delete'),    
     
 ]

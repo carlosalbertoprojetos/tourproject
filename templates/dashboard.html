@@ -99,19 +99,17 @@
                     {% endif %}
 
                     {% endif %}
-
-                    <div class="sb-sidenav-menu-heading">Clientes</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseClients"
-                        aria-expanded="false" aria-controls="collapseClients">
-                        <div class="sb-nav-link-icon"><i class="fas fa-solid fa-address-book"></i></div>
-                        Configurações
+         
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Cliente
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapseClients" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordion">
+                    <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'client:client_register' %}">Cadastrar</a>
+                            <!--a class="nav-link" href="{% url 'client:client_register' %}">Cadastrar</a-->
+                            <a class="nav-link" href="#">Outros dados</a>
                         </nav>
                     </div>
 
