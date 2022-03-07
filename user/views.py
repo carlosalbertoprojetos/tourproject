@@ -20,7 +20,6 @@ def users_list(request):
 def user_update(request, pk):
     obj = get_object_or_404(User, pk=pk)
     form = EditUserForm(instance=obj)
-    user = request.user
 
     if request.method == 'POST':
         form = EditUserForm(request.POST or None, instance=obj)
@@ -28,10 +27,7 @@ def user_update(request, pk):
         if form.is_valid():
             obj = form.save(commit=True)
             messages.success(request, 'Dados alterados com sucesso!!!')
-            if user.is_superuser:
-                return redirect('user:users_list')
-            else:
-                return redirect('user:user_update', user.pk)
+            return redirect('user:users_list')
         else:
             return render(request, 'user/user_update.html', {'form': form})
 
