@@ -10,97 +10,52 @@
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
-            <div class="card-header">
-                <h2 class="form-title" style="margin-bottom: 33px;">Editar Cadastro da Empresa</h2>
+            <div class="card-body col-md-8">
                 <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    {{ form|crispy }}
-                    <!--<div class="form-group mb-0">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" type="text" name="company_name" id="id_company_name"
-                                        value="{{ form.company_name.value }}" />
-                                    {{ form.company_name.errors }}
-                                    <label for="id_company_name">Razão Social</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating mb-1">
-                                    <input class="mask-cnpj form-control" type="text" name="document_number"
-                                        id="id_document_number" value="{{ form.document_number.value }}" />
-                                    {{ form.document_number.errors }}
-                                    <label for="id_document_number">CNPJ</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-floating mb-1">
-                                    <p class="file-upload mb-0" style="font-size:14px">Atualmente: <a href="/media/{{ form.document_image.value }}/">{{ form.document_image.value }}</a></p>
-                                    <div class="input-group input-group-sm mb-0 form-control-file">
-                                        <input class="btn input-group-text mb-0" type="file" name="document_image"
-                                            id="id_document_image" value="{{ form.document_image.value }}"
-                                            placeholder="Imagem" />
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="row form-group">
+                        {% for hidden_field in form.hidden_fields %}
+                            {{ hidden_field.errors }}
+                            {{ hidden_field }}
+                        {% endfor %}
+                        
+                        {% csrf_token %}
+                        <div class="form-group col-md-6">
+                            {{ form|crispy }}
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" type="text" name="street" id="id_street"
-                                        value="{{ form.street.value }}" />
-                                    {{ form.street.errors }}
-                                    <label for="id_street">Logradouro</label>
-                                </div>
+    
+                        <div class="form-group col-md-6">
+                            <div class="form-group">
+                                {{ formset_destiny.management_form }}
+                                {{ formset_destiny.non_form_errors }}
+            
+                                {% for field in formset_destiny %}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
+                                {% endfor %}
+
+                                {{ formset_phone.management_form }}
+                                {{ formset_phone.non_form_errors }}
+            
+                                {% for field in formset_phone %}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
+                                {% endfor %}
+
+                                {{ formset_socmedia.management_form }}
+                                {{ formset_socmedia.non_form_errors }}
+            
+                                {% for field in formset_socmedia %}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
+                                {% endfor %}
+
+                                <p class="pt-3 col-md-3">
+                                    <input type="submit" class="btn btn-dark" value="Save" />
+                                </p>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" type="number" name="number" id="id_number"
-                                        value="{{ form.number.value }}" />
-                                    {{ form.number.errors }}
-                                    <label for="id_number">Número</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" type="text" name="complement" id="id_complement"
-                                        value="{{ form.complement.value|default:'' }}" />
-                                    {{ form.complement.errors }}
-                                    <label for="id_complement">Complemento</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-1">
-                                    <input class="form-control" type="text" name="city" id="id_city"
-                                        value="{{ form.city.value }}"/>
-                                    {{ form.city.errors }}
-                                    <label for="id_city">Cidade</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating mb-1">
-                                    <input class="mask-state form-control" type="text" name="state" id="id_state"
-                                        value="{{ form.state.value }}" />
-                                    {{ form.state.errors }}
-                                    <label for="id_state">Estado</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-floating">
-                                    <input class="mask-cep form-control" style="text-transform:uppercase" type="text" name="postal_code" id="id_postal_code"
-                                        value="{{ form.postal_code.value }}" />
-                                    {{ form.postal_code.errors }}
-                                    <label for="id_state">CEP</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="col-md-12">
-                        <div class="form-group form-button mb-2">
-                            <input type="submit" class="form-submit" value="Salvar" />
                         </div>
                     </div>
                 </form>

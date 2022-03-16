@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 
-{% load i18n account static %}
+{% load i18n account static crispy_forms_tags %}
 
-{% block title %} Cadastrar Empresa {% endblock title %} 
+{% block title %} Registrar Empresa {% endblock title %} 
 
 {% block base %}
 
@@ -25,33 +25,39 @@
                             
                             {% csrf_token %}
                             <div class="form-group col-md-6">
-                                {{ form }}
+                                {{ form|crispy }}
                             </div>
         
                             <div class="form-group col-md-6">
-                                {{ formset_phone.management_form }}
-                                {{ formset_phone.non_form_errors }}
-            
                                 <div class="form-group">
-                                {% for field in formset_phone %}
+                                    {{ formset_destiny.management_form }}
+                                    {{ formset_destiny.non_form_errors }}
+                
+                                    {% for field in formset_destiny %}
                                         {{ field.errors }}
                                         {{ field.label_tag }}
-                                        {{ field }}
-                                {% endfor %}
+                                        {{ field|crispy }}
+                                    {% endfor %}
 
+                                    {{ formset_phone.management_form }}
+                                    {{ formset_phone.non_form_errors }}
+                
+                                    {% for field in formset_phone %}
+                                        {{ field.errors }}
+                                        {{ field.label_tag }}
+                                        {{ field|crispy }}
+                                    {% endfor %}
 
-                                {{ formset_socmedia.management_form }}
-                                {{ formset_socmedia.non_form_errors }}
-            
-                                {% for field in formset_socmedia %}
-                                    {{ field.errors }}
-                                    {{ field.label_tag }}
-                                    {{ field }}
-                                {% endfor %}
-                                </div>
+                                    {{ formset_socmedia.management_form }}
+                                    {{ formset_socmedia.non_form_errors }}
+                
+                                    {% for field in formset_socmedia %}
+                                        {{ field.errors }}
+                                        {{ field.label_tag }}
+                                        {{ field|crispy }}
+                                    {% endfor %}
 
-                                <div class="mt-2">
-                                    <p class="pt-2">
+                                    <p class="pt-3 col-md-3">
                                         <input type="submit" class="btn btn-dark" value="Save" />
                                     </p>
                                 </div>

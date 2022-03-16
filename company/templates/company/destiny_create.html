@@ -1,0 +1,35 @@
+{% extends 'dashboard.html' %}
+
+
+{% load i18n account static crispy_forms_tags %}
+
+{% block title %}Destino{% endblock title %}
+
+
+{% block dashboard %}
+
+
+<div class="container-fluid mt-2">
+    <div class="card">
+        <div class="container-form">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h2 class="form-title">Novo Detino</h2>
+                    </div>
+                </div>
+
+                <form method="POST" class="register-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form|crispy }}
+                    <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
