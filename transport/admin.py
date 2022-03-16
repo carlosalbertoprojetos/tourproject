@@ -6,7 +6,7 @@ from .models import Transport
 
 
 class TransportAdmin(admin.ModelAdmin):
-    list_display = ('id','trecho', 'acessos', 'is_active')
+    list_display = ('stretch', 'hits', 'is_active', 'document', 'description')
     
 
 admin.site.register(Transport, TransportAdmin)   

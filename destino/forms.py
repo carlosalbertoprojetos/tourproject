@@ -1,21 +1,21 @@
 from django import forms
-from .models import Transport
+from .models import Destiny
  
  
 # creating a form
-class RegisterTransportForm(forms.ModelForm):
+class RegisterDestinyForm(forms.ModelForm):
  
     # create meta class
     class Meta:
         # specify model to be used
-        model = Transport
+        model = Destiny
  
         # specify fields to be used
         fields = '__all__'
     
 
-class EditTransportForm(forms.ModelForm):
+class EditDestinyForm(forms.ModelForm):
 
     class Meta:
-        model = Transport
+        model = Destiny
         fields = '__all__' 

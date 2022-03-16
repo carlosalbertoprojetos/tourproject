@@ -7,21 +7,6 @@ from .forms import RegisterTransportForm, EditTransportForm
 from .models import Transport 
 
 
-def transport_register(request):
-    form = RegisterTransportForm()
-
-    if request.method == 'POST':
-        form = RegisterTransportForm(request.POST or None)
-
-        if form.is_valid():
-            transport = form.save(commit=True)
-            return redirect('transport:transport_list')
-        else:
-            return render(request, 'transport/transport_create.html', {'form': form})
-
-    elif request.method == 'GET':
-        return render(request, 'transport/transport_create.html', {'form': form})
-
 #update e delete precisa do int:pk
 def transport_update(request, pk):
     transport = get_object_or_404(Transport, pk=pk)
@@ -65,10 +50,9 @@ class TransportCreateView(CreateView):
     model = Transport
     template_name = 'transport/transport_create.html'
     form_class = RegisterTransportForm
-    success_url = 'transport:transport_list'
-
-	
-Transport_create = TransportCreateView.as_view()
+    success_url = reverse_lazy('transport:transport_list')
+    
+Transport_register = TransportCreateView.as_view()
 
 
 

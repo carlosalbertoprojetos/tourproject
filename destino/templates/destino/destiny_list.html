@@ -2,7 +2,7 @@
 
 {% load i18n account static %}
 
-{% block title %} Transporte {% endblock title %} 
+{% block title %} Destino de Viagem {% endblock title %} 
 
 {% block dashboard %}
 
@@ -12,43 +12,50 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Transporte</h2>
+                        <h2 class="form-title">Destino de Viagem</h2>
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
-                        <a href="{% url 'transport:transport_register' %}">
+                        <a href="{% url 'destino:destiny_register' %}">
                             <i class="fas fa-plus-circle fa-2x"></i></a>
                     </div>
                 </div>
                 <table id="myTable1" class="table table-striped table-bordered mt-5">                    
                     <thead>
                         <tr>                  
-                            <th>Trecho</th>
-                            <th>Acessos</th>
-                            <th>Ativo</th>
+                            <th>Destino</th>
+                            <th>Nome</th>
+                            <th>Estado</th>
+                            <th>Data Inicial</th>
+                            <th>Data Final</th>
+                            <th>Descrição</th>
+                            <th>Ativa</th>
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>				
                     </thead>                    
                     <tbody>
-                        {% for t in transports %}
+                        {% for d in destinys %}
                         <tr>
-                            <td>{{ t.stretch }}</td>
-                            <td align="center">{{ t.hits }}</td>
-                            
+                            <td>{{ d.destiny }}</td>
+                            <td>{{ d.name }}</td>
+                            <td>{{ d.state }}</td>
+                            <td>{{ d.date_init }}</td>
+                            <td>{{ d.date_final }}</td>
+                            <td>{{ d.description }}</td>                           
                             <td align="center">
-                                {% if t.is_active is True%}
+                                {% if d.is_active is True%}
                                 <i class="fas fa-user-check"></i>                                        
                                 {% else %}
                                     <i class="zmdi zmdi-square-o material-icons-name"></i>
                             {% endif%}
                             </td>                        
                             <td align="center">
-                                <a href="{% url 'transport:transport_update' t.pk %}" class="btn">
+                                <a href="{% url 'destino:destiny_update' d.pk %}" class="btn">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>
                             <td align="center">
-                                <a href="{% url 'transport:transport_delete' t.pk %}" class="btn">
+                                <a href="{% url 'destino:destiny_delete' d.pk %}" class="btn">
                                     <i class="fas fa-solid fa-trash"></i>                                    
                                 </a>
                             </td>
@@ -57,9 +64,13 @@
                     <tbody>
                     <tfoot>
                         <tr>                  
-                            <th>Trecho</th>
-                            <th>Acessos</th>
-                            <th>Ativo</th>
+                            <th>Destino</th>
+                            <th>Nome</th>
+                            <th>Estado</th>
+                            <th>Data Inicial</th>
+                            <th>Data Final</th>
+                            <th>Descrição</th>
+                            <th>Ativa</th>
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>

@@ -23,17 +23,19 @@
                     <thead>
                         <tr>                              
                             <th>Nome</th>
+                            <th>Cpf</th>
                             <th>Email</th>
-                            <th>Cel</th>
+                            <th>Telefone</th>
                             <th>Conta Ativa</th>                            
-                            <th>Editar</th>                           
+                            <th>Editar</th>                            
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Nome</th>
+                            <th>Cpf</th>
                             <th>Email</th>
-                            <th>Cel</th>
+                            <th>Telefone</th>
                             <th>Conta Ativa</th>                            
                             <th>Editar</th>     
                         </tr>
@@ -42,8 +44,9 @@
                         {% for c in clients %}
                         <tr>
                             <td>{{ c.name }}</td>
+                            <td>{{ c.cpf }}</td>
                             <td>{{ c.email }}</td>
-                            <td>{{ c.cel }}</td>                        
+                            <td>{{ c.phoneNumber }}</td>                        
                             <td align="center">
                                 <a href="#" class="btn">
                                     {% if c.is_active is True%}
@@ -54,7 +57,7 @@
                                 </a>
                             </td>                        
                             <td align="center">
-                                <a href="{% url 'client:client_edit' c.id%}" class="btn">
+                                <a href="{% url 'client:client_update' c.id%}" class="btn">
                                     
                                     <i class="fas fa-user-edit"></i>
                                 </a>

@@ -12,7 +12,7 @@
         <div class="card">
             <div class="container-form">
                 <div class="card-header">                    
-                    <h2 class="form-title">Você tem certeza que deseja excluir o trecho ?</h2>                    
+                    <h2 class="form-title">Você tem certeza que deseja excluir o destino de viagem ?</h2>                    
                     <form method="POST" class="register-form" enctype="multipart/form-data">                        
                         {% csrf_token %}
                         {{ form.non_field_errors }}
@@ -21,10 +21,10 @@
                             <div class="form-group">                    
                                 <div class="col-md-12">
                                     <div class="form-floating mb-1">
-                                        <input class="form-control" id="trecho" name="trecho" type="text"
-                                            value="{{ transport.stretch }}"/>
-                                        {{ form.stretch.errors }}
-                                        <label for="trecho">Trecho</label>
+                                        <input class="form-control" id="destiny" name="destiny" type="text"
+                                            value="{{ destiny.destiny }} - {{ destiny.state }}"/>
+                                        {{ form.destiny.errors }}
+                                        <label for="destiny">Destino</label>
                                     </div>
                                 </div>
                                 <div class="row ml-0">

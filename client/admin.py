@@ -10,7 +10,7 @@ from .models import Client
 #    extra = 0
 
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'email', 'cel', 'is_active')
-    
+    list_display = ('name', 'cpf','street','number','complement','postal_code','state','city','email', 'phoneNumber', 'is_active')
+
 
 admin.site.register(Client, ClientAdmin)    
