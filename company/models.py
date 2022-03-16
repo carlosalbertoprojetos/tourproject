@@ -48,19 +48,19 @@ class Company(models.Model):
         return self.responsible or self.company_name
 
 
-class Contact(models.Model):
+class Phone(models.Model):
 
     company = models.ForeignKey(
         Company,
         on_delete=models.DO_NOTHING,
-        related_name='contact',
-        blank=True,
-        null=True
+        related_name='phone',
     )
 
-    cel_phone = models.CharField(
-        _("Celular"),
-        max_length=15
+    phone = models.CharField(
+        _("Telefone"),
+        max_length=15,
+        blank=True,
+        null=True
     )
 
     class Meta:
@@ -74,14 +74,16 @@ class SocialMedia(models.Model):
         Company,
         on_delete=models.DO_NOTHING,
         related_name='social_media',
+    )
+
+    socmedia = models.CharField(
+        _("Rede Social"),
+        max_length=100,
         blank=True,
         null=True
     )
 
-    social_media = models.CharField(
-        _("Rede Social"),
-        max_length=100
-    )
-
     class Meta:
         verbose_name_plural = 'Redes Sociais'
+
+
