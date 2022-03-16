@@ -59,7 +59,7 @@ def signup_step_2(request):
             socmedia_form.instance = company
             socmedia_form.save()
             messages.success(request, 'Empresa cadastrada com sucesso!!!')
-            return redirect('index')
+            return redirect('user:dashboard')
             
         else:
             context = {

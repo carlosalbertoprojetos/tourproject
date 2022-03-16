@@ -45,7 +45,7 @@ class Company(models.Model):
         verbose_name_plural = 'Empresas'
 
     def __str__(self):
-        return self.responsible or self.company_name
+        return self.company_name
 
 
 class Phone(models.Model):
@@ -87,3 +87,40 @@ class SocialMedia(models.Model):
         verbose_name_plural = 'Redes Sociais'
 
 
+class Destiny(models.Model):
+    name = models.CharField(_('Temporada'), max_length=255,)
+    destiny = models.CharField(_('Destino'), max_length=255,)
+    state = models.CharField(_('Estado'), max_length=2)
+    city = models.CharField(_('Cidade'),
+        max_length=100,
+        null=True,
+        blank=True,
+    )
+    date_start = models.DateField(_('Data inicial'))
+    date_finish = models.DateField(_('Data final'))    
+    active = models.BooleanField(_('Active'), default=True)
+    description = models.TextField(_('Descrição'), 
+        null=True,
+        blank=True,
+    )
+    
+    class Meta:
+        ordering = ('name',)
+        verbose_name ='Destino'
+        verbose_name_plural ='Destinos'
+    
+    def __str__(self):
+        return self.destiny + ': ' + self.name + ' Temporada'
+
+
+class CompanyDestiny(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)
+    
+    class Meta:
+        ordering = ('company',)
+        verbose_name ='Destino das empresas'
+        verbose_name_plural ='Destinos das empresas'
+    
+    def __str__(self):
+        return str(self.company) +' - ' + str(self.destiny)
