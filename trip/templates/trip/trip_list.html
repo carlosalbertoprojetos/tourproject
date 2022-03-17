@@ -18,7 +18,7 @@
                         <h2 class="form-title">Lista de Passeios</h2>
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
-                        <a href="{% url 'trip:trip_register' %}">
+                        <a href="{% url 'trip:trip_create' %}">
                             <i class="fas fa-plus-circle fa-2x"></i></a>
                     </div>
                 </div>
@@ -32,6 +32,7 @@
                             <th>Carga limite</th>
                             <th>Atualizado em</th>
                             <th>Editar</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -56,6 +57,11 @@
                         <td align="center">
                             <a href="{% url 'trip:trip_update' trip.pk %}" class="btn">
                                 <i class="fas fa-user-edit"></i>
+                            </a>
+                        </td>
+                        <td align="center">
+                            <a href="{% url 'trip:trip_delete' trip.pk %}" class="btn">
+                                <i class="fas fa-solid fa-trash"></i>                                    
                             </a>
                         </td>
                         </tr>

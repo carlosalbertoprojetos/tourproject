@@ -21,12 +21,12 @@ category_register = CategoryRegisterView.as_view()
 class TripRegisterView(SuccessMessageMixin, CreateView):
     model = Trip
     form_class = TripForm
-    template_name = 'trip/trip_register.html'
+    template_name = 'trip/trip_create.html'
     success_message = 'Passeio cadastrado com sucesso!!!'
     success_url = _('trip:trip_list')
 
 
-trip_register = TripRegisterView.as_view()
+trip_create = TripRegisterView.as_view()
 
 
 class TripListView(ListView):
@@ -57,13 +57,13 @@ class TripUpdateView(UpdateView):
 trip_update = TripUpdateView.as_view()
 
 
-# class TripDeleteView(DeleteView):
-#     model = Trip
-#     template_name = 'trip/trip_delete.html'
-#     success_url = _('trip:trip_list')
+class TripDeleteView(DeleteView):
+    model = Trip
+    template_name = 'trip/trip_delete.html'
+    success_url = _('trip:trip_list')
 
-#     def delete(self, request, *args, **kwargs):
-#         return super(TripDeleteView, self).delete(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        return super(TripDeleteView, self).delete(request, *args, **kwargs)
 
 
-# trip_delete = TripDeleteView.as_view()
+trip_delete = TripDeleteView.as_view()

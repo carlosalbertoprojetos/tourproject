@@ -2,7 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib import messages
+
 
 from .models import Destiny
 
@@ -35,3 +37,18 @@ class DestinyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = _('destiny:destinies_list')
 
 destiny_update = DestinyUpdateView.as_view()
+
+
+
+class DestinyDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
+    model = Destiny
+    template_name = 'destiny/destiny_delete.html'
+    success_url = _('destiny:destiny_list')
+    success_message = 'Deletado com sucesso!'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,self.success_message)
+        return super(DestinyDeleteView, self).delete(request, *args, **kwargs)
+
+
+destiny_delete = DestinyDeleteView.as_view()

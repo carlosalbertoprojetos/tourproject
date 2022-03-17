@@ -3,33 +3,37 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Deletar Passeio{% endblock title %}
+{% block title %}Passeio{% endblock title %}
 
 
 {% block dashboard %}
 
 
-<div class="container justify-content-center" style='margin-top:20px'>
+<div class="container-fluid mt-2">
     <div class="card">
-        <div class="card-header">
-            <h1>Excluir Produto</h1>
-            <form action="" method="post">
-                {% csrf_token %} 
-                <p>Você tem certeza que deseja excluir este produto "<b>{{ object.nome }}"</b>?</p>
-                {% if produto.imagem %}
-                    <img class="card-img-top" src="media/{{object.imagem}}" alt="">
-                {% else %}
-                    <img class="card-img-top" src="media/no_image.jpg" alt="">
-                {% endif %}
-                <br><br>
-                <div class="mt-2">
-                    <div class="">
-                        <input type="submit" class="btn btn-dark" value="Salvar" />
+        <div class="container-form">
+            <div class="card-header">                    
+                <h2 class="form-title">Você tem certeza que deseja excluir este passeio ?</h2>                    
+                <form method="POST" class="register-form" enctype="multipart/form-data">                        
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form|crispy }}                    
+                    <div class="card-body">                                            
+                        <div class="form-group">                    
+                            <div class="row ml-0">
+                                <div class="col-md-1">
+                                    <div class="form-floating">
+                                        <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-{% endblock content %}
+
+{% endblock %}
 

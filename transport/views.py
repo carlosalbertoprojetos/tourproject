@@ -13,12 +13,12 @@ from .models import Transport
 class TransortRegisterView(SuccessMessageMixin, CreateView):
     model = Transport
     form_class = RegisterTransportForm
-    template_name = 'transport/transport_register.html'
+    template_name = 'transport/transport_create.html'
     success_message = 'Transporte cadastrado com sucesso!!!'
     success_url = _('transport:transport_list')
 
 
-transport_register = TransortRegisterView.as_view()
+transport_create = TransortRegisterView.as_view()
 
 
 
@@ -78,7 +78,7 @@ class DeletarTransporteView(DeleteView):
         return super(DeletarTransporteView, self).delete(request, *args, **kwargs)
 
 
-Transport_Delete = DeletarTransporteView.as_view()
+transport_delete = DeletarTransporteView.as_view()
 
 
 class TransportListView(ListView):
@@ -87,5 +87,5 @@ class TransportListView(ListView):
     context_object_name = "transports"
 
 
-Transport_list = TransportListView.as_view()
+transport_list = TransportListView.as_view()
 

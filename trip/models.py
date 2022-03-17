@@ -30,30 +30,21 @@ class Trip(models.Model):
     travel_time = models.CharField('Tempo de percurso', max_length=255)
     travel_time_untoplace = models.CharField('Tempo de percurso até o local do passeio', max_length=255)
     
-    ride_distance = models.CharField('Distância do passeio', max_length=255)
-    
-    limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)
-    
-    commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)
-    
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    
-    provider = models.ForeignKey(Company, on_delete=models.CASCADE)
-    
-    tour_notes = models.TextField('Descrição do passeio', blank=True)
-    
-    featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')    
-    
+    ride_distance = models.CharField('Distância do passeio', max_length=255)    
+    limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)    
+    commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)    
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE)    
+    provider = models.ForeignKey(Company, on_delete=models.CASCADE)    
+    tour_notes = models.TextField('Descrição do passeio', blank=True)    
+    featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
     seo = models.CharField('Dados para SEO', max_length=155)
-                              
-    title = models.CharField('Títilo', max_length=150)
-    
+    title = models.CharField('Título', max_length=150)
     description = models.CharField('Descrição', max_length=300)
-
-    description_BTMS = models.CharField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)
-    
+    description_BTMS = models.CharField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)    
     btms = models.CharField('Codigo BTMS', max_length=300)
 
+    created_at = models.DateTimeField('Criado em', auto_now_add=True)
+    updated = models.DateTimeField('Atualizado em', auto_now=True)
     class Meta:
         ordering = ["name"]
         verbose_name = "Passeio"

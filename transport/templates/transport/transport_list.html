@@ -15,7 +15,7 @@
                         <h2 class="form-title">Transporte</h2>
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
-                        <a href="{% url 'transport:transport_register' %}">
+                        <a href="{% url 'transport:transport_create' %}">
                             <i class="fas fa-plus-circle fa-2x"></i></a>
                     </div>
                 </div>
@@ -28,18 +28,27 @@
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>				
-                    </thead>                    
+                    </thead>
+                    <tfoot>
+                        <tr>                  
+                            <th>Trecho</th>
+                            <th>Acessos</th>
+                            <th>Ativo</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </tfoot>    
                     <tbody>
                         {% for t in transports %}
                         <tr>
-                            <td>{{ t.trecho }}</td>
-                            <td align="center">{{ t.acessos }}</td>
-                            
-                            <td align="center">
-                                <a href="#" class="btn">
-                                    <i class="fas fa-user-check"></i>
-                                </a>
-                            </td>                        
+                            <td>{{ t.stretch }}</td>
+                            <td align="center">{{ t.hits }}</td>
+                            <td align="center">{% if t.is_active %}
+                                <i class="fas fa-user-check"></i>
+                                {% else %}
+                                <i class="fas fa-user-times"></i>
+                                {% endif %}
+                            </td>                     
                             <td align="center">
                                 <a href="{% url 'transport:transport_update' t.pk %}" class="btn">
                                     <i class="fas fa-user-edit"></i>
@@ -52,16 +61,7 @@
                             </td>
                         </tr>
                         {% endfor %}                          
-                    <tbody>
-                    <tfoot>
-                        <tr>                  
-                            <th>Trecho</th>
-                            <th>Acessos</th>
-                            <th>Ativo</th>
-                            <th>Editar</th>
-                            <th>Excluir</th>
-                        </tr>
-                    </tfoot>                                   
+                    <tbody>                               
                 </table>
             </div>
         </div>

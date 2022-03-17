@@ -1,0 +1,69 @@
+{% extends 'dashboard.html' %}
+
+
+{% load i18n account static crispy_forms_tags %}
+
+{% block title %}Editar Empresa{% endblock title %} 
+
+{% block dashboard %}
+
+
+<div class="container-fluid mt-2">
+    <div class="card">
+        <div class="container-form">
+            <div class="card-body col-md-8">
+                <h2 class="form-title">Autalizar dados</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="row form-group">
+                        {% for hidden_field in form.hidden_fields %}
+                            {{ hidden_field.errors }}
+                            {{ hidden_field }}
+                        {% endfor %}
+                        
+                        {% csrf_token %}
+                        <div class="form-group col-md-6">
+                            {{ form|crispy }}
+                        </div>
+    
+                        <div class="form-group col-md-6">
+                            <div class="form-group">
+                                {{ formset_destiny.management_form }}
+                                {{ formset_destiny.non_form_errors }}
+            
+                                {% for field in formset_destiny %}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
+                                {% endfor %}
+
+                                {{ formset_phone.management_form }}
+                                {{ formset_phone.non_form_errors }}
+            
+                                {% for field in formset_phone %}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
+                                {% endfor %}
+
+                                {{ formset_socmedia.management_form }}
+                                {{ formset_socmedia.non_form_errors }}
+            
+                                {% for field in formset_socmedia %}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
+                                {% endfor %}
+
+                                <p class="pt-3 col-md-3">
+                                    <input type="submit" class="btn btn-dark" value="Save" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
