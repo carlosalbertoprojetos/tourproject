@@ -79,6 +79,31 @@
                             <a class="nav-link" href="#">Outros dados</a>
                         </nav>
                     </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
+                        <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
+                        Clientes
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
+                            <!--a class="nav-link" href="{% url 'client:client_register' %}">Cadastrar</a-->
+                            <a class="nav-link" href="#">Outros dados</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth3"
+                    aria-expanded="false" aria-controls="pagesCollapseAuth3">
+                    <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                    Destinos
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="pagesCollapseAuth3" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordionPages">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'destiny:destinies_list' %}">Listar</a>
+                            <a class="nav-link" href="#">Outros dados</a>
+                        </nav>
+                    </div>
                     {% endif %}
 
                     {% if user.option == '1' %}
@@ -99,20 +124,7 @@
                     {% endif %}
 
                     {% endif %}
-         
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
-                        <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
-                        Cliente
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
-                            <!--a class="nav-link" href="{% url 'client:client_register' %}">Cadastrar</a-->
-                            <a class="nav-link" href="#">Outros dados</a>
-                        </nav>
-                    </div>
-
+        
                     <div class="sb-sidenav-menu-heading">Produtos</div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts"
                         aria-expanded="false" aria-controls="collapseProdocts">

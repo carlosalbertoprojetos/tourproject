@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/', include('user.urls'), name='user'),    
     path('company/', include('company.urls'), name='company'),    
     path('trip/', include('trip.urls'), name='company'),
+    path('destiny/', include('destiny.urls'), name='destiny'),
     
     path('client/', include('client.urls'),name='client'),   
     path('transport/', include('transport.urls'),name='transport'),

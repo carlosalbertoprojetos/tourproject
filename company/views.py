@@ -3,13 +3,10 @@ from django.contrib.auth.decorators import user_passes_test
 from django.forms import inlineformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
 from user.models import User
-from django.views.generic import CreateView, UpdateView
-from django.views.generic import ListView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
+
 
 from .forms import CompanyForm, PhoneForm
-from .models import Company, Destiny, CompanyDestiny, Phone, SocialMedia
+from .models import Company, CompanyDestiny, Phone, SocialMedia
 
 
 def signup_step_2(request):
@@ -142,7 +139,6 @@ def company_update(request, pk):
         form = CompanyForm(instance=company)
 
         if request.method == 'POST':
-            company = Company.objects.filter(pk=pk).first()
             
             form = CompanyForm(request.POST, instance=company)
             
@@ -174,7 +170,6 @@ def company_update(request, pk):
 
 
         elif request.method == 'GET':
-            company = Company.objects.filter(pk=pk).first()
             
             form = CompanyForm(instance=company)
             
@@ -197,32 +192,3 @@ def company_update(request, pk):
 
     except:
         return redirect('company:signup2')
-
-
-class DestinyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    
-    model = Destiny
-    fields = '__all__'
-    template_name = 'company/destiny_create.html'
-    success_message = 'Destino criado com sucesso!'
-
-
-destiny_create = DestinyCreateView.as_view()
-
-
-class DestinyListView(LoginRequiredMixin, ListView):
-    model = Destiny
-    template_name = 'company/destiny_list.html'
-
-
-destiny_list = DestinyListView.as_view()
-
-
-class DestinyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Destiny
-    fields = '__all__'
-    template_name = 'company/destiny_update.html'
-    success_message = 'Destino editado com sucesso!'
-    
-    
-destiny_update = DestinyUpdateView.as_view()

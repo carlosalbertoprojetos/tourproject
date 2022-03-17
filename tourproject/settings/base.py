@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'user',
     'company',
     'trip',
+    'destiny',
     
     'client',
     # 'bootstrapform',
@@ -158,6 +159,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# REST_FRAMEWORK = {
+#     'DATE_FORMAT': "%d/%m/%Y",
+#     'DATE_INPUT_FORMATS': ["%d-%m-%Y"],
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

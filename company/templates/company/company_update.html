@@ -3,14 +3,16 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %} Editar Empresa {% endblock title %} 
+{% block title %}Editar Empresa{% endblock title %} 
 
 {% block dashboard %}
+
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-body col-md-8">
+                <h2 class="form-title">Autalizar dados</h2>
                 <form method="POST" enctype="multipart/form-data">
                     <div class="row form-group">
                         {% for hidden_field in form.hidden_fields %}

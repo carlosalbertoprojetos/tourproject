@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Company, Destiny, CompanyDestiny
+from .models import Company, CompanyDestiny
 
 
 @admin.register(Company)
@@ -10,9 +10,6 @@ class CompanyAdmin(admin.ModelAdmin):
               ('street', 'number', 'complement'), ('city', 'state', 'postal_code')]
 
 
-@admin.register(Destiny)
-class DestinyAdmin(admin.ModelAdmin):
-    ...
     
 @admin.register(CompanyDestiny)
 class CompanyDestinyAdmin(admin.ModelAdmin):
