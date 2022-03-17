@@ -1,24 +1,20 @@
 {% extends 'dashboard.html' %}
 
-
+{% load i18n account static %}
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Destino{% endblock title %}
+{% block title %}Destino{% endblock title %} 
 
-
-{% block dashboard %}
-
+{% block dashboard %} 
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Novo Detino</h2>
-                    </div>
+            <div class="card-header">                <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h2 class="form-title">Novo Detino</h2>
                 </div>
-                <form method="POST" class="register-form" enctype="multipart/form-data">
+            </div>                <form method="POST" class="register-form">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}
