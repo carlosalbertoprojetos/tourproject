@@ -6,7 +6,7 @@ from user.models import User
 
 
 from .forms import CompanyForm, PhoneForm
-from .models import Company, CompanyDestiny, Phone, SocialMedia
+from .models import Company, CompanyDestinies, Phone, SocialMedia
 
 
 def signup_step_2(request):
@@ -14,7 +14,7 @@ def signup_step_2(request):
     if request.method == 'POST':
         form = CompanyForm(request.POST)
         
-        Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestiny, fields=('destiny',), extra=1, can_delete=False)        
+        Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
         destiny_form = Formset_destiny_Factory(request.POST)
         
         Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
@@ -52,7 +52,7 @@ def signup_step_2(request):
     elif request.method == 'GET':
         form = CompanyForm()
         
-        Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestiny, fields=('destiny',), extra=1, can_delete=False)        
+        Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
         destiny_form = Formset_destiny_Factory()
         
         Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
@@ -142,7 +142,7 @@ def company_update(request, pk):
             
             form = CompanyForm(request.POST, instance=company)
             
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestiny, fields=('destiny',), extra=1, can_delete=False)        
+            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
             destiny_form = Formset_destiny_Factory(request.POST, instance=company)
             
             Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
@@ -173,7 +173,7 @@ def company_update(request, pk):
             
             form = CompanyForm(instance=company)
             
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestiny, fields=('destiny',), extra=1, can_delete=False)        
+            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
             destiny_form = Formset_destiny_Factory(instance=company)
             
             Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)

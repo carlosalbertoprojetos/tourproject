@@ -2,7 +2,7 @@ from company.utils import sanitize_number
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Company, Phone
+from .models import Company, Phone, CompanyDestinies
 
 
 class CompanyForm(forms.ModelForm):
@@ -43,6 +43,15 @@ class CompanyForm(forms.ModelForm):
         instance = super().save(commit=commit)
         instance.save()
         return instance
+
+
+# class CompanyDestiniesUserForm(forms.ModelForm):
+    
+#     class Meta:
+#         model = CompanyDestinies
+#         fields = '__all__'
+#         readonly_fields = ['destiny']
+
 
 class PhoneForm(forms.ModelForm):
     class Meta:

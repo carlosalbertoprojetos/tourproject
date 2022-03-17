@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Company, CompanyDestiny
+from .models import Company, CompanyDestinies
 
 
 @admin.register(Company)
@@ -11,6 +11,6 @@ class CompanyAdmin(admin.ModelAdmin):
 
 
     
-@admin.register(CompanyDestiny)
-class CompanyDestinyAdmin(admin.ModelAdmin):
+@admin.register(CompanyDestinies)
+class CompanyDestiniesAdmin(admin.ModelAdmin):
     ... 
