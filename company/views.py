@@ -142,13 +142,13 @@ def company_update(request, pk):
             
             form = CompanyForm(request.POST, instance=company)
             
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
+            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1)        
             destiny_form = Formset_destiny_Factory(request.POST, instance=company)
             
-            Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
+            Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1)
             phone_form = Formset_phone_Factory(request.POST, instance=company)
             
-            Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1, can_delete=False)        
+            Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1)        
             socmedia_form = Formset_social_Factory(request.POST, instance=company)
 
             if form.is_valid() and phone_form.is_valid() and socmedia_form.is_valid() and destiny_form.is_valid():
@@ -173,13 +173,13 @@ def company_update(request, pk):
             
             form = CompanyForm(instance=company)
             
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
+            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1)        
             destiny_form = Formset_destiny_Factory(instance=company)
             
-            Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
+            Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1)
             phone_form = Formset_phone_Factory(instance=company)
             
-            Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1, can_delete=False)        
+            Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1)        
             socmedia_form = Formset_social_Factory(instance=company)
             
             context = {
