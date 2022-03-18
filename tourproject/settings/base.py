@@ -123,6 +123,7 @@ EMAIL_HOST_USER = '187b88ac805f83'
 EMAIL_HOST_PASSWORD = '446e98ebfc9de3'
 EMAIL_PORT = '2525'
 
+ACCOUNT_EMAIL_VERIFICATION = None
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
