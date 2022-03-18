@@ -160,10 +160,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# REST_FRAMEWORK = {
-#     'DATE_FORMAT': "%d/%m/%Y",
-#     'DATE_INPUT_FORMATS': ["%d-%m-%Y"],
-# }
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
@@ -205,9 +201,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# após efetuar o primeiro login, será redirecionado para:
-# ACCOUNT_SIGNUP_REDIRECT_URL = 'company:signup2'
 
 LOGIN_REDIRECT_URL = 'user:dashboard'
 LOGIN_URL = 'index'
