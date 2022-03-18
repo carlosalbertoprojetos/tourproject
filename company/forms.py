@@ -61,5 +61,5 @@ class PhoneForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PhoneForm, self).__init__(*args, **kwargs)
         self.fields['phone'].widget.attrs.update(
-            {'class': '.mask-telefone'})
+            {'class': 'mask-telefone'})
 
