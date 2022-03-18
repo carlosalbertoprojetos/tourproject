@@ -26,6 +26,7 @@ urlpatterns = [
     path('company/', include('company.urls'), name='company'),    
     path('trip/', include('trip.urls'), name='company'),
     path('destiny/', include('destiny.urls'), name='destiny'),
+    path('season/', include('season.urls'), name='season'),
     
     path('client/', include('client.urls'),name='client'),   
     path('transport/', include('transport.urls'),name='transport'),

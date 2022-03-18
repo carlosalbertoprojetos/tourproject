@@ -3,16 +3,17 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Destino{% endblock title %} 
+{% block title %}Temporada{% endblock title %} 
 
 {% block dashboard %}
+
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Editar Destino</h2>
-                <form method="POST" class="register-form">
+                <h2 class="form-title">Editar Temporada</h2>
+                <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}

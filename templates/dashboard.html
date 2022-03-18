@@ -4,6 +4,8 @@
 {% load i18n account static %}
 
 {% block base %}
+
+
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark pt-8">
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <a class="navbar-brand ps-3" href="/">TourProject</a>
@@ -87,7 +89,19 @@
                     <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
-                            <!--a class="nav-link" href="{% url 'client:client_register' %}">Cadastrar</a-->
+                            <a class="nav-link" href="#">Outros dados</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth4"
+                    aria-expanded="false" aria-controls="pagesCollapseAuth4">
+                    <div class="sb-nav-link-icon"><i class="fas fa-map"></i></div>
+                    Temporadas
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="pagesCollapseAuth4" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordionPages">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'season:seasons_list' %}">Listar</a>
                             <a class="nav-link" href="#">Outros dados</a>
                         </nav>
                     </div>
