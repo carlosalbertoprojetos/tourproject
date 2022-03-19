@@ -15,18 +15,15 @@
                         <h2 class="form-title">Destino de Viagem</h2>
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
-                        <a href="{% url 'destino:destiny_register' %}">
+                        <a href="{% url 'destiny:destiny_register' %}">
                             <i class="fas fa-plus-circle fa-2x"></i></a>
                     </div>
                 </div>
                 <table id="myTable1" class="table table-striped table-bordered mt-5">                    
                     <thead>
                         <tr>                  
-                            <th>Destino</th>
-                            <th>Nome</th>
-                            <th>Estado</th>
-                            <th>Data Inicial</th>
-                            <th>Data Final</th>
+                            <th>Destino</th>                            
+                            <th>Estado</th>                            
                             <th>Descrição</th>
                             <th>Ativa</th>
                             <th>Editar</th>
@@ -36,11 +33,8 @@
                     <tbody>
                         {% for d in destinys %}
                         <tr>
-                            <td>{{ d.destiny }}</td>
-                            <td>{{ d.name }}</td>
-                            <td>{{ d.state }}</td>
-                            <td>{{ d.date_init }}</td>
-                            <td>{{ d.date_final }}</td>
+                            <td>{{ d.destiny }}</td>                            
+                            <td>{{ d.state }}</td>                            
                             <td>{{ d.description }}</td>                           
                             <td align="center">
                                 {% if d.is_active is True%}
@@ -50,12 +44,12 @@
                             {% endif%}
                             </td>                        
                             <td align="center">
-                                <a href="{% url 'destino:destiny_update' d.pk %}" class="btn">
+                                <a href="{% url 'destiny:destiny_update' d.pk %}" class="btn">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>
                             <td align="center">
-                                <a href="{% url 'destino:destiny_delete' d.pk %}" class="btn">
+                                <a href="{% url 'destiny:destiny_delete' d.pk %}" class="btn">
                                     <i class="fas fa-solid fa-trash"></i>                                    
                                 </a>
                             </td>
@@ -64,11 +58,8 @@
                     <tbody>
                     <tfoot>
                         <tr>                  
-                            <th>Destino</th>
-                            <th>Nome</th>
-                            <th>Estado</th>
-                            <th>Data Inicial</th>
-                            <th>Data Final</th>
+                            <th>Destino</th>                            
+                            <th>Estado</th>                            
                             <th>Descrição</th>
                             <th>Ativa</th>
                             <th>Editar</th>

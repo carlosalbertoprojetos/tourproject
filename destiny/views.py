@@ -16,18 +16,18 @@ def destiny_update(request, pk):
 
         if form.is_valid():
             destiny = form.save(commit=True)
-            return redirect('destino:destiny_list')
+            return redirect('destiny:destiny_list')
         else:
-            return render(request, 'destino/destiny_edit.html', {'form': form})
+            return render(request, 'destiny/destiny_edit.html', {'form': form})
 
     elif request.method == 'GET':
-        return render(request, 'destino/destiny_edit.html', {'form': form})
+        return render(request, 'destiny/destiny_edit.html', {'form': form})
 
 
 class DeleteDestinyView(DeleteView):
     model = Destiny
-    template_name = 'destino/destiny_delete.html'
-    success_url = reverse_lazy('destino:destiny_list')
+    template_name = 'destiny/destiny_delete.html'
+    success_url = reverse_lazy('destiny:destiny_list')
     success_message = 'Deletado com sucesso!'
 
     def delete(self, request, *args, **kwargs):
@@ -39,7 +39,7 @@ Destiny_Delete = DeleteDestinyView.as_view()
 
 class DestinyListView(ListView):
     model = Destiny
-    template_name = 'destino/destiny_list.html'
+    template_name = 'destiny/destiny_list.html'
     context_object_name = "destinys"
 
 
@@ -47,12 +47,14 @@ Destiny_list = DestinyListView.as_view()
 
 class DestinyCreateView(CreateView):
     model = Destiny
-    template_name = 'destino/destiny_create.html'
+    template_name = 'destiny/destiny_create.html'
     form_class = RegisterDestinyForm
-    success_url = reverse_lazy('destino:destiny_list')
+    success_url = reverse_lazy('destiny:destiny_list')
 
 	
 Destiny_register = DestinyCreateView.as_view()
+
+
 
 
 

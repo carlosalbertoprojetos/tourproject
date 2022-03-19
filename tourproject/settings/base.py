@@ -56,9 +56,10 @@ INSTALLED_APPS = [
     'client',
     # 'bootstrapform',
     'transport',
-    'destino',
+    'destiny',
     'django_cpf_cnpj',
     'phonenumber_field',
+    'season',
 ]
 
 

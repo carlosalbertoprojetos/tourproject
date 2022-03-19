@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    
+    <title>Calendário</title>
+    
+</head>
+<body>
+        
+    </form> 
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h2>Temporada</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" class="register-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="numcreditos">Temporada:</label>
+                            <input type="text" id="temporada" name="temporada" value="{{season.season}}" class="form-control" placeholder="Tipo de temporada" maxlength="20" required>
+                            
+                            <p>Data Inicial: <input type="text" id="calendar_01" /> - Data Final: <input type="text" id="calendar_02" /></p>                            
+                        </div>                        
+                        <div class="form-group form-button">
+                            <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
+                        </div>
+                    </form>
+                    
+                </div>
+            
+            </div>  
+        </div>
+    </div>   
+</body>
+<script>
+    $(function() {      
+              
+        $("#calendar_01").datepicker({
+        /*numberOfMonths: 3,*/        
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+       });
+
+       $("#calendar_02").datepicker({
+        /*numberOfMonths: 3,*/        
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+        });
+    });
+</script>
+
+</html>
+
