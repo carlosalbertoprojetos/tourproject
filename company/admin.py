@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Company, CompanyDestinies, State, City, LocalFlavor
-# from .forms import LocalFlavorForm
+from .models import Company, CompanyDestinies, State, City
+
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
@@ -25,8 +25,3 @@ class CompanyDestiniesAdmin(admin.ModelAdmin):
     ... 
     
 
-
-# @admin.register(LocalFlavor)
-# class LocalFlavorAdmin(admin.ModelAdmin):
-#     form = LocalFlavorForm
-    ...
