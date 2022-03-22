@@ -30,25 +30,25 @@ class City(models.Model):
         return self.name
 
 
-class CompanyAdress(models.Model):
-    name = models.CharField(max_length=100)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    city = ChainedForeignKey(
-        City, 
-        on_delete=models.CASCADE,
-        chained_field="state",
-        chained_model_field="state",
-        show_all=False,
-        auto_choose=True,
-        )
+# class CompanyAdress(models.Model):
+#     name = models.CharField(max_length=100)
+#     state = models.ForeignKey(State, on_delete=models.CASCADE)
+#     city = ChainedForeignKey(
+#         City, 
+#         on_delete=models.CASCADE,
+#         chained_field="state",
+#         chained_model_field="state",
+#         show_all=False,
+#         auto_choose=True,
+#         )
 
-    class Meta:
-        ordering = ['name']
-        verbose_name = 'Endereço Empresa'
-        verbose_name_plural = 'Endereço Empresas'
+#     class Meta:
+#         ordering = ['name']
+#         verbose_name = 'Endereço Empresa'
+#         verbose_name_plural = 'Endereço Empresas'
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class Company(models.Model):
@@ -132,14 +132,14 @@ class CompanyDestinies(models.Model):
         return str(self.company) + ' - ' + str(self.destiny)
 
 
-class LocalFlavor(models.Model):
-    cep = models.CharField(_('CEP'), max_length=100)
-    state = models.CharField(_('Estado'), max_length=100)
-    cpf = models.CharField(_('CPF'), max_length=100)
-    cnpj = models.CharField(_('CNPJ'), max_length=100)
-    phone = models.CharField(_('Telefone'), max_length=100)
+# class LocalFlavor(models.Model):
+#     cep = models.CharField(_('CEP'), max_length=100)
+#     state = models.CharField(_('Estado'), max_length=100)
+#     cpf = models.CharField(_('CPF'), max_length=100)
+#     cnpj = models.CharField(_('CNPJ'), max_length=100)
+#     phone = models.CharField(_('Telefone'), max_length=100)
     
 
-    def __str__(self):
-        return str(self.cpf) + ' - ' + str(self.cnpj) + ' - ' + str(self.cep) + ' - ' + str(self.state) + ' - ' + str(self.phone)
+#     def __str__(self):
+#         return str(self.cpf) + ' - ' + str(self.cnpj) + ' - ' + str(self.cep) + ' - ' + str(self.state) + ' - ' + str(self.phone)
     
