@@ -22,14 +22,17 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
 
-    path('user/', include('user.urls'), name='user'),    
-    path('company/', include('company.urls'), name='company'),    
+    path('user/', include('user.urls'), name='user'),
+    path('company/', include('company.urls'), name='company'),
+    
+    # path('chaining/', include('smart_selects.urls')),
+
     path('trip/', include('trip.urls'), name='company'),
     path('destiny/', include('destiny.urls'), name='destiny'),
     path('season/', include('season.urls'), name='season'),
-    
-    path('client/', include('client.urls'),name='client'),   
-    path('transport/', include('transport.urls'),name='transport'),
+
+    path('client/', include('client.urls'), name='client'),
+    path('transport/', include('transport.urls'), name='transport'),
 
     path('accounts/', include('allauth.urls')),
 

@@ -1,22 +1,22 @@
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .forms import EditTransportForm, RegisterTransportForm
+from .forms import RegisterTransportForm
 from .models import Transport
 
 
-class TransortRegisterView(SuccessMessageMixin, CreateView):
+class TransortRegisterView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Transport
     form_class = RegisterTransportForm
     template_name = 'transport/transport_create.html'
     success_message = 'Transporte cadastrado com sucesso!!!'
     success_url = _('transport:transport_list')
-
 
 transport_create = TransortRegisterView.as_view()
 
@@ -38,7 +38,7 @@ transport_create = TransortRegisterView.as_view()
 #         return render(request, 'transport/transport_create.html', {'form': form})
 
 
-class TransportUpdateView(UpdateView):
+class TransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Transport
     form_class = RegisterTransportForm
     template_name = 'transport/transport_edit.html'
@@ -67,7 +67,16 @@ transport_update = TransportUpdateView.as_view()
 #         return render(request, 'transport/transport_edit.html', {'form': form})
 
 
-class DeletarTransporteView(DeleteView):
+
+class TransportListView(ListView):
+    model = Transport
+    template_name = 'transport/transport_list.html'
+    context_object_name = "transports"
+
+transport_list = TransportListView.as_view()
+
+
+class DeletarTransporteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Transport
     template_name = 'transport/transport_delete.html'
     success_url = _('transport:transport_list')
@@ -77,15 +86,4 @@ class DeletarTransporteView(DeleteView):
         messages.success(self.request,self.success_message)
         return super(DeletarTransporteView, self).delete(request, *args, **kwargs)
 
-
 transport_delete = DeletarTransporteView.as_view()
-
-
-class TransportListView(ListView):
-    model = Transport
-    template_name = 'transport/transport_list.html'
-    context_object_name = "transports"
-
-
-transport_list = TransportListView.as_view()
-

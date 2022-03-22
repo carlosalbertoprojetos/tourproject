@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Destino{% endblock title %} 
+{% block title %}Temporada{% endblock title %} 
 
 {% block dashboard %}
 
@@ -12,17 +12,13 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Novo Destino</h2>
-                    </div>
-                </div>
-                <form method="POST" class="register-form">
+                <h2 class="form-title">Novo Período por Temporada</h2>
+                <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}
                     <div class="form-group form-button">
-                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
+                        <input type="submit" class="form-submit" value="Salvar" />
                     </div> 
                 </form>
             </div>

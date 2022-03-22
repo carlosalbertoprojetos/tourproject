@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -7,7 +8,7 @@ from .forms import TripForm
 from .models import Categories, Trip
 
 
-class CategoryRegisterView(CreateView):
+class CategoryRegisterView(LoginRequiredMixin,CreateView):
     model = Categories
     fields = '__all__'
     template_name = 'trip/category_register.html'
@@ -18,7 +19,7 @@ class CategoryRegisterView(CreateView):
 category_register = CategoryRegisterView.as_view()
 
 
-class TripRegisterView(SuccessMessageMixin, CreateView):
+class TripRegisterView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Trip
     form_class = TripForm
     template_name = 'trip/trip_create.html'
@@ -46,7 +47,7 @@ class TripDetailView(DetailView):
 trip_details = TripDetailView.as_view()
 
 
-class TripUpdateView(UpdateView):
+class TripUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Trip
     form_class = TripForm
     template_name = 'trip/trip_update.html'
@@ -57,9 +58,10 @@ class TripUpdateView(UpdateView):
 trip_update = TripUpdateView.as_view()
 
 
-class TripDeleteView(DeleteView):
+class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Trip
     template_name = 'trip/trip_delete.html'
+    success_message = 'Passeio deletado com sucesso!!!'
     success_url = _('trip:trip_list')
 
     def delete(self, request, *args, **kwargs):
