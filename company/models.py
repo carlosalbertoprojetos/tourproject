@@ -1,8 +1,6 @@
 from destiny.models import Destiny
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from smart_selects.db_fields import ChainedForeignKey
-
 
 
 class State(models.Model):
