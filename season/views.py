@@ -5,7 +5,7 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Season, PeriodSeasons
+from .models import Season
 
 
 class SeasontListView(ListView):
@@ -48,47 +48,3 @@ class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super(SeasonDeleteView, self).delete(request, *args, **kwargs)
 
 season_delete = SeasonDeleteView.as_view()
-
-
-
-
-class PeriodSeasonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    
-    model = PeriodSeasons
-    fields = '__all__'
-    template_name = 'season/period_season_create.html'
-    success_message = 'Período por temporada cadastrado com sucesso!!!'
-    success_url = _('season:period_seasons_list')
-
-period_season_create = PeriodSeasonCreateView.as_view()
-
-
-class PeriodSeasonSeasontListView(ListView):
-    model = PeriodSeasons
-    template_name = 'season/period_seasons_list.html'
-
-period_seasons_list = PeriodSeasonSeasontListView.as_view()
-
-
-class PeriodSeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    
-    model = PeriodSeasons
-    fields = '__all__'
-    template_name = 'season/period_season_update.html'
-    success_message = 'Período da temporada alterado com sucesso!!!'
-    success_url = _('season:period_seasons_list')
-
-period_season_update = PeriodSeasonUpdateView.as_view()
-
-
-class PeriodSeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = PeriodSeasons
-    template_name = 'season/period_season_delete.html'
-    success_message = 'Temporada deletada com sucesso!'
-    success_url = _('season:period_seasons_list')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(PeriodSeasonDeleteView, self).delete(request, *args, **kwargs)
-
-period_season_delete = PeriodSeasonDeleteView.as_view()

@@ -119,6 +119,7 @@ class SocialMedia(models.Model):
 
 
 class CompanyDestinies(models.Model):
+    
     company = models.ForeignKey(
         Company, on_delete=models.CASCADE, related_name='company_destiny')
     destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)
