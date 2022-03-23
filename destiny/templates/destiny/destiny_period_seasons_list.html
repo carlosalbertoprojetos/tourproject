@@ -36,11 +36,11 @@
                     <tbody>
                         {% for season in object_list %}
                         <tr>
-                            <td align="center">{{ season.destiny }}</td>
-                            <td align="center">{{ season.season }}</td>
-                            <td align="center">{{ season.description }}</td>
-                            <td align="center">{{ season.date_start }}</td>
-                            <td align="center">{{ season.date_end }}</td>
+                            <td>{{ season.destiny }}</td>
+                            <td>{{ season.season }}</td>
+                            <td>{{ season.description }}</td>
+                            <td align="center">{{ season.date_start|date }}</td>
+                            <td align="center">{{ season.date_end|date }}</td>
                             <td align="center">
                                 <a href="{% url 'destiny:destiny_period_season_update' season.pk %}" class="btn">
                                     <i class="fas fa-user-edit"></i>

@@ -102,7 +102,7 @@
                         data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'season:seasons_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'destiny:destiny_period_seasons_list' %}">Períodos</a>
+                            <a class="nav-link" href="{% url 'destiny:destiny_period_seasons_list' %}">Destinos</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth3"
@@ -115,7 +115,7 @@
                         data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'destiny:destinies_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'destiny:destiny_period_seasons_list' %}">Temporadas</a>
+                            {% comment %} <a class="nav-link" href="#">Outros</a> {% endcomment %}
                         </nav>
                     </div>
                     {% endif %}
