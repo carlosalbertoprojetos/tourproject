@@ -65,7 +65,11 @@ class Company(models.Model):
         blank=True, null=True,
     )
     postal_code = models.CharField(_('CEP'), max_length=11)
-    state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
+    state = models.CharField(_('Estado'),
+                            max_length=100,
+                            null=True
+                            )
+    # state = models.ForeignKey(State, on_delete=models.DO_NOTHING)
     city = models.CharField(_('Cidade'),
                             max_length=100,
                             null=True
