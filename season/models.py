@@ -21,7 +21,7 @@ class Validity(models.Model):
     year = models.CharField('Ano', choices=YEARS_CHOICES, max_length=4)
     # name = models.CharField('Temporada', max_length=255)
     validity = models.CharField('Validade', max_length=255)
-    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)    
+    destino = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)    
     period = models.CharField('Período', max_length=255)
     active = models.BooleanField('Vigente', default=True)
     
@@ -44,9 +44,9 @@ class OptionsPrices(models.Model):
     
 class PricesSeasonsDestinies(models.Model):
 
-    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING)
+    validade = models.ForeignKey(Validity, on_delete=models.DO_NOTHING)
     product = models.CharField('Produto', max_length=255)
-    priceselect = models.ForeignKey(OptionsPrices, on_delete=models.DO_NOTHING)
+    opcao = models.ForeignKey(OptionsPrices, on_delete=models.DO_NOTHING)
     price = models.CharField('Valor', max_length=9)
 
         
