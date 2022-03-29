@@ -35,9 +35,9 @@
                     <tbody>
                         {% for season in object_list %}
                         <tr>
-                            <td>{{ season.priceselect }}</td>
+                            <td>{{ season.opcao }}</td>
                             <td>{{ season.price }}</td>
-                            <td>{{ season.validity }}</td>
+                            <td>{{ season.validade }}</td>
                             <td>{{ season.product }}</td>
                             <td align="center">
                                 <a href="{% url 'season:prices_season_update' season.id %}" class="btn">

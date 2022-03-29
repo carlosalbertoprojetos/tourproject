@@ -103,7 +103,7 @@ class PricesCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     fields = '__all__'
     template_name = 'season/prices_season_create.html'
     success_message = 'Preço cadastrado com sucesso!!!'
-    success_url = _('season:prices_season_list')    
+    success_url = _('season:prices_season_list')
     
 prices_season_create = PricesCreateView.as_view()
 
