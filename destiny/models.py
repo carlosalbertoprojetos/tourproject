@@ -1,5 +1,4 @@
 from django.db import models
-from season.models import Season
 
 
 class Destiny(models.Model):
@@ -20,20 +19,3 @@ class Destiny(models.Model):
 
     def __str__(self):
         return self.name + ': ' + self.city + '/' + self.state
-
-
-class DestinyPeriodSeasons(models.Model):
-    
-    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)
-    description = models.CharField('Descrição', max_length=150)
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
-    date_start = models.DateField('Data Inicial')
-    date_end = models.DateField('Data Final')
-
-    class Meta:
-        ordering = ['-date_start']
-        verbose_name = 'Descrição Temporada'
-        verbose_name_plural = 'Descrição Temporadas'
-
-    def __str__(self):
-        return self.description + ' / ' + str(self.date_start) + ' a ' + str(self.date_end)

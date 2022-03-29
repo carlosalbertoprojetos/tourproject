@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Destiny, DestinyPeriodSeasons
+from .models import Destiny
 
 
 
@@ -10,7 +10,7 @@ class DestinyAdmin(admin.ModelAdmin):
 admin.site.register(Destiny, DestinyAdmin)
 
 
-@admin.register(DestinyPeriodSeasons)
-class DestinyPeriodSeasonsAdmin(admin.ModelAdmin):
-    list_display = ('destiny', 'description', 'season', 'date_start', 'date_end')
-    ...
+# @admin.register(DestinyPeriodSeasons)
+# class DestinyPeriodSeasonsAdmin(admin.ModelAdmin):
+#     list_display = ('destiny', 'description', 'season', 'date_start', 'date_end')
+#     ...

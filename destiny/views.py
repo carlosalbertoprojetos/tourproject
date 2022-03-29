@@ -5,7 +5,7 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Destiny, DestinyPeriodSeasons
+from .models import Destiny
 
 
 class DestinyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -55,45 +55,45 @@ class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 destiny_delete = DestinyDeleteView.as_view()
 
 
-class DestinyPeriodSeasonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+# class DestinyPeriodSeasonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     
-    model = DestinyPeriodSeasons
-    fields = '__all__'
-    template_name = 'destiny/destiny_period_season_create.html'
-    success_message = 'Período por temporada cadastrado com sucesso!!!'
-    success_url = _('destiny:destiny_period_seasons_list')
+#     model = DestinyPeriodSeasons
+#     fields = '__all__'
+#     template_name = 'destiny/destiny_period_season_create.html'
+#     success_message = 'Período por temporada cadastrado com sucesso!!!'
+#     success_url = _('destiny:destiny_period_seasons_list')
 
-destiny_period_season_create = DestinyPeriodSeasonCreateView.as_view()
+# destiny_period_season_create = DestinyPeriodSeasonCreateView.as_view()
 
 
-class DestinyPeriodSeasonSeasontListView(ListView):
+# class DestinyPeriodSeasonSeasontListView(ListView):
     
-    model = DestinyPeriodSeasons
-    template_name = 'destiny/destiny_period_seasons_list.html'
+#     model = DestinyPeriodSeasons
+#     template_name = 'destiny/destiny_period_seasons_list.html'
 
-destiny_period_seasons_list = DestinyPeriodSeasonSeasontListView.as_view()
+# destiny_period_seasons_list = DestinyPeriodSeasonSeasontListView.as_view()
 
 
-class DestinyPeriodSeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+# class DestinyPeriodSeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     
-    model = DestinyPeriodSeasons
-    fields = '__all__'
-    template_name = 'destiny/destiny_period_season_update.html'
-    success_message = 'Período da temporada alterado com sucesso!!!'
-    success_url = _('destiny:destiny_period_seasons_list')
+#     model = DestinyPeriodSeasons
+#     fields = '__all__'
+#     template_name = 'destiny/destiny_period_season_update.html'
+#     success_message = 'Período da temporada alterado com sucesso!!!'
+#     success_url = _('destiny:destiny_period_seasons_list')
 
-destiny_period_season_update = DestinyPeriodSeasonUpdateView.as_view()
+# destiny_period_season_update = DestinyPeriodSeasonUpdateView.as_view()
 
 
-class DestinyPeriodSeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+# class DestinyPeriodSeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     
-    model = DestinyPeriodSeasons
-    template_name = 'destiny/destiny_period_season_delete.html'
-    success_message = 'Temporada deletada com sucesso!'
-    success_url = _('destiny:destiny_period_seasons_list')
+#     model = DestinyPeriodSeasons
+#     template_name = 'destiny/destiny_period_season_delete.html'
+#     success_message = 'Temporada deletada com sucesso!'
+#     success_url = _('destiny:destiny_period_seasons_list')
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(DestinyPeriodSeasonDeleteView, self).delete(request, *args, **kwargs)
+#     def delete(self, request, *args, **kwargs):
+#         messages.success(self.request,self.success_message)
+#         return super(DestinyPeriodSeasonDeleteView, self).delete(request, *args, **kwargs)
 
-destiny_period_season_delete = DestinyPeriodSeasonDeleteView.as_view()
+# destiny_period_season_delete = DestinyPeriodSeasonDeleteView.as_view()
