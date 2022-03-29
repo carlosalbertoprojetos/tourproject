@@ -12,13 +12,18 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Perços</h2>
+                <h2 class="form-title">Preços</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}
-                    <div class="form-group form-button">
-                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
+                    <div class="row form-group form-button ">
+                        <div class="col-md-1 p-1">
+                            <input type="submit" class="btn btn-primary" value="Salvar"/>
+                        </div>
+                        <div class="col-md-1 p-1">
+                            <a href="{% url 'season:options_prices_create' %}" class="btn btn-primary"/>Opções</a>
+                        </div> 
                     </div> 
                 </form>
             </div>
