@@ -51,7 +51,8 @@ class Trip(models.Model):
 
     def __str__(self):
         return self.name
-
+    
+    
 class CategoriesPax(models.Model):
     name = models.CharField('Categoria PAX', max_length=255)
 
