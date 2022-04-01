@@ -16,22 +16,22 @@ class Company(models.Model):
         ('ES', 'ES'),
         ('GO', 'GO'),
         ('MA', 'MA'),
-        ('MT', 'MT'), 
+        ('MT', 'MT'),
         ('MS', 'MS'),
-        ('MG', 'MG'), 
-        ('PA', 'PA'), 
-        ('PB', 'PB'), 
-        ('PE', 'PE'), 
-        ('PI', 'PI'), 
+        ('MG', 'MG'),
+        ('PA', 'PA'),
+        ('PB', 'PB'),
+        ('PE', 'PE'),
+        ('PI', 'PI'),
         ('PR', 'PR'),
-        ('RJ', 'RJ'), 
-        ('RN', 'RN'), 
-        ('RO', 'RO'), 
-        ('RR', 'RR'), 
-        ('RS', 'RS'), 
+        ('RJ', 'RJ'),
+        ('RN', 'RN'),
+        ('RO', 'RO'),
+        ('RR', 'RR'),
+        ('RS', 'RS'),
         ('SC', 'SC'),
-        ('SE', 'SE'), 
-        ('SP', 'SP'), 
+        ('SE', 'SE'),
+        ('SP', 'SP'),
         ('TO', 'TO'),
     ]
 
@@ -66,7 +66,7 @@ class Phone(models.Model):
     company = models.ForeignKey(
         Company,
         on_delete=models.DO_NOTHING,
-        related_name='phone',
+        verbose_name='Telefone',
     )
 
     phone = models.CharField(
@@ -86,7 +86,7 @@ class SocialMedia(models.Model):
     company = models.ForeignKey(
         Company,
         on_delete=models.DO_NOTHING,
-        related_name='social_media',
+        verbose_name='Rede Social',
     )
 
     socmedia = models.CharField(
@@ -103,7 +103,7 @@ class SocialMedia(models.Model):
 class CompanyDestinies(models.Model):
 
     company = models.ForeignKey(
-        Company, on_delete=models.CASCADE, related_name='company_destiny')
+        Company, on_delete=models.CASCADE, verbose_name='Empresa')
     destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)
 
     class Meta:

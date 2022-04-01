@@ -1,7 +1,5 @@
-from django.db import models
-
-
 from company.models import Company
+from django.db import models
 from season.models import Validity
 
 
@@ -36,8 +34,8 @@ class Trip(models.Model):
     ride_distance = models.CharField('Distância do passeio', max_length=255)
     limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)
     commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE, verbose_name='Categoria')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
     tour_notes = models.TextField('Notas do passeio', blank=True)
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
     
@@ -61,9 +59,9 @@ class CategoriesPax(models.Model):
 
 
 class TripSeasonPrices(models.Model):
-    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING)
-    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING)
-    cadpax = models.ForeignKey(CategoriesPax, on_delete=models.DO_NOTHING)
+    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
+    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Vigência')
+    cadpax = models.ForeignKey(CategoriesPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
     price = models.CharField('Preço', max_length=9)
 
     def __str__(self):
