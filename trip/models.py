@@ -1,6 +1,6 @@
 from company.models import Company
 from django.db import models
-from season.models import Validity
+from season.models import Season
 
 
 class Categories(models.Model):
@@ -60,9 +60,9 @@ class CategoriesPax(models.Model):
 
 class TripSeasonPrices(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
-    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Vigência')
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     cadpax = models.ForeignKey(CategoriesPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
     price = models.CharField('Preço', max_length=9)
 
     def __str__(self):
-        return self.trip +' - '+ self.validity +' - '+ self.cadpax + ' - R$ ' + self.price
+        return self.trip +' - '+ self.season +' - '+ self.cadpax + ' - R$ ' + self.price
