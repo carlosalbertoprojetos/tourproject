@@ -3,27 +3,28 @@ from django.urls import path
 from .views import (
     season_create, seasons_list, 
     season_update, season_delete,
-    options_prices_create, options_prices_update,
-    prices_season_list, prices_season_delete, 
-    prices_season_create, 
-    prices_season_update, prices_season_delete,
+    validity_list, validity_create,
+    validity_update, validity_delete,
+    period_list, period_create,
+    period_update, period_delete
     )
 
 app_name = 'season'
 
 urlpatterns = [   
+    path('validity/list/', validity_list, name='validity_list'),
+    path('validity/create/', validity_create, name='validity_create'),
+    path('<int:pk>/validity/edit/', validity_update, name='validity_update'),
+    path('<int:pk>/validity/delete/', validity_delete, name='validity_delete'),
+    
     path('list/', seasons_list, name='seasons_list'),
     path('create/', season_create, name='season_create'),
     path('<int:pk>/edit/', season_update, name='season_update'),
     path('<int:pk>/delete/', season_delete, name='season_delete'),
 
-    path('prices/list/', prices_season_list, name='prices_season_list'),
-    path('prices/create/', prices_season_create, name='prices_season_create'),
-    path('<int:pk>/prices/edit/', prices_season_update, name='prices_season_update'),
-    path('<int:pk>/prices/delete/', prices_season_delete, name='prices_season_delete'),
-
-    path('option/create/', options_prices_create, name='options_prices_create'),
-    path('<int:pk>/option/edit/', options_prices_update, name='options_prices_update'),
-    path('<int:pk>/option/delete/', options_prices_update, name='options_prices_update'),
+    path('period/list/', period_list, name='period_list'),
+    path('period/create/', period_create, name='period_create'),
+    path('<int:pk>/option/edit/', period_update, name='period_update'),
+    path('<int:pk>/option/delete/', period_delete, name='period_delete'),
 
 ]

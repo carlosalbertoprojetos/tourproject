@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Preços{% endblock title %} 
+{% block title %}Vigência{% endblock title %} 
 
 {% block dashboard %}
 
@@ -12,7 +12,7 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Valores</h2>
+                <h2 class="form-title">Nova Vigência</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
@@ -21,9 +21,6 @@
                         <div class="col-md-1 p-1">
                             <input type="submit" class="btn btn-primary" value="Salvar"/>
                         </div>
-                        <div class="col-md-1 p-1">
-                            <a href="{% url 'season:options_prices_create' %}" class="btn btn-primary"/>Opções</a>
-                        </div> 
                     </div> 
                 </form>
             </div>

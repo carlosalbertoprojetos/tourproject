@@ -1,52 +1,47 @@
 from django.db import models
 
+
 from destiny.models import Destiny
 
 
-
 class Validity(models.Model):
-
-    YEARS_CHOICES = (
-        ('2022', '2022'),
-        ('2023', '2023'),
-        ('2024', '2024'),
-        ('2025', '2025'),
-        ('2026', '2026'),
-        ('2027', '2027'),
-        ('2028', '2028'),
-        ('2029', '2029'),
-        ('2030', '2030'),
-    )
-
-    year = models.CharField('Ano', choices=YEARS_CHOICES, max_length=4)
-    # name = models.CharField('Temporada', max_length=255)
-    validity = models.CharField('Validade', max_length=255)
-    destino = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)    
-    period = models.CharField('Período', max_length=255)
-    active = models.BooleanField('Vigente', default=True)
+    year = models.CharField('Ano', max_length=4)
+    active = models.BooleanField('Ativo Agência', default=False)
+    sell = models.BooleanField('Ativo Venda', default=False)
     
     class Meta:
         ordering = ['-year']
+        verbose_name = 'Vigência'
+        verbose_name_plural = 'Vigências'
+        
+    def __str__(self):
+        return self.year
+
+
+class Season(models.Model):
+    name = models.CharField('Nome', max_length=255)
+    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING)
+    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING)
+    active = models.BooleanField('Ativo Agência', default=False)
+    sell = models.BooleanField('Ativo Venda', default=False)
+        
+    class Meta:
         verbose_name = 'Temporada'
         verbose_name_plural = 'Temporadas'
 
     def __str__(self):
-        return self.validity + ' /' + self.year + ' - ' + self.period
+        return str(self.validity) + ' /' + str(self.destiny) + ' - ' + self.name
   
     
-class OptionsPrices(models.Model):
-        
-        priceselect = models.CharField('Tipo', max_length=255)
-        
-        def __str__(self):
-            return self.priceselect
-        
+class Period(models.Model):
+    name = models.CharField('Nome', max_length=255)
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
+    date_start = models.DateField('Data Início')
+    date_end = models.DateField('Data Fim')
     
-class PricesSeasonsDestinies(models.Model):
+    class Meta:
+        verbose_name = 'Período'
+        verbose_name_plural = 'Períodos'
 
-    validade = models.ForeignKey(Validity, on_delete=models.DO_NOTHING)
-    product = models.CharField('Produto', max_length=255)
-    opcao = models.ForeignKey(OptionsPrices, on_delete=models.DO_NOTHING)
-    price = models.CharField('Valor', max_length=9)
-
-        
+    def __str__(self):
+        return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end

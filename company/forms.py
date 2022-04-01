@@ -15,7 +15,6 @@ class CompanyForm(forms.ModelForm):
         super(CompanyForm, self).__init__(*args, **kwargs)
         self.fields['document_number'].widget.attrs.update(
             {'class': 'mask-cnpj'})
-        self.fields['state'].widget.attrs.update({'class': 'mask-state'})
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
         
         

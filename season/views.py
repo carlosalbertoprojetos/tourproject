@@ -5,18 +5,67 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Validity, OptionsPrices, PricesSeasonsDestinies
-from .forms import PricesCreateForm
+from .models import Validity, Season, Period
+
+
+
+# ------------------------- VIGÊNCIA -------------------------
+
+
+class ValidityListView(LoginRequiredMixin, ListView):
+    model = Validity
+    template_name = 'season/validity_list.html'
+
+validity_list = ValidityListView.as_view()
+
+
+class ValidityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Validity
+    fields = '__all__'
+    template_name = 'season/validity_create.html'
+    success_message = 'Vigência cadastrada com sucesso!!!'
+    success_url = _('season:validity_list')
+    
+validity_create = ValidityCreateView.as_view()
+
+
+class ValidityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Validity
+    fields = '__all__'
+    template_name = 'season/validity_update.html'
+    success_message = 'Vigência alterada com sucesso!!!'
+    success_url = _('season:validity_list')
+
+validity_update = ValidityUpdateView.as_view()
+
+
+class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Validity
+    template_name = 'season/validity_delete.html'
+    success_message = 'Vigência deletada com sucesso!'
+    success_url = _('season:validity_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,self.success_message)
+        return super(ValidityDeleteView, self).delete(request, *args, **kwargs)
+
+validity_delete = ValidityDeleteView.as_view()
+
+
+
+# ------------------------- TEMPORADA -------------------------
+
 
 class SeasontListView(ListView):
-    model = Validity
+    model = Season
     template_name = 'season/seasons_list.html'
 
 seasons_list = SeasontListView.as_view()
 
+
 class SeasonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     
-    model = Validity
+    model = Season
     fields = '__all__'
     template_name = 'season/season_create.html'
     success_message = 'Temporada cadastrada com sucesso!!!'
@@ -24,9 +73,10 @@ class SeasonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 season_create = SeasonCreateView.as_view()
 
+
 class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     
-    model = Validity
+    model = Season
     fields = '__all__'
     template_name = 'season/season_update.html'
     success_url = _('season:seasons_list')
@@ -34,8 +84,9 @@ class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 season_update = SeasonUpdateView.as_view()
 
+
 class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Validity
+    model = Season
     template_name = 'season/season_delete.html'
     success_message = 'Temporada deletada com sucesso!'
     success_url = _('season:seasons_list')
@@ -49,81 +100,46 @@ season_delete = SeasonDeleteView.as_view()
 
 
 
-# ------------------------- OPTIONS PRICES -------------------------
+# ------------------------- PERÍODO  -------------------------
 
-class OptionPriceCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = OptionsPrices
+
+class PeriodListView(LoginRequiredMixin, ListView):
+    model = Period
+    template_name = 'season/period_list.html'
+
+period_list = PeriodListView.as_view()
+
+
+class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Period
     fields = '__all__'
-    template_name = 'season/options_prices_create.html'
-    success_message = 'Opção cadastrada com sucesso!!!'
-    success_url = _('season:seasons_list')
+    template_name = 'season/period_create.html'
+    success_message = 'Período cadastrado com sucesso!!!'
+    success_url = _('season:period_list')
 
-options_prices_create = OptionPriceCreateView.as_view()
+period_create = PeriodCreateView.as_view()
 
-class OptionPricesUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = OptionsPrices
+
+class PeriodUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Period
     fields = '__all__'
-    template_name = 'season/options_prices_update.html'
-    success_message = 'Opção alterada com sucesso!!!'
-    success_url = _('season:seasons_list')
+    template_name = 'season/period_update.html'
+    success_message = 'Período alterado com sucesso!!!'
+    success_url = _('season:period_list')
 
-options_prices_update = OptionPricesUpdateView.as_view()
+period_update = PeriodUpdateView.as_view()
 
-class OptionDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = OptionsPrices
-    template_name = 'season/options_prices_delete.html'
-    success_message = 'Opção deletada com sucesso!'
-    success_url = _('season:seasons_list')
+
+class PeriodDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Period
+    template_name = 'season/period_delete.html'
+    success_message = 'Período deletado com sucesso!'
+    success_url = _('season:period_list')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request,self.success_message)
-        return super(OptionDeleteView, self).delete(request, *args, **kwargs)
+        return super(PeriodDeleteView, self).delete(request, *args, **kwargs)
 
-prices_season_delete = OptionDeleteView.as_view()
-
-
-
-# ------------------------- PREÇOS POR DESTINOS/TEMPORADAS -------------------------
-
-class PricesListView(LoginRequiredMixin, ListView):
-    model = PricesSeasonsDestinies
-    template_name = 'season/prices_seasons_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(PricesListView, self).get_context_data(**kwargs)
-        context['order'] = PricesCreateForm(self.request.POST or None)
-        return context
+period_delete = PeriodDeleteView.as_view()
 
 
-prices_season_list = PricesListView.as_view()
-
-
-class PricesCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = PricesSeasonsDestinies
-    fields = '__all__'
-    template_name = 'season/prices_season_create.html'
-    success_message = 'Preço cadastrado com sucesso!!!'
-    success_url = _('season:prices_season_list')
-    
-prices_season_create = PricesCreateView.as_view()
-
-class PricesUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = PricesSeasonsDestinies
-    fields = '__all__'
-    template_name = 'season/prices_season_update.html'
-    success_message = 'Valor alterado com sucesso!!!'
-    success_url = _('season:prices_season_list')
-
-prices_season_update = PricesUpdateView.as_view()
-
-class PricesDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = PricesSeasonsDestinies
-    template_name = 'season/prices_season_delete.html'
-    success_message = 'Valor deletado com sucesso!'
-    success_url = _('season:prices_season_list')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(PricesDeleteView, self).delete(request, *args, **kwargs)
-
-prices_season_delete = PricesDeleteView.as_view()

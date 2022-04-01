@@ -3,8 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Passeio{% endblock title %}
-
+{% block title %}Preços{% endblock title %} 
 
 {% block dashboard %}
 
@@ -13,21 +12,19 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">                    
-                <h2 class="form-title">Você tem certeza que deseja excluir este passeio?</h2>                    
+                <h2 class="form-title">Você tem certeza que deseja excluir esta vigência?</h2>                    
                 <form method="POST" class="register-form" enctype="multipart/form-data">                        
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}                    
                     <div class="card-body">                                            
-                        <div class="form-group">                    
-                            <div class="row ml-0">
-                                <div class="col-md-1">
-                                    <div class="form-floating">
-                                        <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>        
-                                    </div>
+                        <div class="row ml-0">
+                            <div class="col-md-1">
+                                <div class="form-floating">
+                                    <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>        
                                 </div>
                             </div>
-                        </div>                
+                        </div>            
                     </div>
                 </form>
             </div>
@@ -36,4 +33,3 @@
 </div>
 
 {% endblock %}
-

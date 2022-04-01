@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Opções{% endblock title %} 
+{% block title %}Categoria PAX{% endblock title %} 
 
 {% block dashboard %}
 
@@ -12,14 +12,16 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Você tem certeza que deseja excluir esta Opção?</h2>
+                <h2 class="form-title">Nova Categoria</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}
-                    <div class="form-group form-button">
-                        <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>
-                    </div>
+                    <div class="row form-group form-button ">
+                        <div class="col-md-1 p-1">
+                            <input type="submit" class="btn btn-primary" value="Salvar"/>
+                        </div>
+                    </div> 
                 </form>
             </div>
         </div>
