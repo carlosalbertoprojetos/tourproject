@@ -24,7 +24,7 @@
                         <tr>                              
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>Cel</th>
+                            <th>Telefone</th>
                             <th>Conta Ativa</th>                            
                             <th>Editar</th>                           
                         </tr>
@@ -33,7 +33,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>Cel</th>
+                            <th>Telefone</th>
                             <th>Conta Ativa</th>                            
                             <th>Editar</th>     
                         </tr>
@@ -43,19 +43,18 @@
                         <tr>
                             <td>{{ c.name }}</td>
                             <td>{{ c.email }}</td>
-                            <td>{{ c.cel }}</td>                        
+                            <td>{{ c.phoneNumber }}</td>                        
                             <td align="center">
                                 <a href="#" class="btn">
                                     {% if c.is_active is True%}
                                         <i class="fas fa-user-check"></i>                                        
                                         {% else %}
-                                            <i class="zmdi zmdi-square-o material-icons-name"></i>
+                                            <i class="fas fa-user-times"></i>
                                     {% endif%}
                                 </a>
                             </td>                        
                             <td align="center">
-                                <a href="{% url 'client:client_edit' c.id%}" class="btn">
-                                    
+                                <a href="{% url 'client:client_edit' c.id%}" class="btn">                                    
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>

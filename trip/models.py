@@ -1,11 +1,13 @@
 from company.models import Company
 from django.db import models
+from tinymce.models import HTMLField
+from season.models import Season
 
 
 class Categories(models.Model):
     name = models.CharField('Categoria', max_length=255, unique=True)
     slug = models.SlugField(max_length=250)
-    description = models.TextField('Descrição', blank=True)
+    description = HTMLField('Descrição', blank=True)
 
     class Meta:
         ordering = ["name"]
@@ -33,14 +35,14 @@ class Trip(models.Model):
     ride_distance = models.CharField('Distância do passeio', max_length=255)    
     limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)    
     commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)    
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE)    
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)    
+    category = models.ForeignKey(Categories, verbose_name='Categoria', on_delete=models.CASCADE)    
+    company = models.ForeignKey(Company, verbose_name='Empresa',on_delete=models.CASCADE)    
     tour_notes = models.TextField('Notas do passeio', blank=True)    
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
     seo = models.CharField('Dados para SEO', max_length=155)
     title = models.CharField('Título', max_length=150)
-    description = models.CharField('Descrição', max_length=300)
-    description_BTMS = models.CharField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)    
+    description = HTMLField('Descrição', blank=True)
+    description_BTMS = HTMLField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)    
     btms = models.CharField('Codigo BTMS', max_length=300)
 
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
@@ -51,7 +53,31 @@ class Trip(models.Model):
         verbose_name = "Passeio"
         verbose_name_plural = "Passeios"
 
+class CategoriesPax(models.Model):
+    name = models.CharField('Categoria PAX', max_length=255)
 
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Categoria PAX"
+        
+
+    def __str__(self):
+        return self.name
+
+
+class TripSeasonPrices(models.Model):
+    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
+    cadpax = models.ForeignKey(CategoriesPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
+    price = models.CharField('Preço', max_length=9)
+
+    class Meta:
+        ordering = ["trip"]
+        verbose_name = "Preço Temporada de Passeio"
+        
+
+    def __str__(self):
+        return self.trip
 """
 Nome
 Slug

@@ -55,69 +55,45 @@
 
                     {% if user.is_superuser %}
                     <div class="sb-sidenav-menu-heading">Gestão</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth"
-                        aria-expanded="false" aria-controls="pagesCollapseAuth">
+                    <a class="nav-link" href="{% url 'user:users_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Usuários
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'user:users_list' %}">Listar</a>
-                            <a class="nav-link" href="#">Outros dados</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#pagesCollapseAuth2" aria-expanded="false" aria-controls="pagesCollapseAuth2">
+                    <a class="nav-link" href="{% url 'company:companies_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-business-time"></i></div>
                         Empresas
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth2" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'company:companies_list' %}">Listar</a>
-                            <a class="nav-link" href="#">Outros dados</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
+                    <a class="nav-link" href="{% url 'client:client_list' %}">
                         <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
                         Clientes
+                    </a>                    
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeason"
+                        aria-expanded="false" aria-controls="collapseSeason">
+                        <div class="sb-nav-link-icon"><i class="ffas fa-snowflake "></i></div>
+                        Temporada
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                    <div class="collapse" id="collapseSeason" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
-                            <a class="nav-link" href="#">Outros dados</a>
+                            <a class="nav-link" href="{% url 'season:seasons_list' %}">Listar</a>                            
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth4"
-                    aria-expanded="false" aria-controls="pagesCollapseAuth4">
-                    <div class="sb-nav-link-icon"><i class="fas fa-snowflake "></i></div>
-                    Temporadas
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    <div class="collapse" id="collapseSeason" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'season:validity_list' %}">Vigência</a>                            
+                        </nav>
+                    </div>
+                    <a class="nav-link" href="{% url 'season:period_list' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-snowflake "></i></div>
+                        Períodos
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth4" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'season:seasons_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'season:period_seasons_list' %}">Períodos</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth3"
-                    aria-expanded="false" aria-controls="pagesCollapseAuth3">
+                    <a class="nav-link" href="{% url 'destiny:destinies_list' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    Destinos
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        Destinos
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth3" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'destiny:destinies_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'destiny:destinies_list_season' %}">Temporadas</a>
-                        </nav>
-                    </div>
+
                     {% endif %}
 
                     {% if user.option == '1' %}
@@ -137,36 +113,68 @@
                     </div>
                     {% endif %}
 
-                    {% endif %}
-        
-                    <div class="sb-sidenav-menu-heading">Produtos</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts"
-                        aria-expanded="false" aria-controls="collapseProdocts">
+                    {% endif %}        
+                    
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTrip"
+                        aria-expanded="false" aria-controls="collapseTrip">
                         <div class="sb-nav-link-icon"><i class="fas fa-solid fa-suitcase"></i></div>
                         Passeios
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne"
+                    </a>                    
+                    <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'trip:trip_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'trip:trip_create' %}">Cadastrar</a>
+                            <a class="nav-link" href="{% url 'trip:category_register' %}">Cadastrar PAX</a>                            
                         </nav>
-                    </div>
-
+                    </div>      
+                    <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'trip:category_register' %}">Categorias</a>                            
+                        </nav>
+                    </div> 
+                    <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'trip:trip_list' %}">Listar</a>                            
+                        </nav>
+                    </div>       
+                    <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'trip:category_register' %}">Preços</a>                            
+                        </nav>
+                    </div> 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTransport"
                         aria-expanded="false" aria-controls="collapseTransport">
                         <div class="sb-nav-link-icon"><i class="fas fa-solid fa-bus"></i></div>
                         Transporte
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
+                    </a>                    
                     <div class="collapse" id="collapseTransport" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'transport:transport_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'transport:transport_create' %}">Cadastrar</a>
+                            <a class="nav-link" href="{% url 'transport:catpax_transport_list' %}">Cadastrar PAX</a>                            
                         </nav>
-                    </div>
+                    </div>      
+                    <div class="collapse" id="collapseTransport" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'transport:category_transport_register' %}">Categorias</a>                            
+                        </nav>
+                    </div> 
+                    <div class="collapse" id="collapseTransport" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'transport:transport_list' %}">Listar</a>                            
+                        </nav>
+                    </div>       
+                    <div class="collapse" id="collapseTransport" aria-labelledby="headingOne"
+                        data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'transport:price_transport_list' %}">Preços</a>                            
+                        </nav>
+                    </div>                    
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                         aria-expanded="false" aria-controls="collapseLayouts">

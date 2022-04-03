@@ -5,7 +5,7 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Destiny, DestinySeasons
+from .models import Destiny
 
 
 class DestinyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -44,7 +44,7 @@ destiny_update = DestinyUpdateView.as_view()
 class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Destiny
     template_name = 'destiny/destiny_delete.html'
-    success_url = _('destiny:destiny_list')
+    success_url = _('destiny:destinies_list')
     success_message = 'Deletado com sucesso!'
 
     def delete(self, request, *args, **kwargs):
@@ -54,22 +54,9 @@ class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 destiny_delete = DestinyDeleteView.as_view()
 
-
-class DestinyCreateSeason(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-
-    model = DestinySeasons
-    fields = '__all__'
-    template_name = 'destiny/destiny_create_season.html'
-    success_message = 'Temporada/destino criada com sucesso!'
-    success_url = _('destiny:destinies_season_list')
-
-
-destiny_create_season = DestinyCreateSeason.as_view()
-
-
 class DestinySeasonListView(LoginRequiredMixin, ListView):
 
-    model = DestinySeasons
+    model = Destiny
     template_name = 'destiny/destinies_season_list.html'
 
 
