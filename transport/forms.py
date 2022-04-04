@@ -6,8 +6,7 @@ class RegisterTransportForm(forms.ModelForm):
  
     class Meta:
         model = Transport
-        fields = '__all__'
-    
+        fields = '__all__'       
 
 class EditTransportForm(forms.ModelForm):
 

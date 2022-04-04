@@ -1,13 +1,13 @@
 from django.db import models
 from tinymce.models import HTMLField
-from season.models import Season
+from season.models import Season, Destiny
 
 # Create your models here.
 
 class Transport(models.Model):
-    
+    #destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino')
     stretch = models.CharField('Trecho', max_length=255, unique=True)
-    hits = models.PositiveIntegerField('Acessos')
+    hits = models.PositiveIntegerField('Poltronas')
     is_active = models.BooleanField('Ativar',default=True)
     document = models.FileField('Documento', upload_to='files/')
     description = HTMLField('Descrição', blank=True)    
