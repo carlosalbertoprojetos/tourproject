@@ -1,9 +1,16 @@
-from company.models import Company
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils.html import mark_safe
+from django.utils.text import slugify
+
+
+from basics.models import CategoryPax
+from company.models import Company
 from season.models import Season
 
 
-class Categories(models.Model):
+class TripCategory(models.Model):
     name = models.CharField('Categoria', max_length=255, unique=True)
     slug = models.SlugField(max_length=250)
     description = models.TextField('Descrição', blank=True)
@@ -15,6 +22,13 @@ class Categories(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=TripCategory)
+def insert_slug(sender, instance, **kwargs):
+    if not instance.slug or instance.slug != slugify(instance.name):
+        instance.slug = slugify(instance.name)
+        return instance.save()
 
 
 class Trip(models.Model):
@@ -54,7 +68,7 @@ class Trip(models.Model):
     ride_distance = models.CharField('Distância do passeio (Km)', max_length=255)
     limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255)
     commission = models.DecimalField('Comissão paga pelo fornecedor (%)', max_digits=5, decimal_places=2, blank=True, null=True)
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE, verbose_name='Categoria')
+    category = models.ForeignKey(TripCategory, on_delete=models.CASCADE, verbose_name='Categoria')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
     tour_notes = models.TextField('Notas do passeio', blank=True)
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
@@ -67,12 +81,11 @@ class Trip(models.Model):
         verbose_name = "Passeio"
         verbose_name_plural = "Passeios"
 
-    def __str__(self):
-        return self.name
-    
-    
-class CategoriesPax(models.Model):
-    name = models.CharField('Categoria PAX', max_length=255)
+    @property
+    def view_image(self):
+        return mark_safe('<img src="%s" width="400px" />'%self.imagem.url)
+        # view_image.short_description = "Imagem Cadastrada"
+        # view_image.allow_tags = True
 
     def __str__(self):
         return self.name
@@ -81,8 +94,8 @@ class CategoriesPax(models.Model):
 class TripSeasonPrices(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
     season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    cadpax = models.ForeignKey(CategoriesPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
+    cadpax = models.ForeignKey(CategoryPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
     price = models.CharField('Preço', max_length=9)
 
     def __str__(self):
-        return self.trip +' - '+ self.season +' - '+ self.cadpax + ' - R$ ' + self.price
+        return self.trip +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price

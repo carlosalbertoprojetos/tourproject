@@ -1,26 +1,63 @@
+from urllib import request
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib import messages
+from .forms import TripCategoryForm, TripForm
+from .models import TripCategory, Trip, TripSeasonPrices
 
-from .forms import TripForm
-from .models import Categories, Trip, CategoriesPax, TripSeasonPrices
 
+
+# ------------------------- CATEGORIA DE PASSEIO  -------------------------
+
+class TripCategoryListCreateView(LoginRequiredMixin, ListView):
+    model = TripCategory
+    template_name = 'trip/trip_category_list_create.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(TripCategoryListCreateView, self).get_context_data(**kwargs)
+        context['form_cat'] = TripCategoryForm(self.request.POST or None)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form_cat = TripCategoryForm(request.POST or None)
+
+        if form_cat.is_valid():
+            form_cat.save(commit=True)
+            messages.success(request, 'Categoria criada com sucesso!!!')
+            return redirect('trip:trip_category_list_create')
+        else:
+            return render(request, 'trip/trip_category_list_create.html', {'object':'object','form_cat': form_cat})
+
+trip_list_category_create = TripCategoryListCreateView.as_view()
+
+
+class TripCategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = TripCategory
+    form_class = TripCategoryForm
+    template_name = 'trip/trip_category_update.html'
+    success_message = 'Categoria atualizada com sucesso!!!'
+    success_url = _('trip:trip_category_list_create')
+
+trip_category_update = TripCategoryUpdateView.as_view()
+
+
+class TripCategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = TripCategory
+    template_name = 'trip/trip_category_delete.html'
+    success_message = 'Categoria deletada com sucesso!!!'
+    success_url = _('trip:trip_category_list_create')
+
+    def delete(self, request, *args, **kwargs):
+        return super(TripCategoryDeleteView, self).delete(request, *args, **kwargs)
+
+trip_category_delete = TripCategoryDeleteView.as_view()
 
 
 # ------------------------- PASSEIO  -------------------------
-
-
-class CategoryRegisterView(LoginRequiredMixin, SuccessMessageMixin,CreateView):
-    model = Categories
-    fields = '__all__'
-    template_name = 'trip/category_register.html'
-    success_message = 'Categoria cadastrada com sucesso!!!'
-    success_url = _('trip:trip_list')
-
-category_register = CategoryRegisterView.as_view()
-
 
 class TripListView(LoginRequiredMixin, ListView):
     model = Trip
@@ -29,14 +66,14 @@ class TripListView(LoginRequiredMixin, ListView):
 trip_list = TripListView.as_view()
 
 
-class TripRegisterView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TripCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Trip
     form_class = TripForm
     template_name = 'trip/trip_create.html'
     success_message = 'Passeio cadastrado com sucesso!!!'
     success_url = _('trip:trip_list')
 
-trip_create = TripRegisterView.as_view()
+trip_create = TripCreateView.as_view()
 
 
 class TripUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -59,50 +96,6 @@ class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super(TripDeleteView, self).delete(request, *args, **kwargs)
 
 trip_delete = TripDeleteView.as_view()
-
-
-
-# ------------------------- CATEGORIA PAX  -------------------------
-
-
-class CatPaxListView(LoginRequiredMixin, ListView):
-    model = CategoriesPax
-    template_name = 'trip/catpax_list.html'
-
-catpax_list = CatPaxListView.as_view()
-
-
-class CatPaxCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = CategoriesPax
-    fields = '__all__'
-    template_name = 'trip/catpax_create.html'
-    success_message = 'Categoria cadastrada com sucesso!!!'
-    success_url = _('trip:catpax_list')
-
-catpax_create = CatPaxCreateView.as_view()
-
-
-class CatPaxUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = CategoriesPax
-    fields = '__all__'
-    template_name = 'trip/catpax_update.html'
-    success_message = 'Categoria atualizada com sucesso!!!'
-    success_url = _('trip:catpax_list')
-
-catpax_update = CatPaxUpdateView.as_view()
-
-
-class CatPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = CategoriesPax
-    template_name = 'trip/catpax_delete.html'
-    success_message = 'Categoria deletada com sucesso!!!'
-    success_url = _('trip:catpax_list')
-
-    def delete(self, request, *args, **kwargs):
-        return super(CatPaxDeleteView, self).delete(request, *args, **kwargs)
-
-catpax_delete = CatPaxDeleteView.as_view()
-
 
 
 # ------------------------- PREÇOS  -------------------------

@@ -1,31 +1,15 @@
 from django import forms
 
-from .models import Trip
+from .models import TripCategory, Trip
+
+
+class TripCategoryForm(forms.ModelForm):
+    
+    class Meta:
+        model = TripCategory
+        exclude = ['slug']
 
 class TripForm(forms.ModelForm):
-    # fieldsets = [
-    #     ('Passeio', {'fields': [
-    #         ('name', 'slug', 'image'),
-    #     ]}),
-    #     ('Detalhes', {'fields': [
-    #         ('trip_description', 'short_description'),
-    #         'politic', 
-    #     ]}),        
-    #     ('Percurso', {'fields': [
-    #         'trip_duration',
-    #         'travel_time',
-    #         'travel_time_untoplace',
-    #         'ride_distance',
-    #         'limit_load',            
-    #     ]}),
-    #     ('Agência', {'fields': [
-    #         'commission',
-    #         'category',
-    #         'company',
-    #         'tour_notes',
-    #         'featured_image',            
-    #     ]}),
-    # ]
 
     class Meta:
         model = Trip

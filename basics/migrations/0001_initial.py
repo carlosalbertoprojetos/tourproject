@@ -12,13 +12,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Client',
+            name='CategoryPax',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20)),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('cel', models.CharField(max_length=15)),
-                ('is_active', models.BooleanField(default=True)),
+                ('name', models.CharField(max_length=255, verbose_name='Categoria PAX')),
             ],
         ),
     ]
