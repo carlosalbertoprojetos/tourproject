@@ -55,69 +55,31 @@
 
                     {% if user.is_superuser %}
                     <div class="sb-sidenav-menu-heading">Gestão</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth"
-                        aria-expanded="false" aria-controls="pagesCollapseAuth">
+                    <a class="nav-link" href="{% url 'user:users_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Usuários
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'user:users_list' %}">Listar</a>
-                            <a class="nav-link" href="#">Outros dados</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#pagesCollapseAuth2" aria-expanded="false" aria-controls="pagesCollapseAuth2">
+                    <a class="nav-link" href="{% url 'company:companies_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-business-time"></i></div>
                         Empresas
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth2" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'company:companies_list' %}">Listar</a>
-                            <a class="nav-link" href="#">Outros dados</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseClient" aria-expanded="false" aria-controls="pagesCollapseClient">
+                    <a class="nav-link" href="{% url 'client:client_list' %}">
                         <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
                         Clientes
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="pagesCollapseClient" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'client:client_list' %}">Listar</a>
-                            <a class="nav-link" href="#">Outros dados</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth4"
-                    aria-expanded="false" aria-controls="pagesCollapseAuth4">
+                    <a class="nav-link" href="{% url 'season:seasons_list' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-snowflake "></i></div>
-                    Temporadas
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        Temporadas
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth4" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'season:seasons_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'season:period_seasons_list' %}">Períodos</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth3"
-                    aria-expanded="false" aria-controls="pagesCollapseAuth3">
+                    <a class="nav-link" href="{% url 'season:period_list' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-snowflake "></i></div>
+                        Períodos
+                    </a>
+                    <a class="nav-link" href="{% url 'destiny:destinies_list' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    Destinos
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        Destinos
                     </a>
-                    <div class="collapse" id="pagesCollapseAuth3" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'destiny:destinies_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'destiny:destinies_list_season' %}">Temporadas</a>
-                        </nav>
-                    </div>
+
                     {% endif %}
 
                     {% if user.option == '1' %}
@@ -140,11 +102,9 @@
                     {% endif %}
         
                     <div class="sb-sidenav-menu-heading">Produtos</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProdocts"
-                        aria-expanded="false" aria-controls="collapseProdocts">
+                    <a class="nav-link" href="{% url 'trip:trip_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-solid fa-suitcase"></i></div>
                         Passeios
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">

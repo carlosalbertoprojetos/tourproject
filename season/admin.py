@@ -1,14 +1,18 @@
 from django.contrib import admin
 
-from .models import PeriodSeasons, Season
+from .models import Validity, Period, Season
+
+
+@admin.register(Validity)
+class SeasonAdmin(admin.ModelAdmin):
+    ...
 
 
 @admin.register(Season)
 class SeasonAdmin(admin.ModelAdmin):
     ...
+    
 
-
-@admin.register(PeriodSeasons)
-class PeriodSeasonsAdmin(admin.ModelAdmin):
-    list_display = ('description', 'season', 'date_start', 'date_end')
+@admin.register(Period)
+class PeriodSeasonsDestiniesAdmin(admin.ModelAdmin):
     ...
