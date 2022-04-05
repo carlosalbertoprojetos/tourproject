@@ -7,7 +7,7 @@ class Transport(models.Model):
     stretch = models.CharField('Trecho', max_length=255, unique=True)
     hits = models.PositiveIntegerField('Poltronas')
     is_active = models.BooleanField('Ativar',default=True)
-    document = models.FileField('Documento', upload_to='files/')
+    document = models.FileField('Documento do Carro', upload_to='files/')
     description = HTMLField('Descrição', blank=True)    
 
     class Meta:

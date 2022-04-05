@@ -23,16 +23,16 @@ class Trip(models.Model):
     slug = models.SlugField(max_length=250)
     image = models.ImageField(
         'Imagem do produto', upload_to="produtos/%Y", blank=True)
-    trip_description = models.TextField('Descrição do passeio', blank=True)
+    trip_description = HTMLField('Descrição do passeio', blank=True)
     short_description = models.TextField('Descrição curta', blank=True)
     
-    politic = models.CharField('Política de CHD', max_length=255)
-    trip_duration = models.CharField('Duração do passeio', max_length=255)
+    politic = models.PositiveIntegerField('Política de CHD')
+    trip_duration = models.CharField('Duração do passeio (hrs)', max_length=255)
     
-    travel_time = models.CharField('Tempo de percurso', max_length=255)
+    travel_time = models.CharField('Tempo de percurso (hrs)', max_length=255)
     travel_time_untoplace = models.CharField('Tempo de percurso até o local do passeio', max_length=255)
     
-    ride_distance = models.CharField('Distância do passeio', max_length=255)    
+    ride_distance = models.CharField('Distância do passeio (Km)', max_length=255)    
     limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)    
     commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)    
     category = models.ForeignKey(Categories, verbose_name='Categoria', on_delete=models.CASCADE)    
@@ -42,7 +42,7 @@ class Trip(models.Model):
     seo = models.CharField('Dados para SEO', max_length=155)
     title = models.CharField('Título', max_length=150)
     description = HTMLField('Descrição', blank=True)
-    description_BTMS = HTMLField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)    
+    description_BTMS = models.TextField('Vínculo ao sistema BTMS e Voucher Digital', max_length=300)    
     btms = models.CharField('Codigo BTMS', max_length=300)
 
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
