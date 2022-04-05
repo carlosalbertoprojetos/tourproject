@@ -42,6 +42,7 @@
                     <tbody>
                         {% for t in transports %}
                         <tr>
+                            <td>{{ t.destiny }}</td>
                             <td>{{ t.stretch }}</td>
                             <td align="center">{{ t.hits }}</td>
                             <td align="center">{% if t.is_active %}

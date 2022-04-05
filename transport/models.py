@@ -1,6 +1,7 @@
 from django.db import models
 from tinymce.models import HTMLField
 from season.models import Season, Destiny
+
 class Transport(models.Model):
     #destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino')
     stretch = models.CharField('Trecho', max_length=255, unique=True)
@@ -18,11 +19,11 @@ class Transport(models.Model):
         return self.stretch
 
 class Transport_Type(models.Model):
-    transport_type = models.CharField('Tipo de transporte', max_length=255)
+    transport_type = models.CharField('Tipo de Veículo', max_length=255)
 
     class Meta:
         ordering = ('transport_type',)
-        verbose_name ='Tipo de Transporte'
+        verbose_name ='Tipo de Veículo'
         
 
     def __str__(self):

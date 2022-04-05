@@ -2,7 +2,7 @@
 
 {% load i18n account static %}
 
-{% block title %}Destinos{% endblock title %} 
+{% block title %}Destinos Turísticos{% endblock title %} 
 
 {% block dashboard %}
 
@@ -29,7 +29,17 @@
                             <th>Editar</th>
                             <th>Deletar</th>
                         </tr>				
-                    </thead>                    
+                    </thead>
+                    <tfoot>
+                        <tr>                  
+                            <th>Destino</th>
+                            <th>Estado</th>
+                            <th>Cidade</th>
+                            <th>Ativo</th>
+                            <th>Editar</th>
+                            <th>Deletar</th>
+                        </tr>	
+                    </tfoot>                    
                     <tbody>
                         {% for destiny in object_list %}
                         <td>{{ destiny.name }}</td>
