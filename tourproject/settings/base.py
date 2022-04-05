@@ -201,9 +201,8 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
-TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'
-TINYMCE_COMPRESSOR = False
-
+TINYMCE_JS_URL = MEDIA_URL + 'basics/static/assets/tinymce.js'
+TINYMCE_JS_ROOT = MEDIA_ROOT + 'basics/static/assets/tinymce.js'
 
 
 # Default primary key field type
