@@ -52,13 +52,10 @@ class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super(DestinyDeleteView, self).delete(request, *args, **kwargs)
 
 
-<<<<<<< HEAD
-destiny_delete = DestinyDeleteView.as_view()
-=======
 destiny_delete = DestinyDeleteView.as_view()
 
 class DestinySeasonListView(LoginRequiredMixin, ListView):
 
     model = Destiny
     template_name = 'destiny/destinies_season_list.html'
->>>>>>> 0095df0d2ee2b335c50e0a551c19445698195225
+
