@@ -79,9 +79,9 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
                         Destinos
                     </a>
-                    <a class="nav-link" href="{% url 'basics:categorypax_list_create' %}">
+                    <a class="nav-link" href="{% url 'trip:trip_list_category_create' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-map-marked-alt"></i></div>
-                            CategoriasPAX
+                            Categoria de Passeios
                         </a>
 
                     {% endif %}
@@ -106,17 +106,15 @@
                     {% endif %}
         
                     <div class="sb-sidenav-menu-heading">Produtos</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTrip"
-                    aria-expanded="false" aria-controls="collapseTrip">
-                    <div class="sb-nav-link-icon"><i class="fas fa-solid fa-suitcase"></i></div>
-                    Passeios
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    <a class="nav-link" href="{% url 'trip:trip_list' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-solid fa-suitcase"></i></div>
+                        Passeios
                     </a>
-                    <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
+                    <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'trip:trip_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'trip:trip_list_category_create' %}">Categorias</a>
+                            <a class="nav-link" href="{% url 'trip:trip_create' %}">Cadastrar</a>
                         </nav>
                     </div>
 

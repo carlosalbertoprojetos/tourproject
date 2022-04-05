@@ -3,7 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
-from django.views.generic import DetailView, ListView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib import messages
 from .forms import TripCategoryForm, TripForm
@@ -98,8 +98,7 @@ class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 trip_delete = TripDeleteView.as_view()
 
 
-# ------------------------- PREÇOS  -------------------------
-
+# ------------------------- PREÇO  -------------------------
 
 class PriceTripListView(LoginRequiredMixin, ListView):
     model = TripSeasonPrices
@@ -136,5 +135,6 @@ class PriceTripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         return super(PriceTripDeleteView, self).delete(request, *args, **kwargs)
+
 
 price_trip_delete = PriceTripDeleteView.as_view()

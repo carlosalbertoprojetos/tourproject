@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Destino{% endblock title %} 
+{% block title %}Destino Turístico{% endblock title %} 
 
 {% block dashboard %}
 
@@ -11,14 +11,37 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Editar Destino</h2>
-                <form method="POST" class="register-form">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    {{ form|crispy }}
-                    <div class="form-group form-button">
-                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
-                    </div> 
+                <h2 class="form-title">Editar Destino Turístico</h2>
+
+                <form method="POST">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Editar Destino Turístico
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Editar Destino Turístico</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% csrf_token %}
+                                    {{ form.non_field_errors }} 
+                                    {{ form|crispy }}
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="form-group form-button">
+                                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
+                                    </div>                       
+                                </div>
+                            </div>        
+                        </div>
+                    </div>    
                 </form>
             </div>
         </div>

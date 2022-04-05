@@ -36,13 +36,13 @@
                         <tr>
                             <td>{{ season.year }}</td>
                             <td>
-                                {% if season.active %}
+                                {% if season.is_active_company %}
                                 Sim
                                 {% else %}
                                 Não
                                 {% endif %}
                             </td>
-                            <td>{% if season.sell %}
+                            <td>{% if season.is_active_sell %}
                                 Sim
                                 {% else %}
                                 Não

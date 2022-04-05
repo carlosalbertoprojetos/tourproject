@@ -33,19 +33,30 @@
                             <th>Deletar</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Vigência</th>
+                            <th>Destino</th>
+                            <th>Nome</th>
+                            <th>Agência</th>
+                            <th>Vender</th>
+                            <th>Editar</th>
+                            <th>Deletar</th>
+                        </tr>
+                    </tfoot>
                     <tbody>
                         {% for season in object_list %}
                         <tr>
                             <td align="center">{{ season.validity }}</td>
                             <td align="center">{{ season.destiny }}</td>
                             <td align="center">{{ season.name }}</td>
-                            <td align="center">{% if season.active %}
+                            <td align="center">{% if season.active_company %}
                                 <i class="fas fa-user-check"></i>
                                 {% else %}
                                 <i class="fas fa-user-times"></i>
                                 {% endif %}
                             </td>
-                            <td align="center">{% if season.sell %}
+                            <td align="center">{% if season.active_sell %}
                                 <i class="fas fa-user-check"></i>
                                 {% else %}
                                 <i class="fas fa-user-times"></i>
