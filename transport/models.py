@@ -3,7 +3,7 @@ from tinymce.models import HTMLField
 from season.models import Season, Destiny
 
 class Transport(models.Model):
-    #destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino')
+    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino Turístico')
     stretch = models.CharField('Trecho', max_length=255, unique=True)
     hits = models.PositiveIntegerField('Poltronas')
     is_active = models.BooleanField('Ativar',default=True)
