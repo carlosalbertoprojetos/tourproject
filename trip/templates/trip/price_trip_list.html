@@ -3,11 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-<<<<<<< HEAD
-{% block title %}Preços{% endblock title %} 
-=======
 {% block title %}Preços de Passeio{% endblock title %} 
->>>>>>> novo_transport
 
 {% block dashboard %}
 
@@ -18,11 +14,7 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-<<<<<<< HEAD
-                        <h2 class="form-title">Preços</h2>
-=======
                         <h2 class="form-title">Preços de Passeio</h2>
->>>>>>> novo_transport
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
                         <a href="{% url 'trip:price_trip_create' %}">
@@ -41,16 +33,6 @@
                         </tr>
                     </thead>
                     <tbody>
-<<<<<<< HEAD
-                        {% for season in object_list %}
-                        <tr>
-                            <td>{{ season.trip }}</td>
-                            <td>{{ season.cadpax }}</td>
-                            <td>{{ season.season }}</td>
-                            <td>{{ season.price }}</td>
-                            <td align="center">
-                                <a href="{% url 'trip:price_trip_update' season.id %}" class="btn">
-=======
                         {% for priceP in object_list %}
                         <tr>
                             <td>{{ priceP.trip }}</td>
@@ -59,16 +41,11 @@
                             <td>{{ priceP.price }}</td>
                             <td align="center">
                                 <a href="{% url 'trip:price_trip_update' priceP.id %}" class="btn">
->>>>>>> novo_transport
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>
                             <td align="center">
-<<<<<<< HEAD
-                                <a href="{% url 'trip:price_trip_delete' season.pk %}" class="btn">
-=======
                                 <a href="{% url 'trip:price_trip_delete' priceP.pk %}" class="btn">
->>>>>>> novo_transport
                                     <i class="fas fa-solid fa-trash"></i>
                                 </a>
                             </td>

@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Passeio{% endblock title %}
+{% block title %}Editar Passeio{% endblock title %}
 
 
 {% block dashboard %}
@@ -14,15 +14,6 @@
             <div class="card-header">
                 <h2 class="form-title">Editar Passeio</h2>
 
-<<<<<<< HEAD
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    {{ form|crispy }}
-                    <div class="col-md-12 mb-2">
-                        <div class="form-group form-button">
-                            <input type="submit" class="form-submit" value="Salvar" />
-=======
                 <form method="POST">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -50,7 +41,6 @@
                                     </div>                       
                                 </div>
                             </div>        
->>>>>>> novo_transport
                         </div>
                     </div>    
                 </form>

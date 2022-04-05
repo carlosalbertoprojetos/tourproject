@@ -1,14 +1,9 @@
 from django.db import models
-<<<<<<< HEAD
 from django.utils.translation import gettext_lazy as _
-
-=======
->>>>>>> novo_transport
 
 
 class Destiny(models.Model):
 
-<<<<<<< HEAD
     STATE_CHOICES = [
         ('AC', 'AC'),
         ('AL', 'AL'),
@@ -55,7 +50,7 @@ class Destiny(models.Model):
 
     def __str__(self):
         return self.name + ': ' + self.city + '/' + self.state
-=======
+
     STATE_CHOICES = (
 		('AC','AC'), ('AL','AL'), ('AP','AP'), ('AM','AM'), ('BA','BA'), ('CE','CE'),
 		('DF','DF'), ('ES','ES'), ('GO','GO'), ('MA','MA'), ('MT','MT'), ('MS','MS'),
@@ -77,4 +72,3 @@ class Destiny(models.Model):
 
     def __str__(self):
         return self.name
->>>>>>> novo_transport

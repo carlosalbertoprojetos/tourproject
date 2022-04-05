@@ -3,12 +3,6 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-<<<<<<< HEAD
-{% block title %}Categoria PAX{% endblock title %} 
-
-{% block dashboard %}
-
-=======
 {% block title %}Categoria PAX Passeio{% endblock title %} 
 
 {% block dashboard %}
@@ -53,17 +47,12 @@
         </div>
     </div>
 </div>
->>>>>>> novo_transport
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-<<<<<<< HEAD
-                <h2 class="form-title">Editar Categoria</h2>
-=======
                 <h2 class="form-title">Editar Categoria PAX Passeio</h2>
->>>>>>> novo_transport
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}

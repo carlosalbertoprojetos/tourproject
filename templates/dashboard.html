@@ -66,13 +66,6 @@
                     <a class="nav-link" href="{% url 'client:client_list' %}">
                         <div class="sb-nav-link-icon"><i class="fa fa-users"></i></div>
                         Clientes
-<<<<<<< HEAD
-                    </a>
-                    <a class="nav-link" href="{% url 'season:seasons_list' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-snowflake "></i></div>
-                        Temporadas
-                    </a>
-=======
                     </a>                    
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSeason"
                         aria-expanded="false" aria-controls="collapseSeason">
@@ -92,7 +85,6 @@
                             <a class="nav-link" href="{% url 'season:validity_list' %}">Vigência</a>                            
                         </nav>
                     </div>
->>>>>>> novo_transport
                     <a class="nav-link" href="{% url 'season:period_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-snowflake "></i></div>
                         Períodos
@@ -121,16 +113,6 @@
                     </div>
                     {% endif %}
 
-<<<<<<< HEAD
-                    {% endif %}
-        
-                    <div class="sb-sidenav-menu-heading">Produtos</div>
-                    <a class="nav-link" href="{% url 'trip:trip_list' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-solid fa-suitcase"></i></div>
-                        Passeios
-                    </a>
-                    <div class="collapse" id="collapseProdocts" aria-labelledby="headingOne"
-=======
                     {% endif %}        
                     
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTrip"
@@ -140,7 +122,6 @@
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>                    
                     <div class="collapse" id="collapseTrip" aria-labelledby="headingOne"
->>>>>>> novo_transport
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'trip:catpax_list' %}">Cadastrar PAX</a>                            

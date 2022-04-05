@@ -33,8 +33,6 @@
                             <th>Deletar</th>
                         </tr>
                     </thead>
-<<<<<<< HEAD
-=======
                     <tfoot>
                         <tr>
                             <th>Vigência</th>
@@ -46,28 +44,19 @@
                             <th>Deletar</th>
                         </tr>
                     </tfoot>
->>>>>>> novo_transport
                     <tbody>
                         {% for season in object_list %}
                         <tr>
                             <td align="center">{{ season.validity }}</td>
                             <td align="center">{{ season.destiny }}</td>
                             <td align="center">{{ season.name }}</td>
-<<<<<<< HEAD
-                            <td align="center">{% if season.active %}
-=======
                             <td align="center">{% if season.active_company %}
->>>>>>> novo_transport
                                 <i class="fas fa-user-check"></i>
                                 {% else %}
                                 <i class="fas fa-user-times"></i>
                                 {% endif %}
                             </td>
-<<<<<<< HEAD
-                            <td align="center">{% if season.sell %}
-=======
                             <td align="center">{% if season.active_sell %}
->>>>>>> novo_transport
                                 <i class="fas fa-user-check"></i>
                                 {% else %}
                                 <i class="fas fa-user-times"></i>
