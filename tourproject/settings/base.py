@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'crispy_forms',
-    # 'localflavor',
 
     'basics',
     'user',
@@ -57,7 +56,6 @@ INSTALLED_APPS = [
     'season',
     
     'client',
-    # 'bootstrapform',
     'transport',
     'tinymce',
 ]
@@ -166,7 +164,6 @@ AUTH_PASSWORD_VALIDATORS = [
 DECIMAL_SEPARATOR = ','
 USE_THOUSAND_SEPARATOR = True
 
-# DATE_FORMAT = ['%d/%m/%Y']
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
 
@@ -220,5 +217,3 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
 
-# USE_DJANGO_JQUERY = True
-# JQUERY_URL = True
