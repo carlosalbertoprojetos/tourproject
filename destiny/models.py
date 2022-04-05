@@ -36,7 +36,7 @@ class Destiny(models.Model):
     ]
 
     name = models.CharField('Destino', max_length=255,)
-    state = models.CharField(_('Estado'), choices=STATE_CHOICES, max_length=2)
+    state = models.CharField('Estado', choices=STATE_CHOICES, max_length=2)
     city = models.CharField('Cidade',
                             max_length=100,
                             null=True,

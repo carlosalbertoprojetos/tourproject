@@ -18,6 +18,26 @@ class Categories(models.Model):
 
 
 class Trip(models.Model):
+    
+    CHD_CHOICES = [
+        ('1','1'),
+        ('2','2'),
+        ('3','3'),
+        ('4','4'),
+        ('5','5'),
+        ('6','6'),
+        ('7','7'),
+        ('8','8'),
+        ('9','9'),
+        ('10','10'),
+        ('11','11'),
+        ('12','12'),
+        ('13','13'),
+        ('14','14'),
+        ('15','15'),
+        ('16','16'),
+    ]
+    
     name = models.CharField('Nome', max_length=255,)
     slug = models.SlugField(max_length=250)
     image = models.ImageField(
@@ -25,15 +45,15 @@ class Trip(models.Model):
     trip_description = models.TextField('Descrição do passeio', blank=True)
     short_description = models.TextField('Descrição curta', blank=True)
     
-    politic = models.CharField('Política de CHD', max_length=255)
+    politic = models.CharField('Política de CHD', choices=CHD_CHOICES, max_length=2)
     trip_duration = models.CharField('Duração do passeio', max_length=255)
     
     travel_time = models.CharField('Tempo de percurso', max_length=255)
     travel_time_untoplace = models.CharField('Tempo de percurso até o local do passeio', max_length=255)
     
-    ride_distance = models.CharField('Distância do passeio', max_length=255)
-    limit_load = models.CharField('Limite de carga por passeio ou guia', max_length=255)
-    commission = models.DecimalField('Comissão paga pelo fornecedor', max_digits=5, decimal_places=2, blank=True, null=True)
+    ride_distance = models.CharField('Distância do passeio (Km)', max_length=255)
+    limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255)
+    commission = models.DecimalField('Comissão paga pelo fornecedor (%)', max_digits=5, decimal_places=2, blank=True, null=True)
     category = models.ForeignKey(Categories, on_delete=models.CASCADE, verbose_name='Categoria')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
     tour_notes = models.TextField('Notas do passeio', blank=True)
