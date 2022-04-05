@@ -1,28 +1,51 @@
 from django.urls import path
 
 from .views import (
+<<<<<<< HEAD
     season_create, seasons_list, 
     season_update, season_delete,
     validity_list, validity_create,
     validity_update, validity_delete,
     period_list, period_create,
     period_update, period_delete
+=======
+    season_create, seasons_list, season_update, season_delete, validity_list, validity_create,
+    validity_update, validity_delete, period_list, period_create, period_update, period_delete
+>>>>>>> novo_transport
     )
 
 app_name = 'season'
 
 urlpatterns = [   
+<<<<<<< HEAD
+=======
+    #============================================================================
+    #TEMPORADA
+>>>>>>> novo_transport
 
     path('list/', seasons_list, name='seasons_list'),
     path('create/', season_create, name='season_create'),
     path('<int:pk>/edit/', season_update, name='season_update'),
     path('<int:pk>/delete/', season_delete, name='season_delete'),
     
+<<<<<<< HEAD
+=======
+    #============================================================================
+    #VIGÊNCIA
+
+>>>>>>> novo_transport
     path('validity/list/', validity_list, name='validity_list'),
     path('validity/create/', validity_create, name='validity_create'),
     path('<int:pk>/validity/edit/', validity_update, name='validity_update'),
     path('<int:pk>/validity/delete/', validity_delete, name='validity_delete'),
+<<<<<<< HEAD
 
+=======
+    
+    #============================================================================
+    #PERIODO
+    
+>>>>>>> novo_transport
     path('period/list/', period_list, name='period_list'),
     path('period/create/', period_create, name='period_create'),
     path('<int:pk>/option/edit/', period_update, name='period_update'),

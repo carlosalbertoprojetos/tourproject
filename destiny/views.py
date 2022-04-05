@@ -44,7 +44,7 @@ destiny_update = DestinyUpdateView.as_view()
 class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Destiny
     template_name = 'destiny/destiny_delete.html'
-    success_url = _('destiny:destiny_list')
+    success_url = _('destiny:destinies_list')
     success_message = 'Deletado com sucesso!'
 
     def delete(self, request, *args, **kwargs):
@@ -54,6 +54,7 @@ class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 destiny_delete = DestinyDeleteView.as_view()
 
+<<<<<<< HEAD
 
 # class DestinyPeriodSeasonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     
@@ -91,6 +92,12 @@ destiny_delete = DestinyDeleteView.as_view()
 #     template_name = 'destiny/destiny_period_season_delete.html'
 #     success_message = 'Temporada deletada com sucesso!'
 #     success_url = _('destiny:destiny_period_seasons_list')
+=======
+class DestinySeasonListView(LoginRequiredMixin, ListView):
+
+    model = Destiny
+    template_name = 'destiny/destinies_season_list.html'
+>>>>>>> novo_transport
 
 #     def delete(self, request, *args, **kwargs):
 #         messages.success(self.request,self.success_message)

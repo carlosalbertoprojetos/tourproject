@@ -1,7 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy as _
-from django.views.generic import DetailView, ListView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import TripForm
@@ -9,8 +9,13 @@ from .models import Categories, Trip, CategoriesPax, TripSeasonPrices
 
 
 
+<<<<<<< HEAD
 # ------------------------- PASSEIO  -------------------------
 
+=======
+#===============================================================================
+# PASSEIO
+>>>>>>> novo_transport
 
 class CategoryRegisterView(LoginRequiredMixin, SuccessMessageMixin,CreateView):
     model = Categories
@@ -60,9 +65,14 @@ class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 trip_delete = TripDeleteView.as_view()
 
+<<<<<<< HEAD
 
 
 # ------------------------- CATEGORIA PAX  -------------------------
+=======
+#===============================================================================
+# CATEGORIA PAX
+>>>>>>> novo_transport
 
 
 class CatPaxListView(LoginRequiredMixin, ListView):
@@ -103,9 +113,14 @@ class CatPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 catpax_delete = CatPaxDeleteView.as_view()
 
+<<<<<<< HEAD
 
 
 # ------------------------- PREÇOS  -------------------------
+=======
+#===============================================================================
+# PREÇOS
+>>>>>>> novo_transport
 
 
 class PriceTripListView(LoginRequiredMixin, ListView):
@@ -144,4 +159,8 @@ class PriceTripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         return super(PriceTripDeleteView, self).delete(request, *args, **kwargs)
 
+<<<<<<< HEAD
 price_trip_delete = PriceTripDeleteView.as_view()
+=======
+price_trip_delete = PriceTripDeleteView.as_view()
+>>>>>>> novo_transport

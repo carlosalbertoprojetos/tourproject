@@ -1,22 +1,22 @@
 {% extends 'dashboard.html' %}
 
-{% load i18n account static %}
+
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %} Cadastrar Transporte {% endblock title %} 
+{% block title %}Preços de Transporte{% endblock title %} 
 
-{% block dashboard %} 
+{% block dashboard %}
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Cadastrar Transporte</h2>
+                <h2 class="form-title">Você tem certeza que deseja excluir preço de transporte ?</h2> 
 
                 <form method="POST">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Novo Transporte
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                        Confirmar
                     </button>
                     
                     <!-- Modal -->
@@ -24,7 +24,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Novo Transporte</h5>                                    
+                                    <h5 class="modal-title" id="exampleModalLabel">Excluir Preço de Transporte</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -33,12 +33,15 @@
                                     {% csrf_token %}
                                     {{ form.non_field_errors }} 
                                     {{ form|crispy }}
-                                    {{ form.media }}                                    
                                 </div>
-                                <div class="modal-footer">
-                                    <div class="form-group form-button">
-                                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
-                                    </div>                       
+                                <div class="card-body">                                            
+                                    <div class="row ml-0">
+                                        <div class="col-md-1">
+                                            <div class="form-floating">
+                                                <button type="submit" value="Confirmar" class="btn btn-danger">Excluir</button>        
+                                            </div>
+                                        </div>
+                                    </div>            
                                 </div>
                             </div>        
                         </div>

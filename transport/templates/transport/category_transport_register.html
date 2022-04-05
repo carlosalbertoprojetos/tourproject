@@ -1,22 +1,23 @@
 {% extends 'dashboard.html' %}
 
-{% load i18n account static %}
+
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %} Cadastrar Transporte {% endblock title %} 
+{% block title %}Nova Categoria{% endblock title %}
 
-{% block dashboard %} 
+
+{% block dashboard %}
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Cadastrar Transporte</h2>
+                <h2 class="form-title">Cadastrar Categoria de Transporte</h2>
 
                 <form method="POST">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Novo Transporte
+                        Categoria de Transporte
                     </button>
                     
                     <!-- Modal -->
@@ -24,7 +25,8 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Novo Transporte</h5>                                    
+                                    <h5 class="modal-title" id="exampleModalLabel">Categoria de Transporte</h5>
+                                    
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -33,7 +35,7 @@
                                     {% csrf_token %}
                                     {{ form.non_field_errors }} 
                                     {{ form|crispy }}
-                                    {{ form.media }}                                    
+                                    {{ form.media }}
                                 </div>
                                 <div class="modal-footer">
                                     <div class="form-group form-button">
@@ -50,3 +52,4 @@
 </div>
 
 {% endblock %}
+

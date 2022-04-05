@@ -8,8 +8,13 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from .models import Validity, Season, Period
 
 
+<<<<<<< HEAD
 
 # ------------------------- VIGÊNCIA -------------------------
+=======
+#===============================================================================
+# VIGÊNCIA
+>>>>>>> novo_transport
 
 
 class ValidityListView(LoginRequiredMixin, ListView):
@@ -52,8 +57,13 @@ class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 validity_delete = ValidityDeleteView.as_view()
 
 
+<<<<<<< HEAD
 
 # ------------------------- TEMPORADA -------------------------
+=======
+#===============================================================================
+# TEMPORADA
+>>>>>>> novo_transport
 
 
 class SeasontListView(ListView):
@@ -98,18 +108,36 @@ class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 season_delete = SeasonDeleteView.as_view()
 
 
+#===============================================================================
+# PERÍODO
 
 
+<<<<<<< HEAD
 # ------------------------- PERÍODO  -------------------------
 
 
 class PeriodListView(LoginRequiredMixin, ListView):
     model = Period
     template_name = 'season/period_list.html'
+=======
+class PeriodListView(LoginRequiredMixin, ListView):
+    model = Period
+    template_name = 'season/period_list.html'
+
+period_list = PeriodListView.as_view()
+>>>>>>> novo_transport
 
 period_list = PeriodListView.as_view()
 
+<<<<<<< HEAD
 
+class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Period
+    fields = '__all__'
+    template_name = 'season/period_create.html'
+    success_message = 'Período cadastrado com sucesso!!!'
+    success_url = _('season:period_list')
+=======
 class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Period
     fields = '__all__'
@@ -118,8 +146,14 @@ class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = _('season:period_list')
 
 period_create = PeriodCreateView.as_view()
+>>>>>>> novo_transport
 
+period_create = PeriodCreateView.as_view()
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> novo_transport
 class PeriodUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Period
     fields = '__all__'
@@ -139,7 +173,12 @@ class PeriodDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request,self.success_message)
         return super(PeriodDeleteView, self).delete(request, *args, **kwargs)
+<<<<<<< HEAD
 
 period_delete = PeriodDeleteView.as_view()
 
 
+=======
+
+period_delete = PeriodDeleteView.as_view()
+>>>>>>> novo_transport

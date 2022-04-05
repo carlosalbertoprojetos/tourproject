@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'client',
     # 'bootstrapform',
     'transport',
+    'tinymce',
 ]
 
 
