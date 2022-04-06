@@ -118,22 +118,11 @@
                             <a class="nav-link" href="{% url 'trip:trip_list' %}">Listar</a>
                             <a class="nav-link" href="{% url 'trip:trip_list_category_create' %}">Categorias</a>
                         </nav>
-                    </div>
-
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTransport"
-                        aria-expanded="false" aria-controls="collapseTransport">
+                    </div>                    
+                    <a class="nav-link" href="{% url 'transport:transport_list' %}">
                         <div class="sb-nav-link-icon"><i class="fas fa-solid fa-bus"></i></div>
                         Transporte
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapseTransport" aria-labelledby="headingOne"
-                        data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'transport:transport_list' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'transport:transport_create' %}">Cadastrar</a>
-                        </nav>
-                    </div>
-
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                         aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
