@@ -15,7 +15,7 @@ from .models import TripCategory, Trip, TripSeasonPrices
 
 class TripCategoryListCreateView(LoginRequiredMixin, ListView):
     model = TripCategory
-    template_name = 'trip/trip_category_list_create.html'
+    template_name = 'trip/trip_list_category_create.html'
     
     def get_context_data(self, **kwargs):
         context = super(TripCategoryListCreateView, self).get_context_data(**kwargs)
@@ -28,9 +28,9 @@ class TripCategoryListCreateView(LoginRequiredMixin, ListView):
         if form_cat.is_valid():
             form_cat.save(commit=True)
             messages.success(request, 'Categoria criada com sucesso!!!')
-            return redirect('trip:trip_category_list_create')
+            return redirect('trip:trip_list_category_create')
         else:
-            return render(request, 'trip/trip_category_list_create.html', {'object':'object','form_cat': form_cat})
+            return render(request, 'trip/trip_list_category_create.html', {'object':'object','form_cat': form_cat})
 
 trip_list_category_create = TripCategoryListCreateView.as_view()
 
@@ -40,7 +40,7 @@ class TripCategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView
     form_class = TripCategoryForm
     template_name = 'trip/trip_category_update.html'
     success_message = 'Categoria atualizada com sucesso!!!'
-    success_url = _('trip:trip_category_list_create')
+    success_url = _('trip:trip_list_category_create')
 
 trip_category_update = TripCategoryUpdateView.as_view()
 
@@ -49,7 +49,7 @@ class TripCategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
     model = TripCategory
     template_name = 'trip/trip_category_delete.html'
     success_message = 'Categoria deletada com sucesso!!!'
-    success_url = _('trip:trip_category_list_create')
+    success_url = _('trip:trip_list_category_create')
 
     def delete(self, request, *args, **kwargs):
         return super(TripCategoryDeleteView, self).delete(request, *args, **kwargs)
