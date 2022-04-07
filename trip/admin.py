@@ -21,18 +21,3 @@ class CategoriesPaxAdmin(admin.ModelAdmin):
 @admin.register(TripSeasonPrices)
 class TripSeasonPricesAdmin(admin.ModelAdmin):
     pass
-
-
-    # list_display = ['category', 'name','price','available','description']
-    # list_filter = ['category', 'name', 'available', 'created_at']
-    # search_fields = ('category', 'name', 'available')
-    # fieldsets = [
-    #     ('Produto', {
-    #         'fields': (('category', 'name'), ('price', 'available')),
-    #     }),
-    #     ('Detalhes', {
-    #         'fields': ('description',)
-    #     }),
-    # ]
-    # ordering = ('name',)
-

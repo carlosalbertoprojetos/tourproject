@@ -7,8 +7,6 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from .forms import TripForm
 from .models import Categories, Trip, CategoriesPax, TripSeasonPrices
 
-
-
 #===============================================================================
 # PASSEIO
 

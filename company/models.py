@@ -4,7 +4,6 @@ from django.utils.translation import gettext_lazy as _
 from smart_selects.db_fields import ChainedForeignKey
 
 
-
 class State(models.Model):
     name = models.CharField('Estado', max_length=20)
     acronym = models.CharField('UF', max_length=2)
