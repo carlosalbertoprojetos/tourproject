@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 import django_heroku
+from django.conf import settings
+from django.core.exceptions import AppRegistryNotReady
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -142,8 +144,8 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {'default': dj_database_url.config()}
 
 # utilizado pelo heroku
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -219,6 +221,26 @@ django_heroku.settings(locals())
 # USE_DJANGO_JQUERY = True
 # JQUERY_URL = True
 
-#TINYMCE_JS_URL = os.path.join(STATIC_URL, "path/to/tiny_mce/tiny_mce.js")
-#TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "path/to/tiny_mce")
+USE_SPELLCHECKER = getattr(settings, "TINYMCE_SPELLCHECKER", False)
 
+USE_COMPRESSOR = getattr(settings, "TINYMCE_COMPRESSOR", False)
+
+USE_EXTRA_MEDIA = getattr(settings, "TINYMCE_EXTRA_MEDIA", None)
+
+USE_FILEBROWSER = getattr(
+    settings, "TINYMCE_FILEBROWSER", "filebrowser" in settings.INSTALLED_APPS
+)
+
+JS_URL = getattr(
+    settings,
+    "TINYMCE_JS_URL",
+    os.path.join(settings.STATIC_URL, "tinymce/tinymce.min.js"),
+)
+try:
+    from django.contrib.staticfiles import finders
+
+    JS_ROOT = getattr(settings, "TINYMCE_JS_ROOT", finders.find("tinymce", all=False))
+except AppRegistryNotReady:
+    JS_ROOT = getattr(settings, "TINYMCE_JS_ROOT", os.path.join(settings.STATIC_ROOT, "tinymce"))
+
+JS_BASE_URL = JS_URL[: JS_URL.rfind("/")]
