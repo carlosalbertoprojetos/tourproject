@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 from pathlib import Path
 import os
-#import django_heroku
+import django_heroku
 import dj_database_url
 
 
@@ -141,8 +141,8 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {'default': dj_database_url.config()}
 
 # utilizado pelo heroku
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -221,5 +221,5 @@ LOGOUT_URL = '/accounts/logout/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
 
