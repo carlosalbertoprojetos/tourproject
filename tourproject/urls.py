@@ -38,7 +38,7 @@ urlpatterns = [
 
     path('accounts/', include('allauth.urls')),
 
-    path('tinymce/', include('tinymce.urls')),
+    #path('tinymce/', include('tinymce.urls')),
 
     path('admin/', admin.site.urls),
 ]
