@@ -88,7 +88,7 @@ class CategoryTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, Updat
     form_class = TransportTypeForm
     template_name = 'transport/category_transport_update.html'
     success_message = 'Categoria de Transporte alterada com sucessoo!!!'
-    success_url = _('transport/category_transport_list_create')
+    success_url = _('transport:category_transport_list_create')
 
 category_transport_update = CategoryTransportUpdateView.as_view()
 
@@ -97,7 +97,7 @@ class CategoryTransportDeleteView(LoginRequiredMixin, SuccessMessageMixin, Delet
     model = Transport_Type
     template_name = 'transport/category_transport_delete.html'
     success_message = 'Categoria de Transporte deletada com sucessoo!!!'
-    success_url = _('transport/category_transport_list_create')
+    success_url = _('transport:category_transport_list_create')
 
     def delete(self, request, *args, **kwargs):
         return super(CatPaxTransportDeleteView, self).delete(request, *args, **kwargs)
@@ -114,7 +114,7 @@ class CatPaxTransportListCreateView(LoginRequiredMixin, SuccessMessageMixin, Lis
     template_name = 'transport/catpax_transport_list_create.html'
     
     def get_context_data(self, **kwargs):
-        context = super(TransportListCreateView, self).get_context_data(**kwargs)
+        context = super(CatPaxTransportListCreateView, self).get_context_data(**kwargs)
         context['form'] = CatPaxTransportForm(self.request.POST or None)
         return context
 
@@ -128,7 +128,7 @@ class CatPaxTransportListCreateView(LoginRequiredMixin, SuccessMessageMixin, Lis
         else:
             return render(request, 'transport/catpax_transport_list_create.html', {'object':'object','form': form})
 
-catpax_transport_list_create = TransportListCreateView.as_view()
+catpax_transport_list_create = CatPaxTransportListCreateView.as_view()
 
 
 class CatPaxTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -136,7 +136,7 @@ class CatPaxTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
     form_class = TransportForm
     template_name = 'transport/catpax__transport_update.html'
     success_message = 'Categoria PAX de Transporte alterada com sucessoo!!!'
-    success_url = _('transport/catpax_transport_list')
+    success_url = _('transport:catpax_transport_list')
 
 catpax_transport_update = CatPaxTransportUpdateView.as_view()
 
@@ -145,7 +145,7 @@ class CatPaxTransportDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteV
     model = CategoriesPax
     template_name = 'transport/catpax_transport_delete.html'
     success_message = 'Categoria PAX de Transporte deletada com sucessoo!!!'
-    success_url = _('transport/catpax_transport_list')
+    success_url = _('transport:catpax_transport_list')
 
     def delete(self, request, *args, **kwargs):
         return super(CatPaxTransportDeleteView, self).delete(request, *args, **kwargs)
@@ -168,7 +168,7 @@ class PriceTransportCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVi
     fields = '__all__'
     template_name = 'transport/price_transport_create.html'
     success_message = 'Preço cadastrado com sucesso!!!'
-    success_url = _('transport/price_transport_list')
+    success_url = _('transport:price_transport_list')
 
 price_transport_create = PriceTransportCreateView.as_view()
 
@@ -178,7 +178,7 @@ class PriceTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
     fields = '__all__'
     template_name = 'transport/price_transport_update.html'
     success_message = 'Preço atualizado com sucesso!!!'
-    success_url = _('transport/price_transport_list')
+    success_url = _('transport:price_transport_list')
 
 price_transport_update = PriceTransportUpdateView.as_view()
 
@@ -187,7 +187,7 @@ class PriceTransportDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteVi
     model = TransportPrices
     template_name = 'transport/price_transport_delete.html'
     success_message = 'Preço deletado com sucesso!!!'
-    success_url = _('transport/price_transport_list')
+    success_url = _('transport:price_transport_list')
 
     def delete(self, request, *args, **kwargs):
         return super(PriceTransportDeleteView, self).delete(request, *args, **kwargs)

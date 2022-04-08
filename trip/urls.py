@@ -1,6 +1,8 @@
 from django.urls import path
 
-from .views import (price_trip_delete, price_trip_list_create,
+from .views import (trip_category_list_create,
+    
+    price_trip_delete, price_trip_list_create,
                     price_trip_update, trip_category_delete,
                     trip_category_list_create, trip_category_update,
                     trip_delete, trip_list_create, trip_update)

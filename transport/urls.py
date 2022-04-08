@@ -25,8 +25,7 @@ urlpatterns = [
 
     #=================================================================================
     # CATEGORIA PAX
-    path('categorypax/list/', catpax_transport_list_create, name='catpax_transport_list_create'),
-    
+    path('categorypax/list/', catpax_transport_list_create, name='catpax_transport_list_create'),    
     path('<int:pk>/categorypax/edit/', catpax_transport_update, name='catpax_transport_update'),
     path('<int:pk>/categorypax/delete/',catpax_transport_delete, name='catpax_transport_delete'),
 

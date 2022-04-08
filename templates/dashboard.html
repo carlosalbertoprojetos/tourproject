@@ -8,16 +8,12 @@
         <a class="navbar-brand ps-3" href="/">TourProject</a>
     </ul>
     <div class="collapse navbar-collapse w-25" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4"></ul>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button>
         </ul>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-                id="sidebarToggle"
-                href="#">
-            <i class="fas fa-bars"></i>
-        </button>
     </div>
-    <div class="collapse navbar-collapse d-lg-flex justify-content-end"
-            id="navbarSupportedContent">
+    <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto ms-md-0 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link active ps-3" href="{% url 'account_logout' %}">Sair</a>
@@ -91,7 +87,7 @@
                                 aria-expanded="false"
                                 aria-controls="collapseSeason">
                                 <div class="sb-nav-link-icon">
-                                    <i class="fas fa-biking"></i>
+                                    <i class="fas fa-cloud-sun-rain"></i>
                                 </div>
                                 Temporadas
                                 <div class="sb-sidenav-collapse-arrow">
@@ -201,21 +197,7 @@
                                 href="{% url 'transport:price_transport_list_create' %}">Preços</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed"
-                        href="#"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseLayouts"
-                        aria-expanded="false"
-                        aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-
-                    </div>                    
-                    <a class="nav-link" href="{% url 'transport:transport_list' %}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-solid fa-bus"></i></div>
-                        Transporte
-                    </a>
+               
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                         aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
@@ -311,6 +293,7 @@
         </main>
     </div>
 </div>
+
 
 <footer class="footer py-4 bg-light mt-auto">
     <div class="container-fluid px-4">
