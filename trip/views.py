@@ -27,21 +27,13 @@ class TripCategoryListCreateView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         form = TripCategoryForm(request.POST or None)
 
-<<<<<<< HEAD
+
         if form.is_valid():
             form = form.save()
             messages.success(request, 'Categoria de Passeio criada com sucesso!!!')
             return redirect('trip:trip_category_list_create')
         else:
             return render(request, 'trip/trip_category_list_create.html', {'object':'object','form_cat': form})
-=======
-        if form_cat.is_valid():
-            form_cat.save(commit=True)
-            messages.success(request, 'Categoria criada com sucesso!!!')
-            return redirect('trip:trip_list_category_create')
-        else:
-            return render(request, 'trip/trip_list_category_create.html', {'object':'object','form_cat': form_cat})
->>>>>>> 2a06ecb0099de04cb98717b228c4f1af8e2297bc
 
 trip_category_list_create = TripCategoryListCreateView.as_view()
 
