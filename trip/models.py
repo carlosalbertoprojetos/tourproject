@@ -12,7 +12,6 @@ from season.models import Season
 
 class TripCategory(models.Model):
     name = models.CharField('Categoria', max_length=255, unique=True)
-    slug = models.SlugField(max_length=250)
     description = models.TextField('Descrição', blank=True)
 
     class Meta:
@@ -22,13 +21,6 @@ class TripCategory(models.Model):
 
     def __str__(self):
         return self.name
-
-
-@receiver(post_save, sender=TripCategory)
-def insert_slug(sender, instance, **kwargs):
-    if not instance.slug or instance.slug != slugify(instance.name):
-        instance.slug = slugify(instance.name)
-        return instance.save()
 
 
 class Trip(models.Model):
@@ -90,6 +82,13 @@ class Trip(models.Model):
     def __str__(self):
         return self.name
 
+
+@receiver(post_save, sender=Trip)
+def insert_slug(sender, instance, **kwargs):
+    if not instance.slug or instance.slug != slugify(instance.name):
+        instance.slug = slugify(instance.name)
+        return instance.save()
+ 
 
 class TripSeasonPrices(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')

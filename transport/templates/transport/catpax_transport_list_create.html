@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Preços{% endblock title %} 
+{% block title %}Categoria PAX Transporte{% endblock title %} 
 
 {% block dashboard %}
 
@@ -14,38 +14,33 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Preços</h2>
+                        <h2 class="form-title">Categoria PAX Transporte</h2>
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
-                        <a href="{% url 'trip:price_trip_create' %}">
+                        <a href="{% url 'transport:catpax_transport_create' %}">
                             <i class="fas fa-plus-circle fa-2x"></i></a>
                     </div>
                 </div>
                 <table id="myTable1" class="table table-striped table-bordered mt-5">
                     <thead>
                         <tr>
-                            <th>Passeio</th>
                             <th>Categoria</th>
-                            <th>Temporada</th>
-                            <th>Valor</th>
                             <th>Editar</th>
                             <th>Deletar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for season in object_list %}
+                        {% for catpaxT in object_list %}
                         <tr>
-                            <td>{{ season.trip }}</td>
-                            <td>{{ season.cadpax }}</td>
-                            <td>{{ season.season }}</td>
-                            <td>{{ season.price }}</td>
+                            <td>{{ catpaxT.name }}</td>          
+                            </td>
                             <td align="center">
-                                <a href="{% url 'trip:price_trip_update' season.id %}" class="btn">
+                                <a href="{% url 'transport:catpax_transport_update' catpaxT.id %}" class="btn">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>
                             <td align="center">
-                                <a href="{% url 'trip:price_trip_delete' season.pk %}" class="btn">
+                                <a href="{% url 'transport:catpax_transport_delete' catpaxT.pk %}" class="btn">
                                     <i class="fas fa-solid fa-trash"></i>
                                 </a>
                             </td>
@@ -59,3 +54,5 @@
 </div>
 
 {% endblock %}
+
+

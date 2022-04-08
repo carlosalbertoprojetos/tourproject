@@ -7,7 +7,8 @@ class TripCategoryForm(forms.ModelForm):
     
     class Meta:
         model = TripCategory
-        exclude = ['slug']
+        fields = '__all__'
+
 
 class TripForm(forms.ModelForm):
 

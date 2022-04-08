@@ -1,14 +1,13 @@
-from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.contrib import messages
 
-
-from .models import CategoryPax
 from .forms import CategoryPaxForm
+from .models import CategoryPax
 
 
 
@@ -27,8 +26,8 @@ class CategoryPAXListCreateView(LoginRequiredMixin, ListView):
         form_cat = CategoryPaxForm(request.POST or None)
 
         if form_cat.is_valid():
-            form_cat.save(commit=True)
-            messages.success(request, 'Categoria criada com sucesso!!!')
+            form_cat.save()
+            messages.success(request, 'Categoria PAX criada com sucesso!!!')
             return redirect('basics:categorypax_list_create')
         else:
             return render(request, 'basics/categorypax_list_create.html', {'object':'object','form_catpax': form_cat})

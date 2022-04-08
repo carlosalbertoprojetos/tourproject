@@ -135,9 +135,9 @@ DATABASES = {
     }
 }
 
-if 'DATABASE_URL' in os.environ:
-    import dj_database_url
-    DATABASES = {'default': dj_database_url.config()}
+# if 'DATABASE_URL' in os.environ:
+#     import dj_database_url
+#     DATABASES = {'default': dj_database_url.config()}
 
 # utilizado pelo heroku
 # db_from_env = dj_database_url.config(conn_max_age=500)
@@ -201,8 +201,8 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
-TINYMCE_JS_URL = MEDIA_URL + 'basics/static/assets/tinymce.js'
-TINYMCE_JS_ROOT = MEDIA_ROOT + 'basics/static/assets/tinymce.js'
+# TINYMCE_JS_URL = MEDIA_URL + 'basics/static/assets/tinymce.js'
+# TINYMCE_JS_ROOT = MEDIA_ROOT + 'basics/static/assets/tinymce.js'
 
 
 # Default primary key field type
