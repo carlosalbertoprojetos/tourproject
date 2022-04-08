@@ -17,7 +17,7 @@ from .models import Trip, TripCategory, TripSeasonPrices
 
 class TripCategoryListCreateView(LoginRequiredMixin, ListView):
     model = TripCategory
-    template_name = 'trip/trip_category_list_create.html'
+    template_name = 'trip/trip_list_category_create.html'
     
     def get_context_data(self, **kwargs):
         context = super(TripCategoryListCreateView, self).get_context_data(**kwargs)
@@ -27,12 +27,21 @@ class TripCategoryListCreateView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         form = TripCategoryForm(request.POST or None)
 
+<<<<<<< HEAD
         if form.is_valid():
             form = form.save()
             messages.success(request, 'Categoria de Passeio criada com sucesso!!!')
             return redirect('trip:trip_category_list_create')
         else:
             return render(request, 'trip/trip_category_list_create.html', {'object':'object','form_cat': form})
+=======
+        if form_cat.is_valid():
+            form_cat.save(commit=True)
+            messages.success(request, 'Categoria criada com sucesso!!!')
+            return redirect('trip:trip_list_category_create')
+        else:
+            return render(request, 'trip/trip_list_category_create.html', {'object':'object','form_cat': form_cat})
+>>>>>>> 2a06ecb0099de04cb98717b228c4f1af8e2297bc
 
 trip_category_list_create = TripCategoryListCreateView.as_view()
 
@@ -42,7 +51,7 @@ class TripCategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView
     form_class = TripCategoryForm
     template_name = 'trip/trip_category_update.html'
     success_message = 'Categoria atualizada com sucesso!!!'
-    success_url = _('trip:trip_category_list_create')
+    success_url = _('trip:trip_list_category_create')
 
 trip_category_update = TripCategoryUpdateView.as_view()
 
@@ -51,7 +60,7 @@ class TripCategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
     model = TripCategory
     template_name = 'trip/trip_category_delete.html'
     success_message = 'Categoria deletada com sucesso!!!'
-    success_url = _('trip:trip_category_list_create')
+    success_url = _('trip:trip_list_category_create')
 
     def delete(self, request, *args, **kwargs):
         return super(TripCategoryDeleteView, self).delete(request, *args, **kwargs)

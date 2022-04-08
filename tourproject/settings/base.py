@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'crispy_forms',
+    # 'localflavor',
 
     'basics',
     'user',
@@ -56,8 +57,8 @@ INSTALLED_APPS = [
     'season',
     
     'client',
+    # 'bootstrapform',
     'transport',
-    'tinymce',
 ]
 
 
@@ -140,8 +141,8 @@ DATABASES = {
 #     DATABASES = {'default': dj_database_url.config()}
 
 # utilizado pelo heroku
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -161,8 +162,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DECIMAL_SEPARATOR = ','
-USE_THOUSAND_SEPARATOR = True
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
@@ -222,3 +221,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
 
+# USE_DJANGO_JQUERY = True
+# JQUERY_URL = True

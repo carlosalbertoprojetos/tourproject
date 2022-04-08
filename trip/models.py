@@ -52,10 +52,10 @@ class Trip(models.Model):
     short_description = models.TextField('Descrição curta', blank=True)
     
     politic = models.CharField('Política de CHD', choices=CHD_CHOICES, max_length=2)
-    trip_duration = models.CharField('Duração do passeio', max_length=255)
+    trip_duration = models.CharField('Duração do passeio (hrs)', max_length=255)
     
-    travel_time = models.CharField('Tempo de percurso', max_length=255)
-    travel_time_untoplace = models.CharField('Tempo de percurso até o local do passeio', max_length=255)
+    travel_time = models.CharField('Tempo de percurso (hrs)', max_length=255)
+    travel_time_untoplace = models.CharField('Tempo de percurso até o local do passeio (hrs)', max_length=255)
     
     ride_distance = models.CharField('Distância do passeio (Km)', max_length=255)
     limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255)

@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Destiny(models.Model):
 
+
     STATE_CHOICES = [
         ('AC', 'AC'),
         ('AL', 'AL'),
@@ -51,4 +52,3 @@ class Destiny(models.Model):
     def __str__(self):
         return self.name + ': ' + self.city + '/' + self.state
 
- 

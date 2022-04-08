@@ -1,14 +1,15 @@
 from django.db import models
-from tinymce.models import HTMLField
+#from tinymce.models import HTMLField
 from season.models import Season, Destiny
 
 class Transport(models.Model):
     destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino Turístico')
     stretch = models.CharField('Trecho', max_length=255, unique=True)
     hits = models.PositiveIntegerField('Poltronas')
-    is_active = models.BooleanField('Ativar',default=True)
+    is_active = models.BooleanField('Ativo',default=True)
     document = models.FileField('Documento do Carro', upload_to='files/')
-    description = HTMLField('Descrição', blank=True)    
+    description = models.TextField('Descrição', blank=True)
+    #description = HTMLField('Descrição', blank=True)    
 
     class Meta:
         ordering = ('stretch',)
