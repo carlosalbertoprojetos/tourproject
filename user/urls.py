@@ -6,7 +6,7 @@ from .views import user_update, users_list, agent_signup
 app_name = 'user'
 
 urlpatterns = [
-    path('dashboard/', TemplateView.as_view(
+    path('', TemplateView.as_view(
         template_name='content_dashboard.html'), name='dashboard'),
 
     path('list/', users_list, name='users_list'),

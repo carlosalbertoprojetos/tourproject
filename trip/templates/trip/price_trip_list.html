@@ -26,7 +26,7 @@
                         <tr>
                             <th>Passeio</th>
                             <th>Categoria</th>
-                            <th>Temporada</th>
+                            <th>Vigência</th>
                             <th>Valor</th>
                             <th>Editar</th>
                             <th>Deletar</th>
@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{ season.trip }}</td>
                             <td>{{ season.cadpax }}</td>
-                            <td>{{ season.season }}</td>
+                            <td>{{ season.validity }}</td>
                             <td>{{ season.price }}</td>
                             <td align="center">
                                 <a href="{% url 'trip:price_trip_update' season.id %}" class="btn">

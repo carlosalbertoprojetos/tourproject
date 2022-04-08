@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Passeio{% endblock title %}
+{% block title %}Nova Categoria{% endblock title %}
 
 
 {% block dashboard %}
@@ -13,16 +13,8 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Novo Passeio</h2>
-                    </div>
-                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
-                        <a href="{% url 'trip:category_register' %}">Categoria</a>
-                    </div>
-                </div>
-
-                <form method="POST" class="register-form" enctype="multipart/form-data">
+                <h1>Cadastrar nova categoria</h1>
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     {{ form|crispy }}
@@ -32,7 +24,8 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
 
 {% endblock %}
+

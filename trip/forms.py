@@ -1,29 +1,27 @@
 from django import forms
 
-from .models import TripCategory, Trip
+from .models import Trip
 
-
-class TripCategoryForm(forms.ModelForm):
-    
-    class Meta:
-        model = TripCategory
-        exclude = ['slug']
 
 class TripForm(forms.ModelForm):
+    # fieldsets = [
+    #     ('Passeio', {'fields': [
+    #         ('name', 'slug', 'image'),
+    #     ]}),
+    #     ('Detalhes', {'fields': [
+    #         ('trip_description', 'short_description'),
+    #         'politic', 
+    #     ]}),
+        
+    #     ('Percurso', {'fields': [
+    #         'trip_duration',
+    #         'travel_time',
+    #         'travel_time_untoplace',
+    #         'limit_load',
+    #     ]}),
+    # ]
 
     class Meta:
         model = Trip
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(TripForm, self).__init__(*args, **kwargs)
-        self.fields['trip_duration'].widget.attrs.update(
-            {'class': 'mask-hora'})
-        self.fields['travel_time'].widget.attrs.update(
-            {'class': 'mask-hora'})
-        self.fields['travel_time_untoplace'].widget.attrs.update(
-            {'class': 'mask-hora'})
-        self.fields['commission'].widget.attrs.update(
-            {'class': 'mask-perc'})
-
-        

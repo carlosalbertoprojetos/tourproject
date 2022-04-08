@@ -12058,7 +12058,7 @@ footer {
         display: flex;
       }
       #layoutSidenav #layoutSidenav_nav {
-        flex-basis: 125px;
+        flex-basis: 225px;
         flex-shrink: 0;
         transition: transform 0.15s ease-in-out;
         z-index: 1038;

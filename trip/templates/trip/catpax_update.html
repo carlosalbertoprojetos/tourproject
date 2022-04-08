@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Vigência{% endblock title %} 
+{% block title %}Categoria PAX{% endblock title %} 
 
 {% block dashboard %}
 
@@ -12,7 +12,7 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Nova Vigência</h2>
+                <h2 class="form-title">Editar Categoria</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}

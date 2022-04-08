@@ -9,11 +9,10 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-from pathlib import Path
 import os
-import django_heroku
-import dj_database_url
+from pathlib import Path
 
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'crispy_forms',
+    # 'localflavor',
 
     'basics',
     'user',
@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     'season',
     
     'client',
+    # 'bootstrapform',
     'transport',
-    #'tinymce',
 ]
 
 
@@ -141,8 +141,8 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {'default': dj_database_url.config()}
 
 # utilizado pelo heroku
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -162,8 +162,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DECIMAL_SEPARATOR = ','
-USE_THOUSAND_SEPARATOR = True
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
@@ -201,11 +199,6 @@ STATICFILES_DIRS = [
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-
-TINYMCE_JS_URL = MEDIA_URL + 'basics/static/assets/tinymce.js'
-TINYMCE_JS_ROOT = MEDIA_ROOT + 'basics/static/assets/tinymce.js'
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -223,3 +216,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
 
+# USE_DJANGO_JQUERY = True
+# JQUERY_URL = True

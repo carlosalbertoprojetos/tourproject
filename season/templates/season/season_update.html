@@ -7,41 +7,21 @@
 
 {% block dashboard %}
 
+
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Editar Temporada</h2>
-
-                <form method="POST">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Editar Temporada
-                    </button>
-                    
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Editar Temporada</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {% csrf_token %}
-                                    {{ form.non_field_errors }} 
-                                    {{ form|crispy }}
-                                </div>
-                                <div class="modal-footer">
-                                    <div class="form-group form-button">
-                                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
-                                    </div>                       
-                                </div>
-                            </div>        
+                <h2 class="form-title">Temporada</h2>
+                <form method="POST" class="register-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form|crispy }}
+                    <div class="row form-group form-button ">
+                        <div class="col-md-1 p-1">
+                            <input type="submit" class="btn btn-primary" value="Salvar"/>
                         </div>
-                    </div>    
+                    </div> 
                 </form>
             </div>
         </div>
