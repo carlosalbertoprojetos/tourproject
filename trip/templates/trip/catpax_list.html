@@ -3,7 +3,7 @@
 
 {% load i18n account static crispy_forms_tags %}
 
-{% block title %}Categoria PAX{% endblock title %} 
+{% block title %}Categoria PAX Passeio{% endblock title %} 
 
 {% block dashboard %}
 
@@ -14,7 +14,7 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Categoria PAX</h2>
+                        <h2 class="form-title">Categoria PAX Passeio</h2>
                     </div>
                     <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
                         <a href="{% url 'trip:catpax_create' %}">
@@ -30,17 +30,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for season in object_list %}
+                        {% for catpaxP in object_list %}
                         <tr>
-                            <td>{{ season.name }}</td>          
+                            <td>{{ catpaxP.name }}</td>          
                             </td>
                             <td align="center">
-                                <a href="{% url 'trip:catpax_update' season.id %}" class="btn">
+                                <a href="{% url 'trip:catpax_update' catpaxP.id %}" class="btn">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                             </td>
                             <td align="center">
-                                <a href="{% url 'trip:catpax_delete' season.pk %}" class="btn">
+                                <a href="{% url 'trip:catpax_delete' catpaxP.pk %}" class="btn">
                                     <i class="fas fa-solid fa-trash"></i>
                                 </a>
                             </td>
@@ -54,3 +54,5 @@
 </div>
 
 {% endblock %}
+
+

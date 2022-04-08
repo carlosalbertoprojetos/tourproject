@@ -1,16 +1,19 @@
 from django.contrib import admin
+#from sympy import Complement
+from .models import Client
 
 # Register your models here.
 
-from .models import Client
-
-
-#class ContactAdmin(admin.TabularInline):
-#    model = Client
-#    extra = 0
-
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'email', 'cel', 'is_active')
-    
+    fieldsets = (
+        ('Cadastro', {
+            'fields': ('name', 'cpf', 'email', 'phoneNumber', 'is_active')
+        }),
+        ('Endereço', {
+            'classes': ('collapse',),
+            'fields': ('street','number','complement','postal_code','state','city'),
+        }),
+    )
+       
 
-admin.site.register(Client, ClientAdmin)    
+admin.site.register(Client, ClientAdmin)

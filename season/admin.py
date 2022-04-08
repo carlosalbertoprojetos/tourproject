@@ -5,14 +5,13 @@ from .models import Validity, Period, Season
 
 @admin.register(Validity)
 class SeasonAdmin(admin.ModelAdmin):
-    ...
-
-
+    pass    
+    
 @admin.register(Season)
 class SeasonAdmin(admin.ModelAdmin):
-    ...
-    
+    pass
 
 @admin.register(Period)
 class PeriodSeasonsDestiniesAdmin(admin.ModelAdmin):
-    ...
+    pass
+

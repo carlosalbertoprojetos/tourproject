@@ -7,10 +7,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .models import Validity, Season, Period
 
-
-
-# ------------------------- VIGÊNCIA -------------------------
-
+#===============================================================================
+# VIGÊNCIA
 
 class ValidityListView(LoginRequiredMixin, ListView):
     model = Validity
@@ -51,10 +49,8 @@ class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 validity_delete = ValidityDeleteView.as_view()
 
-
-
-# ------------------------- TEMPORADA -------------------------
-
+#===============================================================================
+# TEMPORADA
 
 class SeasontListView(ListView):
     model = Season
@@ -97,11 +93,12 @@ class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 season_delete = SeasonDeleteView.as_view()
 
+#===============================================================================
+# PERÍODO
 
-
-
-# ------------------------- PERÍODO  -------------------------
-
+class PeriodListView(LoginRequiredMixin, ListView):
+    model = Period
+    template_name = 'season/period_list.html'
 
 class PeriodListView(LoginRequiredMixin, ListView):
     model = Period
@@ -109,6 +106,12 @@ class PeriodListView(LoginRequiredMixin, ListView):
 
 period_list = PeriodListView.as_view()
 
+class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Period
+    fields = '__all__'
+    template_name = 'season/period_create.html'
+    success_message = 'Período cadastrado com sucesso!!!'
+    success_url = _('season:period_list')
 
 class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Period
@@ -118,7 +121,6 @@ class PeriodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = _('season:period_list')
 
 period_create = PeriodCreateView.as_view()
-
 
 class PeriodUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Period
@@ -141,5 +143,3 @@ class PeriodDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super(PeriodDeleteView, self).delete(request, *args, **kwargs)
 
 period_delete = PeriodDeleteView.as_view()
-
-
