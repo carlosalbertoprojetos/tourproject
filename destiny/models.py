@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class Destiny(models.Model):
@@ -35,7 +34,7 @@ class Destiny(models.Model):
         ('TO', 'TO'),
     ]
 
-    name = models.CharField('Destino', max_length=255,)
+    name = models.CharField('Destino', max_length=255)
     state = models.CharField('Estado', choices=STATE_CHOICES, max_length=2)
     city = models.CharField('Cidade',
                             max_length=100,
