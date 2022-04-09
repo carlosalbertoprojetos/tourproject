@@ -41,7 +41,7 @@ class Destiny(models.Model):
                             null=True,
                             blank=True,
                             )
-    active = models.BooleanField('Active', default=True)
+    is_active = models.BooleanField('Active', default=True)
 
     class Meta:
         ordering = ('name',)
