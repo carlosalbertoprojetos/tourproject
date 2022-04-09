@@ -70,24 +70,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for destiny in object_list %}
-                                <td>{{ destiny.name }}</td>
-                                <td align="center">{{ destiny.state }}</td>
-                                <td>{{ destiny.city }}</td>
+                            {% for d in object_list %}
+                                <td>{{ d.name }}</td>
+                                <td align="center">{{ d.state }}</td>
+                                <td>{{ d.city }}</td>
                                 <td align="center">
-                                    {% if destiny.active %}
+                                    {% if d.active %}
                                         <i class="fas fa-user-check"></i>
                                     {% else %}
                                         <i class="fas fa-user-times"></i>
                                     {% endif %}
                                 </td>
                                 <td align="center">
-                                    <a href="{% url 'destiny:destiny_update' destiny.pk %}" class="btn">
+                                    <a href="{% url 'destiny:destiny_update' d.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>
                                     </a>
                                 </td>
                                 <td align="center">
-                                    <a href="{% url 'destiny:destiny_delete' destiny.pk %}" class="btn">
+                                    <a href="{% url 'destiny:destiny_delete' d.pk %}" class="btn">
                                         <i class="fas fa-solid fa-trash"></i>
                                     </a>
                                 </td>

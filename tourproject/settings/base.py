@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'crispy_forms',
-    # 'localflavor',
 
     'basics',
     'user',
@@ -57,7 +56,6 @@ INSTALLED_APPS = [
     'season',
     
     'client',
-    # 'bootstrapform',
     'transport',
 ]
 
