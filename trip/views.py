@@ -23,11 +23,11 @@ class TripCategoryPAXListCreateView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super(TripCategoryPAXListCreateView, self).get_context_data(**kwargs)
-        context['form'] = TripCategoryPaxForm(self.request.POST or None, self.request.FILES)
+        context['form'] = TripCategoryPaxForm(self.request.POST or None)
         return context
 
     def post(self, request, *args, **kwargs):
-        form = TripCategoryPaxForm(request.POST or None, request.FILES)
+        form = TripCategoryPaxForm(request.POST or None)
 
         if form.is_valid():
             form.save()
@@ -117,11 +117,11 @@ class TripListCreateView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super(TripListCreateView, self).get_context_data(**kwargs)
-        context['form'] = TripForm(self.request.POST or None)
+        context['form'] = TripForm(self.request.POST or None, self.request.FILES)
         return context
 
     def post(self, request, *args, **kwargs):
-        form = TripForm(request.POST or None)
+        form = TripForm(request.POST or None, request.FILES)
 
         if form.is_valid():
             form = form.save()
