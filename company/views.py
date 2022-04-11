@@ -8,7 +8,6 @@ from django.urls import reverse_lazy as _
 from django.views.generic.edit import DeleteView
 from user.models import User
 
-
 from .forms import CompanyForm, PhoneForm
 from .models import Company, CompanyDestinies, Phone, SocialMedia
 
@@ -81,7 +80,6 @@ def companies_list(request):
         'object': object,
     }
     return render(request, 'company/companies_list.html', context)
-
 
 
 @user_passes_test(lambda u: u.is_staff)

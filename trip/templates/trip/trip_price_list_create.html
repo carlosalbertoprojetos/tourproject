@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Temporada
+    Passeio
 {% endblock title %}
 {% block dashboard %}
 
@@ -12,11 +12,9 @@
             <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title m-2">Vigências</h2>
+                        <h2 class="form-title m-2">Valores</h2>
                     </div>
-                    <div id="bottom_list"
-                            class="col-sm-12 col-md-6"
-                            style="text-align-last">
+                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
@@ -30,7 +28,7 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Nov Vigência</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Novo Valor de Transporte</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -61,38 +59,28 @@
                     <table id="myTable1" class="table table-striped table-bordered mt-5">
                         <thead>
                             <tr>
-                                <th>Ano</th>
-                                <th>Ativo Agência</th>
-                                <th>Ativo Venda</th>
+                                <th>Passeio</th>
+                                <th>Temporada</th>
+                                <th>CategoriaPAX</th>
+                                <th>Valor</th>
                                 <th>Editar</th>
                                 <th>Deletar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for season in object_list %}
+                            {% for p in object_list %}
                                 <tr>
-                                    <td>{{ season.year }}</td>
-                                    <td>
-                                        {% if season.is_active_company %}
-                                            Sim
-                                        {% else %}
-                                            Não
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if season.is_active_sell %}
-                                            Sim
-                                        {% else %}
-                                            Não
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ p.trip }}</td>
+                                    <td>{{ p.season }}</td>
+                                    <td>{{ p.cadpax }}</td>
+                                    <td>{{ p.price }}</td>
                                     <td align="center">
-                                        <a href="{% url 'season:validity_update' season.id %}" class="btn">
+                                        <a href="{% url 'trip:trip_price_update' p.pk %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'season:validity_delete' season.pk %}" class="btn">
+                                        <a href="{% url 'trip:trip_price_delete' p.pk %}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
                                         </a>
                                     </td>
@@ -107,5 +95,5 @@
         </div>
     </div>
 </div>
-
+        
 {% endblock %}

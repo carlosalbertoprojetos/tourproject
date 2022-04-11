@@ -1,16 +1,21 @@
 from django.urls import path
 
-from .views import (trip_category_list_create,
-    
-    price_trip_delete, price_trip_list_create,
-                    price_trip_update, trip_category_delete,
-                    trip_category_list_create, trip_category_update,
-                    trip_delete, trip_list_create, trip_update)
+from .views import (trip_category_delete, trip_category_list_create,
+                    trip_category_update, trip_categorypax_delete,
+                    trip_categorypax_list_create, trip_categorypax_update,
+                    trip_delete, trip_list_create, trip_price_delete,
+                    trip_price_list_create, trip_price_update, trip_update)
 
 app_name = 'trip'
 
 
 urlpatterns = [
+    #===============================================================================
+    # CATEGORIA PAX DE PASSEIO
+    path('categorypax/create/', trip_categorypax_list_create, name='trip_categorypax_list_create'),
+    path('<int:pk>/categorypax/edit/', trip_categorypax_update, name='trip_categorypax_update'),
+    path('<int:pk>/categorypax/delete/', trip_categorypax_delete, name='trip_categorypax_delete'),
+    
     #===============================================================================
     # CATEGORIA DE PASSEIO
     path('category/list/', trip_category_list_create, name="trip_category_list_create"), 
@@ -25,8 +30,7 @@ urlpatterns = [
 
     #===============================================================================
     # PREÇOS DOS PASSEIOS
-    path('price_trip/list/', price_trip_list_create, name='price_trip_list_create'),
-    path('<int:pk>/price_trip/edit/', price_trip_update, name='price_trip_update'),
-    path('<int:pk>/price_trip/delete/', price_trip_delete, name='price_trip_delete'),
-
+    path('price_trip/list/', trip_price_list_create, name='trip_price_list_create'),
+    path('<int:pk>/price_trip/edit/', trip_price_update, name='trip_price_update'),
+    path('<int:pk>/price_trip/delete/', trip_price_delete, name='trip_price_delete'),
 ]

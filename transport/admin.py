@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Transport, Transport_Type, CategoriesPax, TransportPrices
+from .models import Transport, Transport_Type, TransportCategoryPax, TransportPrices
 
 
 class TransportAdmin(admin.ModelAdmin):
@@ -18,7 +18,7 @@ admin.site.register(Transport_Type, Transport_TypeAdmin)
 class CategoriesPaxAdmin(admin.ModelAdmin):
     list_display = ('transport_name', 'transport_type')
     
-admin.site.register(CategoriesPax, CategoriesPaxAdmin) 
+admin.site.register(TransportCategoryPax, CategoriesPaxAdmin) 
 
 class TransportPricesAdmin(admin.ModelAdmin):
     list_display = ('transport', 'season', 'cadpax', 'price')

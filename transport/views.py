@@ -4,11 +4,107 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
-from .forms import CatPaxTransportForm, TransportTypeForm, TransportForm
-from .models import CategoriesPax, Transport, Transport_Type, TransportPrices
+from .forms import TransportCategoryPaxForm, TransportForm, TransportTypeForm, TransportPriceForm
+from .models import (Transport, Transport_Type, TransportCategoryPax,
+                     TransportPrices)
 
+
+
+#===============================================================================
+# CATEGORIA DE TRANSPORTE
+
+class TransportCategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+    model = Transport_Type
+    template_name = 'transport/transport_category_list_create.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(TransportCategoryListCreateView, self).get_context_data(**kwargs)
+        context['form'] = TransportTypeForm(self.request.POST or None)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = TransportTypeForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Categoria de Transporte criada com sucesso!!!')
+            return redirect('transport:transport_category_list_create')
+        else:
+            return render(request, 'transport/transport_category_list_create.html', {'object':'object','form': form})
+
+transport_category_list_create = TransportCategoryListCreateView.as_view()
+
+
+class TransportCategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Transport_Type
+    form_class = TransportTypeForm
+    template_name = 'transport/transport_category_update.html'
+    success_message = 'Categoria de Transporte alterada com sucessoo!!!'
+    success_url = _('transport:transport_category_list_create')
+
+transport_category_update = TransportCategoryUpdateView.as_view()
+
+
+class TransportCategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Transport_Type
+    template_name = 'transport/transport_category_delete.html'
+    success_message = 'Categoria de Transporte deletada com sucessoo!!!'
+    success_url = _('transport:transport_category_list_create')
+
+    def delete(self, request, *args, **kwargs):
+        return super(TransportCategoryDeleteView, self).delete(request, *args, **kwargs)
+
+transport_category_delete = TransportCategoryDeleteView.as_view()
+
+
+
+#===============================================================================
+# CATEGORIA PAX DE TRANSPORTE
+
+class TransportCategoryPaxListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+    model = TransportCategoryPax
+    template_name = 'transport/transport_catpax_list_create.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(TransportCategoryPaxListCreateView, self).get_context_data(**kwargs)
+        context['form'] = TransportCategoryPaxForm(self.request.POST or None)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = TransportCategoryPaxForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Categoria PAX de Transporte criada com sucesso!!!')
+            return redirect('transport:transport_catpax_list_create')
+        else:
+            return render(request, 'transport/transport_catpax_list_create.html', {'object':'object','form': form})
+
+transport_catpax_list_create = TransportCategoryPaxListCreateView.as_view()
+
+
+class TransportCategoryPaxUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = TransportCategoryPax
+    form_class = TransportCategoryPaxForm
+    template_name = 'transport/transport_catpax_update.html'
+    success_message = 'Categoria PAX de Transporte alterada com sucessoo!!!'
+    success_url = _('transport:transport_catpax_list_create')
+
+transport_catpax_update = TransportCategoryPaxUpdateView.as_view()
+
+
+class TransportCategoryPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = TransportCategoryPax
+    template_name = 'transport/transport_catpax_delete.html'
+    success_message = 'Categoria PAX de Transporte deletada com sucessoo!!!'
+    success_url = _('transport:transport_catpax_list_create')
+
+    def delete(self, request, *args, **kwargs):
+        return super(TransportCategoryPaxDeleteView, self).delete(request, *args, **kwargs)
+
+transport_catpax_delete = TransportCategoryPaxDeleteView.as_view()
 
 
 #===============================================================================
@@ -20,11 +116,11 @@ class TransportListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView)
     
     def get_context_data(self, **kwargs):
         context = super(TransportListCreateView, self).get_context_data(**kwargs)
-        context['form'] = TransportForm(self.request.POST or None)
+        context['form'] = TransportForm(self.request.POST or None, self.request.FILES)
         return context
 
     def post(self, request, *args, **kwargs):
-        form = TransportForm(request.POST or None)
+        form = TransportForm(request.POST or None, request.FILES)
 
         if form.is_valid():
             form.save()
@@ -59,137 +155,48 @@ transport_delete = DeletarTransporteView.as_view()
 
 
 #===============================================================================
-# CATEGORIA DE TRANSPORTE
-
-class CategoryTransportListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = Transport_Type
-    template_name = 'transport/category_transport_list_create.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(CategoryTransportListCreateView, self).get_context_data(**kwargs)
-        context['form'] = TransportTypeForm(self.request.POST or None)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        form = TransportTypeForm(request.POST or None)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Categoria de Transporte criada com sucesso!!!')
-            return redirect('transport:category_transport_list_create')
-        else:
-            return render(request, 'transport/category_transport_list_create.html', {'object':'object','form': form})
-
-category_transport_list_create = CategoryTransportListCreateView.as_view()
-
-
-class CategoryTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Transport_Type
-    form_class = TransportTypeForm
-    template_name = 'transport/category_transport_update.html'
-    success_message = 'Categoria de Transporte alterada com sucessoo!!!'
-    success_url = _('transport:category_transport_list_create')
-
-category_transport_update = CategoryTransportUpdateView.as_view()
-
-
-class CategoryTransportDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Transport_Type
-    template_name = 'transport/category_transport_delete.html'
-    success_message = 'Categoria de Transporte deletada com sucessoo!!!'
-    success_url = _('transport:category_transport_list_create')
-
-    def delete(self, request, *args, **kwargs):
-        return super(CatPaxTransportDeleteView, self).delete(request, *args, **kwargs)
-
-category_transport_delete = CategoryTransportDeleteView.as_view()
-
-
-
-#===============================================================================
-# CATEGORIA PAX
-
-class CatPaxTransportListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = CategoriesPax
-    template_name = 'transport/catpax_transport_list_create.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(CatPaxTransportListCreateView, self).get_context_data(**kwargs)
-        context['form'] = CatPaxTransportForm(self.request.POST or None)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        form = CatPaxTransportForm(request.POST or None)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Categoria PAX de Transporte criada com sucesso!!!')
-            return redirect('transport:catpax_transport_list_create')
-        else:
-            return render(request, 'transport/catpax_transport_list_create.html', {'object':'object','form': form})
-
-catpax_transport_list_create = CatPaxTransportListCreateView.as_view()
-
-
-class CatPaxTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = CategoriesPax
-    form_class = TransportForm
-    template_name = 'transport/catpax__transport_update.html'
-    success_message = 'Categoria PAX de Transporte alterada com sucessoo!!!'
-    success_url = _('transport:catpax_transport_list')
-
-catpax_transport_update = CatPaxTransportUpdateView.as_view()
-
-
-class CatPaxTransportDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = CategoriesPax
-    template_name = 'transport/catpax_transport_delete.html'
-    success_message = 'Categoria PAX de Transporte deletada com sucessoo!!!'
-    success_url = _('transport:catpax_transport_list')
-
-    def delete(self, request, *args, **kwargs):
-        return super(CatPaxTransportDeleteView, self).delete(request, *args, **kwargs)
-
-catpax_transport_delete = CatPaxTransportDeleteView.as_view()
-
-
-#===============================================================================
 # PREÇOS DOS TRANSPORTES
 
-class PriceTransportListView(LoginRequiredMixin, ListView):
+class TransporPricetListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = TransportPrices
-    template_name = 'transport/price_transport_list.html'
+    form_class = TransportPriceForm
+    template_name = 'transport/transport_price_list_create.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(TransporPricetListView, self).get_context_data(**kwargs)
+        context['form'] = TransportPriceForm(self.request.POST or None)
+        return context
 
-price_transport_list_create = PriceTransportListView.as_view()
+    def post(self, request, *args, **kwargs):
+        form = TransportPriceForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Valor de Transporte criado com sucesso!!!')
+            return redirect('transport:transport_price_list_create')
+        else:
+            return render(request, 'transport/transport_price_list_create.html', {'object':'object','form': form})
+
+transport_price_list_create = TransporPricetListView.as_view()
 
 
-class PriceTransportCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TransportPriceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TransportPrices
-    fields = '__all__'
-    template_name = 'transport/price_transport_create.html'
-    success_message = 'Preço cadastrado com sucesso!!!'
-    success_url = _('transport:price_transport_list')
+    form_class = TransportPriceForm
+    template_name = 'transport/transport_price_update.html'
+    success_message = 'Valor de Transporte atualizado com sucesso!!!'
+    success_url = _('transport:transport_price_list_create')
 
-price_transport_create = PriceTransportCreateView.as_view()
+transport_price_update = TransportPriceUpdateView.as_view()
 
 
-class PriceTransportUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TransportPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TransportPrices
-    fields = '__all__'
-    template_name = 'transport/price_transport_update.html'
-    success_message = 'Preço atualizado com sucesso!!!'
-    success_url = _('transport:price_transport_list')
-
-price_transport_update = PriceTransportUpdateView.as_view()
-
-
-class PriceTransportDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = TransportPrices
-    template_name = 'transport/price_transport_delete.html'
-    success_message = 'Preço deletado com sucesso!!!'
-    success_url = _('transport:price_transport_list')
+    template_name = 'transport/transport_price_delete.html'
+    success_message = 'Valor de Transporte deletado com sucesso!!!'
+    success_url = _('transport:transport_price_list_create')
 
     def delete(self, request, *args, **kwargs):
-        return super(PriceTransportDeleteView, self).delete(request, *args, **kwargs)
+        return super(TransportPriceDeleteView, self).delete(request, *args, **kwargs)
 
-price_transport_delete = PriceTransportDeleteView.as_view()
+transport_price_delete = TransportPriceDeleteView.as_view()

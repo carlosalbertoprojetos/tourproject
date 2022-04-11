@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import (companies_list, company_agents_list, company_update, company_delete,
-                    signup_step_2)
+from .views import (companies_list, company_agents_list, company_delete,
+                    company_update, signup_step_2)
 
 app_name = 'company'
 

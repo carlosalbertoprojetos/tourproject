@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Destinos Turísticos
+    Destino Turístico
 {% endblock title %}
 {% block dashboard %}
 
@@ -70,7 +70,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for d in object_list %}
+                        {% for d in object_list %}
+                            <tr>
                                 <td>{{ d.name }}</td>
                                 <td align="center">{{ d.state }}</td>
                                 <td>{{ d.city }}</td>
@@ -93,8 +94,9 @@
                                 </td>
                             </tr>
                         {% endfor %}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,4 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
     Transporte
@@ -11,7 +10,7 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Você tem certeza que deseja excluir esta Categoria de Transporte?</h2>
+                <h2 class="form-title">Você tem certeza que deseja excluir preço de transporte ?</h2>
                 <form method="POST">
                     <!-- Button trigger modal -->
                     <button type="button"
@@ -28,7 +27,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Excluir Categoria de Transporte</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Excluir Preço de Transporte</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

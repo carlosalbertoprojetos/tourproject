@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Passeios
+    Passeio
 {% endblock title %}
 {% block dashboard %}
 
@@ -14,14 +14,17 @@
                     <div class="col-sm-12 col-md-6">
                         <h2 class="form-title m-2">Passeios</h2>
                     </div>
-                    <div id="bottom_list"
-                            class="col-sm-12 col-md-6"
-                            style="text-align-last">
+                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade"
+                                        id="exampleModal"
+                                        tabindex="-1"
+                                        role="dialog"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -38,11 +41,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
-                                                    <input type="submit"
-                                                           name="signup"
-                                                           id="signup"
-                                                           class="form-submit"
-                                                           value="Salvar"/>
+                                                    <input type="submit" class="form-submit" value="Salvar" />
                                                 </div>
                                             </div>
                                         </div>
@@ -68,28 +67,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for trip in object_list %}
-                                <td>{{ trip.name }}</td>
-                                <td>{{ trip.short_description|safe|truncatechars:"20" }}</td>
-                                <td>{{ trip.trip_duration }}</td>
-                                <td>{{ trip.travel_time }}</td>
-                                <td>{{ trip.limit_load }}</td>
-                                <td>{{ trip.updated|date }}</td>
+                            {% for t in object_list %}
+                            <tr>
+                                <td>{{ t.name }}</td>
+                                <td>{{ t.short_description|safe|truncatechars:"20" }}</td>
+                                <td>{{ t.trip_duration }}</td>
+                                <td>{{ t.travel_time }}</td>
+                                <td>{{ t.limit_load }}</td>
+                                <td>{{ t.updated|date }}</td>
                                 <td align="center">
-                                    <a href="{% url 'trip:price_trip_list' %}" class="btn">
+                                    <a href="{% url 'trip:trip_price_list_create' %}" class="btn">
                                         <i class="fas fa-money-bill-wave"></i>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{% url 'trip:trip_update' trip.pk %}" class="btn">
-                                            <i class="fas fa-user-edit"></i>
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{% url 'trip:trip_delete' trip.pk %}" class="btn">
-                                            <i class="fas fa-solid fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                </td>
+                                <td align="center">
+                                    <a href="{% url 'trip:trip_update' t.pk %}" class="btn">
+                                        <i class="fas fa-user-edit"></i>
+                                    </a>
+                                </td>
+                                <td align="center">
+                                    <a href="{% url 'trip:trip_delete' t.pk %}" class="btn">
+                                        <i class="fas fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>

@@ -16,7 +16,7 @@
                     </div>
                     <div id="bottom_list"
                             class="col-sm-12 col-md-6"
-                            style="text-align-last: end;">
+                            style="text-align-last">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
@@ -66,12 +66,12 @@
                                 <tr>
                                     <td>{{ t.transport_type }}</td>
                                     <td align="center">
-                                        <a href="{% url 'transport:category_transport_update' t.pk %}" class="btn">
+                                        <a href="{% url 'transport:transport_category_update' t.pk %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'transport:category_transport_delete' t.pk %}" class="btn">
+                                        <a href="{% url 'transport:transport_category_delete' t.pk %}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
                                         </a>
                                     </td>
@@ -87,6 +87,4 @@
     </div>
 </div>
 
-
 {% endblock %}
-

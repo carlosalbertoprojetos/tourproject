@@ -6,9 +6,8 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
-from .models import Validity, Season, Period
-from .forms import ValidityForm, PeriodForm, SeasonForm
-
+from .forms import PeriodForm, SeasonForm, ValidityForm
+from .models import Period, Season, Validity
 
 
 #===============================================================================

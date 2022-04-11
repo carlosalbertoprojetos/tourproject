@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
-from .views import user_update, users_list, agent_signup
+from .views import agent_signup, user_update, users_list
 
 app_name = 'user'
 

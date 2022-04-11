@@ -1,10 +1,8 @@
 {% extends 'dashboard.html' %}
-
-
 {% load i18n account static crispy_forms_tags %}
-
-{% block title %}Preços{% endblock title %} 
-
+{% block title %}
+    Transporte
+{% endblock title %}
 {% block dashboard %}
 
 
@@ -14,19 +12,25 @@
             <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title m-2">Preços</h2>
+                        <h2 class="form-title m-2">Valores de Tranporte</h2>
                     </div>
                     <div id="bottom_list"
                             class="col-sm-12 col-md-6"
-                            style="text-align-last: end;">
+                            style="text-align-last">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <i class="fas fa-plus-circle fa-2x"></i></a>
+                                <div class="modal fade"
+                                        id="exampleModal"
+                                        tabindex="-1"
+                                        role="dialog"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Novos Preços</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Novo Valor de Transporte</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -40,10 +44,10 @@
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
                                                     <input type="submit"
-                                                           name="signup"
-                                                           id="signup"
-                                                           class="form-submit"
-                                                           value="Salvar"/>
+                                                            name="signup"
+                                                            id="signup"
+                                                            class="form-submit"
+                                                            value="Salvar"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,19 +70,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for season in object_list %}
+                            {% for t in object_list %}
                             <tr>
-                                <td>{{ season.trip }}</td>
-                                <td>{{ season.cadpax }}</td>
-                                <td>{{ season.season }}</td>
-                                <td>{{ season.price }}</td>
+                                <td>{{ t.trip }}</td>
+                                <td>{{ t.cadpax }}</td>
+                                <td>{{ t.season }}</td>
+                                <td>{{ t.price }}</td>
                                 <td align="center">
-                                    <a href="{% url 'trip:price_trip_update' season.id %}" class="btn">
+                                    <a href="{% url 'transport:transport_price_update' t.pk %}"
+                                        class="btn">
                                         <i class="fas fa-user-edit"></i>
                                     </a>
                                 </td>
                                 <td align="center">
-                                    <a href="{% url 'trip:price_trip_delete' season.pk %}" class="btn">
+                                    <a href="{% url 'transport:transport_price_delete' t.pk %}"
+                                        class="btn">
                                         <i class="fas fa-solid fa-trash"></i>
                                     </a>
                                 </td>
@@ -86,7 +92,7 @@
                             {% endfor %}
                         <tbody>
                     </table>
-                </div>   
+                </div>
             </div>
         </div>
     </div>

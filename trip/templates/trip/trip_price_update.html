@@ -1,10 +1,8 @@
 {% extends 'dashboard.html' %}
-
-
 {% load i18n account static crispy_forms_tags %}
-
-{% block title %}Categoria PAX{% endblock title %} 
-
+{% block title %}
+Passeio
+{% endblock title %}
 {% block dashboard %}
 
 
@@ -12,7 +10,7 @@
     <div class="card">
         <div class="container-form">
             <div class="card-header">
-                <h2 class="form-title">Editar Categoria</h2>
+                <h2 class="form-title">Valor do Passeio</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
@@ -21,7 +19,12 @@
                         <div class="col-md-1 p-1">
                             <input type="submit" class="btn btn-primary" value="Salvar"/>
                         </div>
-                    </div> 
+                        <div class="col-md-1 p-1">
+                            <a href="{% url 'trip:catpax_list' %}"
+                                type="button"
+                                class="btn btn-primary"/>CadPAX</a>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -32,7 +32,6 @@ class ClientListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 client_list_create = ClientListCreateView.as_view()
 
 
-
 class ClientUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Client
     form_class = ClientForm

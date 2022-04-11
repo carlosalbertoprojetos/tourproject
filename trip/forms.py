@@ -1,6 +1,13 @@
 from django import forms
 
-from .models import TripCategory, Trip
+from .models import TripCategoryPax, TripCategory, Trip, TripPrice
+
+
+class TripCategoryPaxForm(forms.ModelForm):
+    
+    class Meta:
+        model = TripCategoryPax
+        fields = '__all__'
 
 
 class TripCategoryForm(forms.ModelForm):
@@ -27,4 +34,9 @@ class TripForm(forms.ModelForm):
         self.fields['commission'].widget.attrs.update(
             {'class': 'mask-perc'})
 
-        
+
+class TripPriceForm(forms.ModelForm):
+    
+    class Meta:
+        model = TripPrice
+        fields = '__all__'        

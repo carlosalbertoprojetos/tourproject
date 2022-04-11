@@ -4,11 +4,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView
 
 from .forms import DestinyForm
 from .models import Destiny
-
 
 
 class DestinyListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
@@ -33,6 +32,7 @@ class DestinyListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 destiny_list_create = DestinyListCreateView.as_view()
 
+
 class DestinyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = Destiny
@@ -40,7 +40,6 @@ class DestinyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'destiny/destiny_update.html'
     success_message = 'Destino atualizado com sucesso!!!'
     success_url = _('destiny:destiny_list_create')
-
 
 destiny_update = DestinyUpdateView.as_view()
 
@@ -54,7 +53,6 @@ class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super(DestinyDeleteView, self).delete(request, *args, **kwargs)
-
 
 destiny_delete = DestinyDeleteView.as_view()
 

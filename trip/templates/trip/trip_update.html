@@ -1,11 +1,8 @@
 {% extends 'dashboard.html' %}
-
-
 {% load i18n account static crispy_forms_tags %}
-
-{% block title %}Passeio{% endblock title %}
-
-
+{% block title %}
+    Passeio
+{% endblock title %}
 {% block dashboard %}
 
 
@@ -14,7 +11,6 @@
         <div class="container-form">
             <div class="card-header">
                 <h2 class="form-title">Editar Passeio</h2>
-
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
@@ -28,9 +24,7 @@
             </div>
         </div>
     </div>
-</main>
+</div>
+
 
 {% endblock %}
-
-
-

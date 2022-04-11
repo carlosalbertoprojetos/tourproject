@@ -1,10 +1,8 @@
 {% extends 'dashboard.html' %}
-
-
 {% load i18n account static crispy_forms_tags %}
-
-{% block title %}Temporada{% endblock title %} 
-
+{% block title %}
+    Temporada
+{% endblock title %}
 {% block dashboard %}
 
 
@@ -16,12 +14,17 @@
                     <div class="col-sm-12 col-md-6">
                         <h2 class="form-title m-2">Temporadas</h2>
                     </div>
-                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last: end;">
+                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade"
+                                        id="exampleModal"
+                                        tabindex="-1"
+                                        role="dialog"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -32,17 +35,21 @@
                                             </div>
                                             <div class="modal-body">
                                                 {% csrf_token %}
-                                                {{ form.non_field_errors }} 
+                                                {{ form.non_field_errors }}
                                                 {{ form|crispy }}
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
-                                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
-                                                </div>                       
-                                            </div>                                
-                                        </div>        
+                                                    <input type="submit"
+                                                            name="signup"
+                                                            id="signup"
+                                                            class="form-submit"
+                                                            value="Salvar"/>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>                           
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -62,36 +69,40 @@
                         </thead>
                         <tbody>
                             {% for season in object_list %}
-                            <tr>
-                                <td align="center">{{ season.validity }}</td>
-                                <td align="center">{{ season.destiny }}</td>
-                                <td align="center">{{ season.name }}</td>
-                                <td align="center">{% if season.active_company %}
-                                    <i class="fas fa-user-check"></i>
-                                    {% else %}
-                                    <i class="fas fa-user-times"></i>
-                                    {% endif %}
-                                </td>
-                                <td align="center">{% if season.active_sell %}
-                                    <i class="fas fa-user-check"></i>
-                                    {% else %}
-                                    <i class="fas fa-user-times"></i>
-                                    {% endif %}
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'season:season_update' season.id %}" class="btn">
-                                        <i class="fas fa-user-edit"></i>
-                                    </a>
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'season:season_delete' season.pk %}" class="btn">
-                                        <i class="fas fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td align="center">{{ season.validity }}</td>
+                                    <td align="center">{{ season.destiny }}</td>
+                                    <td align="center">{{ season.name }}</td>
+                                    <td align="center">
+                                        {% if season.active_company %}
+                                            <i class="fas fa-user-check"></i>
+                                        {% else %}
+                                            <i class="fas fa-user-times"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td align="center">
+                                        {% if season.active_sell %}
+                                            <i class="fas fa-user-check"></i>
+                                        {% else %}
+                                            <i class="fas fa-user-times"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td align="center">
+                                        <a href="{% url 'season:season_update' season.id %}" class="btn">
+                                            <i class="fas fa-user-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a href="{% url 'season:season_delete' season.pk %}" class="btn">
+                                            <i class="fas fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             {% endfor %}
-                        <tbody>
-                    </table>
+                            <tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
