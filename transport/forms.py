@@ -1,15 +1,31 @@
 from django import forms
 
-from .models import Transport
+from .models import Transport, Transport_Type, TransportCategoryPax, TransportPrices
 
-class RegisterTransportForm(forms.ModelForm):
- 
-    class Meta:
-        model = Transport
-        fields = '__all__'       
 
-class EditTransportForm(forms.ModelForm):
+class TransportTypeForm(forms.ModelForm):
 
     class Meta:
+        model = Transport_Type
+        fields = '__all__'
+
+
+class TransportCategoryPaxForm(forms.ModelForm):
+
+    class Meta:
+        model = TransportCategoryPax
+        fields = '__all__'
+
+
+class TransportForm(forms.ModelForm):
+
+    class Meta:
         model = Transport
-        fields = ['stretch','hits', 'is_active', 'document', 'description'] 
+        fields = '__all__'
+
+
+class TransportPriceForm(forms.ModelForm):
+
+    class Meta:
+        model = TransportPrices
+        fields = '__all__'

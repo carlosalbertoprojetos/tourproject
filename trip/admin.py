@@ -1,23 +1,19 @@
+
 from django.contrib import admin
 
-from .models import Categories, Trip, CategoriesPax, TripSeasonPrices
+from .models import TripCategoryPax, TripCategory, Trip
 
 
-@admin.register(Categories)
-class CategoriesAdmin(admin.ModelAdmin):
-    model = Categories
+@admin.register(TripCategoryPax)
+class TripCategoryPaxAdmin(admin.ModelAdmin):
+    ...
+
+@admin.register(TripCategory)
+class TripCategoryAdmin(admin.ModelAdmin):
+    model = TripCategory
     ordering = ('name',)
 
 
 @admin.register(Trip)
-class ProductsAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(CategoriesPax)
-class CategoriesPaxAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(TripSeasonPrices)
-class TripSeasonPricesAdmin(admin.ModelAdmin):
-    pass
+class TripAdmin(admin.ModelAdmin):
+    ...

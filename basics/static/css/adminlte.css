@@ -8186,6 +8186,10 @@ button.bg-dark:focus {
   height: auto !important;
 }
 
+.h-title {
+  height: 60px
+}
+
 .mw-100 {
   max-width: 100% !important;
 }

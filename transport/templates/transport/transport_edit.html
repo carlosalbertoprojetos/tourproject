@@ -1,27 +1,32 @@
 {% extends 'dashboard.html' %}
-
 {% load i18n account static %}
-
 {% load i18n account static crispy_forms_tags %}
-
-{% block title %} Editar Transporte {% endblock title %} 
-
+{% block title %}
+    Transporte
+{% endblock title %}
 {% block dashboard %}
+
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
                 <h2 class="form-title">Editar Transporte</h2>
-
                 <form method="POST">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#exampleModal">
                         Editar Transporte
                     </button>
-                    
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade"
+                            id="exampleModal"
+                            tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -32,21 +37,25 @@
                                 </div>
                                 <div class="modal-body">
                                     {% csrf_token %}
-                                    {{ form.non_field_errors }} 
+                                    {{ form.non_field_errors }}
                                     {{ form|crispy }}
                                 </div>
                                 <div class="modal-footer">
                                     <div class="form-group form-button">
-                                        <input type="submit" name="signup" id="signup" class="form-submit" value="Salvar" />
-                                    </div>                       
+                                        <input type="submit"
+                                                name="signup"
+                                                id="signup"
+                                                class="form-submit"
+                                                value="Salvar"/>
+                                    </div>
                                 </div>
-                            </div>        
+                            </div>
                         </div>
-                    </div>    
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+    
 {% endblock %}

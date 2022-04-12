@@ -1,75 +1,54 @@
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView
 
-
-from .forms import EditClientForm, RegisterClientForm
+from .forms import ClientForm
 from .models import Client
 
 
-class ClientRegisterView(SuccessMessageMixin, CreateView):
+class ClientListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = Client
-    form_class = RegisterClientForm
-    template_name = 'client/client_create.html'
-    success_message = 'Cliente cadastrado com sucesso!!!'
-    success_url = _('client:client_list')
+    template_name = 'client/client_list_create.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(ClientListCreateView, self).get_context_data(**kwargs)
+        context['form'] = ClientForm(self.request.POST or None)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ClientForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Transporte criado com sucesso!!!')
+            return redirect('client:client_list_create')
+        else:
+            return render(request, 'client/client_list_create.html', {'object':'object','form': form})
+
+client_list_create = ClientListCreateView.as_view()
 
 
-client_register = ClientRegisterView.as_view()
-
-
-# def client_register(request):
-#     form = RegisterClientForm()
-
-#     if request.method == 'POST':
-#         form = RegisterClientForm(request.POST or None)
-
-#         if form.is_valid():
-#             form.save(commit=True)
-#             return redirect('client:client_list')
-#         else:
-#             return render(request, 'client/client_create.html', {'form': form})
-
-#     elif request.method == 'GET':
-#         return render(request, 'client/client_create.html', {'form': form})
-
-
-
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Client
-    form_class = RegisterClientForm
+    form_class = ClientForm
     template_name = 'client/client_edit.html'
-    success_message = 'Dados alterados com sucesso!!!'
-    success_url = _('client:client_list')
+    success_message = 'Dados do cliente alterados com sucesso!!!'
+    success_url = _('client:client_list_create')
 
-client_edit = ClientUpdateView.as_view()
-
-
-#update e delete precisa do int:pk
-# def client_edit(request, id):
-#     client = get_object_or_404(Client, id=id)
-#     form = EditClientForm(instance=client)    
-
-#     if request.method == 'POST':
-#         form = EditClientForm(request.POST or None,instance=client)        
-
-#         if form.is_valid():
-#             client = form.save(commit=True)
-#             return redirect('client:client_edit', client.id)
-#         else:
-#             return render(request, 'client/client_edit.html', {'form': form})
-
-#     elif request.method == 'GET':
-#         return render(request, 'client/client_edit.html', {'form': form})
+client_update = ClientUpdateView.as_view()
 
 
-class ClientListView(ListView):
+class ClientDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Client
-    template_name = 'client/client_list.html'
-    context_object_name = "clients"
+    template_name = 'client/client_delete.html'
+    success_message = 'Cliente deletado com sucesso!'
+    success_url = _('client:client_list_create')
 
+    def delete(self, request, *args, **kwargs):        
+        return super(ClientDeleteView, self).delete(request, *args, **kwargs)
 
-Client_list = ClientListView.as_view()
-
+client_delete = ClientDeleteView.as_view()

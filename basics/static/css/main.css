@@ -224,6 +224,10 @@ html {
     color: inherit;
     text-decoration: none;
   }
+
+  a.btn {
+    padding: 0;
+  }
   
   pre,
   code,
@@ -3743,7 +3747,7 @@ footer {
         display: inline-block;
         font-weight: 400;
         line-height: 1.5;
-        color: #212529;
+        color: #007bff;
         text-align: center;
         text-decoration: none;
         vertical-align: middle;
@@ -7271,11 +7275,11 @@ footer {
       }
       
       .fixed-top, .sb-nav-fixed #layoutSidenav #layoutSidenav_nav, .sb-nav-fixed .sb-topnav {
-        /* position: fixed; */
+        position: relative;
         top: 0;
         right: 0;
         left: 0;
-        /* z-index: 1030; */
+        z-index: 1030;
       }
       
       .fixed-bottom {
@@ -12058,7 +12062,7 @@ footer {
         display: flex;
       }
       #layoutSidenav #layoutSidenav_nav {
-        flex-basis: 125px;
+        flex-basis: 225px;
         flex-shrink: 0;
         transition: transform 0.15s ease-in-out;
         z-index: 1038;
@@ -12066,12 +12070,12 @@ footer {
       }
       #layoutSidenav #layoutSidenav_content {
         position: relative;
-        /* display: flex; */
+        display: flex;
         flex-direction: column;
         justify-content: space-between;
         min-width: 0;
         flex-grow: 1;
-        min-height: calc(100vh - 125px);
+        min-height: calc(100vh - 56px);
         margin-left: -225px;
       }
 
@@ -12124,19 +12128,18 @@ footer {
       }
       .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
         width: 225px;
-        /* height: 100vh; */
+        height: 105vh;
         z-index: 1038;
       }
-      /* .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
-        padding-top: 56px;
-      } */
+      .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
+        /* padding-top: 56px; */
+      }
       .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
         overflow-y: auto;
       }
-      /* .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-        padding-left: 225px;
-        top: 56px;
-      } */
+      .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+        top: 6px;
+      }
       
       #layoutError {
         display: flex;
@@ -13727,7 +13730,7 @@ footer {
       .btn {
         display: inline-block;
         font-weight: 400;
-        color: #212529;
+        color: #007bff;
         text-align: center;
         vertical-align: middle;
         -webkit-user-select: none;
@@ -13750,7 +13753,7 @@ footer {
       }
       
       .btn:hover {
-        color: #212529;
+        color: #6dabe4;
         text-decoration: none;
       }
       
@@ -13771,6 +13774,7 @@ footer {
       .btn:not(:disabled):not(.disabled):active, .btn:not(:disabled):not(.disabled).active {
         box-shadow: none;
       }
+      
       
       a.btn.disabled,
       fieldset:disabled a.btn {

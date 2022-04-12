@@ -1,10 +1,10 @@
-# from localflavor.br.forms import BRZipCodeField, BRPhoneNumberField, BRCNPJField, BRCPFField, BRStateChoiceField
+
 from company.utils import sanitize_number
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Company, Phone, CompanyDestinies, LocalFlavor
-
+from .models import Company, Phone
+from user.models import User
 
 class CompanyForm(forms.ModelForm):
     class Meta:
@@ -15,7 +15,6 @@ class CompanyForm(forms.ModelForm):
         super(CompanyForm, self).__init__(*args, **kwargs)
         self.fields['document_number'].widget.attrs.update(
             {'class': 'mask-cnpj'})
-        self.fields['state'].widget.attrs.update({'class': 'mask-state'})
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
         
         
@@ -46,13 +45,6 @@ class CompanyForm(forms.ModelForm):
         return instance
 
 
-# class CompanyDestiniesUserForm(forms.ModelForm):
-    
-#     class Meta:
-#         model = CompanyDestinies
-#         fields = '__all__'
-#         readonly_fields = ['destiny']
-
 
 class PhoneForm(forms.ModelForm):
     class Meta:
@@ -65,13 +57,7 @@ class PhoneForm(forms.ModelForm):
             {'class': 'mask-telefone'})
 
 
-
-# class LocalFlavorForm(forms.ModelForm):
-#     cep = BRZipCodeField(label='CEP')
-#     state = BRStateChoiceField(label=_('Estado'))
-#     cpf = BRCPFField(label='CPF', required=False)
-#     cnpj = BRCNPJField(label='CNPJ', required=False)
-#     phone = BRPhoneNumberField(label=_('Telefone'))
-    
-#     class Meta:
-#         model = LocalFlavor
+class AgentCompanyForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'

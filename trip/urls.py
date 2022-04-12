@@ -1,36 +1,42 @@
 from django.urls import path
 
-
-from .views import (category_register, trip_create, trip_list, trip_update, trip_delete,
-                    catpax_list, catpax_create, catpax_update, catpax_delete,
-                    price_trip_list, price_trip_create, price_trip_update, price_trip_delete
-                    )
-
+from .views import (trip_category_delete, trip_category_list_create,
+                    trip_category_update, trip_categorypax_delete,
+                    trip_categorypax_list_create, trip_categorypax_update,
+                    trip_delete, trip_list_create, trip_option_list_create, trip_option_update, trip_option_delete, trip_price_delete,
+                    trip_price_list_create, trip_price_update, trip_update)
 
 app_name = 'trip'
 
 
 urlpatterns = [
-    path('category/', category_register, name="category_register"),
-
-    #===============================================================
-    #PASSEIO
-    path('create/', trip_create, name='trip_create'),
-    path('list/', trip_list, name='trip_list'),
+    #===============================================================================
+    # CATEGORIA PAX DE PASSEIO
+    path('categorypax/create/', trip_categorypax_list_create, name='trip_categorypax_list_create'),
+    path('<int:pk>/categorypax/edit/', trip_categorypax_update, name='trip_categorypax_update'),
+    path('<int:pk>/categorypax/delete/', trip_categorypax_delete, name='trip_categorypax_delete'),
+    
+    #===============================================================================
+    # CATEGORIA DE PASSEIO
+    path('category/list/', trip_category_list_create, name="trip_category_list_create"), 
+    path('<int:pk>/category/edit/', trip_category_update, name='trip_category_update'),
+    path('<int:pk>/category/delete/', trip_category_delete, name='trip_category_delete'),
+    
+    #===============================================================================
+    # PASSEIO
+    path('list/', trip_list_create, name='trip_list_create'),
     path('<int:pk>/edit/', trip_update, name='trip_update'),
-    path('<int:pk>/delete/', trip_delete, name='trip_delete'),
+    path('<int:pk>/delete/', trip_delete, name='trip_delete'),  
+    
+    #===============================================================================
+    # OPÇÕES DE PASSEIO
+    path('options/list/', trip_option_list_create, name='trip_option_list_create'),
+    path('<int:pk>/option/edit/', trip_option_update, name='trip_option_update'),
+    path('<int:pk>/option/delete/', trip_option_delete, name='trip_option_delete'),
 
-    #===============================================================
-    #PAX
-    path('catpax/list/', catpax_list, name='catpax_list'),
-    path('catpax/create/', catpax_create, name='catpax_create'),
-    path('<int:pk>/catpax/edit/', catpax_update, name='catpax_update'),
-    path('<int:pk>/catpax/delete/', catpax_delete, name='catpax_delete'),
-
-    #===============================================================
-    #PREÇÇO
-    path('price_trip/list/', price_trip_list, name='price_trip_list'),
-    path('price_trip/create/', price_trip_create, name='price_trip_create'),
-    path('<int:pk>/price_trip/edit/', price_trip_update, name='price_trip_update'),
-    path('<int:pk>/price_trip/delete/', price_trip_delete, name='price_trip_delete'),
+    #===============================================================================
+    # PREÇOS DOS PASSEIOS
+    path('price_trip/list/', trip_price_list_create, name='trip_price_list_create'),
+    path('<int:pk>/price_trip/edit/', trip_price_update, name='trip_price_update'),
+    path('<int:pk>/price_trip/delete/', trip_price_delete, name='trip_price_delete'),
 ]
