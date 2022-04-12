@@ -3,11 +3,13 @@ from django.urls import path
 from .views import (period_list_create, period_delete, period_update,
                     season_delete, season_list_create, season_update,
                     validity_list_create, validity_delete,
-                    validity_update)
+                    validity_update, calendar)
 
 app_name = 'season'
 
-urlpatterns = [   
+urlpatterns = [
+
+    path('calendar/', calendar, name='calendar_list'),   
     #============================================================================
     #TEMPORADA
     path('list/', season_list_create, name='season_list_create'),

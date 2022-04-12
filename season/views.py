@@ -9,6 +9,13 @@ from django.views.generic.edit import DeleteView, UpdateView
 from .forms import PeriodForm, SeasonForm, ValidityForm
 from .models import Period, Season, Validity
 
+#===============================================================================
+# CALENDÁRIO
+class CalendarListView(ListView):
+    model = Season
+    template_name = 'season/calendar_list.html'
+
+calendar = CalendarListView.as_view()
 
 #===============================================================================
 # VIGÊNCIA
@@ -57,7 +64,6 @@ class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 validity_delete = ValidityDeleteView.as_view()
 
-
 #===============================================================================
 # TEMPORADA
 
@@ -105,7 +111,6 @@ class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super(SeasonDeleteView, self).delete(request, *args, **kwargs)
 
 season_delete = SeasonDeleteView.as_view()
-
 
 #===============================================================================
 # PERÍODO
