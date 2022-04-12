@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (trip_category_delete, trip_category_list_create,
                     trip_category_update, trip_categorypax_delete,
                     trip_categorypax_list_create, trip_categorypax_update,
-                    trip_delete, trip_list_create, trip_price_delete,
+                    trip_delete, trip_list_create, trip_option_list_create, trip_option_update, trip_option_delete, trip_price_delete,
                     trip_price_list_create, trip_price_update, trip_update)
 
 app_name = 'trip'
@@ -26,7 +26,13 @@ urlpatterns = [
     # PASSEIO
     path('list/', trip_list_create, name='trip_list_create'),
     path('<int:pk>/edit/', trip_update, name='trip_update'),
-    path('<int:pk>/delete/', trip_delete, name='trip_delete'),
+    path('<int:pk>/delete/', trip_delete, name='trip_delete'),  
+    
+    #===============================================================================
+    # OPÇÕES DE PASSEIO
+    path('options/list/', trip_option_list_create, name='trip_option_list_create'),
+    path('<int:pk>/option/edit/', trip_option_update, name='trip_option_update'),
+    path('<int:pk>/option/delete/', trip_option_delete, name='trip_option_delete'),
 
     #===============================================================================
     # PREÇOS DOS PASSEIOS
