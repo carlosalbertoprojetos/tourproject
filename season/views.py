@@ -11,14 +11,6 @@ from .models import Period, Season, Validity
 
 
 #===============================================================================
-# CALENDÁRIO
-
-class CalendarListView(ListView):
-    model = Season
-    template_name = 'season/calendar_list.html'
-
-calendar = CalendarListView.as_view()
-#===============================================================================
 # VIGÊNCIA
 
 class ValidityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
