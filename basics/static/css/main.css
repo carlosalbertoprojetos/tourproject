@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-
-
-
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -2720,9 +2717,11 @@ footer {
         caption-side: top;
       }
       
+      /*
       .table-sm > :not(caption) > * > * {
-        /* padding: 0.25rem 0.25rem; */
+        padding: 0.25rem 0.25rem; 
       }
+      */
       
       .table-bordered > :not(caption) > *, .dataTable-table > :not(caption) > * {
         border-width: 1px 0;

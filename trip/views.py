@@ -9,8 +9,10 @@ from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
-                    TripOptionsForm, TripPriceForm)
-from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice
+                    TripPriceForm)
+from .models import Trip, TripCategory, TripCategoryPax, TripPrice
+
+
 
 #===============================================================================
 # CATEGORIA PAX DE PASSEIO
@@ -123,7 +125,7 @@ class TripListCreateView(LoginRequiredMixin, ListView):
 
         if form.is_valid():
             form = form.save()
-            messages.success(request, 'Passeio criado com sucesso!!!')
+            messages.success(request, 'Passeio de Passeio criada com sucesso!!!')
             return redirect('trip:trip_list_create')
         else:
             return render(request, 'trip/trip_list_create.html', {'object':'object','form': form})
@@ -134,7 +136,7 @@ trip_list_create = TripListCreateView.as_view()
 class TripUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Trip
     form_class = TripForm
-    template_name = 'trip/trip_option_update.html'
+    template_name = 'trip/trip_update.html'
     success_message = 'Passeio atualizado com sucesso!!!'
     success_url = _('trip:trip_list_create')
 
@@ -143,62 +145,14 @@ trip_update = TripUpdateView.as_view()
 
 class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Trip
-    template_name = 'trip/trip_option_delete.html'
+    template_name = 'trip/trip_delete.html'
     success_message = 'Passeio deletado com sucesso!!!'
-    success_url = _('trip:trip_list_create')
+    success_url = _('trip:trip_list')
 
     def delete(self, request, *args, **kwargs):
         return super(TripDeleteView, self).delete(request, *args, **kwargs)
 
 trip_delete = TripDeleteView.as_view()
-
-
-#===============================================================================
-# OPÇÕES DOS PASSEIO
-
-class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = TripOption
-    template_name = 'trip/trip_option_list_create.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(TripOptionListCreateView, self).get_context_data(**kwargs)
-        context['form'] = TripOptionsForm(self.request.POST or None)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        form = TripOptionsForm(request.POST or None)
-
-        if form.is_valid():
-            form = form.save()
-            messages.success(request, 'Opção de Passei criada com sucesso!!!')
-            return redirect('trip:trip_option_list_create')
-        else:
-            return render(request, 'trip/trip_option_list_create.html', {'object':'object','form': form})
-
-trip_option_list_create = TripOptionListCreateView.as_view()
-
-
-class TripOptionUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = TripOption
-    form_class = TripOptionsForm
-    template_name = 'trip/trip_option_update.html'
-    success_message = 'Opção de Passeio atualizada com sucesso!!!'
-    success_url = _('trip:trip_option_list_create')
-
-trip_option_update = TripOptionUpdateView.as_view()
-
-
-class TripOptionDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = TripOption
-    template_name = 'trip/trip_option_delete.html'
-    success_message = 'Opção de Passeio deletada com sucesso!!!'
-    success_url = _('trip:trip_option_list_create')
-
-    def delete(self, request, *args, **kwargs):
-        return super(TripOptionDeleteView, self).delete(request, *args, **kwargs)
-
-trip_option_delete = TripOptionDeleteView.as_view()
-
 
 
 

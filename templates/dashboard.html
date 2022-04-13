@@ -104,6 +104,7 @@
                                  aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'season:calendar_novo' %}">Calendário</a>
                                     <a class="nav-link" href="{% url 'season:season_list_create' %}">Lista</a>
                                     <a class="nav-link" href="{% url 'season:validity_list_create' %}">Vigência</a>
                                     <a class="nav-link" href="{% url 'season:period_list_create' %}">Período</a>
@@ -164,10 +165,8 @@
                          data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{% url 'trip:trip_list_create' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'trip:trip_option_list_create' %}">Tipos</a>
                             <a class="nav-link" href="{% url 'trip:trip_category_list_create' %}">Categorias</a>
                             <a class="nav-link" href="{% url 'trip:trip_categorypax_list_create' %}">CategoriasPAX</a>
-                            <a class="nav-link" href="{% url 'trip:trip_price_list_create' %}">Preços</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed"

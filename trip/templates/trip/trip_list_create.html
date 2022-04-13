@@ -61,6 +61,7 @@
                                 <th>Tempo de percurso</th>
                                 <th>Carga limite</th>
                                 <th>Atualizado em</th>
+                                <th>Valores</th>
                                 <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
@@ -74,6 +75,10 @@
                                 <td>{{ t.travel_time }}</td>
                                 <td>{{ t.limit_load }}</td>
                                 <td>{{ t.updated|date }}</td>
+                                <td align="center">
+                                    <a href="{% url 'trip:trip_price_list_create' %}" class="btn">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                </td>
                                 <td align="center">
                                     <a href="{% url 'trip:trip_update' t.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>
