@@ -3,12 +3,9 @@ from django.db import models
 from season.models import Season
 
 from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.utils.html import mark_safe
+# from django.dispatch import receiver
+# from django.utils.html import mark_safe
 from django.utils.text import slugify
-
-
-
 
 
 class TripCategoryPax(models.Model):
@@ -57,7 +54,7 @@ class Trip(models.Model):
     ]
     
     name = models.CharField('Nome', max_length=255, default='teste')
-    # slug = models.SlugField(max_length=250)
+    slug = models.SlugField(max_length=250)
     image = models.ImageField(
         'Imagem do produto', upload_to="produtos/%Y", blank=True)
     trip_description = models.TextField('Descrição do passeio', blank=True, default='teste')
@@ -92,20 +89,19 @@ class Trip(models.Model):
         # view_image.allow_tags = True
 
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     return super().save(*args, **kwargs)
-    
-    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
 
-@receiver(post_save, sender=Trip)
-def insert_slug(sender, instance, **kwargs):
-    if not instance.slug or instance.slug != slugify(instance.name):
-        instance.slug = slugify(instance.name)
-        return instance.save()
+# @receiver(post_save, sender=Trip)
+# def insert_slug(sender, instance, **kwargs):
+#     if not instance.slug or instance.slug != slugify(instance.name):
+#         instance.slug = slugify(instance.name)
+#         return instance.save()
 
 
 class TripOption(models.Model):
@@ -161,13 +157,3 @@ post_save.connect(trip_prices, sender=TripOption)
 #         instance.slug = slugify(instance.name)
 #         return instance.save()
  
-
-class TripPrice(models.Model):
-    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
-    price = models.CharField('Preço', max_length=9)
-
-    def __str__(self):
-        return self.trip +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
-

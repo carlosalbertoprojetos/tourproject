@@ -13,7 +13,7 @@ from season.models import Season
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
 from .models import (Trip, TripCategory, TripCategoryPax, TripOption,
-                     TripPrice, TripPriceForm)
+                     TripPrice)
 
 #===============================================================================
 # CATEGORIA PAX DE PASSEIO
@@ -223,20 +223,20 @@ trip_option_delete = TripOptionDeleteView.as_view()
 #===============================================================================
 # PREÇOS DOS PASSEIOS
 
-# class TripPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-#     model = TripPrice
-#     template_name = 'trip/trip_price_list.html'
+class TripPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+    model = TripPrice
+    template_name = 'trip/trip_price_list.html'
  
-# trip_price_list_create = TripPriceListView.as_view()
+trip_price_list_create = TripPriceListView.as_view()
 
 
 # @trip_price_list_create(lambda u: u.is_superuser)
-def trip_price_list_create(request, trip_id):
-    object = TripPrice.objects.filter(trip_id=trip_id)
-    context = {
-        'object': object,
-    }
-    return render(request, 'trip/trip_price_list.html', context)
+# def trip_price_list_create(request, trip_id):
+#     object = TripPrice.objects.filter(trip_id=trip_id)
+#     context = {
+#         'object': object,
+#     }
+#     return render(request, 'trip/trip_price_list.html', context)
 
 
 # class TripPriceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

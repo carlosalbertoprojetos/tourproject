@@ -1,10 +1,11 @@
 from django.urls import path
 
-from .views import (trip_category_delete, trip_category_list_create,
-                    trip_category_update, trip_categorypax_delete,
-                    trip_categorypax_list_create, trip_categorypax_update,
-                    trip_delete, trip_list_create, trip_price_delete,
-                    trip_price_list_create, trip_price_update, trip_update)
+from .views import (trip_categorypax_list_create, trip_categorypax_update, trip_categorypax_delete,
+                    trip_category_list_create, trip_category_update, trip_category_delete,
+                    trip_list_create, trip_delete, trip_update,
+                    trip_option_list_create, trip_option_update, trip_option_delete, 
+                    trip_price_list_create, trip_price_update, trip_price_delete,
+                    )
 
 app_name = 'trip'
 
