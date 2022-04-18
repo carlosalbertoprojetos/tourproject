@@ -30,13 +30,13 @@ urlpatterns = [
     
     #===============================================================================
     # OPÇÕES DE PASSEIO
-    path('options/list/', trip_option_list_create, name='trip_option_list_create'),
+    path('<trip_id>/options/list/', trip_option_list_create, name='trip_option_list_create'),
     path('<int:pk>/option/edit/', trip_option_update, name='trip_option_update'),
     path('<int:pk>/option/delete/', trip_option_delete, name='trip_option_delete'),
 
     #===============================================================================
     # PREÇOS DOS PASSEIOS
-    path('price_trip/list/', trip_price_list_create, name='trip_price_list_create'),
+    path('<trip_op_id>/price_trip/list/', trip_price_list_create, name='trip_price_list_create'),
     path('<trip_op_id>/price_trip/edit/', trip_price_update, name='trip_price_update'),
     path('<int:pk>/price_trip/delete/', trip_price_delete, name='trip_price_delete'),
 ]

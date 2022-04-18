@@ -164,6 +164,9 @@ trip_delete = TripDeleteView.as_view()
 class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = TripOption
     template_name = 'trip/trip_option_list_create.html'
+    
+    # def get_queryset(self, **kwargs):
+    #     return TripOption.objects.filter(trip_id) 
 
     def get_context_data(self, **kwargs):
         context = super(TripOptionListCreateView, self).get_context_data(**kwargs)
@@ -181,6 +184,18 @@ class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView
             return render(request, 'trip/trip_option_list_create.html', {'object':'object','form': form})
 
 trip_option_list_create = TripOptionListCreateView.as_view()
+
+# def trip_option_list_create(request, trip_id):
+#     object = TripOption.objects.all()
+
+#     return render(request, 'trip/trip_option_list_create.html', {'object': object})
+
+
+# class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+#     model = TripOption
+#     template_name = 'trip/trip_option_list_create.html'
+    
+# trip_option_list_create = TripOptionListCreateView.as_view()
 
 
 class TripOptionUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -209,11 +224,20 @@ trip_option_delete = TripOptionDeleteView.as_view()
 #===============================================================================
 # PREÇOS DOS PASSEIOS
 
-class TripPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = TripPrice
-    template_name = 'trip/trip_price_list.html'
+# class TripPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+#     model = TripPrice
+#     template_name = 'trip/trip_price_list.html'
+ 
+# trip_price_list_create = TripPriceListView.as_view()
 
-trip_price_list_create = TripPriceListView.as_view()
+
+# @trip_price_list_create(lambda u: u.is_superuser)
+def trip_price_list_create(request, trip_id):
+    object = TripPrice.objects.filter(trip_id=trip_id)
+    context = {
+        'object': object,
+    }
+    return render(request, 'trip/trip_price_list.html', context)
 
 
 # class TripPriceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -228,6 +252,8 @@ trip_price_list_create = TripPriceListView.as_view()
 # def update(request, trip_op_id):
 #     to = TripOption.objects.all().filter(id=trip_op_id)
 #     tp = TripPrice.objects.get(trip_option_id=trip_op_id)
+
+
 
 # @login_required
 def trip_price_update(request, trip_op_id):
@@ -254,36 +280,6 @@ def trip_price_update(request, trip_op_id):
     }  
     return render(request, 'trip/trip_price_update.html', context)
 
-
-
-# def trip_price_update(request, trip_op_id):
-#     tripOption = TripOption.objects.filter(id=trip_op_id)
-    
-#     if request.method == 'POST':
-#         trip_prices = TripPrice.objects.filter(trip_option_id=trip_op_id)
-#         tp_formset = inlineformset_factory(TripOption, TripPrice, form=TripPriceForm, extra=0)
-#         formset = tp_formset(request.POST, instance=trip_prices)
-#         if formset.is_valid():
-#             formset.save()
-#             messages.success(request, 'Preços alterados com sucesso!!!')
-#             return redirect('trip:trip_price_update', trip_option_id=trip_op_id)
-#         else:
-#             context = {
-#                 'tripOption': tripOption,
-#                 'formset': formset,
-#             }
-#         return render(request, 'trip/trip_price_update.html', context)
-
-    # elif request.method == 'GET':
-    #     trip_prices = TripPrice.objects.filter(trip_option_id=trip_op_id)
-    #     tp_formset = inlineformset_factory(TripOption, TripPrice, form=TripPriceForm, extra=0)
-    #     formset = tp_formset(instance=trip_prices)
-    #     context = {
-    #         'tripOption': tripOption,
-    #         'formset': formset,
-    #     }
-    #     return render(request, 'trip/trip_price_update.html', context)            
-            
 
 class TripPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TripPrice

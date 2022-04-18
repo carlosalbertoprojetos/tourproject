@@ -2,315 +2,315 @@
 {% load i18n account static %}
 {% block base %}
 
-
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark pt-8">
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <a class="navbar-brand ps-3" href="/">TourProject</a>
-    </ul>
-    <div class="collapse navbar-collapse w-25" id="navbarSupportedContent">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark pt-8">
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <a class="navbar-brand ps-3" href="/">TourProject</a>
         </ul>
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-                id="sidebarToggle"
-                href="#">
-            <i class="fas fa-bars"></i>
-        </button>
-        </ul>
-    </div>
-    <div class="collapse navbar-collapse d-lg-flex justify-content-end"
-        id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto ms-md-0 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link active ps-3" href="{% url 'account_logout' %}">Sair</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-            <div class="sb-sidenav-menu">
-                <div class="nav">
-                    {% if user.is_authenticated %}
-                        <div class="sb-sidenav-menu-heading">Perfil {{ user.username }}</div>
-                        <a class="nav-link ps-3" href="{% url 'user:dashboard' %}">
-                            <div class="sb-nav-link-icon">
-                                <i class="fa fa-address-card"></i>
+        <div class="collapse navbar-collapse w-25" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            </ul>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+                    id="sidebarToggle"
+                    href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse d-lg-flex justify-content-end"
+            id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto ms-md-0 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link active ps-3" href="{% url 'account_logout' %}">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        {% if user.is_authenticated %}
+                            <div class="sb-sidenav-menu-heading">Perfil {{ user.username }}</div>
+                            <a class="nav-link ps-3" href="{% url 'user:dashboard' %}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa fa-address-card"></i>
+                                </div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link collapsed"
+                            href="#"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseSettings"
+                            aria-expanded="false"
+                            aria-controls="collapseSettings">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                Configurações
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse"
+                                id="collapseSettings"
+                                aria-labelledby="headingOne"
+                                data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'user:user_update' user.pk %}">Usuário/Email</a>
+                                    <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>
+                                    {% if user.option == '1' or user.option == '3' %}
+                                        <a class="nav-link" href="{% url 'company:company_update' user.pk %}">Empresa</a>
+                                    {% endif %}
+                                </nav>
                             </div>
-                            Dashboard
-                        </a>
+                            {% if user.is_superuser %}
+                                <div class="sb-sidenav-menu-heading">Gestão</div>
+                                <a class="nav-link" href="{% url 'user:users_list' %}">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-book-open"></i>
+                                    </div>
+                                    Usuários
+                                </a>
+                                <a class="nav-link" href="{% url 'company:companies_list' %}">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-business-time"></i>
+                                    </div>
+                                    Empresas
+                                </a>
+                                <a class="nav-link" href="{% url 'client:client_list_create' %}">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    Clientes
+                                </a>
+                                <a class="nav-link collapsed"
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseSeason"
+                                aria-expanded="false"
+                                aria-controls="collapseSeason">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-cloud-sun-rain"></i>
+                                    </div>
+                                    Temporadas
+                                    <div class="sb-sidenav-collapse-arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse"
+                                    id="collapseSeason"
+                                    aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="{% url 'season:season_list_create' %}">Lista</a>
+                                        <a class="nav-link" href="{% url 'season:validity_list_create' %}">Vigência</a>
+                                        <a class="nav-link" href="{% url 'season:period_list_create' %}">Período</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link" href="{% url 'destiny:destiny_list_create' %}">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </div>
+                                    Destinos
+                                </a>
+                            {% endif %}
+                            {% if user.option == '1' %}
+                                <div class="sb-sidenav-menu-heading">Agentes</div>
+                                <a class="nav-link collapsed"
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapsePages"
+                                aria-expanded="false"
+                                aria-controls="collapsePages">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="fas fa-book-open"></i>
+                                    </div>
+                                    Cadastro
+                                    <div class="sb-sidenav-collapse-arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse"
+                                    id="collapsePages"
+                                    aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="{% url 'company:company_agents_list' %}">Listar</a>
+                                        <a class="nav-link" href="{% url 'user:agent_signup' %}">Cadastrar</a>
+                                    </nav>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <div class="sb-sidenav-menu-heading">Produtos</div>
                         <a class="nav-link collapsed"
-                           href="#"
-                           data-bs-toggle="collapse"
-                           data-bs-target="#collapseSettings"
-                           aria-expanded="false"
-                           aria-controls="collapseSettings">
+                        href="#"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseTrip"
+                        aria-expanded="false"
+                        aria-controls="collapseTrip">
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-users-cog"></i>
+                                <i class="fas fa-biking"></i>
                             </div>
-                            Configurações
+                            Passeios
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i>
                             </div>
                         </a>
                         <div class="collapse"
-                             id="collapseSettings"
-                             aria-labelledby="headingOne"
-                             data-bs-parent="#sidenavAccordion">
+                            id="collapseTrip"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'user:user_update' user.pk %}">Usuário/Email</a>
-                                <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>
-                                {% if user.option == '1' or user.option == '3' %}
-                                    <a class="nav-link" href="{% url 'company:company_update' user.pk %}">Empresa</a>
-                                {% endif %}
+                                <a class="nav-link" href="{% url 'trip:trip_list_create' %}">Listar</a>
+                                {% comment %} <a class="nav-link" href="{ url 'trip:trip_option_list_create' %}">Op��es</a> {% endcomment %}
+                                <a class="nav-link" href="{% url 'trip:trip_category_list_create' %}">Categorias</a>
+                                <a class="nav-link" href="{% url 'trip:trip_categorypax_list_create' %}">CategoriasPAX</a>
+                                {% comment %} <a class="nav-link" href="{ url 'trip:trip_price_list_create' %}">Pre�os</a> {% endcomment %}
                             </nav>
                         </div>
-                        {% if user.is_superuser %}
-                            <div class="sb-sidenav-menu-heading">Gestão</div>
-                            <a class="nav-link" href="{% url 'user:users_list' %}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-book-open"></i>
-                                </div>
-                                Usuários
-                            </a>
-                            <a class="nav-link" href="{% url 'company:companies_list' %}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-business-time"></i>
-                                </div>
-                                Empresas
-                            </a>
-                            <a class="nav-link" href="{% url 'client:client_list_create' %}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fa fa-users"></i>
-                                </div>
-                                Clientes
-                            </a>
-                            <a class="nav-link collapsed"
-                               href="#"
-                               data-bs-toggle="collapse"
-                               data-bs-target="#collapseSeason"
-                               aria-expanded="false"
-                               aria-controls="collapseSeason">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cloud-sun-rain"></i>
-                                </div>
-                                Temporadas
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse"
-                                 id="collapseSeason"
-                                 aria-labelledby="headingOne"
-                                 data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'season:season_list_create' %}">Lista</a>
-                                    <a class="nav-link" href="{% url 'season:validity_list_create' %}">Vigência</a>
-                                    <a class="nav-link" href="{% url 'season:period_list_create' %}">Período</a>
-                                </nav>
+                        <a class="nav-link collapsed"
+                        href="#"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseTransport"
+                        aria-expanded="false"
+                        aria-controls="collapseTransport">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-solid fa-bus"></i>
                             </div>
-                            <a class="nav-link" href="{% url 'destiny:destiny_list_create' %}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                </div>
-                                Destinos
-                            </a>
-                        {% endif %}
-                        {% if user.option == '1' %}
-                            <div class="sb-sidenav-menu-heading">Agentes</div>
-                            <a class="nav-link collapsed"
-                               href="#"
-                               data-bs-toggle="collapse"
-                               data-bs-target="#collapsePages"
-                               aria-expanded="false"
-                               aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-book-open"></i>
-                                </div>
-                                Cadastro
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse"
-                                 id="collapsePages"
-                                 aria-labelledby="headingOne"
-                                 data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{% url 'company:company_agents_list' %}">Listar</a>
-                                    <a class="nav-link" href="{% url 'user:agent_signup' %}">Cadastrar</a>
-                                </nav>
+                            Transporte
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
                             </div>
-                        {% endif %}
-                    {% endif %}
-                    <div class="sb-sidenav-menu-heading">Produtos</div>
-                    <a class="nav-link collapsed"
-                       href="#"
-                       data-bs-toggle="collapse"
-                       data-bs-target="#collapseTrip"
-                       aria-expanded="false"
-                       aria-controls="collapseTrip">
-                        <div class="sb-nav-link-icon">
-                            <i class="fas fa-biking"></i>
+                        </a>
+                        <div class="collapse"
+                            id="collapseTransport"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{% url 'transport:transport_list_create' %}">Listar</a>
+                                <a class="nav-link"
+                                href="{% url 'transport:transport_category_list_create' %}">Categorias</a>
+                                <a class="nav-link"
+                                href="{% url 'transport:transport_catpax_list_create' %}">CategoriasPAX</a>
+                                <a class="nav-link"
+                                href="{% url 'transport:transport_price_list_create' %}">Preços</a>
+                            </nav>
                         </div>
-                        Passeios
-                        <div class="sb-sidenav-collapse-arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </a>
-                    <div class="collapse"
-                         id="collapseTrip"
-                         aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'trip:trip_list_create' %}">Listar</a>
-                            <a class="nav-link" href="{% url 'trip:trip_option_list_create' %}">Tipos</a>
-                            <a class="nav-link" href="{% url 'trip:trip_category_list_create' %}">Categorias</a>
-                            <a class="nav-link" href="{% url 'trip:trip_categorypax_list_create' %}">CategoriasPAX</a>
-                            <a class="nav-link" href="{% url 'trip:trip_price_list_create' %}">Preços</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed"
-                       href="#"
-                       data-bs-toggle="collapse"
-                       data-bs-target="#collapseTransport"
-                       aria-expanded="false"
-                       aria-controls="collapseTransport">
-                        <div class="sb-nav-link-icon">
-                            <i class="fas fa-solid fa-bus"></i>
-                        </div>
-                        Transporte
-                        <div class="sb-sidenav-collapse-arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </a>
-                    <div class="collapse"
-                         id="collapseTransport"
-                         aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="{% url 'transport:transport_list_create' %}">Listar</a>
-                            <a class="nav-link"
-                               href="{% url 'transport:transport_category_list_create' %}">Categorias</a>
-                            <a class="nav-link"
-                               href="{% url 'transport:transport_catpax_list_create' %}">CategoriasPAX</a>
-                            <a class="nav-link"
-                               href="{% url 'transport:transport_price_list_create' %}">Preços</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed"
-                       href="#"
-                       data-bs-toggle="collapse"
-                       data-bs-target="#collapseLayouts"
-                       aria-expanded="false"
-                       aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        Restaurantes
-                        <div class="sb-sidenav-collapse-arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </a>
-                    <div class="collapse"
-                         id="collapseLayouts"
-                         aria-labelledby="headingOne"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Tipos</a>
-                            <a class="nav-link" href="#">Reservas</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed"
-                       href="#"
-                       data-bs-toggle="collapse"
-                       data-bs-target="#collapsePages"
-                       aria-expanded="false"
-                       aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon">
-                            <i class="fas fa-hotel"></i>
-                        </div>
-                        Hotéis
-                        <div class="sb-sidenav-collapse-arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </a>
-                    <div class="collapse"
-                         id="collapsePages"
-                         aria-labelledby="headingTwo"
-                         data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion"
-                             id="sidenavAccordionPages">
-                            <a class="nav-link collapsed"
-                               href="#"
-                               data-bs-toggle="collapse"
-                               data-bs-target="#pagesCollapseAuth"
-                               aria-expanded="false"
-                               aria-controls="pagesCollapseAuth">
-                                Categorias
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse"
-                                 id="pagesCollapseAuth"
-                                 aria-labelledby="headingOne"
-                                 data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Hotel</a>
-                                    <a class="nav-link" href="#">Hostel</a>
-                                    <a class="nav-link" href="#">Pousada</a>
-                                </nav>
+                        <a class="nav-link collapsed"
+                        href="#"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseLayouts"
+                        aria-expanded="false"
+                        aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-utensils"></i>
                             </div>
-                            <a class="nav-link collapsed"
-                               href="#"
-                               data-bs-toggle="collapse"
-                               data-bs-target="#pagesCollapseError"
-                               aria-expanded="false"
-                               aria-controls="pagesCollapseError">
-                                Reservas
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse"
-                                 id="pagesCollapseError"
-                                 aria-labelledby="headingOne"
-                                 data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Adultos</a>
-                                    <a class="nav-link" href="#">Crianças</a>
-                                    <a class="nav-link" href="#">Especiais</a>
-                                </nav>
+                            Restaurantes
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
                             </div>
-                        </nav>
+                        </a>
+                        <div class="collapse"
+                            id="collapseLayouts"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="#">Tipos</a>
+                                <a class="nav-link" href="#">Reservas</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed"
+                        href="#"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapsePages"
+                        aria-expanded="false"
+                        aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-hotel"></i>
+                            </div>
+                            Hotéis
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                        </a>
+                        <div class="collapse"
+                            id="collapsePages"
+                            aria-labelledby="headingTwo"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion"
+                                id="sidenavAccordionPages">
+                                <a class="nav-link collapsed"
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#pagesCollapseAuth"
+                                aria-expanded="false"
+                                aria-controls="pagesCollapseAuth">
+                                    Categorias
+                                    <div class="sb-sidenav-collapse-arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse"
+                                    id="pagesCollapseAuth"
+                                    aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="#">Hotel</a>
+                                        <a class="nav-link" href="#">Hostel</a>
+                                        <a class="nav-link" href="#">Pousada</a>
+                                    </nav>
+                                </div>
+                                <a class="nav-link collapsed"
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#pagesCollapseError"
+                                aria-expanded="false"
+                                aria-controls="pagesCollapseError">
+                                    Reservas
+                                    <div class="sb-sidenav-collapse-arrow">
+                                        <i class="fas fa-angle-down"></i>
+                                    </div>
+                                </a>
+                                <div class="collapse"
+                                    id="pagesCollapseError"
+                                    aria-labelledby="headingOne"
+                                    data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="#">Adultos</a>
+                                        <a class="nav-link" href="#">Crianças</a>
+                                        <a class="nav-link" href="#">Especiais</a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid">
-                <!-- Page content-->
-                {% block dashboard %}
-                {% endblock dashboard %}
-            </div>
-        </main>
-    </div>
-</div>
-<footer class="footer py-4 bg-light mt-auto">
-    <div class="container-fluid px-4">
-        <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">
-                TourProject 2022&copy; Seu próximo roteiro de viagem!
-            </div>
-            <div>
-                <a href="#">Privacy Policy</a>
-                &middot;
-                <a href="#">Terms &amp; Conditions</a>
-            </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <!-- Page content-->
+                    {% block dashboard %}
+                    {% endblock dashboard %}
+                </div>
+            </main>
         </div>
     </div>
-</footer>
+    <footer class="footer py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">
+                    TourProject 2022&copy; Seu próximo roteiro de viagem!
+                </div>
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    &middot;
+                    <a href="#">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 {% endblock %}
