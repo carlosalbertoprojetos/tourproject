@@ -164,7 +164,7 @@ trip_delete = TripDeleteView.as_view()
 class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = TripOption
     template_name = 'trip/trip_option_list_create.html'
-    
+
     # def get_queryset(self, **kwargs):
     #     return TripOption.objects.filter(trip_id) 
 
@@ -184,6 +184,7 @@ class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView
             return render(request, 'trip/trip_option_list_create.html', {'object':'object','form': form})
 
 trip_option_list_create = TripOptionListCreateView.as_view()
+
 
 # def trip_option_list_create(request, trip_id):
 #     object = TripOption.objects.all()
