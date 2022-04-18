@@ -87,6 +87,12 @@ class Trip(models.Model):
     #     view_image.short_description = "Imagem Cadastrada"
     #     view_image.allow_tags = True
 
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     return super().save(*args, **kwargs)
+    
+    
     def __str__(self):
         return self.name
 
@@ -99,7 +105,7 @@ def insert_slug(sender, instance, **kwargs):
 
 
 class TripOption(models.Model):
-    
+
     SCALE_CHOICE = [
         ('1','1'),
         ('2','2'),
@@ -112,7 +118,8 @@ class TripOption(models.Model):
         ('9','9'),
         ('10','10'),
     ]
-    
+
+    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
     name = models.CharField('Nome', max_length=255)
     description = models.TextField('Descrição do passeio', blank=True)
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
@@ -120,18 +127,26 @@ class TripOption(models.Model):
     tariff_group = models.BooleanField('A tarifa é de Grupo',)
     customer_option = models.BooleanField('A opção pode ser selecionada pelos clientes nos sites?',)
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
-    
-    
-    def __str__(self):
-        return self.name
 
+    def __str__(self):
+        return str(self.trip)
 
 class TripPrice(models.Model):
-    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
-    trip_option = models.ForeignKey(TripOption, on_delete=models.DO_NOTHING, verbose_name='Opção de Passeio')
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
+    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='Opção de Passeio')
+    cadpax = models.CharField('Categoria PAX', max_length=10)
+    season = models.CharField('Temporada', max_length=255)
     price = models.CharField('Preço', max_length=9)
 
     def __str__(self):
-        return self.trip +' - '+ self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
+        return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
+
+
+def trip_prices(sender, instance, created, **kwargs):
+    if created:
+        cpax = TripCategoryPax.objects.all()
+        season = Season.objects.all()
+        for cp in cpax:
+            for se in season:
+                TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0)
+
+post_save.connect(trip_prices, sender=TripOption)

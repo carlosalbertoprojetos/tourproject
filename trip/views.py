@@ -3,14 +3,19 @@ from urllib import request
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, render
+from django.forms import inlineformset_factory, modelformset_factory
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
+from season.models import Season
+
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
-from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice
+from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice, TripPrice
+
+
 
 #===============================================================================
 # CATEGORIA PAX DE PASSEIO
@@ -159,7 +164,7 @@ trip_delete = TripDeleteView.as_view()
 class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = TripOption
     template_name = 'trip/trip_option_list_create.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super(TripOptionListCreateView, self).get_context_data(**kwargs)
         context['form'] = TripOptionsForm(self.request.POST or None)
@@ -201,47 +206,90 @@ trip_option_delete = TripOptionDeleteView.as_view()
 
 
 
-
 #===============================================================================
 # PREÇOS DOS PASSEIOS
 
-class TripPriceListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+class TripPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = TripPrice
-    template_name = 'trip/trip_price_list_create.html'
+    template_name = 'trip/trip_price_list.html'
+
+trip_price_list_create = TripPriceListView.as_view()
+
+
+# class TripPriceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+#     model = TripPrice
+#     form_class = TripPriceForm
+#     template_name = 'trip/trip_price_update.html'
+#     success_message = 'Valor de Passeio atualizado com sucesso!!!'
+#     success_url = _('trip:trip_price_list')
+
+# trip_price_update = TripPriceUpdateView.as_view()
+
+# def update(request, trip_op_id):
+#     to = TripOption.objects.all().filter(id=trip_op_id)
+#     tp = TripPrice.objects.get(trip_option_id=trip_op_id)
+
+# @login_required
+def trip_price_update(request, trip_op_id):
+    trip_option = TripOption.objects.get(pk=trip_op_id)
+    trip_price_formset = modelformset_factory(TripPrice, form=TripPriceForm, extra=0)
+
+    if request.method == 'POST':        
+        formset = trip_price_formset(request.POST, queryset=TripPrice.objects.filter(trip_option_id__id=trip_option.id))
+
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.trip_option_id = trip_op_id
+                instance.save()
+
+            messages.success(request, 'Preços alterados com sucesso!!!')
+            return redirect('trip:trip_price_update', trip_op_id)
+
+    formset = trip_price_formset(queryset=TripPrice.objects.filter(trip_option_id__id=trip_op_id))
     
-    def get_context_data(self, **kwargs):
-        context = super(TripPriceListCreateView, self).get_context_data(**kwargs)
-        context['form'] = TripPriceForm(self.request.POST or None)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        form = TripPriceForm(request.POST or None)
-
-        if form.is_valid():
-            form = form.save()
-            messages.success(request, 'Valor de Passeio criado com sucesso!!!')
-            return redirect('trip:trip_price_list_create')
-        else:
-            return render(request, 'trip/trip_price_list_create.html', {'object':'object','form': form})
-
-trip_price_list_create = TripPriceListCreateView.as_view()
+    context = {
+        'trip':trip_option,
+        'formset':formset
+    }  
+    return render(request, 'trip/trip_price_update.html', context)
 
 
-class TripPriceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = TripPrice
-    form_class = TripPriceForm
-    template_name = 'trip/trip_price_update.html'
-    success_message = 'Valor de Passeio atualizado com sucesso!!!'
-    success_url = _('trip:trip_price_list_create')
 
-trip_price_update = TripPriceUpdateView.as_view()
+# def trip_price_update(request, trip_op_id):
+#     tripOption = TripOption.objects.filter(id=trip_op_id)
+    
+#     if request.method == 'POST':
+#         trip_prices = TripPrice.objects.filter(trip_option_id=trip_op_id)
+#         tp_formset = inlineformset_factory(TripOption, TripPrice, form=TripPriceForm, extra=0)
+#         formset = tp_formset(request.POST, instance=trip_prices)
+#         if formset.is_valid():
+#             formset.save()
+#             messages.success(request, 'Preços alterados com sucesso!!!')
+#             return redirect('trip:trip_price_update', trip_option_id=trip_op_id)
+#         else:
+#             context = {
+#                 'tripOption': tripOption,
+#                 'formset': formset,
+#             }
+#         return render(request, 'trip/trip_price_update.html', context)
 
+    # elif request.method == 'GET':
+    #     trip_prices = TripPrice.objects.filter(trip_option_id=trip_op_id)
+    #     tp_formset = inlineformset_factory(TripOption, TripPrice, form=TripPriceForm, extra=0)
+    #     formset = tp_formset(instance=trip_prices)
+    #     context = {
+    #         'tripOption': tripOption,
+    #         'formset': formset,
+    #     }
+    #     return render(request, 'trip/trip_price_update.html', context)            
+            
 
 class TripPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TripPrice
     template_name = 'trip/trip_price_delete.html'
     success_message = 'Valor de Passeio deletado com sucesso!!!'
-    success_url = _('trip:trip_price_list_create')
+    success_url = _('trip:trip_price_list')
 
     def delete(self, request, *args, **kwargs):
         return super(TripPriceDeleteView, self).delete(request, *args, **kwargs)

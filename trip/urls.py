@@ -37,6 +37,6 @@ urlpatterns = [
     #===============================================================================
     # PREÇOS DOS PASSEIOS
     path('price_trip/list/', trip_price_list_create, name='trip_price_list_create'),
-    path('<int:pk>/price_trip/edit/', trip_price_update, name='trip_price_update'),
+    path('<trip_op_id>/price_trip/edit/', trip_price_update, name='trip_price_update'),
     path('<int:pk>/price_trip/delete/', trip_price_delete, name='trip_price_delete'),
 ]

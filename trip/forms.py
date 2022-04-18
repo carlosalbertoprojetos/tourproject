@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import TripCategoryPax, TripCategory, Trip, TripOption, TripPrice
+from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice
 
 
 class TripCategoryPaxForm(forms.ModelForm):
@@ -40,10 +40,11 @@ class TripOptionsForm(forms.ModelForm):
     
     class Meta:
         model = TripOption
-        fields = '__all__'  
+        fields = '__all__'
 
 class TripPriceForm(forms.ModelForm):
     
     class Meta:
         model = TripPrice
-        fields = '__all__'        
+        fields = ['cadpax', 'season', 'price']
+        # fields = '__all__'
