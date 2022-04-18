@@ -1,7 +1,6 @@
 from django import forms
-
 from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice
-
+from .models import TripCategoryPax, TripCategory, Trip, TripPrice
 
 class TripCategoryPaxForm(forms.ModelForm):
     
@@ -22,7 +21,6 @@ class TripForm(forms.ModelForm):
     class Meta:
         model = Trip
         fields = '__all__'
-        exclude = ('slug',)
 
     def __init__(self, *args, **kwargs):
         super(TripForm, self).__init__(*args, **kwargs)
@@ -36,11 +34,13 @@ class TripForm(forms.ModelForm):
             {'class': 'mask-perc'})
 
 
+
 class TripOptionsForm(forms.ModelForm):
     
     class Meta:
         model = TripOption
         fields = '__all__'
+
 
 class TripPriceForm(forms.ModelForm):
     

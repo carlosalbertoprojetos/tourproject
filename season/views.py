@@ -9,7 +9,11 @@ from django.views.generic.edit import DeleteView, UpdateView
 from .forms import PeriodForm, SeasonForm, ValidityForm
 from .models import Period, Season, Validity
 
+class CalendarListView(ListView):
+    model = Season
+    template_name = 'season/calendar_novo.html'
 
+calendar = CalendarListView.as_view()
 #===============================================================================
 # VIGÊNCIA
 

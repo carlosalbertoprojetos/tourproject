@@ -8,14 +8,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
-
 from season.models import Season
 
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
-from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice, TripPrice
-
-
+from .models import (Trip, TripCategory, TripCategoryPax, TripOption,
+                     TripPrice, TripPriceForm)
 
 #===============================================================================
 # CATEGORIA PAX DE PASSEIO
@@ -128,7 +126,7 @@ class TripListCreateView(LoginRequiredMixin, ListView):
 
         if form.is_valid():
             form = form.save()
-            messages.success(request, 'Passeio criado com sucesso!!!')
+            messages.success(request, 'Passeio de Passeio criada com sucesso!!!')
             return redirect('trip:trip_list_create')
         else:
             return render(request, 'trip/trip_list_create.html', {'object':'object','form': form})
@@ -139,7 +137,7 @@ trip_list_create = TripListCreateView.as_view()
 class TripUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Trip
     form_class = TripForm
-    template_name = 'trip/trip_option_update.html'
+    template_name = 'trip/trip_update.html'
     success_message = 'Passeio atualizado com sucesso!!!'
     success_url = _('trip:trip_list_create')
 
@@ -148,9 +146,9 @@ trip_update = TripUpdateView.as_view()
 
 class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Trip
-    template_name = 'trip/trip_option_delete.html'
+    template_name = 'trip/trip_delete.html'
     success_message = 'Passeio deletado com sucesso!!!'
-    success_url = _('trip:trip_list_create')
+    success_url = _('trip:trip_list')
 
     def delete(self, request, *args, **kwargs):
         return super(TripDeleteView, self).delete(request, *args, **kwargs)

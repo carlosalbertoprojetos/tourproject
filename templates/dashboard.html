@@ -57,11 +57,18 @@
                                 aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
+<<<<<<< HEAD
                                     <a class="nav-link" href="{% url 'user:user_update' user.pk %}">Usuário/Email</a>
                                     <a class="nav-link" href="{% url 'account_change_password' %}">Senha</a>
                                     {% if user.option == '1' or user.option == '3' %}
                                         <a class="nav-link" href="{% url 'company:company_update' user.pk %}">Empresa</a>
                                     {% endif %}
+=======
+                                    <a class="nav-link" href="{% url 'season:calendar_novo' %}">Calendário</a>
+                                    <a class="nav-link" href="{% url 'season:season_list_create' %}">Lista</a>
+                                    <a class="nav-link" href="{% url 'season:validity_list_create' %}">Vigência</a>
+                                    <a class="nav-link" href="{% url 'season:period_list_create' %}">Período</a>
+>>>>>>> 305bb98294a66ae4114e027f63f2bc6ce072c127
                                 </nav>
                             </div>
                             {% if user.is_superuser %}
@@ -142,6 +149,7 @@
                                 </div>
                             {% endif %}
                         {% endif %}
+<<<<<<< HEAD
                         <div class="sb-sidenav-menu-heading">Produtos</div>
                         <a class="nav-link collapsed"
                         href="#"
@@ -168,6 +176,74 @@
                                 <a class="nav-link" href="{% url 'trip:trip_categorypax_list_create' %}">CategoriasPAX</a>
                                 {% comment %} <a class="nav-link" href="{ url 'trip:trip_price_list_create' %}">Pre�os</a> {% endcomment %}
                             </nav>
+=======
+                    {% endif %}
+                    <div class="sb-sidenav-menu-heading">Produtos</div>
+                    <a class="nav-link collapsed"
+                       href="#"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#collapseTrip"
+                       aria-expanded="false"
+                       aria-controls="collapseTrip">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-biking"></i>
+                        </div>
+                        Passeios
+                        <div class="sb-sidenav-collapse-arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </a>
+                    <div class="collapse"
+                         id="collapseTrip"
+                         aria-labelledby="headingOne"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'trip:trip_list_create' %}">Listar</a>
+                            <a class="nav-link" href="{% url 'trip:trip_category_list_create' %}">Categorias</a>
+                            <a class="nav-link" href="{% url 'trip:trip_categorypax_list_create' %}">CategoriasPAX</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed"
+                       href="#"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#collapseTransport"
+                       aria-expanded="false"
+                       aria-controls="collapseTransport">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-solid fa-bus"></i>
+                        </div>
+                        Transporte
+                        <div class="sb-sidenav-collapse-arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </a>
+                    <div class="collapse"
+                         id="collapseTransport"
+                         aria-labelledby="headingOne"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{% url 'transport:transport_list_create' %}">Listar</a>
+                            <a class="nav-link"
+                               href="{% url 'transport:transport_category_list_create' %}">Categorias</a>
+                            <a class="nav-link"
+                               href="{% url 'transport:transport_catpax_list_create' %}">CategoriasPAX</a>
+                            <a class="nav-link"
+                               href="{% url 'transport:transport_price_list_create' %}">Preços</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed"
+                       href="#"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#collapseLayouts"
+                       aria-expanded="false"
+                       aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        Restaurantes
+                        <div class="sb-sidenav-collapse-arrow">
+                            <i class="fas fa-angle-down"></i>
+>>>>>>> 305bb98294a66ae4114e027f63f2bc6ce072c127
                         </div>
                         <a class="nav-link collapsed"
                         href="#"
