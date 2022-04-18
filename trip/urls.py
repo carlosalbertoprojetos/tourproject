@@ -31,7 +31,7 @@ urlpatterns = [
     
     #===============================================================================
     # OPÇÕES DE PASSEIO
-    path('<trip_id>/options/list/', trip_option_list_create, name='trip_option_list_create'),
+    path('options/list/', trip_option_list_create, name='trip_option_list_create'),
     path('<int:pk>/option/edit/', trip_option_update, name='trip_option_update'),
     path('<int:pk>/option/delete/', trip_option_delete, name='trip_option_delete'),
     path('<int:pk>/delete/', trip_delete, name='trip_delete'),
