@@ -1,3 +1,4 @@
+from operator import index
 from urllib import request
 
 from django.contrib import messages
@@ -257,7 +258,18 @@ trip_price_list_create = TripPriceListView.as_view()
 # @login_required
 def trip_price_update(request, trip_op_id):
     trip_option = TripOption.objects.get(pk=trip_op_id)
+    tp = TripPrice.objects.filter(trip_option_id=trip_option.id)
     trip_price_formset = modelformset_factory(TripPrice, form=TripPriceForm, extra=0)
+    
+    cadpax=[]
+    season=[]
+    for i in tp:
+        cadpax.append(i.cadpax)
+        season.append(i.season)        
+
+    cadpax=list(set(cadpax))
+    season=list(set(season))
+
 
     if request.method == 'POST':        
         formset = trip_price_formset(request.POST, queryset=TripPrice.objects.filter(trip_option_id__id=trip_option.id))
@@ -274,6 +286,9 @@ def trip_price_update(request, trip_op_id):
     formset = trip_price_formset(queryset=TripPrice.objects.filter(trip_option_id__id=trip_op_id))
     
     context = {
+        'season':season,
+        'cadpax':cadpax,
+        'price': tp,
         'trip':trip_option,
         'formset':formset
     }  

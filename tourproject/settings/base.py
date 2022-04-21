@@ -162,7 +162,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
-
+DECIMAL_SEPARATOR = ','
+USE_THOUSAND_SEPARATOR = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

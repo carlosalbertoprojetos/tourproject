@@ -21,6 +21,7 @@ class TripForm(forms.ModelForm):
     class Meta:
         model = Trip
         fields = '__all__'
+        exclude = ('slug',)
 
     def __init__(self, *args, **kwargs):
         super(TripForm, self).__init__(*args, **kwargs)
@@ -46,5 +47,6 @@ class TripPriceForm(forms.ModelForm):
     
     class Meta:
         model = TripPrice
-        fields = ['cadpax', 'season', 'price']
-        # fields = '__all__'
+        fields = ['price',]
+        widgets = {'price':forms.NumberInput({"class":'form_control text-center'}), }
+        labels = {"price":'',}

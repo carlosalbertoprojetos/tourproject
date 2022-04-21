@@ -131,12 +131,14 @@ class TripOption(models.Model):
     def __str__(self):
         return str(self.trip)
 
+
 class TripPrice(models.Model):
     trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='Opção de Passeio')
     cadpax = models.CharField('Categoria PAX', max_length=10)
     season = models.CharField('Temporada', max_length=255)
-    price = models.CharField('Preço', max_length=9)
-
+    # price = models.CharField('Preço', max_length=9)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    
     def __str__(self):
         return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
 
@@ -147,7 +149,7 @@ def trip_prices(sender, instance, created, **kwargs):
         season = Season.objects.all()
         for cp in cpax:
             for se in season:
-                TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0)
+                TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
 
 post_save.connect(trip_prices, sender=TripOption)
 
