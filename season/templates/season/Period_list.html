@@ -37,8 +37,8 @@
                             <tr>
                                 <td align="center">{{ season.name }}</td>
                                 <td align="center">{{ season.season }}</td>
-                                <td align="center">{{ season.date_start|date }}</td>
-                                <td align="center">{{ season.date_end|date }}</td>
+                                <td align="center">{{ season.date_start|date:'d/m/Y' }}</td>
+                                <td align="center">{{ season.date_end|date:'d/m/Y' }}</td>
                                 <td align="center">
                                     <a href="{% url 'season:period_update' season.id %}" class="btn">
                                         <i class="fas fa-user-edit"></i>

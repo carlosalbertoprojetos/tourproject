@@ -5318,7 +5318,7 @@ footer {
         padding: 0.5rem 1rem;
         margin-bottom: 0;
         background-color: rgba(0, 0, 0, 0.03);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        /* border-bottom: 1px solid rgba(0, 0, 0, 0.125); */
       }
       .card-header:first-child {
         border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
@@ -16079,7 +16079,7 @@ footer {
         padding: 0.75rem 1.25rem;
         margin-bottom: 0;
         background-color: rgba(0, 0, 0, 0.03);
-        border-bottom: 0 solid rgba(0, 0, 0, 0.125);
+        /* border-bottom: 0 solid rgba(0, 0, 0, 0.125); */
       }
       
       .card-header:first-child {
@@ -39907,7 +39907,7 @@ footer {
       
       .card-header {
         background-color: transparent;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        /* border-bottom: 1px solid rgba(0, 0, 0, 0.125); */
         padding: 0.75rem 1.25rem;
         position: relative;
         border-top-left-radius: 0.25rem;

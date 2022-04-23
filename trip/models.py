@@ -129,7 +129,7 @@ class TripOption(models.Model):
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
 
     def __str__(self):
-        return str(self.trip)
+        return self.name
 
 
 class TripPrice(models.Model):
@@ -140,7 +140,8 @@ class TripPrice(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     
     def __str__(self):
-        return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
+        # return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
+        return self.trip_option
 
 
 def trip_prices(sender, instance, created, **kwargs):

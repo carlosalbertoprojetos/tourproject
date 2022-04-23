@@ -69,8 +69,8 @@
                                 <tr>
                                     <td>{{ p.name }}</td>
                                     <td>{{ p.season }}</td>
-                                    <td align="center">{{ p.date_start|date }}</td>
-                                    <td align="center">{{ p.date_end|date }}</td>
+                                    <td align="center">{{ p.date_start|date:'d/m/Y' }}</td>
+                                    <td align="center">{{ p.date_end|date:'d/m/Y' }}</td>
                                     <td align="center">
                                         <a href="{% url 'season:period_update' p.pk %}" class="btn">
                                             <i class="fas fa-user-edit"></i>

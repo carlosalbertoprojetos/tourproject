@@ -44,9 +44,18 @@ class TripOptionsForm(forms.ModelForm):
 
 
 class TripPriceForm(forms.ModelForm):
-    
+    cadpax = forms.CharField(label='',
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+            )
+        )
+    season = forms.CharField(label='',
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+            )
+        )
     class Meta:
         model = TripPrice
-        fields = ['price',]
+        fields = ['cadpax', 'season', 'price',]
         widgets = {'price':forms.NumberInput({"class":'form_control text-center'}), }
-        labels = {"price":'',}
+        labels = {"cadapx":'', "season":'', "price":'',}
