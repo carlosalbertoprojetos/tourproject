@@ -129,7 +129,7 @@ class TripOption(models.Model):
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
 
     def __str__(self):
-        return self.name
+        return self.name +' - '+ self.trip
 
 
 class TripPrice(models.Model):

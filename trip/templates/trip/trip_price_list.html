@@ -35,7 +35,8 @@
                                     <td>{{ p.season }}</td>
                                     <td>{{ p.price }}</td>
                                     <td align="center">
-                                        <a href="{% url 'trip:trip_price_update' p.trip_option_id %}" class="btn">
+                                        {% comment %} <a href="{% url 'trip:trip_price_update' p.trip_option_id %}" class="btn"> {% endcomment %}
+                                        <a href="{% url 'trip:tripop_price_update' p.trip_option_id %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                     </td>

@@ -44,18 +44,37 @@ class TripOptionsForm(forms.ModelForm):
 
 
 class TripPriceForm(forms.ModelForm):
-    cadpax = forms.CharField(label='',
-        widget=forms.TextInput(
-            attrs={'readonly': 'readonly'}
-            )
-        )
-    season = forms.CharField(label='',
-        widget=forms.TextInput(
-            attrs={'readonly': 'readonly'}
-            )
-        )
+    # cadpax = forms.CharField(label='',
+    #     widget=forms.TextInput(
+    #         attrs={'readonly': 'readonly'}
+    #         )
+    #     )
+    # season = forms.CharField(label='',
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'readonly': 'readonly',
+    #             "class":'row col-md-4 text-center',
+    #             }
+    #         )
+    #     )
+    # price = forms.DecimalField(
+    #     widget=forms.NumberInput(
+    #         attrs={"class":'text-center',
+    #             }
+    #         )
+    #     )
     class Meta:
         model = TripPrice
-        fields = ['cadpax', 'season', 'price',]
-        widgets = {'price':forms.NumberInput({"class":'form_control text-center'}), }
-        labels = {"cadapx":'', "season":'', "price":'',}
+        fields = ['price',]
+        # widgets = {
+        # #     # forms.CharField(widget=forms.TextInput(attrs={'class': 'special'}))
+        # #     # 'season':forms.CharField({"class":'row col-md-6 text-center'}),
+        #     'price':forms.NumberInput({"class":'form_control text-center mask-real'}),
+        #     }
+        labels = {"price":'',}
+
+
+    def __init__(self, *args, **kwargs):
+        super(TripPriceForm, self).__init__(*args, **kwargs)
+        self.fields['price'].widget.attrs.update(
+            {'class': 'mask-real text-center  p-1'})

@@ -11,29 +11,29 @@ Passeio
         <div class="container-form">
             <div class="card-header">
                 <div class="row form-title mb-2">
-                    <div class="col-md-2">
-                        <h3>Passeio:</h3>
-                    </div>
-                    <div class="col-md-6 align-content-center">
-                        <h4 class="mb-0">{{ trip }}</h4>
+                    <div class="row form-title m-2 pb-1">
+                        <div class="col-md-1">
+                            <h5>Passeio:</h5>
+                        </div>
+                        <div class="col-md-6 align-content-center">
+                            <h4 class="mb-0"><a href="{% url 'trip:trip_list_create' %}">{{trip}}</a></h4>
+                        </div>
                     </div>
                 </div>
-
-                {% for a in trip_option %}
+                {% for p in trip_option %}
                 <form method="POST" enctype="multipart/form-data">
                     <div class="card-header p-0">
                         <div class="row">
                             <div class="col-md-3 card m-0 px-2">
-                                <h6>Atividade:</h6>
-                                <div class="align-middle">
-                                    <h5>{{ a }}</h5>
+                                <h6 class=" p-1">Atividade:</h6>
+                                <div class="align-middle p-1">
+                                    <h5><i>{{ p.name }}</i></h5>
                                 </div>
                             </div>
                             <div class="col-md-9 card-header p-0 m-0">
                                 <div class="row">
                                     {% for c in cadpax %}
                                     <div class="col-md-4 card p-0 m-0">
-                                        {{a}}
                                         <h5><center>{{ c }}</center></h5>
                                         <div class="row">
                                             {% for s in season %}
@@ -58,21 +58,19 @@ Passeio
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-4">
-                                <div class="form-button">
-                                    <input type="submit" class="form-submit" value="Salvar" />
+                            <div class="col-md-12 mb-2">
+                                <div class="form-group form-button">
+                                    <input type="submit" class="form-submit form-group" value="Salvar" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
                 {% endfor %}
-
             </div>
         </div>
     </div>
 </div>
-
 
 
 {% comment %} <form method="POST" enctype="multipart/form-data">

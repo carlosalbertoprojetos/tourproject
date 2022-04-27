@@ -42,8 +42,8 @@ class Season(models.Model):
         verbose_name_plural = 'Temporadas'
 
     def __str__(self):
-        # return  self.name + ' / ' + str(self.destiny) + ' - ' + str(self.validity)
-        return  self.name
+        return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
+        # return  self.name
 
 
 class Period(models.Model):
