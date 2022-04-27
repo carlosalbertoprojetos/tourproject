@@ -6,7 +6,6 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
-from season.models import Season
 
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
@@ -300,9 +299,8 @@ def trip_price_update1(request, trip_id):
                 return render(request, 'trip/trip_price_update1.html', context)
 
 
-
 def trip_price_update(request, trip_option_id):
-    trip_option = TripOption.objects.filter(id=trip_option_id)    
+    trip_option = TripOption.objects.filter(id=trip_option_id)
     
     tp = TripPrice.objects.filter(trip_option_id=trip_option_id)
     trip_price_formset = modelformset_factory(TripPrice, form=TripPriceForm, extra=0)
@@ -315,16 +313,14 @@ def trip_price_update(request, trip_option_id):
         seasons.append(i.season)
         if not i.trip_option_id in activities:
             activities.append(i.trip_option_id)
-        
+
     activities=list((activities))
     cadpaxs=list(set(cadpaxs))
     seasons=list(set(seasons))
-    print(activities)
 
-    for a in trip_option:
-        top = TripPrice.objects.filter(trip_option_id=a.id)
-        print(a.name)
-        
+    # for a in trip_option:
+    #     top = TripPrice.objects.filter(trip_option_id=a.id)
+
     for i in tp:
         for a in seasons:
             if request.method == 'POST':
