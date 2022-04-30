@@ -178,7 +178,8 @@ class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView
         if form.is_valid():
             form = form.save()
             messages.success(request, 'Opção de Passei criada com sucesso!!!')
-            return redirect('trip:trip_option_list_create')
+            # return redirect(_('trip:trip_option_list_create', kwargs={'trip_id': self.object.trip}))
+            return redirect('trip:trip_list_create')
         else:
             return render(request, 'trip/trip_option_list_create.html', {'object':'object','form': form})
 
@@ -199,7 +200,10 @@ class TripOptionDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TripOption
     template_name = 'trip/trip_option_delete.html'
     success_message = 'Opção de Passeio deletada com sucesso!!!'
-    success_url = _('trip:trip_option_list_create')
+    # success_url = _('trip:trip_option_list_create', kwargs=['id'])
+
+    def get_success_url(self):
+        return _('trip:trip_option_list_create', kwargs={'trip_id': self.object.trip_id})
 
     def delete(self, request, *args, **kwargs):
         return super(TripOptionDeleteView, self).delete(request, *args, **kwargs)
@@ -256,7 +260,7 @@ def trip_price_update1(request, trip_id):
                         instance.save()
 
                     messages.success(request, 'Preços alterados com sucesso!!!')
-                    return redirect('trip:trip_price_update1', trip_id)
+                    return redirect(_('trip:trip_price_update1', trip_id))
 
             formset = trip_price_formset(queryset=TripPrice.objects.filter(trip_option_id__id=i.trip_option_id))
             
@@ -271,34 +275,6 @@ def trip_price_update1(request, trip_id):
             return render(request, 'trip/trip_price_update1.html', context)
     
     
-    for a in activities:
-        for i in tp:
-            if i.trip_option_id == a:
-                if request.method == 'POST':
-                    formset = trip_price_formset(request.POST, queryset=TripPrice.objects.filter(trip_option_id__id=i.trip_option_id))
-
-                    if formset.is_valid():
-                        instances = formset.save(commit=False)
-                        for instance in instances:
-                            instance.trip_option_id = i.trip_option_id
-                            instance.save()
-
-                        messages.success(request, 'Preços alterados com sucesso!!!')
-                        return redirect('trip:trip_price_update1', trip_id)
-
-                formset = trip_price_formset(queryset=TripPrice.objects.filter(trip_option_id__id=i.trip_option_id))
-                
-                context = {
-                    'activities':activities,
-                    'season':seasons,
-                    'cadpax':cadpaxs,
-                    'price': tp,
-                    'trip_option':trip_option,
-                    'formset':formset
-                }  
-                return render(request, 'trip/trip_price_update1.html', context)
-
-
 def trip_price_update(request, trip_option_id):
     trip_option = TripOption.objects.filter(id=trip_option_id)
     

@@ -159,4 +159,3 @@ post_save.connect(trip_prices, sender=TripOption)
 #     if not instance.slug or instance.slug != slugify(instance.name):
 #         instance.slug = slugify(instance.name)
 #         return instance.save()
- 
