@@ -24,7 +24,7 @@ class ClientListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Transporte criado com sucesso!!!')
+            messages.success(request, 'Cliente criado com sucesso!!!')
             return redirect('client:client_list_create')
         else:
             return render(request, 'client/client_list_create.html', {'object':'object','form': form})
@@ -35,7 +35,7 @@ client_list_create = ClientListCreateView.as_view()
 class ClientUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Client
     form_class = ClientForm
-    template_name = 'client/client_edit.html'
+    template_name = 'client/client_update.html'
     success_message = 'Dados do cliente alterados com sucesso!!!'
     success_url = _('client:client_list_create')
 

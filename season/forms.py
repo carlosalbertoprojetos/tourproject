@@ -1,7 +1,6 @@
 from django import forms
 
-
-from .models import Period, Season, Validity
+from .models import Period, Season, Validity, Event
 
 
 class ValidityForm(forms.ModelForm):
@@ -21,5 +20,11 @@ class SeasonForm(forms.ModelForm):
 
     class Meta:
         model = Season
-        fields = '__all__'        
+        fields = '__all__'
+
+class EventForm(forms.ModelForm):
+
+    class Meta:
+        model = Event
+        fields = '__all__'                  
 

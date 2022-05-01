@@ -1,0 +1,156 @@
+  {% extends 'dashboard.html' %}
+  {% load i18n account static crispy_forms_tags %}
+  {% load static %}
+  {% block title %}
+      Calendário Temporada
+  {% endblock title %}
+  {% block dashboard %}  
+
+ <div class="container-fluid mt-2">
+    <div class="container-form">
+        <div class="card">
+            <div class="card-header p-1">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h2 class="form-title m-2">Calendário Temporada</h2>
+                    </div>
+                    <div id="bottom_list"
+                            class="col-sm-12 col-md-6">
+                        <div class="row my-3">
+                            <form method="POST">
+                                <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
+                                    </a>
+                                <div class="modal fade"
+                                        id="exampleModal"
+                                        tabindex="-1"
+                                        role="dialog"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Nova Categoria de Passeio</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% csrf_token %}
+                                                {{ form.non_field_errors }}
+                                                {{ form|crispy }}                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="form-group form-button">
+                                                    <input type="submit" class="form-submit" value="Salvar" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="myTable1" class="table table-striped table-bordered mt-5">
+                        <thead>
+                            <tr>
+                                <th>Nome do Evento</th>
+                                <th>Data do Evento</th>
+                                <th>Editar</th>
+                                <th>Deletar</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>                           
+                            {% for event in object_list %}
+                                <tr>
+                                    <td align="center">{{ event.name_event }}</td>
+                                    <td align="center">{{ event.date_event }}</td>
+                                    <td align="center">
+                                        <a href="{% url 'season:season_update' event.id %}" class="btn">
+                                            <i class="fas fa-user-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a href="{% url 'season:season_delete' event.pk %}" class="btn">
+                                            <i class="fas fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>                                
+                            {% endfor %}                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+<div class="container-fluid mt-2">
+    <div class="container-form">
+      <div class="card">
+        <div class="card-header p-1">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">                
+            </div>                   
+              
+              <div id="container">
+                <div id="header">
+                  <div id="monthDisplay"></div>
+                  <div>
+                    <button id="backButton"><</button>
+                    <button id="nextButton">></butto>
+                  </div>
+                </div>
+                    
+                <div id="weekdays">
+                  <div>Domingo</div>
+                  <div>Segunda</div>
+                  <div>Terça</div>
+                  <div>Quarta</div>
+                  <div>Quinta</div>
+                  <div>Sexta</div>
+                  <div>Sábado</div>
+                </div>
+                    
+                <div id="calendar"></div>
+              </div>                       
+              <div id="newEventModal">
+                    <h2>Calendário</h2>
+                    <input id="eventTitleInput" placeholder="Nome do Evento" />                        
+                    <!--input type="color" id="favcolor" /-->
+                    <br>
+                        
+                    <button id="saveButton">Salvar</button>
+                    <button id="cancelButton">Cancelar</button>
+              </div>
+                        
+                <div id="deleteEventModal">
+                  <h2>Calendário</h2>
+                  <p id="eventText"></p>
+                        
+                  <button id="deleteButton">Deletar</button>
+                  <button id="closeButton">Fechar</button>
+                </div>
+                        
+                <div id="modalBackDrop"></div>
+
+                <form method="POST"> 
+                  <ul id="tblListar"></ul>
+                  {% csrf_token %}
+                  {{ form.non_field_errors }}
+                  <!--{{ form|crispy }}-->
+                  <div class="form-group form-button">
+                    <input type="submit"
+                          name="signup"
+                          id="signup"
+                          class="form-submit"
+                          value="Salvar no BD"/>
+                  </div>
+                </form> 
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+      
+{% endblock %}

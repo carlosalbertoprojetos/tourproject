@@ -47,6 +47,8 @@ class Season(models.Model):
 
 class Period(models.Model):
     name = models.CharField('Nome', max_length=255)
+    #event_calendar = models.ForeignKey(Event, on_delete=models.DO_NOTHING, verbose_name='Evento Turístico')
+   
     season = models.ForeignKey(
         Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     
@@ -60,5 +62,14 @@ class Period(models.Model):
     def __str__(self):
         return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end
 
-      
+class Event(models.Model):
+    name_event = models.CharField(max_length=255)
+    date_event = models.CharField(max_length=10)
+    
+    class Meta:
+        verbose_name = 'Evento'
+        verbose_name_plural = 'Eventos'
+
+    def __str__(self):
+        return self.name_event   
 
