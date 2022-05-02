@@ -60,5 +60,14 @@ class Period(models.Model):
     def __str__(self):
         return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end
 
-      
+class Event(models.Model):
+    name_event = models.CharField(max_length=255)
+    date_event = models.CharField(max_length=20)
+    
+    class Meta:
+        verbose_name = 'Evento'
+        verbose_name_plural = 'Eventos'
+
+    def __str__(self):
+        return self.name_event      
 

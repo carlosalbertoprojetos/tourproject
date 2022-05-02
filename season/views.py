@@ -1,3 +1,4 @@
+import pdb
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -6,15 +7,60 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
-from .forms import PeriodForm, SeasonForm, ValidityForm
-from .models import Period, Season, Validity
+from .forms import PeriodForm, SeasonForm, ValidityForm, EventForm
+from .models import Period, Season, Validity, Event
 
-class CalendarListView(ListView):
-    model = Season
-    template_name = 'season/calendar_novo.html'
+#===============================================================================
+# CALENDÁRIO A
+class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+    model = Event
+    template_name = 'season/calendar_test.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CalendarListView, self).get_context_data(**kwargs)
+        context['form'] = EventForm(self.request.POST or None)
+        return context
+
+    def post(self,request, *args, **kwargs):            
+            form = EventForm(request.POST or None)
+            #pdb.set_trace()
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Evento salvo com sucesso!!!')
+                return redirect('season:calendar_test')
+            else:
+                messages.success(request, 'Erro ao salvar evento!!!')
+                return render(request, 'season/calendar_test.html', {'object':'object','form': form})
+                
 
 calendar = CalendarListView.as_view()
+
 #===============================================================================
+# CALENDÁRIO B
+class CalendarListNovoView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+    model = Event
+    template_name = 'season/calendar_novo.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CalendarListNovoView, self).get_context_data(**kwargs)
+        context['form'] = EventForm(self.request.POST or None)
+        return context
+
+    def post(self,request, *args, **kwargs):            
+            form = EventForm(request.POST or None)
+            #pdb.set_trace()
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Evento salvo com sucesso!!!')
+                return redirect('season:calendar_novo')
+            else:
+                messages.success(request, 'Erro ao salvar evento!!!')
+                return render(request, 'season/calendar_novo.html', {'object':'object','form': form})
+                
+
+calendar_novo = CalendarListNovoView.as_view()
+#=====================================================================================================
+
 # VIGÊNCIA
 
 class ValidityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):

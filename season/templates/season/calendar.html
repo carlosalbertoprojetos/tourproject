@@ -1,27 +1,33 @@
 {% extends 'dashboard.html' %}
 
-{% load i18n account static crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Calendário Temporada
+{% endblock title %}
 
-{% block title %}Calendário Temporada{% endblock title %} 
+{% block dashboard %}
+<link  type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap_calendar.min.css' %}">
 
-{% block dashboard %}      
-   
+
 <div class="container-fluid mt-2">
-    <h2>Calendário Temporada</h2>
     <div class="container-form">
-        <div class="card p-4">
-            <div class="table-responsive">
+        <div class="card">
+            <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="contents">
-                            <div id="myCalendar" style="max-width: 600px;"></div>           
-                        </div>                        
-                    </div>    
+                        <h2 class="form-title m-2">Calendário Temporada</h2>
+                    </div>
+                    <div class="row" id="row-calendario">
+                        <div id="calendar" class="calendar"></div>                        
+                    </div>
+                    <div class="row">
+                        <div id="nuevas-fechas"></div>
+                    </div>                                  
                 </div>
             </div>
         </div>
     </div>
-</div>         
-
-    
-{% endblock %}
+</div>  
+{% endblock %}  

@@ -4,14 +4,7 @@
   {% block title %}
       Calendário Temporada
   {% endblock title %}
-  {% block dashboard %}
-  
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.multidatespicker.css' %}" />
-    <script src="https://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-    <script src="{% static 'js/jquery-ui.multidatespicker.js' %}"></script>
-   
+  {% block dashboard %}  
 
     <div class="container-fluid mt-2">
         <div class="container-form">
@@ -96,13 +89,52 @@
         <div class="container-form">
             <div class="card">
                 <div class="card-header p-1">
-                    <div class="row">                       
-                        <div class="col-sm-12 md-6"> 
-                        <!--form method="POST"--> 
-                            <div id="calendar"></div>   
-                            <p>Evento: <input type="text" id="eventField"></p>
-                            <p>Data: <input type="text" id="altField"></p>           
-                            
+                    <div class="row">
+                    <!--div class="col-sm-12 col-md-6"></div-->                   
+                    
+                        <div id="container">
+                            <div id="header">
+                                <div id="monthDisplay"></div>
+                                <div>
+                                    <button id="backButton"><</button>
+                                    <button id="nextButton">></butto>
+                                </div>
+                            </div>
+                                
+                            <div id="weekdays">
+                            <div>Domingo</div>
+                            <div>Segunda</div>
+                            <div>Terça</div>
+                            <div>Quarta</div>
+                            <div>Quinta</div>
+                            <div>Sexta</div>
+                            <div>Sábado</div>
+                            </div>
+                                
+                            <div id="calendar"></div>
+                        </div>                       
+                        <div id="newEventModal">
+                            <h2>Calendário</h2>
+                            <input id="eventTitleInput" placeholder="Nome do Evento" />                        
+                            <!--input type="color" id="favcolor" /-->
+                            <br>
+                                
+                            <button id="saveButton">Salvar</button>
+                            <button id="cancelButton">Cancelar</button>
+                        </div>
+                                    
+                        <div id="deleteEventModal">
+                            <h2>Calendário</h2>
+                            <p id="eventText"></p>
+                                        
+                            <button id="deleteButton">Deletar</button>
+                            <button id="closeButton">Fechar</button>
+                        </div>
+                                    
+                        <div id="modalBackDrop"></div>
+
+                        <form method="POST"> 
+                            <ul id="tblListar"></ul>
                             {% csrf_token %}
                             {{ form.non_field_errors }}
                             <!--{{ form|crispy }}-->
@@ -113,45 +145,11 @@
                                     class="form-submit"
                                     value="Salvar no BD"/>
                             </div>
-                        <!--/form--> 
+                        </form> 
                     </div>
-                    </div>
-                    <script>                        
-                        $( "#calendar" ).multiDatesPicker({
-                        altField: '#altField',
-                        monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ],
-                        dayNamesMin: [ "Dom", "seg", "Ter", "Qua", "Qui", "Sex", "Sáb" ],
-                        numberOfMonths: 3,
-                        selectOtherMonths: true,
-                        showOtherMonths: true,
-                          
-                    });
-                    
-                    /*$("#calendar1").datepicker( { 
-                        dateFormat: 'dd/mm/yy', 
-                        closeText: 'Fechar',    
-                        prevText: '<Anterior',    
-                        nextText: 'Próximo>',    
-                        currentText: 'Hoje',    
-                        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],    
-                        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],    
-                        dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'],    
-                        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],    
-                        dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],    
-                        weekHeader: 'Sm',    
-                        dateFormat: 'dd/mm/yy',    
-                        firstDay: 0,    
-                        isRTL: false,    
-                        showMonthAfterYear: false,    
-                        yearSuffix: '' 
-                    });*/
-
-                   
-                    </script>  
                 </div>
             </div>
         </div>
     </div>
-    
       
 {% endblock %}
