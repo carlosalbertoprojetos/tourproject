@@ -64,7 +64,7 @@ class Period(models.Model):
 
 class Event(models.Model):
     name_event = models.CharField(max_length=255)
-    date_event = models.CharField(max_length=10)
+    date_event = models.CharField(max_length=20)
     
     class Meta:
         verbose_name = 'Evento'

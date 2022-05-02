@@ -102,7 +102,8 @@ function saveEvent() {
     events.push({
       date: clicked,
       title: eventTitleInput.value,
-    });        
+    });
+    console.log(eventTitleInput.value);        
   
     localStorage.setItem('events', JSON.stringify(events));
     Listar();
@@ -125,7 +126,7 @@ function deleteEvent() {
 function Listar(){   
   console.log(tblListar);
   tblListar.innerHTML = [       
-    '<input id="id_name_event" class="textinput textInput form-control" type="text" name="name_event" required= ""' + "value="+eventTitleInput.value+'>'+
+    '<input id="id_name_event" class="textinput textInput form-control" type="text" name="name_event" required= "" max_length="20"' + "value="+eventTitleInput.value+'>'+
     '<input id="id_date_event" class="textinput textInput form-control" type="text" name="date_event" required=""' + "value="+clicked+'>'
        
   ]

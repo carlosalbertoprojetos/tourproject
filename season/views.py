@@ -11,7 +11,7 @@ from .forms import PeriodForm, SeasonForm, ValidityForm, EventForm
 from .models import Period, Season, Validity, Event
 
 #===============================================================================
-# CALENDÁRIO
+# CALENDÁRIO A
 class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
     model = Event
     template_name = 'season/calendar_test.html'
@@ -35,6 +35,30 @@ class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
 
 calendar = CalendarListView.as_view()
 
+#===============================================================================
+# CALENDÁRIO B
+class CalendarListNovoView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+    model = Event
+    template_name = 'season/calendar_novo.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CalendarListNovoView, self).get_context_data(**kwargs)
+        context['form'] = EventForm(self.request.POST or None)
+        return context
+
+    def post(self,request, *args, **kwargs):            
+            form = EventForm(request.POST or None)
+            #pdb.set_trace()
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Evento salvo com sucesso!!!')
+                return redirect('season:calendar_novo')
+            else:
+                messages.success(request, 'Erro ao salvar evento!!!')
+                return render(request, 'season/calendar_novo.html', {'object':'object','form': form})
+                
+
+calendar_novo = CalendarListNovoView.as_view()
 #=====================================================================================================
 # VIGÊNCIA
 
