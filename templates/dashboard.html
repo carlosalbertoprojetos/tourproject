@@ -85,6 +85,12 @@
                                 </div>
                                 Clientes
                             </a>
+                            <a class="nav-link" href="{% url 'destiny:destiny_list_create' %}">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                Destinos
+                            </a>
                             <a class="nav-link collapsed"
                             href="#"
                             data-bs-toggle="collapse"
@@ -104,24 +110,16 @@
                                 aria-labelledby="headingOne"
                                 data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-<<<<<<< HEAD
                                     <a class="nav-link" href="{% url 'season:calendar_test' %}">Calendário A</a>
                                     <a class="nav-link" href="{% url 'season:calendar_novo' %}">Calendário B</a>
                                     <a class="nav-link" href="{% url 'season:season_list_create' %}">Lista</a>
                                     <a class="nav-link" href="{% url 'season:validity_list_create' %}">Vigência</a>
-=======
                                     <a class="nav-link" href="{% url 'season:validity_list_create' %}">Ano</a>
                                     <a class="nav-link" href="{% url 'season:season_list_create' %}">Temporada</a>
->>>>>>> ca03d97938ea5767aa8abfa23927e8cd0a86728e
                                     <a class="nav-link" href="{% url 'season:period_list_create' %}">Período</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="{% url 'destiny:destiny_list_create' %}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-map-marked-alt"></i>
-                                </div>
-                                Destinos
-                            </a>
+                            
                         {% endif %}
                         {% if user.option == '1' %}
                             <div class="sb-sidenav-menu-heading">Agentes</div>
@@ -210,68 +208,28 @@
                     <a class="nav-link collapsed"
                        href="#"
                        data-bs-toggle="collapse"
-                       data-bs-target="#collapseLayouts"
+                       data-bs-target="#collapseRestaurante"
                        aria-expanded="false"
-                       aria-controls="collapseLayouts">
+                       aria-controls="collapseRestaurante">
                         <div class="sb-nav-link-icon">
-                            <i class="fas fa-utensils"></i>
+                            <i class="fas fa-solid fa-bus"></i>
                         </div>
-                        Restaurantes
+                        Restaurante
                         <div class="sb-sidenav-collapse-arrow">
                             <i class="fas fa-angle-down"></i>
                         </div>
-                        <a class="nav-link collapsed"
-                        href="#"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseTransport"
-                        aria-expanded="false"
-                        aria-controls="collapseTransport">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-solid fa-bus"></i>
-                            </div>
-                            Transporte
-                            <div class="sb-sidenav-collapse-arrow">
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-                        </a>
-                        <div class="collapse"
-                            id="collapseTransport"
-                            aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="{% url 'transport:transport_list_create' %}">Listar</a>
-                                <a class="nav-link"
-                                href="{% url 'transport:transport_category_list_create' %}">Categorias</a>
-                                <a class="nav-link"
-                                href="{% url 'transport:transport_catpax_list_create' %}">CategoriasPAX</a>
-                                <a class="nav-link"
-                                href="{% url 'transport:transport_price_list_create' %}">Preços</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed"
-                        href="#"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseLayouts"
-                        aria-expanded="false"
-                        aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            Restaurantes
-                            <div class="sb-sidenav-collapse-arrow">
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-                        </a>
-                        <div class="collapse"
-                            id="collapseLayouts"
-                            aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="#">Tipos</a>
-                                <a class="nav-link" href="#">Reservas</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed"
+                    </a>
+                    <div class="collapse"
+                         id="collapseRestaurante"
+                         aria-labelledby="headingOne"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="#">Tipos</a>
+                            <a class="nav-link" href="#">Reservas</a>                           
+                        </nav>
+                    </div>
+                    
+                    <a class="nav-link collapsed"
                         href="#"
                         data-bs-toggle="collapse"
                         data-bs-target="#collapsePages"
@@ -284,8 +242,8 @@
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i>
                             </div>
-                        </a>
-                        <div class="collapse"
+                    </a>
+                    <div class="collapse"
                             id="collapsePages"
                             aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
