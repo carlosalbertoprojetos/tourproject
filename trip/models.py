@@ -2,13 +2,10 @@ from company.models import Company
 from django.db import models
 from season.models import Season
 
-# from django.db.models.signals import post_save
+from django.db.models.signals import post_save
 # from django.dispatch import receiver
 # from django.utils.html import mark_safe
-# from django.utils.text import slugify
-
-
-
+from django.utils.text import slugify
 
 
 class TripCategoryPax(models.Model):
@@ -57,7 +54,7 @@ class Trip(models.Model):
     ]
     
     name = models.CharField('Nome', max_length=255, default='teste')
-    # slug = models.SlugField(max_length=250)
+    slug = models.SlugField(max_length=250)
     image = models.ImageField(
         'Imagem do produto', upload_to="produtos/%Y", blank=True)
     trip_description = models.TextField('Descrição do passeio', blank=True, default='teste')
@@ -91,6 +88,11 @@ class Trip(models.Model):
         # view_image.short_description = "Imagem Cadastrada"
         # view_image.allow_tags = True
 
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -100,13 +102,60 @@ class Trip(models.Model):
 #     if not instance.slug or instance.slug != slugify(instance.name):
 #         instance.slug = slugify(instance.name)
 #         return instance.save()
- 
 
-class TripPrice(models.Model):
+
+class TripOption(models.Model):
+
+    SCALE_CHOICE = [
+        ('1','1'),
+        ('2','2'),
+        ('3','3'),
+        ('4','4'),
+        ('5','5'),
+        ('6','6'),
+        ('7','7'),
+        ('8','8'),
+        ('9','9'),
+        ('10','10'),
+    ]
+
     trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio')
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
-    price = models.CharField('Preço', max_length=9)
+    name = models.CharField('Nome', max_length=255)
+    description = models.TextField('Descrição do passeio', blank=True)
+    min_amount_pax = models.IntegerField('Quantidade mínima PAX')
+    occ_scale = models.CharField('Escala de Ocupação diária (1 a 10)', max_length=2, choices=SCALE_CHOICE)
+    tariff_group = models.BooleanField('A tarifa é de Grupo',)
+    customer_option = models.BooleanField('A opção pode ser selecionada pelos clientes nos sites?',)
+    night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
 
     def __str__(self):
-        return self.trip +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
+        return self.name +' - '+ self.trip
+
+
+class TripPrice(models.Model):
+    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='Opção de Passeio')
+    cadpax = models.CharField('Categoria PAX', max_length=10)
+    season = models.CharField('Temporada', max_length=255)
+    # price = models.CharField('Preço', max_length=9)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    
+    def __str__(self):
+        # return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
+        return self.trip_option
+
+
+def trip_prices(sender, instance, created, **kwargs):
+    if created:
+        cpax = TripCategoryPax.objects.all()
+        season = Season.objects.all()
+        for cp in cpax:
+            for se in season:
+                TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
+
+post_save.connect(trip_prices, sender=TripOption)
+
+# @receiver(post_save, sender=Trip)
+# def insert_slug(sender, instance, **kwargs):
+#     if not instance.slug or instance.slug != slugify(instance.name):
+#         instance.slug = slugify(instance.name)
+#         return instance.save()

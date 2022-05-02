@@ -1,7 +1,8 @@
 
 from django.contrib import admin
 
-from .models import TripCategoryPax, TripCategory, Trip
+from .models import Trip, TripCategory, TripCategoryPax
+# , TripPrice
 
 
 @admin.register(TripCategoryPax)
@@ -13,7 +14,11 @@ class TripCategoryAdmin(admin.ModelAdmin):
     model = TripCategory
     ordering = ('name',)
 
-
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
     ...
+
+
+# @admin.register(TripPrice)
+# class TripPriceAdmin(admin.ModelAdmin):
+#     ...

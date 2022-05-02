@@ -7,4 +7,5 @@ $(function(){
     $('.mask-cep').mask('00.000-000', {reverse: true});
     $('.mask-hora').mask('00:00', {reverse: true});
     $('.mask-perc').mask('00.00', {reverse: true});
+    $('.mask-real').mask({prefix:'R$ ', reverse: true});
 });
