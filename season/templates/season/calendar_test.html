@@ -67,12 +67,12 @@
                                         <td align="center">{{ event.name_event }}</td>
                                         <td align="center">{{ event.date_event }}</td>
                                         <td align="center">
-                                            <a href="{% url 'season:season_update' event.id %}" class="btn">
+                                            <a href="#" class="btn">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <a href="{% url 'season:season_delete' event.pk %}" class="btn">
+                                            <a href="#" class="btn">
                                                 <i class="fas fa-solid fa-trash"></i>
                                             </a>
                                         </td>
@@ -96,8 +96,11 @@
                             <div id="header">
                                 <div id="monthDisplay"></div>
                                 <div>
-                                    <button id="backButton"><</button>
-                                    <button id="nextButton">></butto>
+                                    <button id="backButton"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                    </button>
+                                    <button id="nextButton"><i class="fa fa-arrow-right" aria-hidden="true"></i></i>
+
+                                    </button>
                                 </div>
                             </div>
                                 
