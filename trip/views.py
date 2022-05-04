@@ -75,7 +75,7 @@ class TripCategoryListCreateView(LoginRequiredMixin, ListView):
         form = TripCategoryForm(request.POST or None)
 
         if form.is_valid():
-            form = form.save()
+            form.save()
             messages.success(request, 'Categoria de Passeio criada com sucesso!!!')
             return redirect('trip:trip_category_list_create')
         else:
@@ -109,6 +109,7 @@ trip_category_delete = TripCategoryDeleteView.as_view()
 #===============================================================================
 # PASSEIO
 
+
 class TripListCreateView(LoginRequiredMixin, ListView):
     model = Trip
     template_name = 'trip/trip_list_create.html'
@@ -116,14 +117,19 @@ class TripListCreateView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(TripListCreateView, self).get_context_data(**kwargs)
         context['form'] = TripForm(self.request.POST or None, self.request.FILES)
+        # context['cad_form'] = TripCategoriesCadPAXForm(self.request.POST or None)
         return context
 
     def post(self, request, *args, **kwargs):
         form = TripForm(request.POST or None, request.FILES)
+        # cad_form = TripCategoriesCadPAXForm(request.POST or None)
+        
 
+        # if form.is_valid() and cad_form.is_valid:
         if form.is_valid():
             form = form.save()
-            messages.success(request, 'Passeio de Passeio criada com sucesso!!!')
+            # cad_form = form.save()
+            messages.success(request, 'Passeio criado com sucesso!!!')
             return redirect('trip:trip_list_create')
         else:
             return render(request, 'trip/trip_list_create.html', {'object':'object','form': form})

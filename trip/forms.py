@@ -1,6 +1,8 @@
 from django import forms
+
+from destiny.models import Destiny
 from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice
-from .models import TripCategoryPax, TripCategory, Trip, TripPrice
+
 
 class TripCategoryPaxForm(forms.ModelForm):
     
@@ -16,8 +18,10 @@ class TripCategoryForm(forms.ModelForm):
         fields = '__all__'
 
 
-class TripForm(forms.ModelForm):
+from django.forms.widgets import CheckboxSelectMultiple
 
+class TripForm(forms.ModelForm):
+    destiny = forms.ModelChoiceField(queryset=Destiny.objects.all(), empty_label=None)
     class Meta:
         model = Trip
         fields = '__all__'
@@ -33,11 +37,17 @@ class TripForm(forms.ModelForm):
             {'class': 'mask-hora'})
         self.fields['commission'].widget.attrs.update(
             {'class': 'mask-perc'})
+        self.fields['cadpax'].widget = CheckboxSelectMultiple()
+        self.fields['cadpax'].queryset = TripCategoryPax.objects.all()
 
+# class TripCategoriesCadPAXForm(forms.ModelForm):
 
+#     class Meta:
+#         model = TripCategoriesCadPAX
+#         fields = '__all__'
 
 class TripOptionsForm(forms.ModelForm):
-    
+
     class Meta:
         model = TripOption
         fields = '__all__'
