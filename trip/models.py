@@ -71,7 +71,7 @@ class Trip(models.Model):
     
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
     
-    cadpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True)
+    cadpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True, related_name='catpax', through='TripCadPaxTrip')
     
     tour_notes = models.TextField('Notas do passeio', blank=True, default='teste')
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
@@ -90,6 +90,19 @@ class Trip(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TripCadPaxTrip(models.Model):
+    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio', related_name ='cadpax_passeio')
+    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, verbose_name='CategoriaPAX', related_name = 'cadpax_passeio')
+
+
+    class Meta:
+        unique_together = [['trip','cadpax']]
+
+    def __str__(self):
+        return self.cadpax
+
 
 class TripOption(models.Model):
 
@@ -132,47 +145,18 @@ class TripPrice(models.Model):
 
 
 
-def trip_prices():
-    trip = Trip.objects.get(id=1)
-    list_cpax = trip.cadpax.all()
-    print(trip.cadpax)
 
-    
-    a = TripCategoryPax.objects.get(id=1)
-    a.trip_set.all()
-    
-    # for i in list(list_cpax):
-    #     print(i)
-    
-    # for i in list_cpax:
-    #     print(i)
-    
-    
-    # for i in list_cpax:
-    # print(list_cpax)
-        
-    # print(cpax)
-    season = Season.objects.all()
-    # for cp in cpax:
-    #     for se in season:
-    #         TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
+
+
+
+# def trip_prices(sender, instance, created, **kwargs):
+#     if created:
+#         cpax = TripCategoryPax.objects.all()
+#         season = Season.objects.all()
+#         for cp in cpax:
+#             for se in season:
+#                 TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
 
 # post_save.connect(trip_prices, sender=TripOption)
-
-trip_prices()
-
-
-
-
-
-def trip_prices(sender, instance, created, **kwargs):
-    if created:
-        cpax = TripCategoryPax.objects.all()
-        season = Season.objects.all()
-        for cp in cpax:
-            for se in season:
-                TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
-
-post_save.connect(trip_prices, sender=TripOption)
 
 
