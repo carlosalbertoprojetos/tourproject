@@ -56,9 +56,8 @@ INSTALLED_APPS = [
     'season',
     
     'client',
-    'transport',
+    'transport',    
     
-    'bootstrap_daterangepicker',
 ]
 
 
