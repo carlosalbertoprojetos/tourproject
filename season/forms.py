@@ -1,7 +1,22 @@
+from datetime import date
 from django import forms
+from .models import Period, Season, Validity,Event
 
-from .models import Period, Season, Validity, Event
+class DateInput(forms.DateInput):
+    input_type = 'date'
+'''
+class ExampleForm(forms.Form):
+    my_date_field = forms.DateField(widget=DateInput)
 
+class ExampleModelForm(forms.Form):
+    class Meta:
+        widgets = {'my_date_field' : DateInput()}
+'''
+class CommentForm(forms.Form):
+    name = forms.CharField(label='Nome')
+    url = forms.URLField()
+    comment = forms.CharField(label='Comentário')
+    data = forms.DateField(widget=DateInput)
 
 class ValidityForm(forms.ModelForm):
     
@@ -20,7 +35,7 @@ class SeasonForm(forms.ModelForm):
 
     class Meta:
         model = Season
-        fields = '__all__'
+        fields = '__all__'        
 
 class EventForm(forms.ModelForm):
 

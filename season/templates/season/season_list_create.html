@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <h2 class="form-title m-2">Temporadas</h2>
-                    </div>
+                    </div>                    
                     <div id="bottom_list" class="col-sm-12 col-md-6">
                         <div class="row my-3">
                             <form method="POST">
@@ -32,7 +32,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body">                                                
                                                 {% csrf_token %}
                                                 {{ form.non_field_errors }}
                                                 {{ form|crispy }}
@@ -52,25 +52,25 @@
                             </form>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="table-responsive">
                     <table id="myTable1" class="table table-striped table-bordered mt-5">
                         <thead>
                             <tr>
-                                <th>Data</th>
                                 <th>Vigência</th>
                                 <th>Destino</th>
                                 <th>Nome</th>
                                 <th>Agência</th>
-                                <th>Vender</th>
+                                <th>Vender</th>                                
                                 <th>Editar</th>
                                 <th>Deletar</th>
+                                <th>Eventos</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for season in object_list %}
                                 <tr>
-                                    <td align="center">{{ season.name_event }}</td>
                                     <td align="center">{{ season.validity }}</td>
                                     <td align="center">{{ season.destiny }}</td>
                                     <td align="center">{{ season.name }}</td>
@@ -94,19 +94,25 @@
                                         </a>
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'season:season_delete' season.pk %}" class="btn">
+                                        <a href="{% url 'season:season_delete' season.pk%}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a href="{% url 'season:calendar_event'%}" class="btn">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
                                         </a>
                                     </td>
                                 </tr>
                             {% endfor %}
-                        <tbody>
-                    </table>
+                            <tbody>
+                            </table>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-    
 
 {% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'dashboard.html' %}
+{% load i18n account static crispy_forms_tags %}
+{% block title %}
+    Calendário de Eventos
+{% endblock title %}
+{% block dashboard %}   
+
+<div class="container-fluid mt-2">
+    <div class="container-form">
+        <div class="card">
+            <div class="card-header p-1">
+                <div class="row">                       
+                    <div class="col-sm-12 md-6">                     
+                        <div >
+                            <h2 class="form-title m-2">Calendário de Eventos</h2>                        
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{% url 'season:calendar_new' %}" class="btn">
+                                    <button type="button" class="btn btn-primary">Novo</button>                                    
+                                </a>
+                                <a href="{% url 'season:calendar_list_create' %}" class="btn">
+                                    <button type="button" class="btn bg-success">Lista de Eventos</button>                                    
+                                </a>
+                                <a href="{% url 'season:mode_calendar' %}" class="btn">
+                                    <button type="button" class="btn bg-danger">Calendário</button>                                    
+                                </a>                             
+                            </div>                  
+                        </div>
+                        <!--             
+                        <div style="margin-top: 100px;">                            
+                            {{ form|crispy }}                            
+                        </div>
+                        -->            
+                    </div>       
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>   
+
+{% endblock %}

@@ -42,13 +42,12 @@ class Season(models.Model):
         verbose_name_plural = 'Temporadas'
 
     def __str__(self):
-        return  self.name + ' / ' + str(self.destiny) + ' - ' + str(self.validity)
+        return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
+        # return  self.name
 
 
 class Period(models.Model):
     name = models.CharField('Nome', max_length=255)
-    #event_calendar = models.ForeignKey(Event, on_delete=models.DO_NOTHING, verbose_name='Evento Turístico')
-   
     season = models.ForeignKey(
         Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     
@@ -60,16 +59,18 @@ class Period(models.Model):
         verbose_name_plural = 'Períodos'
 
     def __str__(self):
-        return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end
+        # return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end
+        return self.date_start + ' / ' + self.date_end
 
 class Event(models.Model):
     name_event = models.CharField(max_length=255)
-    date_event = models.CharField(max_length=20)
+    date_init = models.DateField()
+    date_fin = models.DateField()
     
     class Meta:
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
 
     def __str__(self):
-        return self.name_event   
+        return self.name_event      
 

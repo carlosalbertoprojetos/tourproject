@@ -9,14 +9,16 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <!-- Calendário -->
-    <!--link rel="stylesheet" href="{% static 'css/calendar_style.css' %}"-->
-
+    
+    <!--Calendário>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"-->
+   
     <!-- DataTable -->
     <link rel="" type="" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
     
     <!-- Favicon-->
     <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon">
+
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'%}">
@@ -26,6 +28,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'fonts/all.min.css' %}">
+
 
     <!-- signup and signin -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -38,12 +41,13 @@
 
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"> -->
     <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
-    
+
     <title> {% block title %} {% endblock title%} </title>
 
 </head>
 
-<body class="sb-nav-fixed">    
+<body class="sb-nav-fixed">
+
     {% if messages %}
         <div class="alert alert-light mb-0">
             <div class="container">
@@ -56,9 +60,6 @@
 
     {% block base %} {% endblock base %}
 
-    <!--Calendário-->
-    <script src="{% static 'js/calendar_script.js' %}"></script>
-
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
     <!-- Bootstrap core JS-->
@@ -70,16 +71,19 @@
 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    
-    </script>
+
     <script src="{% static 'js/jquery.mask.min.js' %}"></script>
     <script src="{% static 'js/mascara.js' %}"></script>
+    
+    <!--Calendário-->   
+    <!--script src="{% static 'js/calendar_script.js' %}"></script-->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>  
+    
     
     <!--Dados de tabela-->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-
-    
 
     <script>
         $('#myTable1').DataTable({
@@ -89,8 +93,8 @@
             "lengthMenu" : [[5, 10, 25, 50, -1], [5, 10 ,25, 50, "Todos"]],
         });
       </script>
-
-    
 </body>
     
 </html>
+
+    
