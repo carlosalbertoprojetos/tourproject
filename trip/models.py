@@ -1,4 +1,5 @@
 from django.db import models
+from django.dispatch import receiver
 from destiny.models import Destiny
 from season.models import Season
 
@@ -93,8 +94,8 @@ class Trip(models.Model):
 
 
 class TripCadPaxTrip(models.Model):
-    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, verbose_name='Passeio', related_name ='cadpax_passeio')
-    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, verbose_name='CategoriaPAX', related_name = 'cadpax_passeio')
+    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, related_name='cadpax_passeio')
+    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, related_name='cadpax_passeio')
 
 
     class Meta:
@@ -129,7 +130,7 @@ class TripOption(models.Model):
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
 
     def __str__(self):
-        return self.name +' - '+ self.trip
+        return self.name
 
 
 class TripPrice(models.Model):
@@ -143,11 +144,78 @@ class TripPrice(models.Model):
         return self.trip_option
 
 
+@receiver(post_save, sender=TripOption)
+def trip_prices(sender, instance, created, **kwargs):
+
+    trip_option = TripOption.objects.last()
+    trip = Trip.objects.filter(id=trip_option.trip.id)
+    cadpax = TripCadPaxTrip.objects.all()
+    season = Season.objects.all()
+
+    # tp = TripPrice.objects.all()
+    # tpi = []
+    # for tp in tp:
+    #     if trip_option.id == tp.trip_option.id:
+    #         tpi=tp.trip_option.id
+
+    # try:
+    #     if tpi.exists():
+    #         print('TripPrice já!')
+    # except:
+    for a in trip:
+        print(a, ' - ', a.destiny)
+        for i in cadpax:
+            if i.trip == a:
+                print('    ', i.cadpax)
+                for s in season:
+                    if s.destiny == a.destiny:
+                        print(s.name)
+                        TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season=s, price=0.00)
+        print('-'*50)
+
+post_save.connect(trip_prices, sender=TripOption)
+
+
+'''
+https://docs.djangoproject.com/en/3.2/ref/signals/
+_state.db is None
 
 
 
+https://django-portuguese.readthedocs.io/en/1.0/ref/models/querysets.html#campos-de-pesquisa
+try:
+    obj = Person.objects.get(first_name='John', last_name='Lennon')
+except Person.DoesNotExist:
+    obj = Person(first_name='John', last_name='Lennon', birthday=date(1940, 10, 9))
+    obj.save()
+    
+obj, created = Person.objects.get_or_create(first_name='John', last_name='Lennon',
+                  defaults={'birthday': date(1940, 10, 9)})
+'''
 
 
+# def trip_prices2():
+    
+#     trip = Trip.objects.filter(id=1)
+#     for i in trip:
+#         print(f'ID:', i.id, ' Trip:', i.name)
+#     trip_option = TripOption.objects.all()
+#     # for t in trip_option:
+#     #     print(f'TripOption: ', t.trip.id, t.trip.destiny.id, t.trip.destiny)
+
+# trip_prices2()
+
+'''
+if Trip.objects.filter(name=a).exists():
+    for a in all:
+        if not TripCadPaxTrip.objects.filter(cadpax=i.cadpax).exists():
+            TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season='Temporada', price=0.00)
+
+  try:
+      user = User.objects.get(pk=id)
+  except User.DoesNotExist:
+      
+'''
 
 # def trip_prices(sender, instance, created, **kwargs):
 #     if created:

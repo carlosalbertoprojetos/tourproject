@@ -20,6 +20,7 @@
                         <thead>
                             <tr>
                                 <th>Passeio</th>
+                                <th>Opção de Passeio</th>
                                 <th>CategoriaPAX</th>
                                 <th>Temporada</th>
                                 <th>Valor</th>
@@ -30,18 +31,19 @@
                         <tbody>
                             {% for p in object_list %}
                                 <tr>
+                                    <td>{{ p.trip_option_id.trip }}
                                     <td>{{ p.trip_option_id }}</td>
                                     <td>{{ p.cadpax }}</td>
                                     <td>{{ p.season }}</td>
                                     <td>{{ p.price }}</td>
                                     <td align="center">
                                         {% comment %} <a href="{% url 'trip:trip_price_update' p.trip_option_id %}" class="btn"> {% endcomment %}
-                                        <a href="{% url 'trip:tripop_price_update' p.trip_option_id %}" class="btn">
+                                        <a href="{ url 'trip:tripop_price_update' p.trip_option_id %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'trip:trip_price_delete' p.pk %}" class="btn">
+                                        <a href="{ url 'trip:trip_price_delete' p.pk %}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
                                         </a>
                                     </td>
