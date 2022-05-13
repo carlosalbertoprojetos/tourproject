@@ -63,7 +63,8 @@
                                 <th>Nome</th>
                                 <th>Agência</th>
                                 <th>Vender</th>                                
-                                <th>Editar Temporada</th>
+                                <th>Editar</th>
+                                <th>Deletar</th>
                                 <th>Eventos</th>
                             </tr>
                         </thead>
@@ -90,6 +91,11 @@
                                     <td align="center">
                                         <a href="{% url 'season:season_update' season.id %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td align="center">
+                                        <a href="{% url 'season:season_delete' season.pk%}" class="btn">
+                                            <i class="fas fa-solid fa-trash"></i>
                                         </a>
                                     </td>
                                     <td align="center">
