@@ -1,4 +1,5 @@
 import pdb
+from django import views
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -7,17 +8,28 @@ from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
-from .forms import PeriodForm, SeasonForm, ValidityForm, EventForm
+from .forms import PeriodForm, SeasonForm, ValidityForm, EventForm, CommentForm
 from .models import Period, Season, Validity, Event
 
+
+
+#template_name = 'season/calendar_view.html'
+
+def calendar_event(request):
+    form = CommentForm()
+    return render(request, "season/calendar_event.html", {'form':form}) 
+
+def mode_calendar(request):    
+    return render(request, "season/mode_calendar.html")     
+
 #===============================================================================
-# CALENDÁRIO A
-class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+# CALENDÁRIO
+class CalendarListCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
     model = Event
-    template_name = 'season/calendar_test.html'
+    template_name = 'season/calendar_list_create.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CalendarListView, self).get_context_data(**kwargs)
+        context = super(CalendarListCreateView, self).get_context_data(**kwargs)
         context['form'] = EventForm(self.request.POST or None)
         return context
 
@@ -27,22 +39,32 @@ class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:calendar_test')
+                return redirect('season:calendar_list_create')
             else:
                 messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/calendar_test.html', {'object':'object','form': form})
+                return render(request, 'season/calendar_list_create.html', {'object':'object','form': form})
                 
 
-calendar = CalendarListView.as_view()
+calendar_list_create = CalendarListCreateView.as_view()
 
-#===============================================================================
-# CALENDÁRIO B
-class CalendarListNovoView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+class CalendarDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Event
-    template_name = 'season/calendar_novo.html'
+    template_name = 'season/calendar_delete.html'
+    success_message = 'Evento deletada com sucesso!'
+    success_url = _('season:calendar_list_create')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,self.success_message)
+        return super(CalendarDeleteView, self).delete(request, *args, **kwargs)
+
+calendar_delete = CalendarDeleteView.as_view()
+
+class CalendarCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+    model = Event
+    template_name = 'season/calendar_new.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CalendarListNovoView, self).get_context_data(**kwargs)
+        context = super(CalendarCreateView, self).get_context_data(**kwargs)
         context['form'] = EventForm(self.request.POST or None)
         return context
 
@@ -52,13 +74,14 @@ class CalendarListNovoView(LoginRequiredMixin, SuccessMessageMixin,ListView):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:calendar_novo')
+                return redirect('season:calendar_list_create')
             else:
                 messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/calendar_novo.html', {'object':'object','form': form})
+                return render(request, 'season/calendar_list_view.html', {'object':'object','form': form})
                 
 
-calendar_novo = CalendarListNovoView.as_view()
+calendar_new = CalendarCreateView.as_view()
+
 #=====================================================================================================
 
 # VIGÊNCIA

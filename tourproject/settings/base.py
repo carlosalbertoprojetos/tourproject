@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
-import django_heroku
+#import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     
     'client',
     'transport',
+    
+    'bootstrap_daterangepicker',
 ]
 
 
@@ -218,7 +220,7 @@ LOGOUT_URL = '/accounts/logout/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 # USE_DJANGO_JQUERY = True
 # JQUERY_URL = True

@@ -28,8 +28,7 @@
 		}
 		function addDate(date, type, no_sort) {
 			if(!type) type = 'picked';
-			date = dateConvert.call(this, date);
-			
+			date = dateConvert.call(this, date);			
 			// @todo: use jQuery UI datepicker method instead
 			date.setHours(0);
 			date.setMinutes(0);
@@ -53,6 +52,7 @@
 			}
 			*/
 			return methods.dateConvert.call(this, date, desired_type, date_format);
+			
 		}
 		
 		var methods = {
@@ -218,14 +218,14 @@
 					return date;
 				}
 				
-				if(typeof date == 'undefined') date = new Date(0);
+				if(typeof date == 'undefined') date = new Date(0);				
 				
 				if(desired_format != 'string' && desired_format != 'object' && desired_format != 'number')
 					$.error('Date format "'+ desired_format +'" not supported!');
 				
 				if(!dateFormat) {
 					// thanks to bibendus83 -> http://sourceforge.net/tracker/index.php?func=detail&aid=3213174&group_id=358205&atid=1495382
-					var dp_dateFormat = $this.datepicker('option', 'dateFormat');
+					var dp_dateFormat = $this.datepicker('option', 'dateFormat');					
 					if (dp_dateFormat) {
 						dateFormat = dp_dateFormat;
 					} else {
@@ -262,8 +262,8 @@
 				if(value && typeof value == 'string') {
 					methods.addDates.call(this, value.split(this.multiDatesPicker.separator));
 				} else {
-					var dates = methods.getDates.call(this, 'string');
-					return dates.length
+					var dates = methods.getDates.call(this, 'string');									
+					return dates.length				    
 						? dates.join(this.multiDatesPicker.separator)
 						: "";
 				}
@@ -276,16 +276,16 @@
 						return this.multiDatesPicker.dates[type];
 					case 'string':
 					case 'number':
-						var o_dates = new Array();
+						var o_dates = new Array();					
 						for(var i in this.multiDatesPicker.dates[type])
-							o_dates.push(
+							o_dates.push(								
 								dateConvert.call(
 									this, 
 									this.multiDatesPicker.dates[type][i], 
 									format
 								)
 							);
-						return o_dates;
+						return o_dates;						
 					
 					default: $.error('Format "'+format+'" not supported!');
 				}
@@ -295,7 +295,7 @@
 					if(!type) type = 'picked';
 					switch(typeof dates) {
 						case 'object':
-						case 'array':
+						case 'array':							
 							if(dates.length) {
 								for(var i = 0; i < dates.length; i++)
 									addDate.call(this, dates[i], type, true);
@@ -313,7 +313,9 @@
 				} else {
 					$.error('Empty array of dates received.');
 				}
+				
 			},
+			
 			removeDates : function( dates, type ) {
 				if(!type) type = 'picked';
 				var removed = [];
@@ -436,11 +438,12 @@
 					case 'resetDates':
 					case 'toggleDate':
 					case 'addDates':
-						var altField = $this.datepicker('option', 'altField');
+						var altField = $this.datepicker('option', 'altField');						
 						// @todo: should use altFormat for altField
 						var dates_string = methods.value.call(this);
+						
 						if (altField !== undefined && altField != "") {
-							$(altField).val(dates_string);
+							$(altField).val(dates_string);							
 						}
 						$this.val(dates_string);
 						
@@ -475,7 +478,7 @@
 	$.multiDatesPicker = {version: false};
 	//$.multiDatesPicker = new MultiDatesPicker(); // singleton instance
 	$.multiDatesPicker.initialized = false;
-	$.multiDatesPicker.uuid = new Date().getTime();
+	$.multiDatesPicker.uuid = new Date().getTime();	
 	$.multiDatesPicker.version = $.ui.multiDatesPicker.version;
 	
 	// allows MDP not to hide everytime a date is picked
