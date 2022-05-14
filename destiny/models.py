@@ -3,7 +3,6 @@ from django.db import models
 
 class Destiny(models.Model):
 
-
     STATE_CHOICES = [
         ('AC', 'AC'),
         ('AL', 'AL'),

@@ -12,7 +12,7 @@ Passeio
             <div class="card-header">
                 {% for p in trip_option %}
                 <div class="row form-title m-2 pb-1">
-                    <div class="col-md-1">
+                    <div class="col-md-1 pt-1">
                         <h5>Passeio:</h5>
                     </div>
                     <div class="col-md-6 align-content-center">
@@ -25,7 +25,7 @@ Passeio
                             <div class="col-md-3 card m-0 px-2">
                                 <h6 class=" p-1">Atividade:</h6>
                                 <div class="align-middle p-1">
-                                    <h5><i>{{ p.name }}</i></h5>
+                                    <h6><i>{{ p.name }}</i></h6>
                                 </div>
                             </div>
                             <div class="col-md-9 card-header p-0 m-0">
@@ -41,6 +41,7 @@ Passeio
                                             {% endfor %}
                                         </div>
                                     </div>
+                                    
                                     {% endfor %}
                                 </div>
                                 <div class="row">

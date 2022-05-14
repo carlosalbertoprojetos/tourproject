@@ -1,10 +1,9 @@
-from company.models import Company
 from django.db import models
+from django.dispatch import receiver
+from destiny.models import Destiny
 from season.models import Season
 
 from django.db.models.signals import post_save
-# from django.dispatch import receiver
-# from django.utils.html import mark_safe
 from django.utils.text import slugify
 
 
@@ -70,7 +69,11 @@ class Trip(models.Model):
     limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255, default='6')
     commission = models.DecimalField('Comissão paga pelo fornecedor (%)', max_digits=5, decimal_places=2, blank=True, null=True, default='10')
     category = models.ForeignKey(TripCategory, on_delete=models.CASCADE, verbose_name='Categoria')
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
+    
+    destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
+    
+    cadpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True, related_name='catpax', through='TripCadPaxTrip')
+    
     tour_notes = models.TextField('Notas do passeio', blank=True, default='teste')
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
     
@@ -82,13 +85,6 @@ class Trip(models.Model):
         verbose_name = "Passeio"
         verbose_name_plural = "Passeios"
 
-    # @property
-    # def view_image(self):
-    #     return mark_safe('<img src="%s" width="400px" />'%self.imagem.url)
-        # view_image.short_description = "Imagem Cadastrada"
-        # view_image.allow_tags = True
-
-
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
@@ -97,11 +93,16 @@ class Trip(models.Model):
         return self.name
 
 
-# @receiver(post_save, sender=Trip)
-# def insert_slug(sender, instance, **kwargs):
-#     if not instance.slug or instance.slug != slugify(instance.name):
-#         instance.slug = slugify(instance.name)
-#         return instance.save()
+class TripCadPaxTrip(models.Model):
+    trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING, related_name='cadpax_passeio')
+    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, related_name='cadpax_passeio')
+
+
+    class Meta:
+        unique_together = [['trip','cadpax']]
+
+    def __str__(self):
+        return self.cadpax
 
 
 class TripOption(models.Model):
@@ -129,33 +130,101 @@ class TripOption(models.Model):
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
 
     def __str__(self):
-        return self.name +' - '+ self.trip
+        return self.name
 
 
 class TripPrice(models.Model):
-    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='Opção de Passeio')
-    cadpax = models.CharField('Categoria PAX', max_length=10)
-    season = models.CharField('Temporada', max_length=255)
-    # price = models.CharField('Preço', max_length=9)
-    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='')
+    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.CASCADE, verbose_name='Categoria PAX')
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
+    price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
     
     def __str__(self):
         # return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
         return self.trip_option
 
 
+@receiver(post_save, sender=TripOption)
 def trip_prices(sender, instance, created, **kwargs):
-    if created:
-        cpax = TripCategoryPax.objects.all()
-        season = Season.objects.all()
-        for cp in cpax:
-            for se in season:
-                TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
+
+    trip_option = TripOption.objects.last()
+    trip = Trip.objects.filter(id=trip_option.trip.id)
+    cadpax = TripCadPaxTrip.objects.all()
+    season = Season.objects.all()
+
+    # tp = TripPrice.objects.all()
+    # tpi = []
+    # for tp in tp:
+    #     if trip_option.id == tp.trip_option.id:
+    #         tpi=tp.trip_option.id
+
+    # try:
+    #     if tpi.exists():
+    #         print('TripPrice já!')
+    # except:
+    for a in trip:
+        print(a, ' - ', a.destiny)
+        for i in cadpax:
+            if i.trip == a:
+                print('    ', i.cadpax)
+                for s in season:
+                    if s.destiny == a.destiny:
+                        print(s.name)
+                        TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season=s, price=0.00)
+        print('-'*50)
 
 post_save.connect(trip_prices, sender=TripOption)
 
-# @receiver(post_save, sender=Trip)
-# def insert_slug(sender, instance, **kwargs):
-#     if not instance.slug or instance.slug != slugify(instance.name):
-#         instance.slug = slugify(instance.name)
-#         return instance.save()
+
+'''
+https://docs.djangoproject.com/en/3.2/ref/signals/
+_state.db is None
+
+
+
+https://django-portuguese.readthedocs.io/en/1.0/ref/models/querysets.html#campos-de-pesquisa
+try:
+    obj = Person.objects.get(first_name='John', last_name='Lennon')
+except Person.DoesNotExist:
+    obj = Person(first_name='John', last_name='Lennon', birthday=date(1940, 10, 9))
+    obj.save()
+    
+obj, created = Person.objects.get_or_create(first_name='John', last_name='Lennon',
+                  defaults={'birthday': date(1940, 10, 9)})
+'''
+
+
+# def trip_prices2():
+    
+#     trip = Trip.objects.filter(id=1)
+#     for i in trip:
+#         print(f'ID:', i.id, ' Trip:', i.name)
+#     trip_option = TripOption.objects.all()
+#     # for t in trip_option:
+#     #     print(f'TripOption: ', t.trip.id, t.trip.destiny.id, t.trip.destiny)
+
+# trip_prices2()
+
+'''
+if Trip.objects.filter(name=a).exists():
+    for a in all:
+        if not TripCadPaxTrip.objects.filter(cadpax=i.cadpax).exists():
+            TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season='Temporada', price=0.00)
+
+  try:
+      user = User.objects.get(pk=id)
+  except User.DoesNotExist:
+      
+'''
+
+# def trip_prices(sender, instance, created, **kwargs):
+#     if created:
+#         cpax = TripCategoryPax.objects.all()
+#         season = Season.objects.all()
+#         for cp in cpax:
+#             for se in season:
+#                 TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
+
+# post_save.connect(trip_prices, sender=TripOption)
+
+

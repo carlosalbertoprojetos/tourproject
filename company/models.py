@@ -1,7 +1,8 @@
-from destiny.models import Destiny
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from destiny.models import Destiny
+# from trip.models import Trip
 
 class Company(models.Model):
 
@@ -92,3 +93,18 @@ class CompanyDestinies(models.Model):
 
     def __str__(self):
         return str(self.company) + ' - ' + str(self.destiny)
+
+
+# class CompanyTrip(models.Model):
+    
+#     company = models.ForeignKey(
+#         Company, on_delete=models.CASCADE, verbose_name='Empresa')
+#     trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING)
+
+#     class Meta:
+#         ordering = ('company',)
+#         verbose_name = 'Passeios da empresa'
+#         verbose_name_plural = 'Passeios da empresa'
+
+#     def __str__(self):
+#         return str(self.company) + ' - ' + str(self.trip)

@@ -105,7 +105,6 @@ ACCOUNT_FORMS = {
     'signup': 'user.forms.CustomSignupForm',
 }
 
-
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True

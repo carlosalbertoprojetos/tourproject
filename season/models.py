@@ -32,7 +32,7 @@ class Validity(models.Model):
 class Season(models.Model):
     name = models.CharField('Nome', max_length=255)
     destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino Turístico')
-    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Vigência')
+    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Ano')
     active_company = models.BooleanField('Ativo Agência', default=False)
     active_sell = models.BooleanField('Ativo Venda', default=False)
 
