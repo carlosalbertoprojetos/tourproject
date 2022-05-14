@@ -19,9 +19,6 @@ Passeio
                     </div>
                 </div>
                 <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ formset.management_form|crispy }}
-                    {{ formset.non_form_errors }}
                     {% for p in trip_option %}
                     <div class="card-header p-0">
                         <div class="row">
@@ -31,34 +28,32 @@ Passeio
                                     <h5><i>{{ p.name }}</i></h5>
                                 </div>
                             </div>
-                            <div class="col-md-9 form-group p-0 m-0">
+                            <div class="col-md-9 p-0 m-0">
                                 <div class="row">
                                     {% for c in cadpax %}
-                                    <div class="col-md-4 card-header p-1 m-0">
+                                    <div class="col-md-4 card p-1 m-0">
                                         <h5><center>{{ c }}</center></h5>
                                         <div class="row">
                                             {% for s in season %}
                                             <div class="col-md-6">
-                                                <h6 style="font-size:0.75em"><center>{{ p.id }}{{ c.id }}{{ s.id }}</center></h6>
-                                                <h6 style="font-size:0.75em"><center>{{ s }}</center></h6>
+                                                <!-- <h6 style="font-size:0.75em"><center>{{ p.id }}{{ c.id }}{{ s.id }}</center></h6> -->
+                                                <h6 style="font-size:0.75em"><center>{{ s.name }}</center></h6>
                                             </div>
                                             {% endfor %}
-                                            {% comment %} {% for %} {% endcomment %}
                                         </div>
                                     </div>
                                     {% endfor %}
-                                    <div class="row">
+                                    <div class="row p-0">
+                                        {% csrf_token %}
+                                        {{ formset.management_form|crispy }}
+                                        {{ formset.non_form_errors }}
                                         {% for field in formset %}
                                             {% if field.trip_option.value == p.id %}
-                                                <div class="card col-md-2 m-0">
-                                                    {{field.price}}
+                                                <div class="card col-md-2 m-0 p-0">
+                                                    {{ field }}
                                                 </div>
                                             {% endif %}
                                         {% endfor %}
-
-                                    {% block trip_price %}
-                                    {% endblock %}
-
                                     </div>
                                 </div>
                             </div>

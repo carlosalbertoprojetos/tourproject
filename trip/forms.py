@@ -81,12 +81,12 @@ class TripPriceForm(forms.ModelForm):
     class Meta:
         model = TripPrice
         # fields = '__all__'
-        fields = ['price',]
+        fields = ['trip_option', 'price',]
         widgets = {
-            # 'trip_option':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
+            'trip_option':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
             # 'cadpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'season':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
-            'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
+            # 'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
             }
         labels = {"price":'',}
         # labels = {"trip_option":'', "cadpax":'', "season":'', "price":'',}
@@ -95,4 +95,5 @@ class TripPriceForm(forms.ModelForm):
     # def __init__(self, *args, **kwargs):
     #     super(TripPriceForm, self).__init__(*args, **kwargs)
     #     self.fields['price'].widget.attrs.update(
-    #         {'class': 'mask-real text-center  p-1'})
+    #         {'class': 'mask-real text-center p-1'})
+    #     self.fields['trip_option'].widget.attrs["type"] = 'hidden'

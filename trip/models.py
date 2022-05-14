@@ -134,10 +134,10 @@ class TripOption(models.Model):
 
 
 class TripPrice(models.Model):
-    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='Opção de Passeio')
+    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='')
     cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.CASCADE, verbose_name='Categoria PAX')
     season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
-    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
     
     def __str__(self):
         # return self.trip_option +' - '+ self.season +' - '+ self.cadpax +' - R$ '+ self.price
