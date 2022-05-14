@@ -2,16 +2,16 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import modelformset_factory
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
-from season.models import Season
+from django.contrib.auth.decorators import login_required
 
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
-from .models import (Trip, TripCadPaxTrip, TripCategory, TripCategoryPax, TripOption,
+from .models import (Trip, TripCategory, TripCategoryPax, TripOption,
                      TripPrice)
 
 #===============================================================================
@@ -234,13 +234,13 @@ class TripPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
  
 trip_price_list_create = TripPriceListView.as_view()
 
-# @login_required
+
+@login_required
 def trip_price_update_tr(request, trip_id):
     trip_option = TripOption.objects.filter(trip_id=trip_id)
 
     try:
         if trip_option != '':
-            # trip_price_formset = modelformset_factory(TripPrice, fields=['trip_option', 'price'], extra=0)
             trip_price_formset = modelformset_factory(TripPrice, form=TripPriceForm, extra=0)
 
             cadpax=[]
@@ -266,8 +266,8 @@ def trip_price_update_tr(request, trip_id):
                     for instance in instances:
                         instance.save()
 
-                    messages.success(request, 'Preços alterados com sucesso!!!')
-                    return redirect(_('trip:trip_price_update_tr', a.trip_id))
+                    messages.success(request, 'Valores alterados com sucesso!!!')
+                    return redirect('trip:trip_price_update_tr', a.trip_id)
 
             formset = trip_price_formset(queryset=TripPrice.objects.filter(trip_option_id__trip_id=a.trip_id))
 
@@ -281,7 +281,7 @@ def trip_price_update_tr(request, trip_id):
             return render(request, 'trip/trip_price_update_tr.html', context)
 
     except:
-        messages.success(request, 'Você deve criar Opções de passeio antes de lançar os valores.')
+        messages.success(request, 'Crie Opções de passeio antes de lançar os valores.')
         return redirect(_('trip:trip_list_create'))
 
 
@@ -313,7 +313,7 @@ def trip_price_update(request, trip_option_id):
             for instance in instances:
                 instance.save()
 
-            messages.success(request, 'Preços alterados com sucesso!!!')
+            messages.success(request, 'Valores alterados com sucesso!!!')
             return redirect('trip:tripop_price_update', trip_option_id)
 
     formset = trip_price_formset(queryset=TripPrice.objects.filter(
