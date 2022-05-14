@@ -163,17 +163,17 @@ def trip_prices(sender, instance, created, **kwargs):
     #         print('TripPrice já!')
     # except:
     for a in trip:
-        print(a, ' - ', a.destiny)
+        # print(a, ' - ', a.destiny)
         for i in cadpax:
             if i.trip == a:
-                print('    ', i.cadpax)
+                # print('    ', i.cadpax)
                 for s in season:
                     if s.destiny == a.destiny:
-                        print(s.name)
+                        # print(s.name)
                         TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season=s, price=0.00)
-        print('-'*50)
+        # print('-'*50)
 
-post_save.connect(trip_prices, sender=TripOption)
+# post_save.connect(trip_prices, sender=TripOption)
 
 
 '''
