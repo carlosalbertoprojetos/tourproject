@@ -153,7 +153,7 @@ class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Trip
     template_name = 'trip/trip_delete.html'
     success_message = 'Passeio deletado com sucesso!!!'
-    success_url = _('trip:trip_list')
+    success_url = _('trip:trip_list_create')
 
     def delete(self, request, *args, **kwargs):
         return super(TripDeleteView, self).delete(request, *args, **kwargs)
@@ -332,7 +332,7 @@ class TripPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TripPrice
     template_name = 'trip/trip_price_delete.html'
     success_message = 'Valor de Passeio deletado com sucesso!!!'
-    success_url = _('trip:trip_price_list')
+    success_url = _('trip:trip_list_create')
 
     def delete(self, request, *args, **kwargs):
         return super(TripPriceDeleteView, self).delete(request, *args, **kwargs)

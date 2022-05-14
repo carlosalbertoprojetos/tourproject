@@ -32,7 +32,6 @@ urlpatterns = [
     #===============================================================================
     # OPÇÕES DE PASSEIO
     path('<trip_id>/options/list/create/', trip_option_list_create, name='trip_option_list_create'),
-    # path('options/list/create/', trip_option_list_create, name='trip_option_list_create'),
     path('<int:pk>/option/edit/', trip_option_update, name='trip_option_update'),
     path('<int:pk>/option/delete/', trip_option_delete, name='trip_option_delete'),
     path('<int:pk>/delete/', trip_delete, name='trip_delete'),
@@ -40,8 +39,6 @@ urlpatterns = [
     #===============================================================================
     # PREÇOS DOS PASSEIOS
     path('<trip_op_id>/price_trip/list/create/', trip_price_list_create, name='trip_price_list_create'),
-
-    # path('<trip_id>/price_trip/edit1/', trip_price_update1, name='trip_price_update1'),
     path('<trip_id>/price_trip/edit1/', trip_price_update_tr, name='trip_price_update_tr'),
     path('<trip_option_id>/price_op_trip/edit/', trip_price_update, name='tripop_price_update'),
     path('<int:pk>/price_trip/delete/', trip_price_delete, name='trip_price_delete'),
