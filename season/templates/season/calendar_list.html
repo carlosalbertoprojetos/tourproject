@@ -45,8 +45,7 @@
                                 <th>Nome do Evento</th>
                                 <th>Data Inicial</th>
                                 <th>Data Final</th>
-                                <th>Deletar</th>
-                                <th>Evento</th>                                                               
+                                <th>Deletar</th>                                                                                               
                             </tr>
                         </thead>
                         <tbody>                           
@@ -59,12 +58,7 @@
                                         <a href="{% url 'season:calendar_delete' e.pk %}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
                                         </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{% url 'season:calendar_event' %}" class="btn">
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        </a>
-                                    </td>                                     
+                                    </td>                                                                        
                                 </tr>                                
                             {% endfor %}                            
                         </tbody>

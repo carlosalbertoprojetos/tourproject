@@ -408,8 +408,7 @@
 				}],
 				[this.picker, '.day:not(.disabled)', {
 					click: $.proxy(this.dayCellClick, this)					
-				}],
-				console.log(click)
+				}],				
 				[$(window), {
 					resize: $.proxy(this.place, this)
 				}],
