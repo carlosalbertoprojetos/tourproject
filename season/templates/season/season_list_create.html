@@ -64,8 +64,7 @@
                                 <th>Agência</th>
                                 <th>Vender</th>                                
                                 <th>Editar</th>
-                                <th>Deletar</th>
-                                <th>Eventos</th>
+                                <th>Deletar</th>                               
                             </tr>
                         </thead>
                         <tbody>
@@ -97,12 +96,7 @@
                                         <a href="{% url 'season:season_delete' season.pk%}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
                                         </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{% url 'season:calendar_event'%}" class="btn">
-                                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
+                                    </td>                                    
                                 </tr>
                             {% endfor %}
                             <tbody>

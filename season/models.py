@@ -63,9 +63,12 @@ class Period(models.Model):
         return self.date_start + ' / ' + self.date_end
 
 class Event(models.Model):
-    name_event = models.CharField(max_length=255)
-    date_init = models.DateField()
-    date_fin = models.DateField()
+    name_event = models.CharField('Evento:', max_length=255)
+    date_init = models.DateField('Data Inicial:')
+    date_fin = models.DateField('Data Final:')
+    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Vigência')
+    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino Turístico')
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     
     class Meta:
         verbose_name = 'Evento'

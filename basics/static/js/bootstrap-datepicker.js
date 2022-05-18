@@ -407,8 +407,9 @@
 					click: $.proxy(this.navArrowsClick, this)
 				}],
 				[this.picker, '.day:not(.disabled)', {
-					click: $.proxy(this.dayCellClick, this)
+					click: $.proxy(this.dayCellClick, this)					
 				}],
+				console.log(click)
 				[$(window), {
 					resize: $.proxy(this.place, this)
 				}],

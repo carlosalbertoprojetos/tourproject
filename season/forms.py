@@ -1,4 +1,6 @@
+from dataclasses import fields
 from datetime import date
+from pyexpat import model
 from django import forms
 from .models import Period, Season, Validity,Event
 
@@ -41,5 +43,6 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = '__all__'                  
+        fields = "__all__"      
+                     
 

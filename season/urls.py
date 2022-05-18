@@ -1,10 +1,11 @@
 from django.urls import path
 
-from .views import (period_list_create, period_delete, period_update,
-                    season_delete, season_list_create, season_update,
-                    validity_list_create, validity_delete,
-                    validity_update,calendar_list_create,calendar_delete, calendar_new, calendar_event,
-                   mode_calendar) 
+from .views import (
+    period_list_create, period_delete, period_update,
+    season_delete, season_list_create, season_update,
+    validity_list_create, validity_delete,
+    validity_update,calendar_create,calendar_delete,calendar_event,calendar_list
+) 
 
 app_name = 'season'
 
@@ -12,9 +13,8 @@ urlpatterns = [
     
     #CALENDÁRIO
     path('calendar/', calendar_event, name='calendar_event'),
-    path('mode/calendar/', mode_calendar, name='mode_calendar'),
-    path('calendar/mode/list/', calendar_list_create, name='calendar_list_create'),
-    path('calendar/new/', calendar_new, name='calendar_new'),
+    path('calendar/create/', calendar_create, name='calendar_create'),
+    path('calendar/list/', calendar_list, name='calendar_list'),    
     path('<int:pk>/calendar/delete/', calendar_delete, name='calendar_delete'),   
     #============================================================================
     #TEMPORADA
