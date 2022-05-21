@@ -5,13 +5,60 @@
 {% endblock title %}
 {% block dashboard %}
 
+<!--Calenário datepicker-->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />  
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" />
+
+<!--
+<link rel="stylesheet/less" type="text/css" href="{% static 'css/less/datepicker.less' %}" />
+
+-->
+<!-- Bootstrap CSS -->
+
+<script src="https://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  
+
+<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.pt-BR.min.js' %}"></script>
+<script src="{% static 'js/disabledays.js' %}"></script>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <ul class="list-group list-group-horizontal">
+        <li class="list-group-item list-group-item-primary">
+          <a href="{% url 'season:calendar_event' %}">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            Calendário
+          </a>         
+        </li>
+        <li class="list-group-item list-group-item-success">
+            <a href="{% url 'season:calendar_create' %}">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+             Evento
+            </a>                 
+        </li>
+        <li class="list-group-item ">
+            <a href="{% url 'season:season_list_create' %}">
+                <i class="fas fa-cloud-sun-rain"></i>
+             Temporadas  
+          </a>
+        </li>
+        <li class="list-group-item list-group-item-warning">
+            <a href="{% url 'season:validity_list_create' %}">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                Vigência  
+          </a>
+        </li>        
+    </ul>
+</div>
 <div class="container-fluid mt-2">
     <div class="container-form">
         <div class="card">
             <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title m-2">Temporadas</h2>
+                        <h2 class="form-title m-2">Cadastrar Temporadas</h2>
                     </div>                    
                     <div id="bottom_list" class="col-sm-12 col-md-6">
                         <div class="row my-3">
@@ -47,8 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div>                                                                                                           </div>
                             </form>
                         </div>
                     </div>
@@ -59,20 +105,20 @@
                         <thead>
                             <tr>
                                 <th>Vigência</th>
-                                <th>Destino</th>
+                                <th>Destino Turístico</th>
                                 <th>Nome</th>
                                 <th>Agência</th>
                                 <th>Vender</th>                                
                                 <th>Editar</th>
-                                <th>Deletar</th>                               
+                                <th>Deletar</th>                                
                             </tr>
                         </thead>
                         <tbody>
-                            {% for season in object_list %}
+                            {% for s in object_list %}
                                 <tr>
-                                    <td align="center">{{ season.validity }}</td>
-                                    <td align="center">{{ season.destiny }}</td>
-                                    <td align="center">{{ season.name }}</td>
+                                    <td align="center">{{ s.validity }}</td>
+                                    <td align="center">{{ s.destiny.state }}-{{ s.destiny.city }}-{{ s.destiny.name }}</td>
+                                    <td align="center">{{ s.name }}</td>
                                     <td align="center">
                                         {% if season.active_company %}
                                             <i class="fas fa-user-check"></i>
@@ -88,12 +134,12 @@
                                         {% endif %}
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'season:season_update' season.id %}" class="btn">
+                                        <a href="{% url 'season:season_update' s.id %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'season:season_delete' season.pk%}" class="btn">
+                                        <a href="{% url 'season:season_delete' s.pk%}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>
                                         </a>
                                     </td>                                    

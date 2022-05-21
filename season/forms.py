@@ -2,7 +2,7 @@ from dataclasses import fields
 from datetime import date
 from pyexpat import model
 from django import forms
-from .models import Period, Season, Validity,Event
+from .models import Season, Validity,Event
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -24,15 +24,7 @@ class ValidityForm(forms.ModelForm):
     
     class Meta:
         model = Validity
-        fields = '__all__'        
-
-
-class PeriodForm(forms.ModelForm):
-    
-    class Meta:
-        model = Period
-        fields = '__all__'
-
+        fields = '__all__' 
 class SeasonForm(forms.ModelForm):
 
     class Meta:

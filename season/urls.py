@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (
-    period_list_create, period_delete, period_update,
+   
     season_delete, season_list_create, season_update,
     validity_list_create, validity_delete,
     validity_update,calendar_create,calendar_delete,calendar_event,calendar_list
@@ -30,7 +30,7 @@ urlpatterns = [
 
     #============================================================================
     #PERIODO
-    path('period/list/', period_list_create, name='period_list_create'),
-    path('<int:pk>/option/edit/', period_update, name='period_update'),
-    path('<int:pk>/option/delete/', period_delete, name='period_delete'),
+    #path('period/list/', period_list_create, name='period_list_create'),
+    #path('<int:pk>/option/edit/', period_update, name='period_update'),
+    #path('<int:pk>/option/delete/', period_delete, name='period_delete'),
 ]

@@ -45,23 +45,6 @@ class Season(models.Model):
         return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
         # return  self.name
 
-
-class Period(models.Model):
-    name = models.CharField('Nome', max_length=255)
-    season = models.ForeignKey(
-        Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    
-    date_start = models.DateField('Data Início')
-    date_end = models.DateField('Data Fim')
-
-    class Meta:
-        verbose_name = 'Período'
-        verbose_name_plural = 'Períodos'
-
-    def __str__(self):
-        # return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end
-        return self.date_start + ' / ' + self.date_end
-
 class Event(models.Model):
     name_event = models.CharField('Evento:', max_length=255)
     date_init = models.DateField('Data Inicial:')
