@@ -1,3 +1,4 @@
+import imp
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -12,7 +13,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
 from .models import (Trip, TripCategory, TripCategoryPax, TripOption,
-                     TripPrice)
+                     TripPrice, TripCadPaxTrip)
+
+from season.models import Season
+
 
 #===============================================================================
 # CATEGORIA PAX DE PASSEIO
@@ -338,3 +342,129 @@ class TripPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super(TripPriceDeleteView, self).delete(request, *args, **kwargs)
 
 trip_price_delete = TripPriceDeleteView.as_view()
+
+
+
+
+def tripteste(request, trip_option_id):
+    t=[]
+    trip = []
+    to=[]
+    tp=[]
+    tpz=[]
+    b=[]
+    bz=[]
+    s=[]
+    trip_option_id=10
+    
+    print('=='*50)
+    
+    trip_option = TripOption.objects.filter(id=trip_option_id)
+    season = Season.objects.all()
+    
+    for i in trip_option:
+        to = i.id
+        t = i.trip_id
+        trip = i.name
+        # print('trip option ', i.id)
+        print('Trip: ', i.name)
+    tripcadpax = TripCadPaxTrip.objects.all()
+    for i in tripcadpax:
+        if i.trip_id == t:
+            b.append(i.cadpax_id)
+            bz.append((i.id, i.cadpax_id))
+            
+    tripprice = TripPrice.objects.all()
+    for i in tripprice:
+        if i.trip_option_id == to:
+            s.append(i.season_id)
+            tp.append(i.cadpax_id)
+            tpz.append((i.id, i.cadpax_id))
+    
+    st = s
+    season_trip = set(st)
+    # lista das cadpax em trip_cadpax_trip existentes para determinada trip
+    tc_t = set(b) 
+
+    # lista de objetos cadpax em trip_price existentes para determinada trip, atraves do trip_option
+    tc_tp = set(tp)    
+
+    if tc_t != tc_tp:
+        criar = []
+        for ta in tc_t:
+        # se to não estiver em tc_tp - crie
+            if not ta in tc_tp:
+                # tp.create
+                criar.append(ta)
+                # print('Crie', ta)
+                # print(to, ta)
+                print('Objeto(s) a ser(em) criado(s):')
+                for z in season_trip:
+                    print(f'cadpax: {ta} season: {z} tp: {to}')
+                    # obj = TripPrice.objects.get()
+                                        
+                    # if obj.is_valid():
+                    #     form = obj.save(commit=False)
+                    #     form.trip_option=to, 
+                    #     form.cadpax=ta, 
+                    #     form.season=z, 
+                    #     form.price=0.00
+                    #     form.save()
+                if request.method == 'POST':
+                    obj = TripPrice.objects.all()
+
+                    if form.is_valid():
+                        form = form.save(commit=False)
+                        messages.success(request, 'Novo cadpax incluído!')
+                        return redirect('trip:trip_price_update_tr', a.trip_id)
+        # print(tc_t)
+        # print(tc_tp)
+
+        deletar = []
+        for tp in tc_tp:
+        # se tp não estiver em tc_t - delete
+            if not tp in tc_t:
+                # to.delete
+                deletar.append(tp)
+                # print('Delete', tp)
+                # print(to, tp)  
+                print('Objeto(s) a ser(em) deletado(s):')
+                for z in season_trip:
+                    print(f'cadpax: {tp} season: {z} tp: {to}')
+        
+        
+        
+        # print('Cadpaxes da trip_options', tc_t)
+        # print('Cadpaxes da trip_prices', tc_tp)
+        print('termo(s) igual(is)', tc_t & tc_tp)
+        # print('termos diferentes', criar, deletar)
+
+        # if len(tc_t) > len(tc_tp):
+        #     print('foram incluídos na trip_trip_cadpax_trip!', dif)
+        # elif len(tc_t) < len(tc_tp):
+        #     print('cadpax foram excluídos da trip_trip_cadpax_trip!', dif)
+        # elif len(tc_t) == len(tc_tp) and tc_t != tc_tp:
+        #     ('Mesma quantidade, porém diferentes objetos')
+        # else:
+        #     print('Possuem a mesma quantidade de objetos, porém eles se diferem, pois um objeto foi excluído e outro incluído.')
+    else:        
+        print('São iguais!!!')
+
+    dif = []
+    cr=[]
+    de=[]
+    for i in criar:
+        dif.append(i)
+        cr = i
+    for i in deletar:
+        dif.append(i)
+        de = i
+
+    # print('trip option', to)
+    print('termo(s) diferente(s)', dif)
+    # print(f'criar objetos: trip_op {to} e cadpax {cr}')
+    # print(f'deletar objetos:trip_op {to} e cadpax {de}')
+
+    print('=='*50)
+
+# tripteste(trip_option_id=10)

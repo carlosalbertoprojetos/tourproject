@@ -4,7 +4,7 @@ from .views import (trip_categorypax_list_create, trip_categorypax_update, trip_
                     trip_category_list_create, trip_category_update, trip_category_delete,
                     trip_list_create, trip_delete, trip_update,
                     trip_option_list_create, trip_option_update, trip_option_delete, 
-                    trip_price_list_create, trip_price_update, trip_price_delete, trip_price_update_tr
+                    trip_price_list_create, trip_price_update, trip_price_delete, trip_price_update_tr, tripteste
                     )
 
 app_name = 'trip'
@@ -27,7 +27,10 @@ urlpatterns = [
     # PASSEIO
     path('list/create/', trip_list_create, name='trip_list_create'),
     path('<int:pk>/edit/', trip_update, name='trip_update'),
-    path('<int:pk>/delete/', trip_delete, name='trip_delete'),  
+    path('<int:pk>/delete/', trip_delete, name='trip_delete'),
+    
+    
+    # path('<trip_option_id>/update/cadapxtrip/', tripteste, name='tripteste')
     
     #===============================================================================
     # OPÇÕES DE PASSEIO
