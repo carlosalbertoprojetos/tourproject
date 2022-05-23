@@ -97,3 +97,5 @@ class TripPriceForm(forms.ModelForm):
     #     self.fields['price'].widget.attrs.update(
     #         {'class': 'mask-real text-center p-1'})
     #     self.fields['trip_option'].widget.attrs["type"] = 'hidden'
+
+
