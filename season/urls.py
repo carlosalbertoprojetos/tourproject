@@ -4,18 +4,18 @@ from .views import (
    
     season_delete, season_list_create, season_update,
     validity_list_create, validity_delete,
-    validity_update,calendar_create,calendar_delete,calendar_event,calendar_list
+    validity_update,event_list_create,event_delete,calendar_list
 ) 
 
 app_name = 'season'
 
 urlpatterns = [
     
-    #CALENDÁRIO
-    path('calendar/', calendar_event, name='calendar_event'),
-    path('calendar/create/', calendar_create, name='calendar_create'),
-    path('calendar/list/', calendar_list, name='calendar_list'),    
-    path('<int:pk>/calendar/delete/', calendar_delete, name='calendar_delete'),   
+    #EVENTO
+    #path('event/list/', calendar_event, name='calendar_event'),
+    path('event/list/', event_list_create, name='event_list_create'),
+    path('<int:pk>/event/delete/', event_delete, name='event_delete'),
+    path('calendar/list/', calendar_list, name='calendar_list'),       
     #============================================================================
     #TEMPORADA
     path('list/', season_list_create, name='season_list_create'),

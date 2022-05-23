@@ -5,34 +5,48 @@
 {% endblock title %}
 {% block dashboard %}
 
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <ul class="list-group list-group-horizontal">
-        <li class="list-group-item list-group-item-primary">                      
-            <a href="{% url 'transport:transport_list_create' %}">
-                <i class="fas fa-solid fa-bus"></i> 
-              Transportes
-            </a>         
+<!--Menu-->
+<nav class="navbar navbar-expand-sm navbar-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">            
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"></a>
           </li>
-        <li class="list-group-item list-group-item-success">            
-          <a href="{% url 'transport:transport_category_list_create' %}">
-            <i class="fas fa-solid fa-bus"></i>
-            Categorias
-          </a>         
-        </li>
-        <li class="list-group-item list-group-item-light">            
-            <a href="{% url 'transport:transport_catpax_list_create' %}">
-                <i class="fas fa-solid fa-bus"></i>
-            CategoriasPAX
-            </a>                 
-        </li>
-        <li class="list-group-item list-group-item-warning">           
+          <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+          </li>                           
+        </ul>
+        <div class="d-flex">
             <a href="{% url 'transport:transport_price_list_create' %}">
-                <i class="fa fa-credit-card" aria-hidden="true"></i>                
-              Preços  
-          </a>
-        </li>
-    </ul>
-</div>
+              <button class="btn btn-outline-primary" type="submit">Preços</button>
+            </a>     
+        </div>
+        <div class="d-flex">
+            <a href="{% url 'transport:transport_category_list_create' %}">
+              <button class="btn btn-outline-success" type="submit">Categorias</button>
+            </a>     
+          </div>
+        <div class="d-flex">
+          <a href="{% url 'transport:transport_list_create' %}">
+            <button class="btn btn-outline-danger" type="submit">Transportes</button>
+          </a>     
+        </div>                  
+        <div class="d-flex">
+            <a href="{% url 'transport:transport_catpax_list_create' %}">
+              <button class="btn btn-outline-warning" type="submit">CategoriasPAX</button>
+            </a>     
+          </div>
+      </div>
+    </div>
+</nav>
+
 <div class="container-fluid mt-2">
     <div class="container-form">
         <div class="card">

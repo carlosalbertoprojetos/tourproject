@@ -14,12 +14,12 @@ from .models import Season, Validity, Event
 #===============================================================================
 # CALENDÁRIO
 
-class CalendarEventView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+class EventListCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
     model = Event
-    template_name = 'season/calendar_event.html'
+    template_name = 'season/event_list_create.html'
 
     def get_context_data(self, **kwargs):
-        context = super(CalendarEventView, self).get_context_data(**kwargs)
+        context = super(EventListCreateView, self).get_context_data(**kwargs)
         context['form'] = EventForm(self.request.POST or None)
         return context
 
@@ -29,11 +29,11 @@ class CalendarEventView(LoginRequiredMixin, SuccessMessageMixin,ListView):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:calendar_event')
+                return redirect('season:event__list_create')
             else:
                 messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/calendar_event.html', {'object':'object','form': form})
-calendar_event = CalendarEventView.as_view()
+                return render(request, 'season/event_list_create.html', {'object':'object','form': form})
+event_list_create = EventListCreateView.as_view()
 
 class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
     model = Event
@@ -70,15 +70,15 @@ calendar_create = CalendarCreateView.as_view()
 
 class CalendarDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Event
-    template_name = 'season/calendar_delete.html'
+    template_name = 'season/event_delete.html'
     success_message = 'Evento deletada com sucesso!'
-    success_url = _('season:calendar_event')
+    success_url = _('season:event_list_create')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request,self.success_message)
         return super(CalendarDeleteView, self).delete(request, *args, **kwargs)
 
-calendar_delete = CalendarDeleteView.as_view()
+event_delete = CalendarDeleteView.as_view()
 #=====================================================================================================
 # VIGÊNCIA
 
