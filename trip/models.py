@@ -167,8 +167,9 @@ def delete_trip_cadpax_prices(sender, instance, **kwargs):
             tp_id.append(i.id)
             TripPrice.objects.filter(id=i.id).delete()
 
+
 @receiver(post_save, sender=Trip)
-# @receiver(post_migrate, sender=TripCadPaxTrip)
+# @receiver(post_save, sender=TripCadPaxTrip)
 def create_trip_cadpax_prices(sender, instance, **kwargs):
     tct = TripCadPaxTrip.objects.last()
     tcp = TripPrice.objects.all()
@@ -216,4 +217,4 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
                     form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00) 
                     form.save()
 
-# o que tem em cadpaxtrip e não tem em tripprice
+
