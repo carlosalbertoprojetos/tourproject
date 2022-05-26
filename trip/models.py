@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete, m2m_changed, post_migrate
 from django.dispatch import receiver
 from django.utils.text import slugify
 
@@ -103,7 +103,6 @@ class TripCadPaxTrip(models.Model):
         return self.cadpax
 
 
-
 class TripOption(models.Model):
 
     SCALE_CHOICE = [
@@ -144,247 +143,77 @@ class TripPrice(models.Model):
 
 
 @receiver(post_save, sender=TripOption)
-def trip_prices(sender, instance, created, **kwargs):
-    
+def create_trip_prices(sender, instance, created, **kwargs):
     if created:
         trip_option = TripOption.objects.last()
         trip = Trip.objects.filter(id=trip_option.trip.id)
         cadpax = TripCadPaxTrip.objects.all()
         season = Season.objects.all()
-        
+
         for a in trip:
-            # print(a, ' - ', a.destiny)
             for i in cadpax:
                 if i.trip == a:
-                    # print('    ', i.cadpax)
                     for s in season:
                         if s.destiny == a.destiny:
-                            # print(s.name)
                             TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season=s, price=0.00)
-            # print('-'*50)
+                            
 
-# post_save.connect(trip_prices, sender=TripOption)
+@receiver(post_delete, sender=TripCadPaxTrip)
+def delete_trip_cadpax_prices(sender, instance, **kwargs):
+    tcp = TripPrice.objects.all()
+    tp_id=[]
+    for i in tcp:
+        if i.cadpax_id == instance.cadpax_id:
+            tp_id.append(i.id)
+            TripPrice.objects.filter(id=i.id).delete()
 
+@receiver(post_save, sender=Trip)
+# @receiver(post_migrate, sender=TripCadPaxTrip)
+def create_trip_cadpax_prices(sender, instance, **kwargs):
+    tct = TripCadPaxTrip.objects.last()
+    tcp = TripPrice.objects.all()
+    top = TripOption.objects.all()
 
-@receiver(post_save, sender=TripCadPaxTrip)
-def trip_prices1(sender, instance, created, **kwargs):
-    if created:
-# def test():
-        obj_tripcadpax = TripCadPaxTrip.objects.last()
-        print('Cadpax criado', obj_tripcadpax.cadpax_id)
+    trip=instance.id
+    trip_op=[]
+    for i in top:
+        if i.trip_id == tct.trip_id:
+            trip_op = i.id
 
-        # verifica todas as atividades da trip
-        obj_tripop = TripOption.objects.all()
-        obj_trippr = TripPrice.objects.all()
-        obj_season = Season.objects.all()
+    if trip_op:
+        trip_cad=[]
+        season=[]
+        price_cad=[]
+        new=[]
 
-        for o in obj_tripop:
-            a = []
-            t = []
-            if o.trip_id == obj_tripcadpax.trip_id:
-                # verifica se o novo cadpax existe na tabela de preços
-                for p in obj_trippr:
-                    if p.trip_option_id == o.id:
-                        a.append(p.cadpax_id)
-                        t = p.trip_option_id
-                        # print(p.cadpax_id, end=" ")
-                a = set(a)
-                print(a)
-                if not obj_tripcadpax.cadpax_id in a:
-                        for i in obj_season:
-                            print(f'Criar registro cadpas: {obj_tripcadpax.cadpax_id}, para a temporada: {i.id}, para a atividade: {t}!')
+        # identificar objeto criado
+        trip_cadpax = TripCadPaxTrip.objects.all()
+        for i in trip_cadpax:
+            if i.trip_id == trip:
+                trip_cad.append(i.cadpax_id)
 
-                            TripPrice.objects.get_or_create(trip_option=t, cadpax=obj_tripcadpax.cadpax_id, season=i.id, price=0.00)  
+        for i in tcp:
+            if i.trip_option_id == trip_op:
+                season.append(i.season_id)
+                price_cad.append(i.cadpax_id)
 
-# already_created = MyModel.objects.filter(pk=self.pk).exists()
+        season=set(season)
+        price_cad=set(price_cad)
 
-# test()
+        # tem em trip_cap e não tem em price_cad
+        for i in trip_cad:
+            if not i in price_cad:
+                new.append(i)
 
-
-
-'''
-https://docs.djangoproject.com/en/3.2/ref/signals/
-_state.db is None
-
-https://django-portuguese.readthedocs.io/en/1.0/ref/models/querysets.html#campos-de-pesquisa
-try:
-    obj = Person.objects.get(first_name='John', last_name='Lennon')
-except Person.DoesNotExist:
-    obj = Person(first_name='John', last_name='Lennon', birthday=date(1940, 10, 9))
-    obj.save()
-    
-obj, created = Person.objects.get_or_create(first_name='John', last_name='Lennon',
-                  defaults={'birthday': date(1940, 10, 9)})
-'''
-
-
-# def trip_prices2():
-    
-#     trip = Trip.objects.filter(id=1)
-#     for i in trip:
-#         print(f'ID:', i.id, ' Trip:', i.name)
-#     trip_option = TripOption.objects.all()
-#     # for t in trip_option:
-#     #     print(f'TripOption: ', t.trip.id, t.trip.destiny.id, t.trip.destiny)
-
-# trip_prices2()
-
-'''
-if Trip.objects.filter(name=a).exists():
-    for a in all:
-        if not TripCadPaxTrip.objects.filter(cadpax=i.cadpax).exists():
-            TripPrice.objects.create(trip_option=instance, cadpax=i.cadpax, season='Temporada', price=0.00)
-
-  try:
-      user = User.objects.get(pk=id)
-  except User.DoesNotExist:      
-'''
-
-# def trip_prices(sender, instance, created, **kwargs):
-#     if created:
-#         cpax = TripCategoryPax.objects.all()
-#         season = Season.objects.all()
-#         for cp in cpax:
-#             for se in season:
-#                 TripPrice.objects.create(trip_option=instance, cadpax=cp, season=se, price=0.00)
-
-# post_save.connect(trip_prices, )
-def tripteste(trip_option_id=11):
-    t=[]
-    trip = []
-    to=[]
-    tripOption = []
-    tp=[]
-    tpz=[]
-    b=[]
-    bz=[]
-    s=[]
-    criar = []
-    tz=[]
-    print('=='*50)
-
-    trip_option = TripOption.objects.filter(id=trip_option_id)
-    for i in trip_option:
-        to = i.id
-        tripOption = i.name
-        t = i.trip_id
-        trip = i.trip
-
-    tripcadpax = TripCadPaxTrip.objects.all()
-    for i in tripcadpax:
-        if i.trip_id == t:
-            b.append(i.cadpax_id)
-            bz.append((i.id, i.cadpax_id))
-
-    tripprice = TripPrice.objects.all()
-    for i in tripprice:
-        if i.trip_option_id == to:
-            s.append(i.season_id)
-            tz.append((i.season_id, i.cadpax_id))
-            tp.append(i.cadpax_id)
-            tpz.append((i.id, i.cadpax_id))
-
-    season = Season.objects.all()
-    # for i in season:
-    #     print(i.id)
-    print('TCT1', b)
-    
-    st = s
-    season_trip = set(st)
-    # print(season)
-    # lista das cadpax no model trip_cadpax_trip existentes para determinada trip
-    tc_t = set(b)
-
-    # lista de objetos cadpax no model trip_price existentes para determinada trip, atraves do trip_option
-    tc_tp = set(tp)
-
-    print(f'TRIP: {trip} - ID:{t}')
-    print(f'TRIP Option: {tripOption} - ID:{to}')
-
-    print('TCT', tc_t)
-    print('TCP', tc_tp)
-    print('TZ', tz)
-    
-
-    test = [1]
-    # está criando apenas uma season
-
-    if test:
-        print('Objeto(s) a ser(em) criado(s):')
-        for z in season_trip:
-            for ta in tc_t:
-                if not ta in tc_tp:
-                    criar.append(ta)
-                    print(f'cadpax: {ta} season: {z} tp: {to}')
-                    top = TripOption.objects.get(id=to)
-                    ta = TripCategoryPax.objects.get(id=ta)
-                    z = season = Season.objects.get(id=z)
-                    form = TripPrice(trip_option=top, cadpax=ta, season=z, price=0.00) 
+        # criar preços para cada novo cadpax
+        for s in season:
+            for t in trip_cad:
+                if not t in price_cad:
+                    print(f'cadpax: {t} season: {s} t_option: {trip_op}')
+                    top = TripOption.objects.get(id=trip_op)
+                    tca = TripCategoryPax.objects.get(id=t)
+                    sea = Season.objects.get(id=s)
+                    form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00) 
                     form.save()
 
-        deletar = []
-        for z in season_trip:
-            for tp in tc_tp:
-                if not tp in tc_t:
-                    deletar.append(tp)
-                    print('Objeto(s) a ser(em) deletado(s):')
-                    for z in season_trip:
-                        print(f'cadpax: {tp} season: {z} tp: {to}')
-                        ab = TripPrice.objects.all()
-                        id = []
-                        for i in ab:
-                            if i.trip_option_id == to and i.cadpax.id == tp:
-                                id.append(i.id)
-                                print(i.id)
-                        
-                        # for i in id:
-                        #     record = TripPrice.objects.get(id = i)
-                        #     record.delete()
-
-        print('termo(s) igual(is)', tc_t & tc_tp)
-    else:
-        print('São iguais!!!')
-
-    dif = []
-    cr=[]
-    de=[]
-    for i in criar:
-        dif.append(i)
-        cr = i
-    for i in deletar:
-        dif.append(i)
-        de = i
-
-    print('termo(s) diferente(s)', dif)
-    print('=='*50)
-
-
-tripteste()
-
-
-
-# =====================================================
-""" CREATED OR DELETED
-
-
-trip_cadpax = TripCadpaxTrip.objects.filter(trip_id=trip_id)
-listar cadpaxtrip
-trip_option_id = TripOption.objects.filter(trip_id=trip_cadpax.trip_id)
-trip_cadpaxprice = TripPrice.objects.filter(trip_option_id = trip_option_id.id)
-if trip_cadpaxprice:
-    listar trip_cadpaxprice(set)
-else:
-    pass
-
-
-1) tudo igual -> pass
-2) diferente:
-	a) cadpaxtrip > cadpaxprice
-		for i in cadpaxtrip:
-			if not i.cadpax_id in cadpaxprice
-				TripPrice.objects.create()
-			
-	b) cadpaxtrip < cadpaxprice
-		for i in cadpaxprice
-			if not i.cadpax_id in cadpaxtrip
-				TripPrice.objects.delete() """
+# o que tem em cadpaxtrip e não tem em tripprice
