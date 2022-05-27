@@ -215,8 +215,8 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
     # verifica a(s) trip(s) que não possui(em) trip_option(s)
     if len(trip_id_tc) > len(trip_id_to):
         for j in trip_id_tc:
-                if not j in trip_id_to:
-                    print(f'Não há trip_option para a(s) trip_id(s) {j}')
+            if not j in trip_id_to:
+                print(f'Não há trip_option para a(s) trip_id(s) {j}')
     tc_to=set(tc_to)
 
     # verifica quais options não possuem trip_price
@@ -227,7 +227,6 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
             ntc_to.append(i.id)
 
     if TripCadPaxTrip.objects.filter(trip_id=instance.id).first() and TripOption.objects.filter(trip_id=instance.id).first():
-
         # seleciona todos cadpax da trip
         tc = TripCadPaxTrip.objects.filter(trip_id=instance.id)
         cadpax=[]
@@ -239,18 +238,17 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
 
         # para cada trip_option
         for i in option:
-
             trip = Trip.objects.filter(id=instance.id) 
             season = Season.objects.all()
-            
+
             # se não houver preços registrados para a trip_id
             if not TripPrice.objects.filter(trip_option_id=i.id).exists():
                 print('NÃO EXISTE PRICE, CRIANDO...')
 
-                for a in trip: # para cada option
-                    for b in option: # para cada cadpax da trip
-                        for c in cadpax: # para cada temporada
-                            for d in season:
+                for a in trip:
+                    for b in option: # para cada option
+                        for c in cadpax: # para cada cadpax da trip
+                            for d in season: # para cada temporada
                                 if d.destiny_id == a.destiny_id:
                                     print(a.id, b.id, c, d.id)
                                     top = TripOption.objects.get(id=b.id)
@@ -258,9 +256,34 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
                                     sea = Season.objects.get(id=d.id)
                                     form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00)
                                     form.save()
+
             else:
                 if not TripCadPaxTrip.objects.filter(trip_id=instance.id).first():
                     print(f'Não há cadpax para a trip {instance.id}')
                 if not TripOption.objects.filter(trip_id=instance.id).first():
                     print(f'Não há option para a trip {instance.id}')
-                print(f'Já existe tabela de preços para a trip {instance.name}')
+
+                # verificar quais tripcadpax da trip não estão no tripprice
+                a = TripPrice.objects.filter(trip_option_id=i.id)
+                top = []
+                for i in a:
+                    top.append(i.cadpax_id)
+                top=set(top)
+
+                criar=[]
+                if len(cadpax_id_tc) > len(top):
+                    for j in cadpax_id_tc:
+                        if not j in top:
+                            criar.append(j)
+                            
+                print(f'CRIANDO PRICE PARA AS SEGUINTES CADPAX: {criar}')
+                for a in trip: 
+                    for b in option: # para cada option
+                        for c in criar: # para cada cadpax da trip
+                            for d in season: # para cada temporada
+                                if d.destiny_id == a.destiny_id:
+                                    top = TripOption.objects.get(id=b.id)
+                                    tca = TripCategoryPax.objects.get(id=c)
+                                    sea = Season.objects.get(id=d.id)
+                                    form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00)
+                                    form.save()
