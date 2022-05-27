@@ -270,13 +270,15 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
                     top.append(i.cadpax_id)
                 top=set(top)
 
+                # informa quais cadpax da trip precisam ser criadas na tripprice
                 criar=[]
                 if len(cadpax_id_tc) > len(top):
                     for j in cadpax_id_tc:
                         if not j in top:
                             criar.append(j)
-                            
+
                 print(f'CRIANDO PRICE PARA AS SEGUINTES CADPAX: {criar}')
+                
                 for a in trip: 
                     for b in option: # para cada option
                         for c in criar: # para cada cadpax da trip
