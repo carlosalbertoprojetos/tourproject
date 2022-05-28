@@ -213,14 +213,16 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
     # print(f'Há trip_option para o(s) trip_id(s): {tc_to}')
 
     # verifica a(s) trip(s) que não possui(em) trip_option(s)
-    if len(trip_id_tc) > len(trip_id_to):
+    """     
+        if len(trip_id_tc) > len(trip_id_to):
         for j in trip_id_tc:
             if not j in trip_id_to:
-                print(f'Não há trip_option para a(s) trip_id(s) {j}')
+                j 
+    """
     tc_to=set(tc_to)
 
     # verifica quais options não possuem trip_price
-    # necessário saber se há cadpax para a trip
+    # necessário saber se foram selecionados cadpaxes para a trip
     ntc_to=[]
     for i in to:
         if not TripPrice.objects.filter(trip_option_id=i.id):
@@ -243,25 +245,21 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
 
             # se não houver preços registrados para a trip_id
             if not TripPrice.objects.filter(trip_option_id=i.id).exists():
-                print('NÃO EXISTE PRICE, CRIANDO...')
-
                 for a in trip:
                     for b in option: # para cada option
                         for c in cadpax: # para cada cadpax da trip
                             for d in season: # para cada temporada
                                 if d.destiny_id == a.destiny_id:
-                                    print(a.id, b.id, c, d.id)
                                     top = TripOption.objects.get(id=b.id)
                                     tca = TripCategoryPax.objects.get(id=c)
                                     sea = Season.objects.get(id=d.id)
                                     form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00)
                                     form.save()
-
             else:
                 if not TripCadPaxTrip.objects.filter(trip_id=instance.id).first():
-                    print(f'Não há cadpax para a trip {instance.id}')
+                    print(f'Não há CADPAX para a trip {instance.id}')
                 if not TripOption.objects.filter(trip_id=instance.id).first():
-                    print(f'Não há option para a trip {instance.id}')
+                    print(f'Não há OPTION para a trip {instance.id}')
 
                 # verificar quais tripcadpax da trip não estão no tripprice
                 a = TripPrice.objects.filter(trip_option_id=i.id)
@@ -277,8 +275,6 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
                         if not j in top:
                             criar.append(j)
 
-                print(f'CRIANDO PRICE PARA AS SEGUINTES CADPAX: {criar}')
-                
                 for a in trip: 
                     for b in option: # para cada option
                         for c in criar: # para cada cadpax da trip
