@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Calendario de Eventos
+    Calendário Evento
 {% endblock title %}
 {% block dashboard %}
 
@@ -16,10 +16,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
 
 <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
 <script src="{% static 'js/bootstrap-datepicker.pt-BR.min.js' %}"></script>
@@ -43,22 +39,23 @@
         <li class="nav-item">
           <a class="nav-link" href="#"></a>
         </li>                           
-      </ul>           
-      <div class="d-flex">
-        <a href="{% url 'season:season_event_detail' season.pk %}">
-          <button class="btn bg-gradient-primary" type="submit">Modelo Lista</button>
-        </a>     
-    </div>           
+      </ul>             
     <div class="d-flex">
-        <a href="{% url 'season:calendar_event_detail' season.pk%}">
-          <button class="btn bg-gradient-success" type="submit">Modelo Calendário</button>
+        <a href="{% url 'season:validity_list_create' %}">
+          <button class="btn bg-gradient-warning" type="submit">Vigências</button>
         </a>     
     </div>
     <div class="d-flex">
-      <a href="{% url 'season:season_list_create' %}">
-        <button class="btn bg-gradient-red" type="submit">Voltar</button>
-      </a>     
-    </div>  
+        <a href="{% url 'season:validity_list_create' %}">
+          <button class="btn bg-gradient-success" type="submit">Calendários</button>
+        </a>     
+    </div>        
+    <div class="d-flex">
+        <a href="{% url 'season:season_list_create' %}">
+          <button class="btn bg-gradient-red" type="submit">Temporadas</button>
+        </a>     
+    </div>
+    </div>
   </div>
 </nav>
 
@@ -67,68 +64,64 @@
     <div class="card">
       <div class="card-header p-1">
         <div class="row">    
-          <div class="col-sm-12 col-md-6">                          
-            <h2 class="form-title m-2">Calendário de Eventos da - {{season.name}} de {{season.destiny.city}}-{{season.destiny.state}}</h2>
-          </div>          
-               
-          <table class="table table-sm table-responsive" >
-            <thead style="font-size: 14px !important;">
-              <tr>
-                <th scope="col"><div class="datepicker1" ></div></th>
-                <th scope="col"><div class="datepicker2" ></div></th>
-                <th scope="col"><div class="datepicker3" ></div></th>
-                <th scope="col"><div class="datepicker4" ></div></th>                                            
-              </tr>
-              <tr>
-                <th scope="col"><div class="datepicker5" ></div></th>
-                <th scope="col"><div class="datepicker6" ></div></th>
-                <th scope="col"><div class="datepicker7" ></div></th>
-                <th scope="col"><div class="datepicker8" ></div></th>                
-              </tr>
-              <tr>
-                <th scope="col"><div class="datepicker9" ></div></th>
-                <th scope="col"><div class="datepicker10" ></div></th>
-                <th scope="col"><div class="datepicker11" ></div></th>
-                <th scope="col"><div class="datepicker12" ></div></th>                
-              </tr>              
-            </thead>            
-          </table>                                       
+          <div class="col-sm-12 col-md-6">              
+            <h2 class="form-title m-2">Lista de Eventos </h2>                                
+          </div>
+          
+          <div class="table-responsive">
+            <table id="myTable1" class="table table-striped table-bordered mt-5">           
+              <thead>
+                <tr>                                              
+                  <th scope="col">Vigência</th>
+                  <th scope="col">Temporada</th>
+                  <th scope="col">Destino Turístico</th>                                  
+                </tr>
+              </thead>
+              <tbody>              
+                <tr>                  
+                  <td align="center">{{ event.validity }}</td>
+                  <td>{{ event.season.name }}</td>
+                  <td>{{ event.destiny.state }}-{{ event.destiny.city }}-{{ event.destiny.name }}</td>
+                                                                                                                          
+                </tr>                            
+              </tbody>
+            </table>
+          </div>                            
         </div>                     
       </div>  
     </div>
   </div>
-</div> 
+  <div class="card border-dark mb-3">    
+    <div class="card-body text-dark">
+      <table class="table table-sm table-responsive" >
+        <thead style="font-size: 14px !important;">
+          <tr>
+            <th scope="col"><div class="datepicker1" ></div></th>
+            <th scope="col"><div class="datepicker2" ></div></th>
+            <th scope="col"><div class="datepicker3" ></div></th>
+            <th scope="col"><div class="datepicker4" ></div></th>                            
+          </tr>
+          <tr>
+            <th scope="col"><div class="datepicker5" ></div></th>
+            <th scope="col"><div class="datepicker6" ></div></th>
+            <th scope="col"><div class="datepicker7" ></div></th>
+            <th scope="col"><div class="datepicker8" ></div></th>                
+          </tr>
+          <tr>
+            <th scope="col"><div class="datepicker9" ></div></th>
+            <th scope="col"><div class="datepicker10" ></div></th>
+            <th scope="col"><div class="datepicker11" ></div></th>
+            <th scope="col"><div class="datepicker12" ></div></th>                
+          </tr>              
+        </thead>            
+      </table>    
+    </div>
+  </div>
+</div>
 
-{% for c in event %}
 
-  <script>
-    eventos.add(event.name,event.data_init,event.data_fin)
-  </script>
 
-{% endfor %}
 <script> 
-  $(function(){
-      $(document).on('click', '.btn-danger', function(e) {
-          e.preventDefault;
-          var data_init = $(this).closest('tr').find('td[data-nome]').data('nome');
-          var data_fin = $(this).closest('tr').find('td[data-nome1]').data('nome1');
-          alert('Data Inicial: ' + data_init +'\n' + 'Data Final: ' + data_fin);
-          console.log(typeof(data_init));        
-          
-      });
-  });   
-  
-
-  function update() {
-    var year = $('#ano').val();
-    console.log(year);
-    if (year == 2023 ){      
-      $('#myModal').modal('show')
-      
-      
-    }    
-  }
-    
     //2022
    //janeiro
   $('.datepicker1').datepicker({        
@@ -136,13 +129,30 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,      
-      toggleActive: true,      
       defaultViewDate: { year: 2022, month: 0, day: 1 },        
       startDate: new Date(2022, 1 -1, 1),
       endDate: new Date(2022, 1 -1,31),
       datesDisabled: intervalos1,
-      
-      
+
+      beforeShowDay: function(date){
+          if (date.getMonth() == 0){
+              switch (date.getDate()){
+                  case 30:
+                      return {
+                      tooltip: 'Teste',
+                      classes: 'active'
+                      };
+                  case 31:
+                      return {
+                      tooltip: 'Teste',
+                      classes: 'active'
+                      };    
+                  
+                  case 12:
+                      return "blue";
+              }        
+          }                                    
+      }        
                             
   });
 
@@ -155,8 +165,7 @@
       defaultViewDate: { year: 2022, month: 1, day: 1 },        
       startDate: new Date(2022, 2 -1, 1),
       endDate: new Date(2022, 2 -1,28),
-      datesDisabled: intervalos2,
-                
+      datesDisabled: intervalos2,           
                           
   });
 
@@ -190,34 +199,32 @@
 
   //maio
   $('.datepicker5').datepicker({
-      dateFormat: "dd/mm/yy",                                              
-      language: ['pt-BR'],
-      todayHighlight: true,
-      autoApply: true, 
-      defaultViewDate: { year: 2022, month: 4, day: 1 },            
-      startDate: new Date(2022, 5 -1, 1),
-      endDate: new Date(2022, 5 -1,31),
-      datesDisabled: intervalos5,
+    dateFormat: "dd/mm/yy",                                              
+    language: ['pt-BR'],
+    todayHighlight: true,
+    autoApply: true,     
+    defaultViewDate: { year: 2022, month: 4, day: 1 },            
+    startDate: new Date(2022, 5 -1, 1),
+    endDate: new Date(2022, 5 -1,31),
+    datesDisabled: intervalos5,
       
-      beforeShowDay: function(date){
-        if (date.getMonth() == 4){
-              switch (date.getDate()){
-                  
-                case 24:
-                  return {
-                    tooltip: 'Teste',
-                    classes: 'active'
-                  };
-                  
-                case 30:
-                  return {
-                    tooltip: ['Perene'],
-                    classes: 'active'
-                  };          
-                
-              }        
-        }                                    
-      }                            
+    beforeShowDay: function(date){
+      if (date.getMonth() == 4){
+        switch (date.getDate()){
+          case 24:
+            return {
+              tooltip: 'Festa Julina',
+              classes: 'active'
+            };
+
+            case 27:
+              return {
+                tooltip: 'Festa Julina',
+                classes: 'active'
+              };              
+        }        
+      }                                    
+    }                             
   });
 
   //junho 
@@ -230,27 +237,6 @@
       startDate: new Date(2022, 6 -1, 1),
       endDate: new Date(2022, 6 -1,30),
       datesDisabled: intervalos6,
-
-
-      beforeShowDay: function(date){
-        if (date.getMonth() == 5){
-              switch (date.getDate()){
-                  
-                case 24:
-                  return {
-                    tooltip: 'Festa Julina',
-                    classes: 'active'
-                  };
-                  
-                case 27:
-                  return {
-                    tooltip: ['Festa Julina'],
-                    classes: 'active'
-                  };          
-                
-              }        
-        }                                    
-      }
      
                           
   });
@@ -336,9 +322,16 @@
   }); 
 
   //2023
-   //janeiro 
+   //janeiro
+   
+   function update() {
+        var year = $('#ano').val();
+        console.log(year);
+        //window.location.reload();          
+								 
+			}
       
-  $('.datepicker-1-2023').datepicker({        
+   $('.datepicker-1-2023').datepicker({        
       dateFormat: "dd/mm/yy",                                              
       language: ['pt-BR'],
       todayHighlight: true,
@@ -347,7 +340,27 @@
       startDate: new Date(2023, 1 -1, 1),
       endDate: new Date(2023, 1 -1,31),
       datesDisabled: intervalos1,
-                              
+
+      beforeShowDay: function(date){
+          if (date.getMonth() == 0){
+              switch (date.getDate()){
+                  case 30:
+                      return {
+                      tooltip: 'Teste',
+                      classes: 'active'
+                      };
+                  case 31:
+                      return {
+                      tooltip: 'Teste',
+                      classes: 'active'
+                      };    
+                  
+                  case 12:
+                      return "blue";
+              }        
+          }                                    
+      }        
+                            
   });
   
 </script> 

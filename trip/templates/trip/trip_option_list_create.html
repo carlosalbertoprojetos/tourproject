@@ -11,20 +11,30 @@
         <div class="card">
             <div class="card-header p-1">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title m-2">Opções de Passeio</h2>
+                    <div class="col-sm-2 col-md-1 mb-0">
+                        <h5 class="form-title ml-2 my-2 pl-1">Passeio:
+                        </h5>
                     </div>
-                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
+                    <div class="col-sm-12 col-md-6 mb-1">
+                        <h3 class="form-title mt-1"><a href="{% url 'trip:trip_list_create' %}">
+                            {% if trip %}
+                                {{ trip }}
+                            {% else %}
+                                Retornar a Lista de Passeios
+                            {% endif %}
+                        </a></h3>
+                    </div>
+                    <div id="bottom_list" class="col-sm-12 col-md-3">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
                                 <div class="modal fade"
-                                        id="exampleModal"
-                                        tabindex="-1"
-                                        role="dialog"
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
+                                     id="exampleModal"
+                                     tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -42,10 +52,10 @@
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
                                                     <input type="submit"
-                                                            name="signup"
-                                                            id="signup"
-                                                            class="form-submit"
-                                                            value="Salvar"/>
+                                                           name="signup"
+                                                           id="signup"
+                                                           class="form-submit"
+                                                           value="Salvar"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,9 +73,9 @@
                                 <th>Descrição</th>
                                 <th>PAX Mínimo</th>
                                 <th>Ocupação</th>
-                                <th>Tarifa de Grupo</th>
-                                <th>Opção de Passeio</th>
-                                <th>Somente Noturno</th>
+                                {% comment %} <th>Tarifa de Grupo</th> {% endcomment %}
+                                {% comment %} <th>Somente Noturno</th> {% endcomment %}
+                                <th>Valores</th>
                                 <th>Editar</th>
                                 <th>Deletar</th>
                             </tr>
@@ -73,19 +83,12 @@
                         <tbody>
                             {% for p in object_list %}
                                 <tr>
-                                    <td align="center">{{ p.name }}</td>
+                                    <td>{{ p.name }}</td>
                                     <td>{{ p.description|safe|truncatechars:"20" }}</td>
                                     <td align="center">{{ p.min_amount_pax }}</td>
                                     <td align="center">{{ p.occ_scale }}</td>
-                                    <td align="center">
+                                    {% comment %} <td align="center">
                                         {% if p.tariff_group %}
-                                            SIM
-                                        {% else %}
-                                            NÃO
-                                        {% endif %}
-                                    </td>
-                                    <td align="center">
-                                        {% if p.customer_option %}
                                             SIM
                                         {% else %}
                                             NÃO
@@ -97,7 +100,12 @@
                                         {% else %}
                                             NÃO
                                         {% endif %}
-                                    </td>                                   
+                                    </td> {% endcomment %}
+                                    <td align="center">
+                                        <a href="{% url 'trip:tripop_price_update' trip_option_id=p.pk %}" class="btn">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                        </a>
+                                    </td>
                                     <td align="center">
                                         <a href="{% url 'trip:trip_option_update' p.pk %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
@@ -110,10 +118,8 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                            <tbody>
-                            </table>
-                        </div>
-                    </div>
+                        <tbody>
+                    </table>    
                 </div>
             </div>
         </div>

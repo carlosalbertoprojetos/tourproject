@@ -28,14 +28,14 @@ class Validity(models.Model):
 
     def __str__(self):
         return self.year
-    
+
+
 class Season(models.Model):
     name = models.CharField('Nome', max_length=255)
     destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino Turístico')
     validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Vigência')
     active_company = models.BooleanField('Ativo Agência', default=False)
     active_sell = models.BooleanField('Ativo Venda', default=False)
-
 
     class Meta:
         verbose_name = 'Temporada'
@@ -45,18 +45,17 @@ class Season(models.Model):
         return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
         # return  self.name
 
+ 
 class Event(models.Model):
     name_event = models.CharField('Evento:', max_length=255)
     date_init = models.DateField('Data Inicial:')
     date_fin = models.DateField('Data Final:')
-    validity = models.ForeignKey(Validity, on_delete=models.DO_NOTHING, verbose_name='Vigência')
-    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino Turístico')
     season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    
+
     class Meta:
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
 
     def __str__(self):
-        return self.name_event      
-
+        return self.name_event  
+    

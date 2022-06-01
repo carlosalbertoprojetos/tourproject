@@ -1,5 +1,4 @@
- //dias habilitados entre 2022-2023
-    //janeiro  
+     //janeiro  
     let d1 = toDate("01/01/2022"),
     d2 = toDate("31/01/2022"),
     intervalos1 = [];

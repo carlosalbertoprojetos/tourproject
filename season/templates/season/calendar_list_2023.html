@@ -43,22 +43,18 @@
         <li class="nav-item">
           <a class="nav-link" href="#"></a>
         </li>                           
-      </ul>           
+      </ul>       
+             
       <div class="d-flex">
-        <a href="{% url 'season:season_event_detail' season.pk %}">
-          <button class="btn bg-gradient-primary" type="submit">Modelo Lista</button>
-        </a>     
-    </div>           
-    <div class="d-flex">
-        <a href="{% url 'season:calendar_event_detail' season.pk%}">
-          <button class="btn bg-gradient-success" type="submit">Modelo Calendário</button>
-        </a>     
-    </div>
-    <div class="d-flex">
-      <a href="{% url 'season:season_list_create' %}">
-        <button class="btn bg-gradient-red" type="submit">Voltar</button>
-      </a>     
-    </div>  
+            <a href="{% url 'season:validity_list_create' %}">
+              <button class="btn bg-gradient-warning" type="submit">Vigências</button>
+            </a>     
+      </div>           
+      <div class="d-flex">
+            <a href="{% url 'season:season_list_create' %}">
+              <button class="btn bg-gradient-red" type="submit">Temporadas</button>
+            </a>     
+      </div>
   </div>
 </nav>
 
@@ -68,9 +64,38 @@
       <div class="card-header p-1">
         <div class="row">    
           <div class="col-sm-12 col-md-6">                          
-            <h2 class="form-title m-2">Calendário de Eventos da - {{season.name}} de {{season.destiny.city}}-{{season.destiny.state}}</h2>
-          </div>          
-               
+              <h2 class="form-title m-2">Calendário de Eventos</h2>
+          </div>
+             
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>            
+            <li class="nav-item">              
+              <form action="">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">                    
+                    <button class="btn btn-outline-success" type="submit" onclick = "update()" >Atualizar</button>
+                  </div>
+                  <select class="custom-select" name="ano" id="ano">                  
+                    <option selected>Ano</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                  </select>            
+                </div>                                        
+              </form>                            
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>         
           <table class="table table-sm table-responsive" >
             <thead style="font-size: 14px !important;">
               <tr>
@@ -99,13 +124,76 @@
   </div>
 </div> 
 
-{% for c in event %}
 
-  <script>
-    eventos.add(event.name,event.data_init,event.data_fin)
-  </script>
+<!--
+<div class="container-fluid mt-2">
+  <div class="container-form">
+    <div class="card">
+      <div class="card-header p-1">
+        <div class="row">          
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>            
+            <li class="nav-item">              
+              <form action="">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">                    
+                    <button class="btn btn-outline-success" type="submit" onclick = "update()" >Atualizar</button>
+                  </div>
+                  <select class="custom-select" name="ano" id="ano">                  
+                    <option selected>Ano</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                  </select>   
+                </div>                                        
+              </form>                            
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+          </ul>  
+          <div class="col-sm-12 col-md-6">              
+            <h2 class="form-title m-2">Calendários de altas Temporadas</h2>                                
+          </div>
+          
+          <table class="table table-sm table-hover table-responsive">
+            <thead>
+              <tr>
+                <th scope="col"><div class="datepicker1" ></div></th>
+                <th scope="col"><div class="datepicker2" ></div></th>
+                <th scope="col"><div class="datepicker3" ></div></th>
+                <th scope="col"><div class="datepicker4" ></div></th>                
+              </tr>
+              <tr>
+                <th scope="col"><div class="datepicker5" ></div></th>
+                <th scope="col"><div class="datepicker6" ></div></th>
+                <th scope="col"><div class="datepicker7" ></div></th>
+                <th scope="col"><div class="datepicker8" ></div></th>                
+              </tr>
+              <tr>
+                <th scope="col"><div class="datepicker9" ></div></th>
+                <th scope="col"><div class="datepicker10" ></div></th>
+                <th scope="col"><div class="datepicker11" ></div></th>
+                <th scope="col"><div class="datepicker12" ></div></th>                
+              </tr>              
+            </thead>            
+          </table>          
+        </div>          
+      </div>
+    </div>
+  </div>
+</div>
+--> 
 
-{% endfor %}
+
 <script> 
   $(function(){
       $(document).on('click', '.btn-danger', function(e) {
@@ -129,7 +217,7 @@
     }    
   }
     
-    //2022
+    //2023
    //janeiro
   $('.datepicker1').datepicker({        
       dateFormat: "dd/mm/yy",                                              
@@ -137,12 +225,10 @@
       todayHighlight: true,
       autoApply: true,      
       toggleActive: true,      
-      defaultViewDate: { year: 2022, month: 0, day: 1 },        
-      startDate: new Date(2022, 1 -1, 1),
-      endDate: new Date(2022, 1 -1,31),
-      datesDisabled: intervalos1,
-      
-      
+      defaultViewDate: { year: 2023, month: 0, day: 1 },        
+      startDate: new Date(2023, 1 -1, 1),
+      endDate: new Date(2023, 1 -1,31),
+      datesDisabled: intervalos1,       
                             
   });
 
@@ -152,9 +238,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,
-      defaultViewDate: { year: 2022, month: 1, day: 1 },        
-      startDate: new Date(2022, 2 -1, 1),
-      endDate: new Date(2022, 2 -1,28),
+      defaultViewDate: { year: 2023, month: 1, day: 1 },        
+      startDate: new Date(2023, 2 -1, 1),
+      endDate: new Date(2023, 2 -1,28),
       datesDisabled: intervalos2,
                 
                           
@@ -166,9 +252,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,
-      defaultViewDate: { year: 2022, month: 2, day: 1 },        
-      startDate: new Date(2022, 3 -1, 1),
-      endDate: new Date(2022, 3 -1,31),
+      defaultViewDate: { year: 2023, month: 2, day: 1 },        
+      startDate: new Date(2023, 3 -1, 1),
+      endDate: new Date(2023, 3 -1,31),
       datesDisabled: intervalos3,
       
                           
@@ -180,9 +266,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,
-      defaultViewDate: { year: 2022, month: 3, day: 1 },        
-      startDate: new Date(2022, 4 -1, 1),
-      endDate: new Date(2022, 4 -1,30),
+      defaultViewDate: { year: 2023, month: 3, day: 1 },        
+      startDate: new Date(2023, 4 -1, 1),
+      endDate: new Date(2023, 4 -1,30),
       datesDisabled: intervalos4,
       
                           
@@ -194,30 +280,12 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true, 
-      defaultViewDate: { year: 2022, month: 4, day: 1 },            
-      startDate: new Date(2022, 5 -1, 1),
-      endDate: new Date(2022, 5 -1,31),
+      defaultViewDate: { year: 2023, month: 4, day: 1 },            
+      startDate: new Date(2023, 5 -1, 1),
+      endDate: new Date(2023, 5 -1,31),
       datesDisabled: intervalos5,
       
-      beforeShowDay: function(date){
-        if (date.getMonth() == 4){
-              switch (date.getDate()){
-                  
-                case 24:
-                  return {
-                    tooltip: 'Teste',
-                    classes: 'active'
-                  };
-                  
-                case 30:
-                  return {
-                    tooltip: ['Perene'],
-                    classes: 'active'
-                  };          
-                
-              }        
-        }                                    
-      }                            
+                     
   });
 
   //junho 
@@ -226,32 +294,10 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,
-      defaultViewDate: { year: 2022, month: 5, day: 1 },        
-      startDate: new Date(2022, 6 -1, 1),
-      endDate: new Date(2022, 6 -1,30),
-      datesDisabled: intervalos6,
-
-
-      beforeShowDay: function(date){
-        if (date.getMonth() == 5){
-              switch (date.getDate()){
-                  
-                case 24:
-                  return {
-                    tooltip: 'Festa Julina',
-                    classes: 'active'
-                  };
-                  
-                case 27:
-                  return {
-                    tooltip: ['Festa Julina'],
-                    classes: 'active'
-                  };          
-                
-              }        
-        }                                    
-      }
-     
+      defaultViewDate: { year: 2023, month: 5, day: 1 },        
+      startDate: new Date(2023, 6 -1, 1),
+      endDate: new Date(2023, 6 -1,30),
+      datesDisabled: intervalos6,      
                           
   });
 
@@ -261,9 +307,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,
-      defaultViewDate: { year: 2022, month: 6, day: 1 },        
-      startDate: new Date(2022, 7 -1, 1),
-      endDate: new Date(2022, 7 -1,31),
+      defaultViewDate: { year: 2023, month: 6, day: 1 },        
+      startDate: new Date(2023, 7 -1, 1),
+      endDate: new Date(2023, 7 -1,31),
       datesDisabled: intervalos7,
                           
   });
@@ -274,9 +320,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,   
-      defaultViewDate: { year: 2022, month: 7, day: 1 },     
-      startDate: new Date(2022, 8 -1, 1),
-      endDate: new Date(2022, 8 -1,31),
+      defaultViewDate: { year: 2023, month: 7, day: 1 },     
+      startDate: new Date(2023, 8 -1, 1),
+      endDate: new Date(2023, 8 -1,31),
       datesDisabled: intervalos8,
      
                           
@@ -288,9 +334,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,   
-      defaultViewDate: { year: 2022, month: 8, day: 1 },     
-      startDate: new Date(2022, 9 -1, 1),
-      endDate: new Date(2022, 9 -1,30),
+      defaultViewDate: { year: 2023, month: 8, day: 1 },     
+      startDate: new Date(2023, 9 -1, 1),
+      endDate: new Date(2023, 9 -1,30),
       datesDisabled: intervalos9,
      
                           
@@ -302,9 +348,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,  
-      defaultViewDate: { year: 2022, month: 9, day: 1 },      
-      startDate: new Date(2022, 10 -1, 1),
-      endDate: new Date(2022, 10 -1,31),
+      defaultViewDate: { year: 2023, month: 9, day: 1 },      
+      startDate: new Date(2023, 10 -1, 1),
+      endDate: new Date(2023, 10 -1,31),
       datesDisabled: intervalos10,       
                           
   });
@@ -315,9 +361,9 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true, 
-      defaultViewDate: { year: 2022, month: 10, day: 1 },       
-      startDate: new Date(2022, 11 -1, 1),
-      endDate: new Date(2022, 11 -1,30),
+      defaultViewDate: { year: 2023, month: 10, day: 1 },       
+      startDate: new Date(2023, 11 -1, 1),
+      endDate: new Date(2023, 11 -1,30),
       datesDisabled: intervalos11,       
                           
   }); 
@@ -328,27 +374,12 @@
       language: ['pt-BR'],
       todayHighlight: true,
       autoApply: true,
-      defaultViewDate: { year: 2022, month: 11, day: 1 },        
-      startDate: new Date(2022, 12 -1, 1),
-      endDate: new Date(2022, 12 -1,31),
+      defaultViewDate: { year: 2023, month: 11, day: 1 },        
+      startDate: new Date(2023, 12 -1, 1),
+      endDate: new Date(2023, 12 -1,31),
       datesDisabled: intervalos12,       
                           
-  }); 
-
-  //2023
-   //janeiro 
-      
-  $('.datepicker-1-2023').datepicker({        
-      dateFormat: "dd/mm/yy",                                              
-      language: ['pt-BR'],
-      todayHighlight: true,
-      autoApply: true,      
-      defaultViewDate: { year: 2023, month: 0, day: 1 },        
-      startDate: new Date(2023, 1 -1, 1),
-      endDate: new Date(2023, 1 -1,31),
-      datesDisabled: intervalos1,
-                              
-  });
+  });  
   
 </script> 
 {% endblock %}

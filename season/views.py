@@ -2,7 +2,7 @@ import pdb
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
@@ -12,28 +12,92 @@ from .models import Season, Validity, Event
 
 
 #===============================================================================
-# CALENDÁRIO
+# EVENTO
 
-class EventListCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+def event_create(request, pk):
+    
+    if pk == None:
+        get_object_or_404(Event, pk=pk)
+    else:
+        print(pk)
+        context = {}
+        form = EventForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+
+        context["form"] = form
+        return render(request, "season/season_event_list_create.html", context)
+
+
+def calendar_event_detail(request, pk):
+    if pk == None :
+        event = get_object_or_404(Season, pk=pk)
+    else:
+        #pdb.set_trace()
+        event = Event.objects.filter(season=pk)
+        season = Season.objects.get(pk=pk)
+        context = {
+            'event':event,
+            'season': season,            
+            }    
+        
+        return render(request, 'season/calendar_list.html', context)
+     
+def season_event_detail(request, pk):
+    #pdb.set_trace()
+    form = EventForm(request.POST or None)
+    event = Event.objects.filter(season=pk)
+    season = Season.objects.get(pk=pk)
+    context = {
+        'event':event,
+        'season': season,
+        'form': form,            
+    }               
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Evento salvo com sucesso!!!')    
+        return render(request, 'season/season_event_list_create.html', context)
+    else:         
+         return render(request, 'season/season_event_list_create.html', context)
+
+def update_view(request, pk):    
+    
+    context ={}    
+    obj = get_object_or_404(Event, pk=pk)    
+    form = EventForm(request.POST or None, instance = obj)       
+    if form.is_valid():
+        form.save()
+        return render(request, 'season/season_event_list_create.html')
+   
+    context["form"] = form 
+    return render(request, "season/season_event_list_create.html", context)
+
+class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Event
-    template_name = 'season/event_list_create.html'
+    template_name = 'season/event_delete.html'
+    success_message = 'Evento deletada com sucesso!'
+    success_url = _('season/season_event_list_create.html')
 
-    def get_context_data(self, **kwargs):
-        context = super(EventListCreateView, self).get_context_data(**kwargs)
-        context['form'] = EventForm(self.request.POST or None)
-        return context
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,self.success_message)
+        return super(EventDeleteView, self).delete(request, *args, **kwargs)
 
-    def post(self,request, *args, **kwargs):            
-            form = EventForm(request.POST or None)
-            #pdb.set_trace()
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:event__list_create')
-            else:
-                messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/event_list_create.html', {'object':'object','form': form})
-event_list_create = EventListCreateView.as_view()
+event_delete = EventDeleteView.as_view()
+
+
+
+class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Event    
+    fields = '__all__'
+    template_name = 'season/event_update.html'
+    success_message = 'Evento alterado com sucesso!!!'
+    #reverse('admin:app_list', kwargs={'app_label': 'auth'})
+    success_url = _('season:season_event_list_create', kwargs={'pk': 'pk'})
+
+event_update = EventUpdateView.as_view()
+
+#===============================================================================
+# CALENDÁRIO
 
 class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
     model = Event
@@ -46,39 +110,6 @@ class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
     
 calendar_list = CalendarListView.as_view()
 
-class CalendarCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
-    model = Event
-    template_name = 'season/calendar_create.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CalendarCreateView, self).get_context_data(**kwargs)
-        context['form'] = EventForm(self.request.POST or None)
-        return context
-
-    def post(self,request, *args, **kwargs):            
-            form = EventForm(request.POST or None)
-            #pdb.set_trace()
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:calendar_create')
-            else:
-                messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/calendar_create.html', {'object':'object','form': form})
-
-calendar_create = CalendarCreateView.as_view()
-
-class CalendarDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Event
-    template_name = 'season/event_delete.html'
-    success_message = 'Evento deletada com sucesso!'
-    success_url = _('season:event_list_create')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(CalendarDeleteView, self).delete(request, *args, **kwargs)
-
-event_delete = CalendarDeleteView.as_view()
 #=====================================================================================================
 # VIGÊNCIA
 
