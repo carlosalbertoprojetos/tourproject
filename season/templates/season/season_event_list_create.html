@@ -111,7 +111,7 @@
                 <td align="center">{{ e.date_init |date:'d/m/Y' }}</td>
                 <td align="center">{{ e.date_fin |date:'d/m/Y' }}</td>       
                 <td align="center">
-                  <a href="{% url 'season:update_view' e.id %}" class="btn">
+                  <a href="{% url 'season:event_update' e.pk %}" class="btn">
                       <i class="fas fa-calendar"></i>
                   </a>
               </td>

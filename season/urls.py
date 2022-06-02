@@ -4,9 +4,9 @@ from .views import (
    
     season_delete, season_list_create, season_update,
     validity_list_create, validity_delete, validity_update,
-    event_delete,event_update, season_event_detail, 
-    calendar_event_detail, update_view
-) 
+    event_delete, season_event_detail, calendar_event_detail, 
+    event_update
+)
 
 app_name = 'season'
 
@@ -14,7 +14,7 @@ urlpatterns = [
     
     #EVENTO
     path('<int:pk>/event/detail/', season_event_detail, name='season_event_detail'),
-    path('<int:pk>/event/edit/', update_view, name='update_view'),
+    path('<int:pk>/event/edit/', event_update, name='event_update'),
     path('<int:pk>/event/delete/', event_delete, name='event_delete'),    
     #============================================================================
     #CALEDÁRIO

@@ -1,7 +1,9 @@
 import pdb
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
@@ -13,21 +15,49 @@ from .models import Season, Validity, Event
 
 #===============================================================================
 # EVENTO
-
-def event_create(request, pk):
+def season_event_detail(request, pk):
+    #pdb.set_trace()
+    context = {}
+    form = EventForm(request.POST or None)
+    event = Event.objects.filter(season=pk)
+    season = Season.objects.get(pk=pk)
+    context = {
+        'event':event,
+        'season': season,
+        'form': form,            
+    }               
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Evento salvo com sucesso!!!')    
+        return render(request, 'season/season_event_list_create.html', context)
+    else:         
+         return render(request, 'season/season_event_list_create.html', context)   
     
-    if pk == None:
-        get_object_or_404(Event, pk=pk)
-    else:
-        print(pk)
-        context = {}
-        form = EventForm(request.POST or None)
-        if form.is_valid():
-            form.save()
 
-        context["form"] = form
-        return render(request, "season/season_event_list_create.html", context)
+class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Event
+    template_name = 'season/event_delete.html'
+    success_message = 'Evento deletado com sucesso!'
+    success_url = _('season:season_list_create')
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,self.success_message)
+        return super(EventDeleteView, self).delete(request, *args, **kwargs)
+
+event_delete = EventDeleteView.as_view()
+
+class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Event    
+    fields = '__all__'
+    template_name = 'season/event_update.html'
+    success_message = 'Evento alterado com sucesso!!!'
+    #reverse('admin:app_list', kwargs={'app_label': 'auth'})
+    success_url = _('season:season_list_create')
+
+event_update = EventUpdateView.as_view()
+
+#===============================================================================
+# CALENDÁRIO
 
 def calendar_event_detail(request, pk):
     if pk == None :
@@ -42,73 +72,6 @@ def calendar_event_detail(request, pk):
             }    
         
         return render(request, 'season/calendar_list.html', context)
-     
-def season_event_detail(request, pk):
-    #pdb.set_trace()
-    form = EventForm(request.POST or None)
-    event = Event.objects.filter(season=pk)
-    season = Season.objects.get(pk=pk)
-    context = {
-        'event':event,
-        'season': season,
-        'form': form,            
-    }               
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Evento salvo com sucesso!!!')    
-        return render(request, 'season/season_event_list_create.html', context)
-    else:         
-         return render(request, 'season/season_event_list_create.html', context)
-
-def update_view(request, pk):    
-    
-    context ={}    
-    obj = get_object_or_404(Event, pk=pk)    
-    form = EventForm(request.POST or None, instance = obj)       
-    if form.is_valid():
-        form.save()
-        return render(request, 'season/season_event_list_create.html')
-   
-    context["form"] = form 
-    return render(request, "season/season_event_list_create.html", context)
-
-class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Event
-    template_name = 'season/event_delete.html'
-    success_message = 'Evento deletada com sucesso!'
-    success_url = _('season/season_event_list_create.html')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(EventDeleteView, self).delete(request, *args, **kwargs)
-
-event_delete = EventDeleteView.as_view()
-
-
-
-class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Event    
-    fields = '__all__'
-    template_name = 'season/event_update.html'
-    success_message = 'Evento alterado com sucesso!!!'
-    #reverse('admin:app_list', kwargs={'app_label': 'auth'})
-    success_url = _('season:season_event_list_create', kwargs={'pk': 'pk'})
-
-event_update = EventUpdateView.as_view()
-
-#===============================================================================
-# CALENDÁRIO
-
-class CalendarListView(LoginRequiredMixin, SuccessMessageMixin,ListView):
-    model = Event
-    template_name = 'season/calendar_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CalendarListView, self).get_context_data(**kwargs)
-        context['form'] = EventForm(self.request.POST or None)
-        return context
-    
-calendar_list = CalendarListView.as_view()
 
 #=====================================================================================================
 # VIGÊNCIA
