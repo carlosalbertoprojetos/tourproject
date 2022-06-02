@@ -156,15 +156,12 @@ def delete_trip_cadpax_prices(sender, instance, **kwargs):
 
 @receiver(m2m_changed, sender=Trip.cadpax.through)
 def create_trip_cadpax_prices(sender, instance, **kwargs):
-    # if created:
-    print('CRIADO!!!')
     # Seleciona a trip
     trip = Trip.objects.filter(id=instance.id)
-    print(trip)
     # Verifica se há activity (trip-option) para a trip   
     options = TripOption.objects.filter(trip_id=instance.id).first()
     # Seleciona os registros de preço por activity (trip_option)
-    price = TripPrice.objects.filter(trip_option_id=options.id)
+    price = TripPrice.objects.filter(trip_option_id=options)
     # for i in price:
     #     print(i.trip_option_id)
     # Seleciona as cadpax registradas por trip
