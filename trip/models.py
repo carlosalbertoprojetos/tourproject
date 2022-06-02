@@ -16,7 +16,6 @@ class TripCategoryPax(models.Model):
         verbose_name = "Categoria PAX de Passeio"
         verbose_name_plural = "Categorias PAX de Passeio"
 
-
 class TripCategory(models.Model):
     name = models.CharField('Categoria', max_length=255, unique=True)
     description = models.TextField('Descrição', blank=True)

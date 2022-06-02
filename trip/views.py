@@ -48,7 +48,7 @@ class TripCategoryPaxUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
     form_class = TripCategoryPaxForm
     template_name = 'trip/trip_categorypax_update.html'
     success_message = 'Categoria PAX de Passeio atualizada com sucesso!!!'
-    success_url = _('trip:categorypax_list_create')
+    success_url = _('trip:trip_categorypax_list_create')
 
 trip_categorypax_update = TripCategoryPaxUpdateView.as_view()
 
@@ -57,7 +57,7 @@ class TripCategoryPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteV
     model = TripCategoryPax
     template_name = 'trip/trip_categorypax_delete.html'
     success_message = 'Categoria PAX de Passeio deletada com sucesso!!!'
-    success_url = _('trip:categorypax_list_create')
+    success_url = _('trip:trip_categorypax_list_create')
 
     def delete(self, request, *args, **kwargs):
         return super(TripCategoryPaxDeleteView, self).delete(request, *args, **kwargs)
