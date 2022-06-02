@@ -154,11 +154,13 @@ def delete_trip_cadpax_prices(sender, instance, **kwargs):
                 TripPrice.objects.filter(id=i.id).delete()
 
 
-@receiver(post_save, sender=Trip)
-# @receiver(post_save, sender=TripCadPaxTrip)
-def create_trip_cadpax_prices(sender, instance, created, **kwargs):
+@receiver(m2m_changed, sender=Trip.cadpax.through)
+def create_trip_cadpax_prices(sender, instance, **kwargs):
+    # if created:
+    print('CRIADO!!!')
     # Seleciona a trip
     trip = Trip.objects.filter(id=instance.id)
+    print(trip)
     # Verifica se há activity (trip-option) para a trip   
     options = TripOption.objects.filter(trip_id=instance.id).first()
     # Seleciona os registros de preço por activity (trip_option)
@@ -235,3 +237,4 @@ def create_trip_cadpax_prices(sender, instance, created, **kwargs):
                                 sea = Season.objects.get(id=d.id)
                                 form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00)
                                 form.save()
+
