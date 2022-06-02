@@ -146,7 +146,7 @@ class TripPrice(models.Model):
 def delete_trip_cadpax_prices(sender, instance, **kwargs):
     tcp = TripPrice.objects.filter(cadpax_id=instance.cadpax_id)    
     to = TripOption.objects.filter(trip_id=instance.trip_id)
-    
+
     for i in tcp:
         for j in to:
             if i.trip_option_id == j.id:
@@ -163,9 +163,10 @@ def create_trip_cadpax_prices(sender, instance, created, **kwargs):
     options = TripOption.objects.filter(trip_id=instance.id).first()
     # Seleciona os registros de preço por activity (trip_option)
     price = TripPrice.objects.filter(trip_option_id=options.id)
+    # for i in price:
+    #     print(i.trip_option_id)
     # Seleciona as cadpax registradas por trip
     cadpax = TripCadPaxTrip.objects.filter(trip_id=instance.id)
-
     # Seleciona as activities (trip_options) por trip
     to_all = TripOption.objects.filter(trip_id=instance.id)
     season = Season.objects.all()
@@ -180,13 +181,18 @@ def create_trip_cadpax_prices(sender, instance, created, **kwargs):
                         if c.trip == a:
                             for d in season:
                                 if d.destiny == a.destiny:
-                                    print(f'TO {b.id} , CA {c.cadpax_id}, TE {d.id}')
+                                    # print(f'TO {b.id} , CA {c.cadpax_id}, TE {d.id}')
                                     top = TripOption.objects.get(id=b.id)
                                     tca = TripCategoryPax.objects.get(id=c.cadpax_id)
                                     sea = Season.objects.get(id=d.id)
                                     form = TripPrice(trip_option=top, cadpax=tca, season=sea, price=0.00)
                                     form.save()
+        elif not cadpax:
+            print('Não há cadastro pax para esta trip!')
 
+        elif not options:
+            print('Não há atividade(opção) para esta trip!')
+                    
     else: # Se não existir registro de preços para a trip
         # Seleciona todos os cadpax da trip
         cpt=[]
@@ -223,7 +229,7 @@ def create_trip_cadpax_prices(sender, instance, created, **kwargs):
                     for c in criar: # para cada cadpax da trip
                         for d in season: # para cada temporada
                             if d.destiny_id == a.destiny_id:
-                                print(f'TO {b.id}, CA {c}, TE {d.id}')
+                                # print(f'TO {b.id}, CA {c}, TE {d.id}')
                                 top = TripOption.objects.get(id=b.id)
                                 tca = TripCategoryPax.objects.get(id=c)
                                 sea = Season.objects.get(id=d.id)
