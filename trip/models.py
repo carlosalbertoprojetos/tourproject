@@ -119,7 +119,7 @@ class TripOption(models.Model):
     ]
 
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name='Passeio')
-    name = models.CharField('Nome', max_length=255)
+    name = models.CharField('Atividade', max_length=255)
     description = models.TextField('Descrição do passeio', blank=True)
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
     occ_scale = models.CharField('Escala de Ocupação diária (1 a 10)', max_length=2, choices=SCALE_CHOICE)

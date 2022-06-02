@@ -195,7 +195,7 @@ class TripOptionListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView
         form = TripOptionsForm(request.POST or None)
         if form.is_valid():
             form = form.save(commit=True)
-            messages.success(request, 'Opção de Passeio criada com sucesso!!!')
+            messages.success(request, 'Atividade de Passeio criada com sucesso!!!')
             # return redirect(_('trip:trip_option_list_create', kwargs={'trip_id': self.object.trip}))
             return redirect('trip:trip_list_create')
         else:
@@ -211,7 +211,7 @@ class TripOptionUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = TripOption
     form_class = TripOptionsForm
     template_name = 'trip/trip_option_update.html'
-    success_message = 'Opção de Passeio atualizada com sucesso!!!'
+    success_message = 'Atividade de Passeio atualizada com sucesso!!!'
 
     def get_success_url(self):
         return _('trip:trip_option_list_create', kwargs={'trip_id': self.object.trip_id})
@@ -222,7 +222,7 @@ trip_option_update = TripOptionUpdateView.as_view()
 class TripOptionDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TripOption
     template_name = 'trip/trip_option_delete.html'
-    success_message = 'Opção de Passeio deletada com sucesso!!!'
+    success_message = 'Atividade de Passeio deletada com sucesso!!!'
     # success_url = _('trip:trip_option_list_create', kwargs=['id'])
 
     def get_success_url(self):
@@ -290,7 +290,7 @@ def trip_price_update_tr(request, trip_id):
             return render(request, 'trip/trip_price_update_tr.html', context)
 
     except:
-        messages.success(request, 'Crie Opções de passeio antes de lançar os valores.')
+        messages.success(request, 'Cadastre "Atividades" antes de lançar valores.')
         return redirect(_('trip:trip_list_create'))
 
 
