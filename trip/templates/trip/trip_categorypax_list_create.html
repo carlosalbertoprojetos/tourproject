@@ -57,7 +57,6 @@
                             <tr>
                                 <th>Categoria PAX</th>
                                 <th>Editar</th>
-                                <th>Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,11 +66,6 @@
                                 <td align="center">
                                     <a href="{% url 'trip:trip_categorypax_update' c.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>
-                                    </a>
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'trip:trip_categorypax_delete' c.pk %}" class="btn">
-                                        <i class="fas fa-solid fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

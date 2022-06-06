@@ -13,9 +13,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import (TripCategoryForm, TripCategoryPaxForm, TripForm,
                     TripOptionsForm, TripPriceForm)
 from .models import (Trip, TripCategory, TripCategoryPax, TripOption,
-                     TripPrice, TripCadPaxTrip)
-
-from season.models import Season
+                     TripPrice)
 
 
 #===============================================================================
@@ -53,16 +51,16 @@ class TripCategoryPaxUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateV
 trip_categorypax_update = TripCategoryPaxUpdateView.as_view()
 
 
-class TripCategoryPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = TripCategoryPax
-    template_name = 'trip/trip_categorypax_delete.html'
-    success_message = 'Categoria PAX de Passeio deletada com sucesso!!!'
-    success_url = _('trip:trip_categorypax_list_create')
+# class TripCategoryPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+#     model = TripCategoryPax
+#     template_name = 'trip/trip_categorypax_delete.html'
+#     success_message = 'Categoria PAX de Passeio deletada com sucesso!!!'
+#     success_url = _('trip:trip_categorypax_list_create')
 
-    def delete(self, request, *args, **kwargs):
-        return super(TripCategoryPaxDeleteView, self).delete(request, *args, **kwargs)
+#     def delete(self, request, *args, **kwargs):
+#         return super(TripCategoryPaxDeleteView, self).delete(request, *args, **kwargs)
 
-trip_categorypax_delete = TripCategoryPaxDeleteView.as_view()
+# trip_categorypax_delete = TripCategoryPaxDeleteView.as_view()
 
 
 #===============================================================================

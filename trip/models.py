@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save, post_delete, m2m_changed, post_migrate
+from django.db.models.signals import post_save, post_delete, m2m_changed
 from django.dispatch import receiver
 from django.utils.text import slugify
 
@@ -91,7 +91,7 @@ class Trip(models.Model):
         return self.name
 
 
-class TripCadPaxTrip(models.Model):
+class TripCadPaxTrip(models.Model): 
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.CASCADE)
 
@@ -123,17 +123,18 @@ class TripOption(models.Model):
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
     occ_scale = models.CharField('Escala de Ocupação diária (1 a 10)', max_length=2, choices=SCALE_CHOICE)
     tariff_group = models.BooleanField('A tarifa é de Grupo',)
-    customer_option = models.BooleanField('A opção pode ser selecionada pelos clientes nos sites?',)
-    night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?',)
+    customer_option = models.BooleanField('A opção pode ser selecionada pelos clientes nos sites?')
+    night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?')
+    # cadpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True, through='TripCadPaxTrip')
 
     def __str__(self):
         return self.name
 
 
 class TripPrice(models.Model):
-    trip_option = models.ForeignKey(TripOption, on_delete=models.CASCADE, verbose_name='')
-    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.CASCADE, verbose_name='Categoria PAX')
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
+    trip_option = models.ForeignKey(TripOption, on_delete=models.DO_NOTHING, verbose_name='')
+    cadpax = models.ForeignKey(TripCategoryPax, on_delete=models.DO_NOTHING, verbose_name='Categoria PAX')
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
 
     def __str__(self):

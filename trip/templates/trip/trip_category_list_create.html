@@ -66,12 +66,12 @@
                             {% for c in object_list %}
                                 <td>{{ c.name }}</td>
                                 <td align="center">
-                                    <a href="{% url 'trip:trip_categorypax_update' c.pk %}" class="btn">
+                                    <a href="{% url 'trip:trip_category_update' c.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>
                                     </a>
                                 </td>
                                 <td align="center">
-                                    <a href="{% url 'trip:trip_categorypax_delete' c.pk %}" class="btn">
+                                    <a href="{% url 'trip:trip_category_delete' c.pk %}" class="btn">
                                         <i class="fas fa-solid fa-trash"></i>
                                     </a>
                                 </td>

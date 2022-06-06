@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (trip_categorypax_list_create, trip_categorypax_update, trip_categorypax_delete,
+from .views import (trip_categorypax_list_create, trip_categorypax_update, 
                     trip_category_list_create, trip_category_update, trip_category_delete,
                     trip_list_create, trip_delete, trip_update,
                     trip_option_list_create, trip_option_update, trip_option_delete, 
@@ -15,7 +15,7 @@ urlpatterns = [
     # CATEGORIA PAX DE PASSEIO
     path('categorypax/list/create/', trip_categorypax_list_create, name='trip_categorypax_list_create'),
     path('<int:pk>/categorypax/edit/', trip_categorypax_update, name='trip_categorypax_update'),
-    path('<int:pk>/categorypax/delete/', trip_categorypax_delete, name='trip_categorypax_delete'),
+    # path('<int:pk>/categorypax/delete/', trip_categorypax_delete, name='trip_categorypax_delete'),
     
     #===============================================================================
     # CATEGORIA DE PASSEIO
