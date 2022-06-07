@@ -1,14 +1,8 @@
 from django import forms
+from django.forms.widgets import CheckboxSelectMultiple
 
+from .models import TripCategory, Trip, CategoryPax, ActivityCatPax, Activity, ActivityPrice
 from destiny.models import Destiny
-from .models import Trip, TripCategory, TripCategoryPax, TripOption, TripPrice
-
-
-class TripCategoryPaxForm(forms.ModelForm):
-    
-    class Meta:
-        model = TripCategoryPax
-        fields = '__all__'
 
 
 class TripCategoryForm(forms.ModelForm):
@@ -17,8 +11,6 @@ class TripCategoryForm(forms.ModelForm):
         model = TripCategory
         fields = '__all__'
 
-
-from django.forms.widgets import CheckboxSelectMultiple
 
 class TripForm(forms.ModelForm):
     destiny = forms.ModelChoiceField(queryset=Destiny.objects.all(), empty_label=None)
@@ -37,24 +29,28 @@ class TripForm(forms.ModelForm):
             {'class': 'mask-hora'})
         self.fields['commission'].widget.attrs.update(
             {'class': 'mask-perc'})
-        self.fields['cadpax'].widget = CheckboxSelectMultiple()
-        self.fields['cadpax'].queryset = TripCategoryPax.objects.all()
 
-# class TripCategoriesCadPAXForm(forms.ModelForm):
 
-#     class Meta:
-#         model = TripCategoriesCadPAX
-#         fields = '__all__'
+class CategoryPaxForm(forms.ModelForm):    
+    class Meta:
+        model = CategoryPax
+        fields = '__all__'
 
-class TripOptionsForm(forms.ModelForm):
+
+class ActivityForm(forms.ModelForm):
 
     class Meta:
-        model = TripOption
+        model = Activity
         fields = '__all__'
-        # exclude = ['trip']
 
-class TripPriceForm(forms.ModelForm):
-    # trip_option = forms.CharField(label='',
+    def __init__(self, *args, **kwargs):
+        super(ActivityForm, self).__init__(*args, **kwargs)
+        self.fields['cadpax'].widget = CheckboxSelectMultiple()
+        self.fields['cadpax'].queryset = CategoryPax.objects.all()
+
+
+class ActivityPriceForm(forms.ModelForm):
+    # activity = forms.CharField(label='',
     #     widget=forms.TextInput(
     #         attrs={'readonly': 'readonly'}
     #         )
@@ -79,23 +75,14 @@ class TripPriceForm(forms.ModelForm):
     #         )
     #     )
     class Meta:
-        model = TripPrice
+        model = ActivityPrice
         # fields = '__all__'
-        fields = ['trip_option', 'price',]
+        fields = ['activity', 'price',]
         widgets = {
-            'trip_option':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
+            'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
             # 'cadpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'season':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
             }
         labels = {"price":'',}
-        # labels = {"trip_option":'', "cadpax":'', "season":'', "price":'',}
-
-
-    # def __init__(self, *args, **kwargs):
-    #     super(TripPriceForm, self).__init__(*args, **kwargs)
-    #     self.fields['price'].widget.attrs.update(
-    #         {'class': 'mask-real text-center p-1'})
-    #     self.fields['trip_option'].widget.attrs["type"] = 'hidden'
-
 

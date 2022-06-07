@@ -1,45 +1,47 @@
 from django.urls import path
 
-from .views import (trip_categorypax_list_create, trip_categorypax_update, 
+from .views import (categorypax_list_create, categorypax_update, categorypax_delete, 
                     trip_category_list_create, trip_category_update, trip_category_delete,
+                    
                     trip_list_create, trip_delete, trip_update,
-                    trip_option_list_create, trip_option_update, trip_option_delete, 
-                    trip_price_list_create, trip_price_update, trip_price_delete, trip_price_update_tr
+                    
+                    activity_list_create, activity_update, activity_delete, 
+                    
+                    activity_price_list_create, activity_price_update_tr, activity_price_update, activity_price_delete
                     )
 
 app_name = 'trip'
 
 
-urlpatterns = [
-    #===============================================================================
-    # CATEGORIA PAX DE PASSEIO
-    path('categorypax/list/create/', trip_categorypax_list_create, name='trip_categorypax_list_create'),
-    path('<int:pk>/categorypax/edit/', trip_categorypax_update, name='trip_categorypax_update'),
-    # path('<int:pk>/categorypax/delete/', trip_categorypax_delete, name='trip_categorypax_delete'),
-    
-    #===============================================================================
+urlpatterns = [    
+    #=================================================================
     # CATEGORIA DE PASSEIO
     path('category/list/create/', trip_category_list_create, name="trip_category_list_create"), 
     path('<int:pk>/category/edit/', trip_category_update, name='trip_category_update'),
     path('<int:pk>/category/delete/', trip_category_delete, name='trip_category_delete'),
     
-    #===============================================================================
+    #=================================================================
     # PASSEIO
     path('list/create/', trip_list_create, name='trip_list_create'),
     path('<int:pk>/edit/', trip_update, name='trip_update'),
     path('<int:pk>/delete/', trip_delete, name='trip_delete'),
     
-    #===============================================================================
-    # OPÇÕES DE PASSEIO
-    path('<trip_id>/options/list/create/', trip_option_list_create, name='trip_option_list_create'),
-    path('<int:pk>/option/edit/', trip_option_update, name='trip_option_update'),
-    path('<int:pk>/option/delete/', trip_option_delete, name='trip_option_delete'),
-    path('<int:pk>/delete/', trip_delete, name='trip_delete'),
+    #=================================================================
+    # CATEGORIA PAX
+    path('categorypax/list/create/', categorypax_list_create, name='categorypax_list_create'),
+    path('<int:pk>/categorypax/edit/', categorypax_update, name='categorypax_update'),
+    path('<int:pk>/categorypax/delete/', categorypax_delete, name='categorypax_delete'),
+    
+    #=================================================================
+    # ATIVIDADES
+    path('<trip_id>/activity/list/create/', activity_list_create, name='activity_list_create'),
+    path('<trip_id>/activity/edit/', activity_update, name='activity_update'),
+    path('<int:pk>/activity/delete/', activity_delete, name='activity_delete'),
 
-    #===============================================================================
-    # PREÇOS DOS PASSEIOS
-    path('<trip_op_id>/price_trip/list/create/', trip_price_list_create, name='trip_price_list_create'),
-    path('<trip_id>/price_trip/edit1/', trip_price_update_tr, name='trip_price_update_tr'),
-    path('<trip_option_id>/price_op_trip/edit/', trip_price_update, name='tripop_price_update'),
-    path('<int:pk>/price_trip/delete/', trip_price_delete, name='trip_price_delete'),
+    #=================================================================
+    # PREÇOS DAS ATIVIDADES
+    path('<trip_id>/price_activity/list/create/', activity_price_list_create, name='activity_price_list_create'),
+    path('<trip_id>/price_activity/edittr/', activity_price_update_tr, name='activity_price_update_tr'),
+    path('<trip_id>/price_activity/edit/', activity_price_update, name='activity_price_update'),
+    path('<int:pk>/price_activity/delete/', activity_price_delete, name='activity_price_delete'),
 ]

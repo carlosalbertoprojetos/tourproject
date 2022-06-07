@@ -31,14 +31,14 @@
                         <tbody>
                             {% for p in object_list %}
                                 <tr>
-                                    <td>{{ p.trip_option_id.trip }}
-                                    <td>{{ p.trip_option_id }}</td>
+                                    <td>{{ p.trip_activity_id.trip }}
+                                    <td>{{ p.trip_activity_id }}</td>
                                     <td>{{ p.cadpax }}</td>
                                     <td>{{ p.season }}</td>
                                     <td>{{ p.price }}</td>
                                     <td align="center">
-                                        {% comment %} <a href="{% url 'trip:trip_price_update' p.trip_option_id %}" class="btn"> {% endcomment %}
-                                        <a href="{ url 'trip:trip_price_update' p.trip_option_id %}" class="btn">
+                                        {% comment %} <a href="{ url 'trip:activity_price_update' p.trip_activity_id %}" class="btn"> {% endcomment %}
+                                        <a href="{ url 'trip:activity_price_update' p.trip_activity_id %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                     </td>

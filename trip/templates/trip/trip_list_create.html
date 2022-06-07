@@ -74,12 +74,12 @@
                                         {% comment %} <td>{{ t.travel_time }}</td> {% endcomment %}
                                         <td align="center">{{ t.updated|date:'d/m/Y' }}</td>
                                         <td align="center">
-                                            <a href="{% url 'trip:trip_option_list_create' trip_id=t.pk %}" class="btn">
+                                            <a href="{% url 'trip:activity_list_create' trip_id=t.pk %}" class="btn">
                                                 <i class="fas fa-diagnoses"></i>
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <a href="{% url 'trip:trip_price_update_tr' trip_id=t.pk %}" class="btn">
+                                            <a href="{% url 'trip:activity_price_update_tr' trip_id=t.pk %}" class="btn">
                                                 <i class="fas fa-money-bill-wave"></i>
                                             </a>
                                         </td>
