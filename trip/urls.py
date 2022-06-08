@@ -35,7 +35,7 @@ urlpatterns = [
     #=================================================================
     # ATIVIDADES
     path('<trip_id>/activity/list/create/', activity_list_create, name='activity_list_create'),
-    path('<trip_id>/activity/edit/', activity_update, name='activity_update'),
+    path('<int:pk>/activity/edit/', activity_update, name='activity_update'),
     path('<int:pk>/activity/delete/', activity_delete, name='activity_delete'),
 
     #=================================================================
