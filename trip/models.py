@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete, m2m_changed
+from django.dispatch import receiver
 from django.utils.text import slugify
 
 from destiny.models import Destiny
@@ -60,7 +61,7 @@ class Trip(models.Model):
     
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
     
-    # cadpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True, related_name='catpax', through='TripCadPaxTrip')
+    # catpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True, related_name='catpax', through='TripCadPaxTrip')
     
     tour_notes = models.TextField('Notas do passeio', blank=True, default='teste')
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
@@ -110,7 +111,7 @@ class Activity(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name='Passeio')
     name = models.CharField('Atividade', max_length=255)
     description = models.TextField('Descrição do passeio', blank=True)
-    cadpax = models.ManyToManyField(CategoryPax, verbose_name=('Categoria PAX'), blank=True, through='ActivityCatPax')
+    catpax = models.ManyToManyField(CategoryPax, verbose_name=('Categoria PAX'), blank=True, through='ActivityCatPax')
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
     occ_scale = models.CharField('Escala de Ocupação diária (1 a 10)', max_length=2, choices=SCALE_CHOICE)
     tariff_group = models.BooleanField('A tarifa é de Grupo',)
@@ -123,90 +124,97 @@ class Activity(models.Model):
 
 class ActivityCatPax(models.Model): 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    cadpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE)
+    catpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE)
 
     # class Meta:
-    #     unique_together = [['Activity','cadpax']]
+    #     unique_together = [['Activity','catpax']]
 
     def __str__(self):
-        return str(self.cadpax)
+        return str(self.catpax)
 
 
 class ActivityPrice(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='')
-    cadpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE, verbose_name='Categoria PAX')
+    catpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE, verbose_name='Categoria PAX')
     season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
     price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
 
     def __str__(self):
         return self.activity
 
-""" 
-@receiver(post_save, sender=Activity)
-def create_trip_prices(sender, instance, created, **kwargs):
-    if created:
-        activity = Activity.objects.last()
-        trip = Trip.objects.filter(id=activity.trip.id)
-        cadpax = ActivityCatPax.objects.all()
-        season = Season.objects.all()
+# @receiver(m2m_changed, sender=Activity.catpax.through)
+# @receiver(post_save, sender=Activity)
+# def create_trip_prices(sender, instance, created, **kwargs):
+#     if created:
+#         trip=Trip.objects.filter(id=instance.trip_id)
+#         activity=Activity.objects.filter(id=instance.id)
+#         catpax= ActivityCatPax.objects.all()
+#         season=Season.objects.all()
+  
+#         for t in trip:
+#             print('TRIP', t.id)
+#             for a in activity:
+#                 print(f'  ATIVIDADE {a.id}')
+#                 for c in catpax:
+#                     if c.activity_id == instance.id:
+#                         print(f'    CATPAX {c.id}')
+#                         for s in season:
+#                             if t.destiny_id == s.destiny_id:
+#                                 print(f'      SEASON {s.id}')
+                                # ActivityPrice.objects.create(activity=instance, catpax=c.id, season=s.id, price=0.00) 
 
-        for a in trip:
-            for i in cadpax:
-                if i.trip == a:
-                    for s in season:
-                        if s.destiny == a.destiny:
-                            ActivityPrice.objects.create(activity=instance, cadpax=i.cadpax, season=s, price=0.00) """
 
-""" 
+"""
 @receiver(post_delete, sender=ActivityCatPax)
-def delete_trip_cadpax_prices(sender, instance, **kwargs):
-    tcp = ActivityPrice.objects.filter(cadpax_id=instance.cadpax_id)    
+def delete_trip_catpax_prices(sender, instance, **kwargs):
+    tcp = ActivityPrice.objects.filter(catpax_id=instance.catpax_id)    
     to = Activity.objects.filter(trip_id=instance.trip_id)
 
     for i in tcp:
         for j in to:
             if i.activity_id == j.id:
                 ActivityPrice.objects.filter(id=i.id).delete()
- """
+
+"""
 """ 
-@receiver(m2m_changed, sender=Activity.cadpax.through)
+@receiver(m2m_changed, sender=Activity.catpax.through)
 @receiver(post_save, sender=Activity)
-def create_trip_cadpax_prices(sender, instance, **kwargs):
+def create_trip_catpax_prices(sender, instance, **kwargs):
     # Seleciona a trip
     trip = Trip.objects.filter(id=instance.id)
     # Verifica se há activity para a trip   
     activities = Activity.objects.filter(trip_id=instance.id).first()
     # Seleciona os registros de preço por activity
     price = ActivityPrice.objects.filter(activity_id=activities)
-    # Seleciona as cadpax registradas por trip
-    cadpax = ActivityCatPax.objects.filter(trip_id=instance.id)
+    # Seleciona as catpax registradas por trip
+    catpax = ActivityCatPax.objects.filter(trip_id=instance.id)
     # Seleciona as activities por trip
     to_all = Activity.objects.filter(trip_id=instance.id)
     season = Season.objects.all()
 
     # Se não existir registro de preços para a trip
     if not price:
-        # se houver cadpax e activity para a trip, criar tabela de preços
-        if cadpax and activities:
+        # se houver catpax e activity para a trip, criar tabela de preços
+        if catpax and activities:
             for a in trip:
                 for b in to_all:
-                    for c in cadpax:
+                    for c in catpax:
                         if c.trip == a:
                             for d in season:
                                 if d.destiny == a.destiny:
-                                    # print(f'TO {b.id} , CA {c.cadpax_id}, TE {d.id}')
+                                    # print(f'TO {b.id} , CA {c.catpax_id}, TE {d.id}')
                                     top = Activity.objects.get(id=b.id)
-                                    tca = CategoryPax.objects.get(id=c.cadpax_id)
+                                    tca = CategoryPax.objects.get(id=c.catpax_id)
                                     sea = Season.objects.get(id=d.id)
-                                    form = ActivityPrice(activity=top, cadpax=tca, season=sea, price=0.00)
+                                    form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
                                     form.save()
 
     # Se existir registro de preços para a trip
     else: 
-        # Seleciona todos os cadpax da trip
+        # Seleciona todos os catpax da trip
         cpt=[]
-        for i in cadpax:
-            cpt.append(i.cadpax_id)
+        for i in catpax:
+            cpt.append(i.catpax_id)
         cpt=set(cpt)
 
         # Seleciona todos as activities por trip
@@ -217,16 +225,16 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
                 tot.append(i.id)
         tot=set(tot)
 
-        # Seleciona as cadpax da trip_price por activity
+        # Seleciona as catpax da trip_price por activity
         tp = ActivityPrice.objects.all()
         tcp=[]
         for j in tp:
             for i in tot:
                 if j.activity_id == i:
-                    tcp.append(j.cadpax_id)
+                    tcp.append(j.catpax_id)
         tcp=set(tcp)
 
-        # Seleciona os cadpaxes da trip_cadpax_trip que não estão na trip_price (devem ser criados)
+        # Seleciona os catpaxes da trip_catpax_trip que não estão na trip_price (devem ser criados)
         criar=[]
         for i in cpt:
             if not i in tcp:
@@ -235,14 +243,48 @@ def create_trip_cadpax_prices(sender, instance, **kwargs):
         if criar:
             for a in trip:
                 for b in tot: # para cada activity
-                    for c in criar: # para cada cadpax da trip
+                    for c in criar: # para cada catpax da trip
                         for d in season: # para cada temporada
                             if d.destiny_id == a.destiny_id:
                                 # print(f'TO {b.id}, CA {c}, TE {d.id}')
                                 top = Activity.objects.get(id=b)
                                 tca = CategoryPax.objects.get(id=c)
                                 sea = Season.objects.get(id=d.id)
-                                form = ActivityPrice(activity=top, cadpax=tca, season=sea, price=0.00)
+                                form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
                                 form.save()
 
  """
+
+def teste(id):
+    # filtro atividades por trip
+    trip=Trip.objects.filter(id=id)    
+    activity=Activity.objects.all()
+    catpax=ActivityCatPax.objects.all()
+    season=Season.objects.all()
+
+    # se há atividade para a trip e individualiza cada catpax da atividade
+    for t in trip:
+        print('TRIP', t.id)
+        for a in activity:
+            print(f'  ATIVIDADE {a.id}')
+            for c in catpax:
+                if a.id == c.activity_id:
+                    print(f'    CATPAX {c.id}')
+                    for s in season:
+                        if t.destiny_id == s.destiny_id:
+                            print(f'      SEASON {s.id}')
+
+        # for a in activity:
+        #     # tp = ActivityPrice.objects.filter(activity_id=activity.id)
+        #     for i in tp:
+        #         if i.activity_id == id:
+        #             catpax.append(i.catpax)
+        #             season.append(i.season)
+
+        # catpax=list(set(catpax))
+        # season=list(set(season))
+        
+        # print('CATPAX2', catpax)
+        # print(season)
+        
+# teste(1)

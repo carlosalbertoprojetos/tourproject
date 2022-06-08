@@ -45,8 +45,8 @@ class ActivityForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)
-        self.fields['cadpax'].widget = CheckboxSelectMultiple()
-        self.fields['cadpax'].queryset = CategoryPax.objects.all()
+        self.fields['catpax'].widget = CheckboxSelectMultiple()
+        self.fields['catpax'].queryset = CategoryPax.objects.all()
 
 
 class ActivityPriceForm(forms.ModelForm):
@@ -55,7 +55,7 @@ class ActivityPriceForm(forms.ModelForm):
     #         attrs={'readonly': 'readonly'}
     #         )
     #     )
-    # cadpax = forms.CharField(label='',
+    # catpax = forms.CharField(label='',
     #     widget=forms.TextInput(
     #         attrs={'readonly': 'readonly'}
     #         )
@@ -80,7 +80,7 @@ class ActivityPriceForm(forms.ModelForm):
         fields = ['activity', 'price',]
         widgets = {
             'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
-            # 'cadpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
+            # 'catpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'season':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
             }
