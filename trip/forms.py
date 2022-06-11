@@ -1,8 +1,9 @@
+from destiny.models import Destiny
 from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 
-from .models import TripCategory, Trip, CategoryPax, ActivityCatPax, Activity, ActivityPrice
-from destiny.models import Destiny
+from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
+                     Trip, TripCategory)
 
 
 class TripCategoryForm(forms.ModelForm):
@@ -80,9 +81,9 @@ class ActivityPriceForm(forms.ModelForm):
         fields = ['activity', 'price',]
         widgets = {
             'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
+            # 'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'catpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             # 'season':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
-            # 'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
+            'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
             }
-        labels = {"price":'',}
-
+        labels = {"price":''}

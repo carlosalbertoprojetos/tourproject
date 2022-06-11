@@ -1,5 +1,8 @@
 import imp
+
+from destiny.models import Destiny
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import modelformset_factory
@@ -7,16 +10,12 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
-
-from django.contrib.auth.decorators import login_required
-from destiny.models import Destiny
-
 from season.models import Season
 
-from .models import (ActivityCatPax, TripCategory, Trip, CategoryPax, Activity,
-                     ActivityPrice)
-from .forms import (TripCategoryForm, TripForm, CategoryPaxForm,
-                    ActivityForm, ActivityPriceForm)
+from .forms import (ActivityForm, ActivityPriceForm, CategoryPaxForm,
+                    TripCategoryForm, TripForm)
+from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
+                     Trip, TripCategory)
 
 
 #===============================================================================
@@ -232,190 +231,84 @@ class ActivityPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 activity_price_list_create = ActivityPriceListView.as_view()
 
 @login_required
-def activity_price_update_tr(request, trip_id):
+def activity_price_update(request, trip_id):
     activity=Activity.objects.filter(trip_id=trip_id)
+    trip=Trip.objects.filter(id=trip_id).first()
+    activity_price_formset = modelformset_factory(ActivityPrice, form=ActivityPriceForm, extra=0)
     
-    if activity.exists():
-        # existe atividade(activity) para o passeio(trip)
-        for a in activity:
-            catpax=ActivityCatPax.objects.filter(activity_id=a.id)
-            act_price=ActivityPrice.objects.filter(activity_id=a.id)
-            season=Season.objects.filter(destiny_id=a.trip.destiny_id)
-            
-            # existe catpax para esta activity
-            if catpax.exists():
-                cp_a=[]
-                cp_p=[]
-                # lista catpax da activity
-                for c in catpax:
-                    cp_a.append(c.catpax_id)
-                
-                if not act_price.exists():
-                    for c in cp_a:                    
-                        for s in season:
-                            print(a.id, c, s.id)
-                            top = Activity.objects.get(id=a.id)
-                            tca = CategoryPax.objects.get(id=c)
-                            sea = Season.objects.get(id=s.id)
-                            form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
-                            form.save()
+    try:
+        
+        if activity.exists():
+
+            # existe atividade(activity) para o passeio(trip)
+            for a in activity:
+                catpax=ActivityCatPax.objects.filter(activity_id=a.id)
+                act_price=ActivityPrice.objects.filter(activity_id=a.id)
+                season=Season.objects.filter(destiny_id=a.trip.destiny_id)
+
+                # existe catpax para esta activity
+                if catpax.exists():
+                    cp_a=[]
+                    cp_p=[]
+
+                    # lista catpax da activity
+                    for c in catpax:
+                        cp_a.append(c.catpax_id)
+
+                    if not act_price.exists():
+                        for c in cp_a:                    
+                            for s in season:
+                                top = Activity.objects.get(id=a.id)
+                                tca = CategoryPax.objects.get(id=c)
+                                sea = Season.objects.get(id=s.id)
+                                form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
+                                form.save()
+                    else:
+                        
+                        # lista catpax_price da activity
+                        for p in act_price:
+                            cp_p.append(p.catpax_id)
+                        cp_p_d=set(cp_a)-set(cp_p)
+                        
+                        # cria registro para cada activity, catpax, season, price
+                        for c in cp_p_d:                    
+                            for s in season:
+                                top = Activity.objects.get(id=a.id)
+                                tca = CategoryPax.objects.get(id=c)
+                                sea = Season.objects.get(id=s.id)
+                                form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
+                                form.save()
+
                 else:
-                    # lista catpax_price da activity
-                    for p in act_price:
-                        cp_p.append(p.catpax_id)
-                    cp_p_d=set(cp_a)-set(cp_p)
-                    for c in cp_p_d:                    
-                        for s in season:
-                            print(a.id, c, s.id)
-                            top = Activity.objects.get(id=a.id)
-                            tca = CategoryPax.objects.get(id=c)
-                            sea = Season.objects.get(id=s.id)
-                            form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
-                            form.save()
-            else:
-                print('Não há CATPAX cadastrado para esta ACTIVITY!')
-    else:
-        print('Não há ACTIVITY cadastrada para esta TRIP!')        
-
-    try:
-        if activity != '':
-            activity_price_formset = modelformset_factory(ActivityPrice, form=ActivityPriceForm, extra=0)
-
-            catpax=[]
-            season=[]
-            trip=[]
-
-            for a in activity:
-                trip=a.trip
-                tp = ActivityPrice.objects.filter(activity_id__trip_id=a.trip_id)
-                for i in tp:
-                    if i.activity_id == a.id:
-                        catpax.append(i.catpax)
-                        season.append(i.season)
-
-            catpax=list(set(catpax))
-            season=list(set(season))
-
-            if request.method == 'POST':
-                formset = activity_price_formset(request.POST, queryset=ActivityPrice.objects.filter(activity_id__trip_id=a.trip_id))
-
-                if formset.is_valid():
-                    instances = formset.save(commit=False)
-                    for instance in instances:
-                        instance.save()
-                    messages.success(request, 'Valores alterados com sucesso!!!')
-                    return redirect('trip:activity_price_update_tr', trip_id=a.trip_id)
-
-            formset = activity_price_formset(queryset=ActivityPrice.objects.filter(activity_id__trip_id=a.trip_id))
-
-            context = {
-                'season':season,
-                'cadpax':catpax,
-                'activity':activity,
-                'formset':formset,
-                'trip':trip,
-            }
-            return render(request, 'trip/activity_update_tr.html', context)
+                    print('Não há CATPAX cadastrado para esta ACTIVITY!')
 
     except:
-        messages.success(request, 'Cadastre "Atividades" antes de lançar valores.')
+        messages.success(request, 'Cadastre ao menos uma "Atividade" antes de lançar valores.')
         return redirect(_('trip:trip_list_create'))
     
-# activity_price_update_tr()
-
-""" 
-@login_required
-def activity_price_update_tr(request, trip_id):
-    activity = Activity.objects.filter(trip_id=trip_id)
-
-    try:
-        if activity != '':
-            activity_price_formset = modelformset_factory(ActivityPrice, form=ActivityPriceForm, extra=0)
-
-            catpax=[]
-            season=[]
-            trip=[]
-
-            for a in activity:
-                trip=a.trip
-                tp = ActivityPrice.objects.filter(activity_id__trip_id=a.trip_id)
-                for i in tp:
-                    if i.activity_id == a.id:
-                        catpax.append(i.catpax)
-                        season.append(i.season)
-
-            catpax=list(set(catpax))
-            season=list(set(season))
-
-            if request.method == 'POST':
-                formset = activity_price_formset(request.POST, queryset=ActivityPrice.objects.filter(activity_id__trip_id=a.trip_id))
-
-                if formset.is_valid():
-                    instances = formset.save(commit=False)
-                    for instance in instances:
-                        instance.save()
-                    messages.success(request, 'Valores alterados com sucesso!!!')
-                    return redirect('trip:activity_price_update_tr', trip_id=a.trip_id)
-
-            formset = activity_price_formset(queryset=ActivityPrice.objects.filter(activity_id__trip_id=a.trip_id))
-
-            context = {
-                'season':season,
-                'cadpax':catpax,
-                'activity':activity,
-                'formset':formset,
-                'trip':trip,
-            }
-            return render(request, 'trip/activity_update_tr.html', context)
-
-    except:
-        messages.success(request, 'Cadastre "Atividades" antes de lançar valores.')
-        return redirect(_('trip:trip_list_create'))
-
-"""
-
-@login_required
-def activity_price_update(request, activity_id):
-    activity = Activity.objects.filter(id=activity_id)
-
-    activity_price = ActivityPrice.objects.filter(trip_activity_id=activity_id)
-    trip_price_formset = modelformset_factory(ActivityPrice, form=ActivityPriceForm, extra=0)
-
-    cadpaxs=[]
-    seasons=[]
-    activities=[]
-    for i in activity_price:
-        cadpaxs.append(i.cadpax)
-        seasons.append(i.season)
-        if not i.trip_activity_id in activities:
-            activities.append(i.trip_activity_id)
-
-    activities=list((activities))
-    cadpaxs=list(set(cadpaxs))
-    seasons=list(set(seasons))
-
+    # formulário para alteração de valores/ alteração dos npreços
     if request.method == 'POST':
-        formset = trip_price_formset(request.POST, queryset=ActivityPrice.objects.filter(trip_activity_id=activity_id))
+        formset = activity_price_formset(request.POST, queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
 
         if formset.is_valid():
             instances = formset.save(commit=False)
             for instance in instances:
                 instance.save()
-
             messages.success(request, 'Valores alterados com sucesso!!!')
-            return redirect('trip:activity_price_update', activity_id)
+            return redirect('trip:activity_price_update', trip_id=trip_id)
 
-    formset = trip_price_formset(queryset=ActivityPrice.objects.filter(
-        activity_id=activity_id))
+    formset = activity_price_formset(queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
+    catpax=ActivityCatPax.objects.filter(activity_id__trip_id=trip_id)
 
     context = {
-        'season':seasons,
-        'cadpax':cadpaxs,
+        'season':season,
+        'catpax':catpax,
+        'form':act_price,
         'activity':activity,
-        'formset':formset
+        'formset':formset,
+        'trip':trip,
     }
     return render(request, 'trip/activity_price_update.html', context)
-
 
 class ActivityPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = ActivityPrice
@@ -427,138 +320,3 @@ class ActivityPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteVie
         return super(ActivityPriceDeleteView, self).delete(request, *args, **kwargs)
 
 activity_price_delete = ActivityPriceDeleteView.as_view()
-
-""" 
-def tripteste(trip_option_id=11):
-    t=[]
-    trip = []
-    to=[]
-    tripOption = []
-    tp=[]
-    tpz=[]
-    b=[]
-    bz=[]
-    s=[]
-    criar = []
-    deletar = []
-    tz=[]
-    print('=='*50)
-
-    trip_option = TripOption.objects.filter(id=trip_option_id)
-    for i in trip_option:
-        to = i.id
-        tripOption = i.name
-        t = i.trip_id
-        trip = i.trip
-
-    tripcadpax = TripCadPaxTrip.objects.all()
-    for i in tripcadpax:
-        if i.trip_id == t:
-            b.append(i.cadpax_id)
-            bz.append((i.id, i.cadpax_id))
-
-    tripprice = TripPrice.objects.all()
-    for i in tripprice:
-        if i.trip_option_id == to:
-            s.append(i.season_id)
-            tz.append((i.season_id, i.cadpax_id))
-            tp.append(i.cadpax_id)
-            tpz.append((i.id, i.cadpax_id))
-   
-    st = s
-    season_trip = set(st)
-    # print(season)
-    # lista das cadpax no model trip_cadpax_trip existentes para determinada trip
-    tc_t = set(b)
-
-    # lista de objetos cadpax no model trip_price existentes para determinada trip, atraves do trip_option
-    tc_tp = set(tp)
-
-    print(f'TRIP: {trip} - ID:{t}')
-    print(f'TRIP Option: {tripOption} - ID:{to}')
-
-    print('TCT', tc_t)
-    print('TCP', tc_tp)
-    print('TZ', tz)
-    
-
-    test = [1]
-    # está criando apenas uma season
-
-    if test:
-        print('Objeto(s) a ser(em) criado(s):')
-        for z in season_trip:
-            for ta in tc_t:
-                if not ta in tc_tp:
-                    criar.append(ta)
-                    print(f'cadpax: {ta} season: {z} tp: {to}')
-                    top = TripOption.objects.get(id=to)
-                    ta = TripCategoryPax.objects.get(id=ta)
-                    z = season = Season.objects.get(id=z)
-                    form = TripPrice(trip_option=top, cadpax=ta, season=z, price=0.00) 
-                    form.save()
-
-        for z in season_trip:
-            for tp in tc_tp:
-                if not tp in tc_t:
-                    deletar.append(tp)
-                    print('Objeto(s) a ser(em) deletado(s):')
-                    for z in season_trip:
-                        print(f'cadpax: {tp} season: {z} tp: {to}')
-                        ab = TripPrice.objects.all()
-                        id = []
-                        for i in ab:
-                            if i.trip_option_id == to and i.cadpax.id == tp:
-                                id.append(i.id)
-                                print(i.id)
-                        
-                        # for i in id:
-                        #     record = TripPrice.objects.get(id = i)
-                        #     record.delete()
-
-        print('termo(s) igual(is)', tc_t & tc_tp)
-    else:
-        print('São iguais!!!')
-
-    dif = []
-    cr=[]
-    de=[]
-    for i in criar:
-        dif.append(i)
-        cr = i
-    for i in deletar:
-        dif.append(i)
-        de = i
-
-    print('termo(s) diferente(s)', dif)
-    print('=='*50)
-
-
-# tripteste()
- """
-
-def teste(id):
-    # filtro atividades por trip
-    trip=Trip.objects.filter(id=id)    
-    activity=Activity.objects.all()
-    catpax=ActivityCatPax.objects.all()
-    season=Season.objects.all()
-
-    # se há atividade para a trip e individualiza cada catpax da atividade
-    for t in trip:
-        print('TRIP', t.id)
-        for a in activity:
-            print(f'  ATIVIDADE {a.id}')
-            for c in catpax:
-                if a.id == c.activity_id:
-                    print(f'    CATPAX {c.id}')
-                    for s in season:
-                        if t.destiny_id == s.destiny_id:
-                            print(f'      SEASON {s.id}')
-                            # print(f'TO {b.id} , CA {c.catpax_id}, TE {d.id}')
-                            # top = Activity.objects.get(id=b.id)
-                            # tca = CategoryPax.objects.get(id=c.catpax_id)
-                            # sea = Season.objects.get(id=d.id)
-                            # form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
-                            # form.save()
-# teste(1)

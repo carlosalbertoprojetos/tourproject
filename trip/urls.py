@@ -7,7 +7,7 @@ from .views import (categorypax_list_create, categorypax_update, categorypax_del
                     
                     activity_list_create, activity_update, activity_delete, 
                     
-                    activity_price_list_create, activity_price_update_tr, activity_price_update, activity_price_delete
+                    activity_price_list_create, activity_price_update, activity_price_delete
                     )
 
 app_name = 'trip'
@@ -41,7 +41,6 @@ urlpatterns = [
     #=================================================================
     # PREÇOS DAS ATIVIDADES
     path('<trip_id>/price_activity/list/create/', activity_price_list_create, name='activity_price_list_create'),
-    path('<trip_id>/price_activity/edittr/', activity_price_update_tr, name='activity_price_update_tr'),
-    path('<trip_id>/price_activity/edit/', activity_price_update, name='activity_price_update'),
+    path('<trip_id>/price_activity/edittr/', activity_price_update, name='activity_price_update'),
     path('<int:pk>/price_activity/delete/', activity_price_delete, name='activity_price_delete'),
 ]
