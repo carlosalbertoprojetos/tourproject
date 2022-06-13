@@ -235,10 +235,9 @@ def activity_price_update(request, trip_id):
     activity=Activity.objects.filter(trip_id=trip_id)
     trip=Trip.objects.filter(id=trip_id).first()
     activity_price_formset = modelformset_factory(ActivityPrice, form=ActivityPriceForm, extra=0)
-    
-    try:
-        
-        if activity.exists():
+
+    try:        
+        if activity != '':
 
             # existe atividade(activity) para o passeio(trip)
             for a in activity:
@@ -282,33 +281,34 @@ def activity_price_update(request, trip_id):
                 else:
                     print('Não há CATPAX cadastrado para esta ACTIVITY!')
 
+        # formulário para alteração de valores/ alteração dos npreços
+        if request.method == 'POST':
+            formset = activity_price_formset(request.POST, queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
+
+            if formset.is_valid():
+                instances = formset.save(commit=False)
+                for instance in instances:
+                    instance.save()
+                messages.success(request, 'Valores alterados com sucesso!!!')
+                return redirect('trip:activity_price_update', trip_id=trip_id)
+
+        formset = activity_price_formset(queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
+        catpax=ActivityCatPax.objects.filter(activity_id__trip_id=trip_id)
+
+        context = {
+            'season':season,
+            'catpax':catpax,
+            'form':act_price,
+            'activity':activity,
+            'formset':formset,
+            'trip':trip,
+        }
+        return render(request, 'trip/activity_price_update.html', context)
+
     except:
         messages.success(request, 'Cadastre ao menos uma "Atividade" antes de lançar valores.')
         return redirect(_('trip:trip_list_create'))
     
-    # formulário para alteração de valores/ alteração dos npreços
-    if request.method == 'POST':
-        formset = activity_price_formset(request.POST, queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
-
-        if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.save()
-            messages.success(request, 'Valores alterados com sucesso!!!')
-            return redirect('trip:activity_price_update', trip_id=trip_id)
-
-    formset = activity_price_formset(queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
-    catpax=ActivityCatPax.objects.filter(activity_id__trip_id=trip_id)
-
-    context = {
-        'season':season,
-        'catpax':catpax,
-        'form':act_price,
-        'activity':activity,
-        'formset':formset,
-        'trip':trip,
-    }
-    return render(request, 'trip/activity_price_update.html', context)
 
 class ActivityPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = ActivityPrice

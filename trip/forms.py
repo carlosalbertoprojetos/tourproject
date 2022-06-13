@@ -51,23 +51,14 @@ class ActivityForm(forms.ModelForm):
 
 
 class ActivityPriceForm(forms.ModelForm):
-    # activity = forms.CharField(label='',
-    #     widget=forms.TextInput(
-    #         attrs={'readonly': 'readonly'}
-    #         )
+    # activity = forms.CharField(
+    #     widget=forms.TextInput(attrs={'readonly': 'readonly', 'type':'hidden'})
     #     )
     # catpax = forms.CharField(label='',
-    #     widget=forms.TextInput(
-    #         attrs={'readonly': 'readonly'}
-    #         )
+    #     widget=forms.TextInput(attrs={'readonly': 'readonly'})
     #     )
     # season = forms.CharField(label='',
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             'readonly': 'readonly',
-    #             "class":'row col-md-4 text-center',
-    #             }
-    #         )
+    #     widget=forms.TextInput(attrs={'readonly': 'readonly'})
     #     )
     # price = forms.DecimalField(
     #     widget=forms.NumberInput(
@@ -78,12 +69,12 @@ class ActivityPriceForm(forms.ModelForm):
     class Meta:
         model = ActivityPrice
         # fields = '__all__'
-        fields = ['activity', 'price',]
+        fields = ['activity', 'catpax', 'price',]
         widgets = {
             'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
-            # 'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
-            # 'catpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
-            # 'season':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
+            'catpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
+            # 'season_id':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
             'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
             }
         labels = {"price":''}
+
