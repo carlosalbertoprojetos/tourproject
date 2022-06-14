@@ -2,7 +2,7 @@ from destiny.models import Destiny
 from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 
-from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
+from .models import (Activity, ActivityPrice, CategoryPax,
                      Trip, TripCategory)
 
 
@@ -51,30 +51,14 @@ class ActivityForm(forms.ModelForm):
 
 
 class ActivityPriceForm(forms.ModelForm):
-    # activity = forms.CharField(
-    #     widget=forms.TextInput(attrs={'readonly': 'readonly', 'type':'hidden'})
-    #     )
-    # catpax = forms.CharField(label='',
-    #     widget=forms.TextInput(attrs={'readonly': 'readonly'})
-    #     )
-    # season = forms.CharField(label='',
-    #     widget=forms.TextInput(attrs={'readonly': 'readonly'})
-    #     )
-    # price = forms.DecimalField(
-    #     widget=forms.NumberInput(
-    #         attrs={"class":'text-center',
-    #             }
-    #         )
-    #     )
+
     class Meta:
         model = ActivityPrice
-        # fields = '__all__'
         fields = ['activity', 'catpax', 'price',]
         widgets = {
             'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
             'catpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
-            # 'season_id':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly'}),
-            'price':forms.NumberInput({'class':'form_control text-center mask-real'}),
+            'price':forms.NumberInput(attrs={'style': 'border: 0; padding:5px', 'class':'text-center'}),
             }
         labels = {"price":''}
 

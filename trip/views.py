@@ -235,7 +235,7 @@ def activity_price_update(request, trip_id):
     activity=Activity.objects.filter(trip_id=trip_id)
     trip=Trip.objects.filter(id=trip_id).first()
     activity_price_formset = modelformset_factory(ActivityPrice, form=ActivityPriceForm, extra=0)
-
+    
     try:        
         if activity != '':
 
