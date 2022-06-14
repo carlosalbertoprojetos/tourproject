@@ -84,7 +84,7 @@ class CompanyDestinies(models.Model):
 
     company = models.ForeignKey(
         Company, on_delete=models.CASCADE, verbose_name='Empresa')
-    destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
+    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino')
 
     class Meta:
         ordering = ('company',)
