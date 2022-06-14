@@ -4,11 +4,6 @@ from destiny.models import Destiny
 
 class Validity(models.Model):
 
-    year = models.CharField('Ano', max_length=4)
-    active = models.BooleanField('Ativo Agência', default=False)
-    sell = models.BooleanField('Ativo Venda', default=False)
-
-
     YEARS_CHOICES = (
         ('2022', '2022'),
         ('2023', '2023'),
@@ -20,6 +15,11 @@ class Validity(models.Model):
         ('2029', '2029'),
         ('2030', '2030'),
     )
+
+    year = models.CharField('Ano', max_length=4, unique=True)
+    active = models.BooleanField('Ativo Agência', default=False)
+    sell = models.BooleanField('Ativo Venda', default=False)
+
 
     class Meta:
         ordering = ['-year']
@@ -43,7 +43,6 @@ class Season(models.Model):
 
     def __str__(self):
         return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
-        # return  self.name
 
 
 class Period(models.Model):
@@ -59,7 +58,6 @@ class Period(models.Model):
         verbose_name_plural = 'Períodos'
 
     def __str__(self):
-        # return self.name + ' / ' + self.season + ' - ' + self.date_start + ' / ' + self.date_end
         return self.date_start + ' / ' + self.date_end
 
 class Event(models.Model):
