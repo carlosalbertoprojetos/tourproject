@@ -47,8 +47,10 @@ Passeio
                                             {% endfor %}
                                             {% for field in formset %}
                                             {% if field.activity.value == a.id and field.catpax.value == c.catpax_id %}
-                                            <div id='field' class="col-md-6">
-                                                {{ field }}
+                                            <div class="col-md-6 p-0 m-0">
+                                                <h6 style="font-size:0.9em">
+                                                    <center>{{ field }}</center>
+                                                </h6>
                                             </div>
                                             {% endif %}
                                             {% endfor %}

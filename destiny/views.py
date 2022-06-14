@@ -48,7 +48,7 @@ class DestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Destiny
     template_name = 'destiny/destiny_delete.html'
     success_url = _('destiny:destiny_list_create')
-    success_message = 'Deletado com sucesso!'
+    success_message = 'Destino deletado com sucesso!'
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)

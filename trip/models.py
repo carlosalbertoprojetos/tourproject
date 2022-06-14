@@ -1,6 +1,6 @@
 from destiny.models import Destiny
 from django.db import models
-from django.db.models.signals import m2m_changed, post_delete, post_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
 from season.models import Season
@@ -56,11 +56,9 @@ class Trip(models.Model):
     ride_distance = models.CharField('Distância do passeio (Km)', max_length=255, default='1')
     limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255, default='6')
     commission = models.DecimalField('Comissão paga pelo fornecedor (%)', max_digits=5, decimal_places=2, blank=True, null=True, default='10')
-    category = models.ForeignKey(TripCategory, on_delete=models.CASCADE, verbose_name='Categoria')
+    category = models.ForeignKey(TripCategory, on_delete=models.DO_NOTHING, verbose_name='Categoria')
     
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
-    
-    # catpax = models.ManyToManyField(TripCategoryPax, verbose_name=('Categoria PAX'), blank=True, related_name='catpax', through='TripCadPaxTrip')
     
     tour_notes = models.TextField('Notas do passeio', blank=True, default='teste')
     featured_image = models.FileField('Imagem de destaque para o site', upload_to='files/')
@@ -123,7 +121,7 @@ class Activity(models.Model):
 
 class ActivityCatPax(models.Model): 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    catpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE)
+    catpax = models.ForeignKey(CategoryPax, on_delete=models.DO_NOTHING)
 
     # class Meta:
     #     unique_together = [['Activity','catpax']]
@@ -134,15 +132,15 @@ class ActivityCatPax(models.Model):
 
 class ActivityPrice(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name='')
-    catpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE, verbose_name='Categoria PAX')
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
+    catpax = models.ForeignKey(CategoryPax, on_delete=models.DO_NOTHING, verbose_name='Categoria PAX')
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
 
     def __str__(self):
         return self.activity
 
 
-# deleta catpax excluído da activity por manytomany
+# deleta catpax excluído(desflegado) da activity por manytomany
 @receiver(post_delete, sender=ActivityCatPax)
 def delete_trip_catpax_prices(sender, instance, **kwargs):
     tcp = ActivityPrice.objects.filter(catpax_id=instance.catpax_id)    

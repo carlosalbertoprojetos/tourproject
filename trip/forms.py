@@ -56,9 +56,10 @@ class ActivityPriceForm(forms.ModelForm):
         model = ActivityPrice
         fields = ['activity', 'catpax', 'price',]
         widgets = {
-            'activity':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
-            'catpax':forms.TextInput({'class': 'row col-md-6 text-center', 'readonly':'readonly', 'type':'hidden'}),
-            'price':forms.NumberInput(attrs={'style': 'border: 0; padding:5px', 'class':'text-center'}),
+            'activity':forms.TextInput({'readonly':'readonly', 'type':'hidden'}),
+            'catpax':forms.TextInput({'readonly':'readonly', 'type':'hidden'}),
+            'price':forms.NumberInput(attrs={'class':'text-center', 'style': 'border: 0; padding: 0 5px;'}),
             }
         labels = {"price":''}
+
 

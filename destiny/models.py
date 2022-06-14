@@ -44,11 +44,11 @@ class Destiny(models.Model):
     is_active = models.BooleanField('Ativo', default=True)
 
     class Meta:
-        # unique = ('name + city + state)
+        unique_together = [['name','city','state']]
         ordering = ('name',)
         verbose_name = 'Destino Turístico'
         verbose_name_plural = 'Destinos Turísticos'
 
     def __str__(self):
-        return f'{self.name}: {self.city} / {self.state}'
+        return f'{self.name}: {self.city}/{self.state}'
 

@@ -45,7 +45,7 @@ class Phone(models.Model):
 
     company = models.ForeignKey(
         Company,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name='Telefone',
     )
 
@@ -65,7 +65,7 @@ class SocialMedia(models.Model):
 
     company = models.ForeignKey(
         Company,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name='Rede Social',
     )
 
@@ -84,7 +84,7 @@ class CompanyDestinies(models.Model):
 
     company = models.ForeignKey(
         Company, on_delete=models.CASCADE, verbose_name='Empresa')
-    destiny = models.ForeignKey(Destiny, on_delete=models.DO_NOTHING, verbose_name='Destino')
+    destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
 
     class Meta:
         ordering = ('company',)
@@ -93,18 +93,3 @@ class CompanyDestinies(models.Model):
 
     def __str__(self):
         return str(self.company) + ' - ' + str(self.destiny)
-
-
-# class CompanyTrip(models.Model):
-    
-#     company = models.ForeignKey(
-#         Company, on_delete=models.CASCADE, verbose_name='Empresa')
-#     trip = models.ForeignKey(Trip, on_delete=models.DO_NOTHING)
-
-#     class Meta:
-#         ordering = ('company',)
-#         verbose_name = 'Passeios da empresa'
-#         verbose_name_plural = 'Passeios da empresa'
-
-#     def __str__(self):
-#         return str(self.company) + ' - ' + str(self.trip)
