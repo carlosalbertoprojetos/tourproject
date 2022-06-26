@@ -38,6 +38,7 @@ class Season(models.Model):
 
 
     class Meta:
+        unique_together = [['name','validity','destiny']]
         verbose_name = 'Temporada'
         verbose_name_plural = 'Temporadas'
 

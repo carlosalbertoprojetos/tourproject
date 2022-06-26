@@ -31,6 +31,8 @@ urlpatterns = [
     path('client/', include('client.urls'), name='client'),
     path('transport/', include('transport.urls'), name='transport'),
 
+    path('package/', include('package.urls'), name='package'),
+
     path('accounts/', include('allauth.urls')),
 
     path('admin/', admin.site.urls),

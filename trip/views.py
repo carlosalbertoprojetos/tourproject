@@ -1,19 +1,16 @@
-import imp
-
-from destiny.models import Destiny
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import modelformset_factory
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from season.models import Season
 
 from .forms import (ActivityForm, ActivityPriceForm, CategoryPaxForm,
-                    TripCategoryForm, TripForm)
+                    TripCategoryForm, TripForm,CHD_ActivityForm)
 from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
                      Trip, TripCategory)
 
@@ -69,6 +66,7 @@ trip_category_delete = TripCategoryDeleteView.as_view()
 class TripListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = Trip
     template_name = 'trip/trip_list_create.html'
+    # template_name = 'trip/trip_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(TripListCreateView, self).get_context_data(**kwargs)
@@ -88,16 +86,20 @@ class TripListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 trip_list_create = TripListCreateView.as_view()
 
 
+def aba_trip(request, trip_id):
+    object = Trip.objects.filter(id=trip_id)
+    context = {
+        'object': object,
+        }
+    return render(request, 'trip/trip_base.html', context)
+
+
 class TripUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Trip
     form_class = TripForm
     template_name = 'trip/trip_update.html'
     success_message = 'Passeio atualizado com sucesso!!!'
     success_url = _('trip:trip_list_create')
-
-    def delete(self, request, *args, **kwargs):
-        a = self.id
-        return print(a)
 
 trip_update = TripUpdateView.as_view()
 
@@ -181,12 +183,14 @@ class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
+        trip_id = self.trip_id
         form = ActivityForm(request.POST or None)
         if form.is_valid():
             form = form.save()
             messages.success(request, 'Atividade criada com sucesso!!!')
-            # return redirect(_('trip:trip_option_list_create', kwargs={'trip_id': self.object.trip}))
-            return redirect('trip:trip_list_create')
+            # return redirect(_('trip:trip_option_list_create', trip_id=self.object.trip))
+            # return redirect(_('get_success_url'))
+            return redirect('trip:trip_list_create', trip_id)
         else:
             context = {
                 'form': form
@@ -229,6 +233,7 @@ class ActivityPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     template_name = 'trip/activity_price_list_create.html'
  
 activity_price_list_create = ActivityPriceListView.as_view()
+
 
 @login_required
 def activity_price_update(request, trip_id):
@@ -320,3 +325,22 @@ class ActivityPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteVie
         return super(ActivityPriceDeleteView, self).delete(request, *args, **kwargs)
 
 activity_price_delete = ActivityPriceDeleteView.as_view()
+
+
+# somente se ActivityCatPax.catpax_id__t_child=True ou ActivityCatPax.catpax__t_child=True
+def catpax_chd(request, pk):
+    obj = get_object_or_404(ActivityCatPax, pk=pk)
+    form = CHD_ActivityForm(instance=obj)
+
+    if request.method == 'POST':
+        form = CHD_ActivityForm(request.POST or None, instance=obj)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Dados alterados com sucesso!!!')
+
+        else:
+            return render(request, 'user/user_update.html', {'form': form})
+
+    elif request.method == 'GET':
+        return render(request, 'user/user_update.html', {'form': form})

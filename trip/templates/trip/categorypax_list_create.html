@@ -56,6 +56,11 @@
                         <thead>
                             <tr>
                                 <th>Categoria PAX</th>
+                                <th>Tr Adulto</th>
+                                <th>Tr Criança</th>
+                                <th>Tr Convidado</th>
+                                <th>Idade Mínima</th>
+                                <th>Idade Máxima</th>
                                 <th>Editar</th>
                                 <th>Deletar</th>
                             </tr>
@@ -64,6 +69,11 @@
                             {% for c in object_list %}
                             <tr>
                                 <td>{{ c.name }}</td>
+                                <td>{{ c.t_adult }}</td>
+                                <td>{{ c.t_child }}</td>
+                                <td>{{ c.t_guest }}</td>
+                                <td>{{ c.age_min }}</td>
+                                <td>{{ c.age_max }}</td>
                                 <td align="center">
                                     <a href="{% url 'trip:categorypax_update' c.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>

@@ -3,7 +3,7 @@ from django import forms
 from django.forms.widgets import CheckboxSelectMultiple
 
 from .models import (Activity, ActivityPrice, CategoryPax,
-                     Trip, TripCategory)
+                     Trip, TripCategory, ActivityCatPax)
 
 
 class TripCategoryForm(forms.ModelForm):
@@ -34,8 +34,17 @@ class TripForm(forms.ModelForm):
 
 class CategoryPaxForm(forms.ModelForm):    
     class Meta:
-        model = CategoryPax
+        model = CategoryPax 
         fields = '__all__'
+        # fields = ['name', 'note', 't_child', 'age_min', 'age_max']
+        
+        widgets = {
+            't_adult':forms.CheckboxInput(attrs={'class':''}),
+            't_child':forms.CheckboxInput(attrs={'class':''}),
+            't_guest':forms.CheckboxInput(attrs={'class':''}),
+            'age_min':forms.NumberInput(attrs={'class':'form-inline col-md-2 text-center'}),
+            'age_max':forms.NumberInput(attrs={'class':'form-inline col-md-2 text-center'}),
+            }
 
 
 class ActivityForm(forms.ModelForm):
@@ -63,3 +72,9 @@ class ActivityPriceForm(forms.ModelForm):
         labels = {"price":''}
 
 
+
+class CHD_ActivityForm(forms.ModelForm):
+    
+    class Meta:
+        model = ActivityCatPax
+        fields = '__all__'

@@ -1,0 +1,88 @@
+
+{% extends 'dashboard.html' %}
+{% load i18n account static crispy_forms_tags %}
+{% block title %}
+    Pacote
+{% endblock title %}
+{% block dashboard %}
+<style>
+	.child_age {
+	    border-bottom: 1px solid black;
+	}	
+	.hidden {
+		display: none
+	}
+</style>
+
+{% if message %}
+	<p>{{ message }}</p>
+{% endif %}
+
+<div class="container-fluid mt-2">
+    <div class="container-form">
+        <div class="card">
+            <div class="card-header p-1">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <h5 class="form-title m-2">Pacotes Turísticos para</h5>
+                        <h2 class="form-title m-2">{{destiny}}</h2>
+                        <div style='margin-top: 30px;'>
+                            <form action='.' method='POST'>
+                                {% csrf_token %}
+                                {% for field in form %}
+                                <div class='{% if field.field.required %}{{ form.required_css_class }}{% endif %}'>
+                                    {{ field.errors }}
+                                    {{ field.lable_tag }} {{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div >
+                                {% endfor %}
+                        
+                                {% if formset %}
+                                {% comment %} <h5>Por favor, informe a idade das crianças</h5> {% endcomment %}
+                                {{ formset.management_form }}
+                                <div id='children_age_activity'>
+                                        {{formset}}
+                                        {% for form in formset %}
+                                        <div class="child_age">
+                                            {{ form.children_age|as_crispy_field }}
+                                        </div>
+                                        {% endfor %}
+                                </div>
+                                <div id='empty-form' class='hidden'>{{ formset.empty_form }}</div>
+                                <button id='add-more' type='button'>Add more</button>
+                                {% endif %}
+                                <button style='margin-top:10px;' type='submit'>Save</button>
+                            </form>
+                        </div >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const addMoreBtn = document.getElementById('add-more')
+    const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
+
+    addMoreBtn.addEventListener('click', add_new_children_age)
+    function add_new_children_age(event) {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentChildAgeForms = document.getElementsByClassName('child_age')
+        const currentFormCount = currentChildAgeForms.lentgh
+        const formCopyTarget = document.getElementById('children_age_activity')
+        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+        copyEmptyFormEl.setAtribute('class', 'child_age')
+        copyEmptyFormEl.setAtribute('id', `form-${currentFormCount}`)
+        const regex =  new RegExp('__prefix__', 'g')
+        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+        totalNewForms.setAttribute('value', currentFormCount + 1)
+        formCopyTarget.setAppend(copyEmptyFormEl)
+    }
+<script>
+
+{% endblock %}

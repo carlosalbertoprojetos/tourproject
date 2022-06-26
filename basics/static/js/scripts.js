@@ -32,3 +32,46 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+
+
+
+$(function campos() {
+    $("#id_num_child").keyup(() => {
+        let num_child = $("#id_num_child").val();
+        const campos = $("#id_child_package_one_set-0-children_age"); // id_child_package_one_set-0-children_age
+        const message = $("#message");
+        message.empty()
+
+        if (num_child) {
+            num_child = parseInt(num_child);
+
+            message.append('Por favor, informe a idade das crianças')
+            campos.empty();
+
+            i=1
+            while (i <= num_child) {
+                texto = 'id_child_package_one_set-0-children_age'
+                texto.replace(/-0/g, '-' + i.toString())
+                i = i + 1;
+            }
+
+            $('#span-real').html(texto)
+
+        }
+    });
+});
+
+function Somar() {
+    const inputs = $(".soma");
+    let total = 0;
+    }
+
+
+function child_ages() {
+    if (num_child) {
+        num_child = parseInt(num_child);
+    }
+
+    const emptyFormEl = document.getElementById('empty-form').cloneNode(True)
+}
