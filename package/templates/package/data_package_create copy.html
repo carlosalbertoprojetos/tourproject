@@ -5,6 +5,7 @@
     Pacote
 {% endblock title %}
 {% block dashboard %}
+
 <style>
 	.child_age {
 	    border-bottom: 1px solid black;
@@ -13,10 +14,6 @@
 		display: none
 	}
 </style>
-
-{% if message %}
-	<p>{{ message }}</p>
-{% endif %}
 
 <div class="container-fluid mt-2">
     <div class="container-form">
@@ -38,17 +35,18 @@
                                     {% endif %}
                                 </div >
                                 {% endfor %}
-                        
+
                                 {% if formset %}
                                 {% comment %} <h5>Por favor, informe a idade das crianças</h5> {% endcomment %}
                                 {{ formset.management_form }}
                                 <div id='children_age_activity'>
-                                        {{formset}}
-                                        {% for form in formset %}
-                                        <div class="child_age">
-                                            {{ form.children_age|as_crispy_field }}
-                                        </div>
-                                        {% endfor %}
+                                    {% comment %} {{formset}} {% endcomment %}
+                                    {% comment %} {% for form in formset %}
+                                    <div class="child_age">
+                                        {{ form }}
+                                    </div>
+                                    {% endfor %} {% endcomment %}
+
                                 </div>
                                 <div id='empty-form' class='hidden'>{{ formset.empty_form }}</div>
                                 <button id='add-more' type='button'>Add more</button>
@@ -62,8 +60,33 @@
         </div>
     </div>
 </div>
-
+{% comment %} id_num_child {% endcomment %}
 <script>
+function camposParcela() {
+    // 'spantestemodelo' recebe todas as informações contidas no id="span-modelo"
+    var spantestemodelo = $('#span-modelo').html();
+    // transforma todos os dados de 'spamtestemodelo' em string
+    var spantestemodelo_string = spantestemodelo.toString();
+    // campos recebe o valor contido no id="numero-parcelas"
+    var campos = $('#id_num_child').val();
+
+    // individualizar id dinamicamente
+    var i;
+    i=1;
+    var texto = '';
+    while (i <= campos) {
+        texto = texto + spantestemodelo_string.replace(/-0/g, '-' + i.toString())
+        //converte o inteiro 'i' para string - /-0/g para que seja feita em todos que possuem -0 de forma 'g' globalmente
+        console.log(i)
+        i = i + 1;
+    }
+
+    // converte tudo que estiver em 'texto' conforme as configurações no id="span-real"
+    $('#span-real').html(texto);
+
+}
+
+{% comment %} <script>
     const addMoreBtn = document.getElementById('add-more')
     const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
 
@@ -83,6 +106,7 @@
         totalNewForms.setAttribute('value', currentFormCount + 1)
         formCopyTarget.setAppend(copyEmptyFormEl)
     }
-<script>
+ {% endcomment %}
+ <script>
 
 {% endblock %}

@@ -5,7 +5,7 @@ from django.forms import inlineformset_factory, modelform_factory
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic.edit import DeleteView, UpdateView
-from regex import F
+from django.views.generic import ListView
 
 from .models import Data_Package_One, Child_Package_One
 from .forms import Data_Package_OneForm, Child_Package_OneForm
@@ -19,8 +19,8 @@ from destiny.models import Destiny
 # client => package
 
 
-def data_package_create(request):
-    # destiny = request.destiny
+def data_package_create(request, id_destiny):
+    destiny = Destiny.objects.filter(id=id_destiny)
     Formset_Factory = inlineformset_factory(
     Data_Package_One, Child_Package_One, fields=('children_age',), extra=3, can_delete=False)
 
@@ -30,14 +30,13 @@ def data_package_create(request):
         
         if form.is_valid() and formset.is_valid():
             package = form.save(commit=False)
-            # package.destiny = destiny.id
             package.save()
             formset.instance = package
             formset.save()
-            return redirect('package:data_package_create')
+            return redirect('package:data_package_create', destiny.id )
         else:
             context = {
-                # 'destiny': destiny,
+                'destiny': destiny,
                 'form': form,
                 'formset': formset,
             }    
@@ -48,83 +47,12 @@ def data_package_create(request):
         formset = Formset_Factory()
         
         context = {
-            # 'destiny': destiny,
+            'destiny': destiny,
             'form': form,
             'formset': formset,
-        }
+        }   
         return render(request, 'package/data_package_create.html', context)
 
-
-""" 
-def data_package_create(request, id_destiny):
-    destiny = Destiny.objects.get(id=id_destiny)
-      
-    if request.method == 'POST':
-        form = Data_Package_OneForm(request.POST or None)
-        Formset_Factory = inlineformset_factory(Data_Package_One, Child_Package_One, form=Child_Package_OneForm)
-        formset = Formset_Factory(request.POST or None)
-        if all([form.is_valid(), formset.is_valid()]):
-            package = form.save()
-            formset.instance = package
-            formset.save()
-            return redirect('package:data_package_create', id_destiny)   
-
-        else:
-            context = {
-                'form': form,
-                'formset':formset,
-                'destiny': destiny
-                }
-            return render(_('package:data_package_create', id_destiny))
-
-    else:
-        form = Data_Package_OneForm()
-        Formset_Factory = inlineformset_factory(Data_Package_One, Child_Package_One, form=Child_Package_OneForm)
-        formset = Formset_Factory()
-        context = {
-            'form': form,
-            'formset':formset,
-            'destiny': destiny
-            }
-        return redirect(_('destiny/destiny_list_create', context)) """
-""" 
-    if request.method == 'POST':
-        form = Data_Package_OneForm(request.POST or None, instance=Data_Package_One)
-
-        Formset_Factory = inlineformset_factory(Data_Package_One, Child_Package_One, form=Child_Package_OneForm, can_delete=False, extra=5)
-        formset = Formset_Factory(request.POST or None)
-
-        if all(form.is_valid(), formset.is_valid()):
-            form = form.save(commit=False)
-            form.destiny_id = destiny.id
-            form.save()
-            formset.instance = form
-            formset.save()
-            messages.success(request, 'Pacote cadastrado com sucesso!!!')
-            return redirect('package:data_package_list')
-
-        else:
-            context = {
-                'form': form,
-                'formset' : formset,
-                'destiny': destiny
-            }
-            return render(request, 'package/data_package_create.html', context)
-
-
-    elif request.method == 'GET':
-        form = Data_Package_OneForm(instance=Data_Package_One)
-
-        Formset_Factory = inlineformset_factory(Data_Package_One, Child_Package_One, form=Child_Package_OneForm, can_delete=False, extra=0)        
-        formset = Formset_Factory()
-
-        context = {
-                'form': form,
-                'formset' : formset,
-                'destiny': destiny
-            }
-        return render(request, 'package/data_package_create.html', context)
- """
 
 def data_package_list(request, id_destiny):
     object = Data_Package_One.objects.filter(destiny_id=id_destiny)
@@ -155,3 +83,44 @@ class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView)
 
 data_package_delete = DataPackageDeleteView.as_view()
 
+"""
+class DataPackageOneListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
+    model = Data_Package_One
+    form_class = Data_Package_OneForm
+    template_name = 'package/data_package_list.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(DataPackageOneListCreateView, self).get_context_data(**kwargs)
+        context['form'] = Data_Package_OneForm(self.request.POST or None)
+        context['destiny'] = Destiny.objects.filter(id=self.kwargs['id_destiny'])
+        context['object'] = Data_Package_One.objects.filter(destiny_id=self.kwargs['id_destiny'])
+        return context
+
+    # def get_queryset(self):
+    #     return Data_Package_One.objects.filter(destiny_id=self.kwargs['id_destiny'])
+
+     def post(self, request, *args, **kwargs):
+        destiny = Destiny.objects.filter(id=self.kwargs['id_destiny'])
+        
+        form = Data_Package_OneForm(request.POST or None)
+        
+        Formset_Factory = inlineformset_factory(
+        Data_Package_One, Child_Package_One, fields=('children_age',), extra=3, can_delete=False)
+        formset = Formset_Factory(request.POST or None)
+        
+        if form.is_valid() and formset.is_valid():
+            package = form.save(commit=False)
+            package.save()
+            formset.instance = package
+            formset.save()
+            messages.success(request, 'Pacote criado com sucesso!!!')
+            return redirect('package:data_package_create')
+        else:
+            context = {
+                'destiny': destiny,
+                'form': form,
+                'formset': formset,
+            }    
+        return render(request, 'destiny/destiny_list_create.html', context)
+
+data_package_list = DataPackageOneListCreateView.as_view() """

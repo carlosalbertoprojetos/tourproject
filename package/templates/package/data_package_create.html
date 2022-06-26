@@ -20,9 +20,9 @@
         <div class="card">
             <div class="card-header p-1">
                 <div class="row">
-                    <div class="col-sm-6 col-md-6">
+                    <div class="col-sm-12 col-md-6">
                         <h5 class="form-title m-2">Pacotes Turísticos para</h5>
-                        <h2 class="form-title m-2">{{destiny}}</h2>
+                        <h2 class="form-title m-2">{{destiny.name}}</h2>
                         <div style='margin-top: 30px;'>
                             <form action='.' method='POST'>
                                 {% csrf_token %}
@@ -49,7 +49,6 @@
 
                                 </div>
                                 <div id='empty-form' class='hidden'>{{ formset.empty_form }}</div>
-                                <button id='add-more' type='button'>Add more</button>
                                 {% endif %}
                                 <button style='margin-top:10px;' type='submit'>Save</button>
                             </form>
@@ -60,7 +59,33 @@
         </div>
     </div>
 </div>
+
 {% comment %} id_num_child {% endcomment %}
+<script>
+    function camposParcela() {
+        // 'spantestemodelo' recebe todas as informações contidas no id="span-modelo"
+        var spantestemodelo = $('#span-modelo').html();
+        // transforma todos os dados de 'spamtestemodelo' em string
+        var spantestemodelo_string = spantestemodelo.toString();
+        // campos recebe o valor contido no id="numero-parcelas"
+        var campos = $('#id_num_child').val();
+
+        // individualizar id dinamicamente
+        var i;
+        i=1;
+        var texto = '';
+        while (i <= campos) {
+            texto = texto + spantestemodelo_string.replace(/-0/g, '-' + i.toString())
+            //converte o inteiro 'i' para string - /-0/g para que seja feita em todos que possuem -0 de forma 'g' globalmente
+            console.log(i)
+            i = i + 1;
+        }
+
+        // converte tudo que estiver em 'texto' conforme as configurações no id="span-real"
+        $('#span-real').html(texto);
+
+    }
+
 {% comment %} <script>
     const addMoreBtn = document.getElementById('add-more')
     const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
@@ -81,6 +106,7 @@
         totalNewForms.setAttribute('value', currentFormCount + 1)
         formCopyTarget.setAppend(copyEmptyFormEl)
     }
-<script> {% endcomment %}
+ {% endcomment %}
+ <script>
 
 {% endblock %}

@@ -8,8 +8,8 @@ class Data_Package_OneForm(forms.ModelForm):
     
     class Meta:
         model = Data_Package_One
-        fields = '__all__'
-        # fields = ['date_arrive', 'date_departure', 'num_adults', 'num_child']
+        # fields = '__all__'
+        fields = ['date_arrive', 'date_departure', 'num_adults', 'num_child']
         widgets = {
             'date_arrive':forms.DateInput(attrs={'type':'date'}, ),
             'date_departure':forms.DateInput(attrs={'type':'date'}, ),
