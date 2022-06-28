@@ -6,6 +6,12 @@
 {% endblock title %}
 {% block dashboard %}
 
+<style>
+    .hidden {
+        display: none
+    }
+</style>
+
 <div class="header">
     <div class="container mt-2">
         <div class="card">
@@ -21,19 +27,19 @@
                         </div>
                     </div>
                     {% if formset %}
-                    <div style="display: None;" class="alert alert-danger" role="alert" id="id_message">
-                        <h5>Por favor, informe a idade das crianças</h5>
-                    </div>
-                    <div class='row my-2'>
+                    <div class='row'>
+                        <div style="display: None;" class="alert alert-danger" role="alert" id="id_message">
+                            Por favor, informe as idades das crianças
+                        </div>
                         {{ formset.management_form }}
                         <div id='children_age_list'> 
                             {% for form in formset %}
-                            <div class='child_age_form'>
-                                {{ form.as_p }}
+                            <div class='child_age_form form-horizontal'>
+                                {{ form|crispy }}
                             </div>
                             {% endfor %}
                         </div>
-                        <div id='empty-form' class=''>{{ formset.empty_form.as_p }}</div>
+                        <div id='empty-form' class='hidden'>{{ formset.empty_form|crispy}}</div>
                         {% endif %}
                         <div class='row'>
                             <div class='col-2'>
@@ -46,17 +52,15 @@
         </div>  
     </div>
 
-    <div class='container mt-2'>
-
-
-
 <script>
 
     function campos() {
         $("#id_num_child").keyup(() => {
             let quantidade = $("#id_num_child").val();
+            message = document.getElementById('id_message')
+            message.setAttribute('style', 'display:flex;')
+
             const totalNewForms = document.getElementById('id_child_package_one_set-TOTAL_FORMS')
-            console.log(totalNewForms)
 
             if (quantidade) {
                 quantidade = parseInt(quantidade);
