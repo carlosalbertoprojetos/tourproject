@@ -37,7 +37,7 @@ class Data_Package_OneForm(forms.ModelForm):
                         
             'num_child':forms.NumberInput(
                 attrs={
-                    'oninput':'campos();',
+                    'oninput':'campos()',
                     'class':'form-control my-2',
                     # 'label':'Quantidade de Crianças',
                     'type':'number'

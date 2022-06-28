@@ -109,7 +109,7 @@ def company_update(request, pk):
         if request.method == 'POST':
             
             form = CompanyForm(request.POST, instance=company)            
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1)        
+            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=0, can_delete=False)        
             destiny_form = Formset_destiny_Factory(request.POST, instance=company)            
             Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1)
             phone_form = Formset_phone_Factory(request.POST, instance=company)            
@@ -136,7 +136,7 @@ def company_update(request, pk):
         elif request.method == 'GET':
             
             form = CompanyForm(instance=company)            
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1)        
+            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=0, can_delete=False)        
             destiny_form = Formset_destiny_Factory(instance=company)            
             Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1)
             phone_form = Formset_phone_Factory(instance=company)            
