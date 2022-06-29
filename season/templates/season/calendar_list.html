@@ -7,8 +7,7 @@
 
 
 <!--Calenário datepicker-->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />  
-<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" />
+<link rel="stylesheet" href="{% static 'css/bootstrap-datepicker3.css' %}" />
 
 <!-- Bootstrap CSS -->
 
@@ -17,14 +16,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
   
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
 <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
 <script src="{% static 'js/bootstrap-datepicker.pt-BR.min.js' %}"></script>
 <script src="{% static 'js/disabledays.js' %}"></script>
-
+<script src="{% static 'js/vet_dates.js' %}"></script>
 
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
@@ -51,12 +48,12 @@
     </div>           
     <div class="d-flex">
         <a href="{% url 'season:calendar_event_detail' season.pk%}">
-          <button class="btn bg-gradient-success" type="submit">Modelo Calendário</button>
+          <button class="btn bg-gradient-success" type="submit" onmousemove="reload()">Modelo Calendário</button>
         </a>     
     </div>
     <div class="d-flex">
       <a href="{% url 'season:season_list_create' %}">
-        <button class="btn bg-gradient-red" type="submit">Voltar</button>
+        <button class="btn bg-gradient-red" type="submit">Temporada</button>
       </a>     
     </div>  
   </div>
@@ -72,80 +69,504 @@
           </div>          
                
           <table class="table table-sm table-responsive" >
-            <thead style="font-size: 14px !important;">
-              <tr>
-                <th scope="col"><div class="datepicker1" ></div></th>
-                <th scope="col"><div class="datepicker2" ></div></th>
-                <th scope="col"><div class="datepicker3" ></div></th>
-                <th scope="col"><div class="datepicker4" ></div></th>                                            
+            <thead style="font-size: 14px !important;">             
+              <tr>   
+                {% for x in range|slice:'1:5' %} 
+                  <th scope="col"><div class='datepicker{{x}}'></div></th>
+                {% endfor %}                                                                            
               </tr>
               <tr>
-                <th scope="col"><div class="datepicker5" ></div></th>
-                <th scope="col"><div class="datepicker6" ></div></th>
-                <th scope="col"><div class="datepicker7" ></div></th>
-                <th scope="col"><div class="datepicker8" ></div></th>                
+                {% for y in range|slice:'5:9' %} 
+                  <th scope="col"><div class='datepicker{{y}}'></div></th>
+                {% endfor %}               
               </tr>
               <tr>
-                <th scope="col"><div class="datepicker9" ></div></th>
-                <th scope="col"><div class="datepicker10" ></div></th>
-                <th scope="col"><div class="datepicker11" ></div></th>
-                <th scope="col"><div class="datepicker12" ></div></th>                
-              </tr>              
+                {% for y in range|slice:'9:13' %} 
+                  <th scope="col"><div class='datepicker{{y}}'></div></th>
+                {% endfor %}               
+              </tr>                         
             </thead>            
           </table>                                       
         </div>                     
       </div>  
     </div>
   </div>
-</div> 
+</div>
 
-{% for c in event %}
 
-  <script>
-    eventos.add(event.name,event.data_init,event.data_fin)
-  </script>
+<br>
+{{dates}}
+<br> 
 
-{% endfor %}
+<br>      
+            
 <script> 
-  $(function(){
-      $(document).on('click', '.btn-danger', function(e) {
-          e.preventDefault;
-          var data_init = $(this).closest('tr').find('td[data-nome]').data('nome');
-          var data_fin = $(this).closest('tr').find('td[data-nome1]').data('nome1');
-          alert('Data Inicial: ' + data_init +'\n' + 'Data Final: ' + data_fin);
-          console.log(typeof(data_init));        
-          
-      });
-  });   
-  
-
-  function update() {
-    var year = $('#ano').val();
-    console.log(year);
-    if (year == 2023 ){      
-      $('#myModal').modal('show')
-      
-      
-    }    
-  }
+  function reload(){
+    location.reload()
     
-    //2022
-   //janeiro
+  }
+           
+  var obj = JSON.parse(vet_dates)
+  var highlight_dates = []   
+                
+  for (var d in obj)
+    highlight_dates.push(obj[d])  
+      
+    //console.log('Data',highlight_dates)
+    //alert(array_dates)
+    //function decodeEntities(encodedString) {
+    //  var textArea = document.createElement('textarea');
+    //  textArea.innerHTML = encodedString;          
+    //  return textArea.value;          
+    //}       
+
+  //var data = ["{{e.date_init|date:'j/n/Y'}}","{{e.date_fin|date:'j/n/Y'}}"]        
+  //console.log(data)                    
+  //di = new Date("{{e.date_init |date:'n/j/Y'}}");
+  //df = new Date("{{e.date_init |date:'n/j/Y'}}");
+  //mes_init = di.getDate()+'/'+(di.getMonth()+1)+'/'+di.getFullYear()
+  //console.log(mes_init)      
+  
   $('.datepicker1').datepicker({        
+    dateFormat: "m/d/y",                                              
+    language: ['pt-BR'],
+    todayHighlight: true,
+    autoApply: true,      
+    toggleActive: true,      
+    defaultViewDate: { year:"{{ season.validity}}", month: 0, day: 1},        
+    startDate: new Date("{{ season.validity}}", 1 -1, 1),
+    endDate: new Date("{{ season.validity}}", 1 -1,31),
+    datesDisabled: intervalos1,     
+              
+    beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+  });
+
+   //fevereiro
+   $('.datepicker2').datepicker({
       dateFormat: "dd/mm/yy",                                              
       language: ['pt-BR'],
       todayHighlight: true,
-      autoApply: true,      
-      toggleActive: true,      
-      defaultViewDate: { year: 2022, month: 0, day: 1 },        
-      startDate: new Date(2022, 1 -1, 1),
-      endDate: new Date(2022, 1 -1,31),
-      datesDisabled: intervalos1,
-      
-      
-                            
+      autoApply: true,
+      defaultViewDate: { year: "{{ season.validity}}", month: 1, day: 1 },        
+      startDate: new Date("{{ season.validity}}", 2 -1, 1),
+      endDate: new Date("{{ season.validity}}", 2 -1,28),
+      datesDisabled: intervalos2,
+
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }                          
   });
 
+  //março 
+  $('.datepicker3').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,
+      defaultViewDate: { year: "{{ season.validity}}", month: 2, day: 1 },        
+      startDate: new Date("{{ season.validity}}", 3 -1, 1),
+      endDate: new Date("{{ season.validity}}", 3 -1,31),
+      datesDisabled: intervalos3,
+
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }                          
+  });
+
+  //abril
+  $('.datepicker4').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,
+      defaultViewDate: { year: "{{ season.validity}}", month: 3, day: 1 },        
+      startDate: new Date("{{ season.validity}}", 4 -1, 1),
+      endDate: new Date("{{ season.validity}}", 4 -1,30),
+      datesDisabled: intervalos4,
+      
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+                          
+  });  
+  
+  //maio
+  $('.datepicker5').datepicker({      
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true, 
+      defaultViewDate: { year: "{{ season.validity}}", month: 4, day: 1 },            
+      startDate: new Date("{{ season.validity}}", 5 -1, 1),
+      endDate: new Date("{{ season.validity}}", 5 -1,31),
+      datesDisabled: intervalos5,
+
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+      
+                          
+  });
+
+   //junho 
+   $('.datepicker6').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,
+      defaultViewDate: { year: "{{ season.validity}}", month: 5, day: 1 },        
+      startDate: new Date("{{ season.validity}}", 6 -1, 1),
+      endDate: new Date("{{ season.validity}}", 6 -1,30),
+      datesDisabled: intervalos6, 
+      
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+     
+                          
+  });
+
+  //julho 
+  $('.datepicker7').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,
+      defaultViewDate: { year: "{{ season.validity}}", month: 6, day: 1 },        
+      startDate: new Date("{{ season.validity}}", 7 -1, 1),
+      endDate: new Date("{{ season.validity}}", 7 -1,31),
+      datesDisabled: intervalos7,
+
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+                          
+  });
+
+  //agosto 
+  $('.datepicker8').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,   
+      defaultViewDate: { year: "{{ season.validity}}", month: 7, day: 1 },     
+      startDate: new Date("{{ season.validity}}", 8 -1, 1),
+      endDate: new Date("{{ season.validity}}", 8 -1,31),
+      datesDisabled: intervalos8,
+
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+     
+                          
+  });
+
+  //setembro 
+  $('.datepicker9').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,   
+      defaultViewDate: { year: "{{ season.validity}}", month: 8, day: 1 },     
+      startDate: new Date("{{ season.validity}}", 9 -1, 1),
+      endDate: new Date("{{ season.validity}}", 9 -1,30),
+      datesDisabled: intervalos9,
+
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+     
+                          
+  });
+
+  //outubro 
+  $('.datepicker10').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,  
+      defaultViewDate: { year: "{{ season.validity}}", month: 9, day: 1 },      
+      startDate: new Date("{{ season.validity}}", 10 -1, 1),
+      endDate: new Date("{{ season.validity}}", 10 -1,31),
+      datesDisabled: intervalos10, 
+      
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+                          
+  });
+
+  //novembro
+  $('.datepicker11').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true, 
+      defaultViewDate: { year: "{{ season.validity}}", month: 10, day: 1 },       
+      startDate: new Date("{{ season.validity}}", 11 -1, 1),
+      endDate: new Date("{{ season.validity}}", 11 -1,30),
+      datesDisabled: intervalos11,  
+      
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+                          
+  }); 
+
+  //dezembro
+  $('.datepicker12').datepicker({
+      dateFormat: "dd/mm/yy",                                              
+      language: ['pt-BR'],
+      todayHighlight: true,
+      autoApply: true,
+      defaultViewDate: { year: "{{ season.validity}}", month: 11, day: 1 },        
+      startDate: new Date("{{ season.validity}}", 12 -1, 1),
+      endDate: new Date("{{ season.validity}}", 12 -1,31),
+      datesDisabled: intervalos12, 
+      
+      beforeShowDay: function(date){ 
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      var day = date.getDate();
+                
+      // format of date
+      var newdate = day+"/"+month+'/'+year;
+          
+      // Set tooltip text when mouse over date
+      var tooltip_text = "{{e.name_event}}";
+            
+      // Check date in Array
+      if(jQuery.inArray(newdate,highlight_dates) != -1){        
+        return {
+          classes: 'active',
+          tooltip: tooltip_text,
+                                  
+        }
+      }
+      return [true,'',''];
+    }              
+                          
+  }); 
+</script>
+    
+
+<!--script>
+  //2022
+  //janeiro
+  $('.datepicker1').datepicker({        
+    dateFormat: "d/m/y",                                              
+    language: ['pt-BR'],
+    todayHighlight: true,
+    autoApply: true,      
+    toggleActive: true,      
+    defaultViewDate: { year: 2022, month: 0, day: 1 },        
+    startDate: new Date(2022, 1 -1, 1),
+    endDate: new Date(2022, 1 -1,31),
+    datesDisabled: intervalos1,
+    
+  });  
+
+  
   //fevereiro
   $('.datepicker2').datepicker({
       dateFormat: "dd/mm/yy",                                              
@@ -186,10 +607,10 @@
       datesDisabled: intervalos4,
       
                           
-  });
-
+  });    
+      
   //maio
-  $('.datepicker5').datepicker({
+  $('.datepicker5').datepicker({      
       dateFormat: "dd/mm/yy",                                              
       language: ['pt-BR'],
       todayHighlight: true,
@@ -199,25 +620,7 @@
       endDate: new Date(2022, 5 -1,31),
       datesDisabled: intervalos5,
       
-      beforeShowDay: function(date){
-        if (date.getMonth() == 4){
-              switch (date.getDate()){
-                  
-                case 24:
-                  return {
-                    tooltip: 'Teste',
-                    classes: 'active'
-                  };
-                  
-                case 30:
-                  return {
-                    tooltip: ['Perene'],
-                    classes: 'active'
-                  };          
-                
-              }        
-        }                                    
-      }                            
+                          
   });
 
   //junho 
@@ -229,28 +632,7 @@
       defaultViewDate: { year: 2022, month: 5, day: 1 },        
       startDate: new Date(2022, 6 -1, 1),
       endDate: new Date(2022, 6 -1,30),
-      datesDisabled: intervalos6,
-
-
-      beforeShowDay: function(date){
-        if (date.getMonth() == 5){
-              switch (date.getDate()){
-                  
-                case 24:
-                  return {
-                    tooltip: 'Festa Julina',
-                    classes: 'active'
-                  };
-                  
-                case 27:
-                  return {
-                    tooltip: ['Festa Julina'],
-                    classes: 'active'
-                  };          
-                
-              }        
-        }                                    
-      }
+      datesDisabled: intervalos6,     
      
                           
   });
@@ -333,23 +715,8 @@
       endDate: new Date(2022, 12 -1,31),
       datesDisabled: intervalos12,       
                           
-  }); 
-
-  //2023
-   //janeiro 
-      
-  $('.datepicker-1-2023').datepicker({        
-      dateFormat: "dd/mm/yy",                                              
-      language: ['pt-BR'],
-      todayHighlight: true,
-      autoApply: true,      
-      defaultViewDate: { year: 2023, month: 0, day: 1 },        
-      startDate: new Date(2023, 1 -1, 1),
-      endDate: new Date(2023, 1 -1,31),
-      datesDisabled: intervalos1,
-                              
-  });
+  });  
   
-</script> 
+</script--> 
 {% endblock %}
 

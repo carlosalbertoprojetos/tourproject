@@ -1,6 +1,11 @@
 import pdb
+import html
+from datetime import datetime
+import json
+import sys
+from textwrap import indent
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
@@ -18,11 +23,11 @@ from .models import Season, Validity, Event
 def season_event_detail(request, pk):
     #pdb.set_trace()
     context = {}
-    form = EventForm(request.POST or None)
+    form = EventForm(request.POST or None)    
     event = Event.objects.filter(season=pk)
     season = Season.objects.get(pk=pk)
     context = {
-        'event':event,
+        'event':event,        
         'season': season,
         'form': form,            
     }               
@@ -50,8 +55,7 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Event    
     fields = '__all__'
     template_name = 'season/event_update.html'
-    success_message = 'Evento alterado com sucesso!!!'
-    #reverse('admin:app_list', kwargs={'app_label': 'auth'})
+    success_message = 'Evento alterado com sucesso!!!'    
     success_url = _('season:season_list_create')
 
 event_update = EventUpdateView.as_view()
@@ -59,17 +63,34 @@ event_update = EventUpdateView.as_view()
 #===============================================================================
 # CALENDÁRIO
 
-def calendar_event_detail(request, pk):
+def calendar_event_detail(request, pk):   
     if pk == None :
-        event = get_object_or_404(Season, pk=pk)
+        event = get_object_or_404(Event, pk=pk)
     else:
         #pdb.set_trace()
-        event = Event.objects.filter(season=pk)
+        dates = [] # array de datas
+        new_dates = {} #dicionario para criar arquivo json     
+        event = Event.objects.filter(season=pk)               
         season = Season.objects.get(pk=pk)
+
+        for e in Event.objects.filter(season=pk):
+           date_init = e.date_init.strftime("%-d/%-m/%Y")           
+           date_fin = e.date_fin.strftime("%-d/%-m/%Y")
+           #evento = e.name_event                        
+           dates.extend([date_init,date_fin])          
+        
+                
+        new_dates = {i:dates[i]for i in range(0,len(dates))}
+        vet_dates = json.dumps(new_dates)
+        sys.stdout = open('/home/oem/tourproject/venv_tourproject/tourproject/basics/static/js/vet_dates.js','w')       
+        print("var vet_dates ='{}'".format(vet_dates))
+        
         context = {
-            'event':event,
-            'season': season,            
-            }    
+            'dates': dates,            
+            'event': event,
+            'season': season,
+            'range': range(0,13),                        
+        }    
         
         return render(request, 'season/calendar_list.html', context)
 
@@ -157,15 +178,20 @@ class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 season_update = SeasonUpdateView.as_view()
 
 
-class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Season
-    template_name = 'season/season_delete.html'
-    success_message = 'Temporada deletada com sucesso!'
-    success_url = _('season:season_list_create')
+class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):    
+    try:
+        model = Season        
+        template_name = 'season/season_delete.html'
+        success_message = 'Temporada deletada com sucesso!!!'
+        success_url = _('season:season_list_create')
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(SeasonDeleteView, self).delete(request, *args, **kwargs)
+        def delete(self, request, *args, **kwargs):
+            messages.success(self.request,self.success_message)
+            return super(SeasonDeleteView, self).delete(request, *args, **kwargs)
+
+    except IntegrityError:
+         success_message = 'Erro ao deletar temporada!!!'
+         success_url = _('season:season_list_create')
 
 season_delete = SeasonDeleteView.as_view()
 

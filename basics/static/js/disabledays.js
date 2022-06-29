@@ -2,7 +2,7 @@
     let d1 = toDate("01/01/2022"),
     d2 = toDate("31/01/2022"),
     intervalos1 = [];
-
+    console.log("{{ season.validity}}")
     intervalos1.push( toString(d1) );
 
     while ( d1 < d2 ) {

@@ -217,6 +217,9 @@ LOGOUT_URL = '/accounts/logout/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+DATE_INPUT_FORMATS = ['%m/%d/%Y']
+
+
 #django_heroku.settings(locals())
 
 # USE_DJANGO_JQUERY = True

@@ -5,7 +5,7 @@
 {% endblock title %}
 {% block dashboard %}
 
-<!--Menu-->
+
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
   <div class="container-fluid">
@@ -31,13 +31,13 @@
         </a>     
     </div>           
     <div class="d-flex">
-        <a href="{% url 'season:calendar_event_detail' season.pk %}">
-          <button class="btn bg-gradient-success" type="submit">Modelo Calendário</button>
+        <a href="{% url 'season:calendar_event_detail' season.pk %}" >
+          <button class="btn bg-gradient-success" type="submit" >Modelo Calendário</button>
         </a>     
     </div>
     <div class="d-flex">
       <a href="{% url 'season:season_list_create' %}">
-        <button class="btn bg-gradient-red" type="submit">Voltar</button>
+        <button class="btn bg-gradient-red" type="submit">Termporada</button>
       </a>     
     </div>    
   </div>
@@ -128,5 +128,6 @@
     </div>
   </div>
 </div>
+
 {% endblock %}
 
