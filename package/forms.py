@@ -1,5 +1,4 @@
 from django import forms
-# from django.forms import inlineformset_factory, modelformset_factory
 
 from .models import Data_Package_One, Child_Package_One
 
@@ -37,7 +36,6 @@ class Data_Package_OneForm(forms.ModelForm):
                         
             'num_child':forms.NumberInput(
                 attrs={
-                    'oninput':'campos()',
                     'class':'form-control my-2',
                     # 'label':'Quantidade de Crianças',
                     'type':'number'
@@ -50,9 +48,6 @@ class Child_Package_OneForm(forms.ModelForm):
 
     class Meta:
         model = Child_Package_One
-        fields = '__all__'
+        fields = ('children_age',)
         labels = {"Data_package_one":''}
-        widgets = {}
-
-
-        
+       
