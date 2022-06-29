@@ -2,7 +2,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Pacote
+    Pacotes
 {% endblock title %}
 {% block dashboard %}
 
@@ -19,13 +19,27 @@
                 <h3 class="form-title mb-3 p-3">Pacote para {{destiny}}</h3>
             </div>
             <div class='row'>
-                <form action='.' method='POST' class='form-group p-2'>
+                <form action='.' method='POST' class='p-2'>
                     {% csrf_token %}
+                    {% for field in form %}
                     <div class='row'>
-                        <div class='col-6'>
-                        {{ form|crispy }}
+                        <div class='col-md-3'>
+                            {{ field.date_arrive }}
+                        </div>
+                        <div class='col-md-3'>
+                            {{ field.date_departure }}
                         </div>
                     </div>
+                    <div class='row'>
+                        <div class='col-md-3'>
+                            {{ field.num_adults }}
+                        </div>
+                        <div class='col-md-3'>
+                            {{ field.num_child }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                        {{ form|crispy }}
                     {% if formset %}
                     <div class='row'>
                         <div style="display: None;" class="alert alert-danger" role="alert" id="id_message">
@@ -40,11 +54,11 @@
                             {% endfor %}
                         </div>
                         <div id='empty-form' class='hidden'>{{ formset.empty_form|crispy }}</div>
-                        {% endif %}
-                        <div class='row'>
-                            <div class='col-2'>
-                                <button type='submit' class='btn btn-primary w-100'>Save</button>
-                            </div>
+                    </div>
+                    {% endif %}
+                    <div class='row'>
+                        <div class='col-md-2'>
+                            <button type='submit' class='btn btn-primary w-100'>Save</button>
                         </div>
                     </div>
                 </form>

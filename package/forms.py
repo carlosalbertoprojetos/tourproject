@@ -13,14 +13,14 @@ class Data_Package_OneForm(forms.ModelForm):
         widgets = {
             'date_arrive':forms.DateInput(
                 attrs={
-                    'class':'form-control my-2',
+                    'class':'col-md-3',
                     # 'label':'Data de Chegada',
                     'type':'date'
                     },
                 ),
             'date_departure':forms.DateInput(
                 attrs={
-                    'class':'form-control my-2',
+                    'class':'col-md-3',
                     # 'label':'Data de Partida',
                     'type':'date'
                     },
@@ -28,7 +28,7 @@ class Data_Package_OneForm(forms.ModelForm):
             
             'num_adults':forms.NumberInput(
                 attrs={
-                    'class':'form-control my-2',
+                    'class':'col-md-3',
                     # 'label':'Quantidade de Adultos',
                     'type':'number'
                     },
@@ -36,13 +36,12 @@ class Data_Package_OneForm(forms.ModelForm):
                         
             'num_child':forms.NumberInput(
                 attrs={
-                    'class':'form-control my-2',
+                    'class':'col-md-3',
                     # 'label':'Quantidade de Crianças',
                     'type':'number'
                     },
                 ),
         }
-
 
 class Child_Package_OneForm(forms.ModelForm):
 
@@ -50,4 +49,26 @@ class Child_Package_OneForm(forms.ModelForm):
         model = Child_Package_One
         fields = ('children_age',)
         labels = {"Data_package_one":''}
-       
+        widgets = {
+            'children_age':forms.TimeInput(
+                attrs={
+                    'class':'form-control mx-1',
+                    'type':'text'
+                    },
+                ),
+        }
+
+class ChildPackageOneUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Child_Package_One
+        fields = '__all__'
+        labels = {"Data_package_one":''}
+        widgets = {
+            'children_age':forms.TimeInput(
+                attrs={
+                    'class':'form-control mx-1',
+                    'type':'text'
+                    },
+                ),
+        }

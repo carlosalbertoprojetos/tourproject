@@ -327,20 +327,27 @@ class ActivityPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteVie
 activity_price_delete = ActivityPriceDeleteView.as_view()
 
 
+
+
+
+
+
+
+
 # somente se ActivityCatPax.catpax_id__t_child=True ou ActivityCatPax.catpax__t_child=True
-def catpax_chd(request, pk):
-    obj = get_object_or_404(ActivityCatPax, pk=pk)
-    form = CHD_ActivityForm(instance=obj)
+# def catpax_chd(request, pk):
+#     obj = get_object_or_404(ActivityCatPax, pk=pk)
+#     form = CHD_ActivityForm(instance=obj)
 
-    if request.method == 'POST':
-        form = CHD_ActivityForm(request.POST or None, instance=obj)
+#     if request.method == 'POST':
+#         form = CHD_ActivityForm(request.POST or None, instance=obj)
 
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Dados alterados com sucesso!!!')
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Dados alterados com sucesso!!!')
 
-        else:
-            return render(request, 'user/user_update.html', {'form': form})
+#         else:
+#             return render(request, 'user/user_update.html', {'form': form})
 
-    elif request.method == 'GET':
-        return render(request, 'user/user_update.html', {'form': form})
+#     elif request.method == 'GET':
+#         return render(request, 'user/user_update.html', {'form': form})

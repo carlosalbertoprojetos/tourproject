@@ -66,6 +66,30 @@ def data_package_list(request, id_destiny):
     }
     return render(request, 'package/data_package_list.html', context)
 
+
+class DataPackageUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Data_Package_One
+    fields ='__all__'
+    # form_class = Data_Package_OneForm
+    template_name = 'package/data_package_update.html'
+    success_message = 'Dado(s) do pacote atualizado(s) com sucesso!!!'
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = Data_Package_OneForm(self.request.POST, instance=self.object)
+        formset = Child_Package_OneForm(self.request.POST, instance=self.object)
+        
+        if form.is_valid() and formset.is_valid():
+            form = form.save()
+            formset.instance = form
+            formset.save()
+
+    def get_success_url(self):
+        return reverse('package:data_package_list', kwargs={'id_destiny': self.object.destiny_id})
+
+data_package_update = DataPackageUpdateView.as_view()
+
+
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Data_Package_One
     template_name = 'package/data_package_delete.html'
@@ -119,5 +143,3 @@ def children_ages_update(request, id_package):
         'formset':formset,
     }
     return render(request, 'package/children_ages_update.html', context)
-
-  
