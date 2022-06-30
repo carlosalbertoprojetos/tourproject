@@ -96,7 +96,7 @@ class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView)
     success_message = 'Pacote deletado com sucesso!!!'
 
     def get_success_url(self):
-        return reverse('package:data_package_list', kwargs={'id_destiny': self.object.destiny_id})
+        return redirect('package:data_package_list', kwargs={'id_destiny': self.object.destiny_id})
 
     def delete(self, request, *args, **kwargs):
         return super(DataPackageDeleteView, self).delete(request, *args, **kwargs)
@@ -126,7 +126,7 @@ def children_ages_update(request, id_package):
         destiny = p.destiny
     
     if request.method == 'POST':
-        formset = Child_Age_formset(request.POST, queryset=Child_Package_One.objects.filter(Data_package_one=id_package))
+        formset = Child_Age_formset(request.POST, queryset=Child_Package_One.objects.filter(data_package_one=id_package))
 
         if formset.is_valid():
             instances = formset.save(commit=False)
@@ -135,7 +135,7 @@ def children_ages_update(request, id_package):
             messages.success(request, 'Idade(s) alterada(s) com sucesso!!!')
             return redirect('package:data_package_list', id_destiny=destiny_id)
 
-    formset = Child_Age_formset(queryset=Child_Package_One.objects.filter(Data_package_one=id_package))
+    formset = Child_Age_formset(queryset=Child_Package_One.objects.filter(data_package_one=id_package))
 
     context = {
         'destiny': destiny,

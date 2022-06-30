@@ -123,13 +123,14 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.name
-
+    
+    class Meta:
+        verbose_name = "Atividade do Passeio"
+        verbose_name_plural = "Atividades do Passeio"
 
 class ActivityCatPax(models.Model): 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE )
     catpax = models.ForeignKey(CategoryPax, on_delete=models.CASCADE )
-    # age_min = models.IntegerField('Idade Mínima', blank=True, null=True)
-    # age_max = models.IntegerField('Idade Máxima', blank=True, null=True)
 
     def __str__(self):
         return str(self.catpax)
@@ -144,6 +145,9 @@ class ActivityPrice(models.Model):
     def __str__(self):
         return self.activity
 
+    class Meta:
+        verbose_name = "Preço da atividade"
+        verbose_name_plural = "Preços das atividades"
 
 # deleta catpax quando desmarcado(desflegado) da activity por manytomany
 @receiver(post_delete, sender=ActivityCatPax)
