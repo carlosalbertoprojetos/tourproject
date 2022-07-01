@@ -50,4 +50,12 @@ class Child_Package_OneForm(forms.ModelForm):
         model = Child_Package_One
         fields = ('children_age',)
         labels = {"Data_package_one":''}
+        widgets = {
+            'children_age':forms.TimeInput(
+                attrs={
+                    'class':'form-control m-1',
+                    'type':'text'
+                    },
+                ),
+        }
        

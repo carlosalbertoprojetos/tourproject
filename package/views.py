@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import inlineformset_factory, modelform_factory, modelformset_factory
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy as _
 from django.views.generic.edit import DeleteView, UpdateView
@@ -19,6 +20,15 @@ from destiny.models import Destiny
 # DADOS PARA PACOTE - Data_package_One
 # client => package
 
+def data_package_list(request, id_destiny):
+    destiny = Destiny.objects.filter(id=id_destiny).first()
+    object = Data_Package_One.objects.filter(destiny_id=id_destiny)
+    
+    context = {
+        'destiny': destiny,
+        'object': object,
+    }
+    return render(request, 'package/data_package_list.html', context)
 
 def data_package_create(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
@@ -56,16 +66,6 @@ def data_package_create(request, id_destiny):
         return render(request, 'package/data_package_create.html', context)
 
 
-def data_package_list(request, id_destiny):
-    destiny = Destiny.objects.filter(id=id_destiny).first()
-    object = Data_Package_One.objects.filter(destiny_id=id_destiny)
-    
-    context = {
-        'destiny': destiny,
-        'object': object,
-    }
-    return render(request, 'package/data_package_list.html', context)
-
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Data_Package_One
     template_name = 'package/data_package_delete.html'
@@ -80,14 +80,14 @@ class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView)
 data_package_delete = DataPackageDeleteView.as_view()
 
 
-def children_ages(request, id_package):
-    package = Data_Package_One.objects.filter(id=id_package)
-    object = Child_Package_One.objects.filter(Data_package_one=id_package)
-    context = {
-        'package': package,
-        'object': object,
-    }
-    return render(request, 'package/children_ages_list.html', context)
+# def children_ages(request, id_package):
+#     package = Data_Package_One.objects.filter(id=id_package)
+#     object = Child_Package_One.objects.filter(Data_package_one=id_package)
+#     context = {
+#         'package': package,
+#         'object': object,
+#     }
+#     return render(request, 'package/children_ages_list.html', context)
 
 
 @login_required

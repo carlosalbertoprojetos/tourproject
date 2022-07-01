@@ -22,8 +22,23 @@
                 <form action='.' method='POST' class='form-group p-2'>
                     {% csrf_token %}
                     <div class='row'>
-                        <div class='col-6'>
-                        {{ form|crispy }}
+                        <div class='col-md-6 mb-2'>
+                            <label for="id_date_arrive">Data da Chegada</label>
+                            <input value="{{form.date_arrive.value}}" type="date" name="date_arrive"  class="dateinput form-control mt-2" id="id_date_arrive" title="Escolha uma data">
+                        </div>
+                        <div class='col-md-6 mb-2'>
+                            <label for="id_date_departure">Data da Partida</label>
+                            <input type="date" name="date_departure" value="{{form.date_departure.value}}" class="dateinput form-control mt-2" id="id_date_departure">
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-6 mb-2'>
+                            <label for="id_num_adults">Quantidade adultos</label>
+                            <input type="text" name="num_adults" value="{{form.num_adults.value|default:''}}" class="dateinput form-control mt-2" id="id_num_adults">
+                        </div>
+                        <div class='col-md-6 mb-2'>
+                            <label for="id_num_child">Quantidade crianças</label>
+                            <input type="text" name="num_child" value="{{form.num_child.value|default:''}}" class="dateinput form-control mt-2" id="id_num_child">
                         </div>
                     </div>
                     {% if formset %}
