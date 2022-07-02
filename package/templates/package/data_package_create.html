@@ -14,31 +14,14 @@
 
 <div class="header">
     <div class="container mt-2">
-
-        <div class="card">
-            <div class='row'>
-                <h3 class="form-title mb-3 p-3">Criar pacote para {{destiny}}</h3>
-            </div>
-            <div class='row'>
-                <form action='.' method='POST' class='p-2'>
-
         <div class="card p-2">
             <div class='row m-2'>
                 <h3 class="form-title mb-1 p-0">Pacote para {{destiny}}</h3>
             </div>
             <div class='row'>
                 <form action='.' method='POST' class='mb-2'>
-
                     {% csrf_token %}
-                    {% for field in form %}
-                    <div class='row'>
-
-                        <div class='col-md-3'>
-                            {{ field.date_arrive }}
-                        </div>
-                        <div class='col-md-3'>
-                            {{ field.date_departure }}
-
+                    <div class='row'>    
                         <div class='col-6 mb-2'>
                             <label for="id_date_arrive">Data da Chegada</label>
                             <input value="{{form.date_arrive.value}}" type="date" name="date_arrive"  class="dateinput form-control mt-2" id="id_date_arrive" title="Escolha uma data">
@@ -59,16 +42,6 @@
 
                         </div>
                     </div>
-                    <div class='row'>
-                        <div class='col-md-3'>
-                            {{ field.num_adults }}
-                        </div>
-                        <div class='col-md-3'>
-                            {{ field.num_child }}
-                        </div>
-                    </div>
-                    {% endfor %}
-                        {{ form|crispy }}
                     {% if formset %}
                     <div style="display: None;" class="alert alert-danger m-1" role="alert" id="id_message">
                         Por favor, informe as idades das crianças
@@ -87,16 +60,8 @@
                     </div>
                     {% endif %}
                     <div class='row'>
-                        <div class='col-md-2'>
-                            <button type='submit' class='btn btn-primary w-100'>Save</button>
-
-                        <div id='empty-form' class='hidden'>
-                            {{ formset.empty_form|crispy }}
-                        </div>
-                        {% endif %}
-                        <div class='mt-2'>
+                         <div class='mt-2'>
                             <button type='submit' class='btn btn-primary'>Salvar</button>
-
                         </div>
                     </div>
                 </form>
