@@ -48,7 +48,7 @@
     </div>           
     <div class="d-flex">
         <a href="{% url 'season:calendar_event_detail' season.pk%}">
-          <button class="btn bg-gradient-success" type="submit" onmousemove="reload()">Modelo Calendário</button>
+          <button class="btn bg-gradient-success" type="submit" onclick="reload()">Modelo Calendário</button>
         </a>     
     </div>
     <div class="d-flex">
@@ -92,17 +92,21 @@
     </div>
   </div>
 </div>
-
-
-<br>
+<!--br>
 {{dates}}
-<br> 
+<br--> 
 
-<br>      
+      
             
 <script> 
-  function reload(){
-    location.reload()
+//function autoRefresh() {
+  //      window.location = window.location.href;
+  //  }
+  //  setInterval('autoRefresh()', 102000);
+  
+  
+    function reload(){
+    document.location.reload(true);
     
   }
            
@@ -127,6 +131,9 @@
   //mes_init = di.getDate()+'/'+(di.getMonth()+1)+'/'+di.getFullYear()
   //console.log(mes_init)      
   
+  
+  //janeiro 2022/2023
+
   $('.datepicker1').datepicker({        
     dateFormat: "m/d/y",                                              
     language: ['pt-BR'],
@@ -136,7 +143,8 @@
     defaultViewDate: { year:"{{ season.validity}}", month: 0, day: 1},        
     startDate: new Date("{{ season.validity}}", 1 -1, 1),
     endDate: new Date("{{ season.validity}}", 1 -1,31),
-    datesDisabled: intervalos1,     
+    datesDisabled: intervalos1,
+    //datesDisabled: intervalos13,     
               
     beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -171,6 +179,7 @@
       startDate: new Date("{{ season.validity}}", 2 -1, 1),
       endDate: new Date("{{ season.validity}}", 2 -1,28),
       datesDisabled: intervalos2,
+      //datesDisabled: intervalos14,
 
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -205,6 +214,7 @@
       startDate: new Date("{{ season.validity}}", 3 -1, 1),
       endDate: new Date("{{ season.validity}}", 3 -1,31),
       datesDisabled: intervalos3,
+      //datesDisabled: intervalos15,
 
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -239,6 +249,7 @@
       startDate: new Date("{{ season.validity}}", 4 -1, 1),
       endDate: new Date("{{ season.validity}}", 4 -1,30),
       datesDisabled: intervalos4,
+      //datesDisabled: intervalos16,
       
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -274,6 +285,7 @@
       startDate: new Date("{{ season.validity}}", 5 -1, 1),
       endDate: new Date("{{ season.validity}}", 5 -1,31),
       datesDisabled: intervalos5,
+      //datesDisabled: intervalos17,
 
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -309,7 +321,8 @@
       defaultViewDate: { year: "{{ season.validity}}", month: 5, day: 1 },        
       startDate: new Date("{{ season.validity}}", 6 -1, 1),
       endDate: new Date("{{ season.validity}}", 6 -1,30),
-      datesDisabled: intervalos6, 
+      datesDisabled: intervalos6,
+      //datesDisabled: intervalos18, 
       
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -346,6 +359,7 @@
       startDate: new Date("{{ season.validity}}", 7 -1, 1),
       endDate: new Date("{{ season.validity}}", 7 -1,31),
       datesDisabled: intervalos7,
+      //datesDisabled: intervalos19,
 
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -381,6 +395,7 @@
       startDate: new Date("{{ season.validity}}", 8 -1, 1),
       endDate: new Date("{{ season.validity}}", 8 -1,31),
       datesDisabled: intervalos8,
+      //datesDisabled: intervalos20,
 
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -417,6 +432,7 @@
       startDate: new Date("{{ season.validity}}", 9 -1, 1),
       endDate: new Date("{{ season.validity}}", 9 -1,30),
       datesDisabled: intervalos9,
+      //datesDisabled: intervalos21,
 
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -452,7 +468,8 @@
       defaultViewDate: { year: "{{ season.validity}}", month: 9, day: 1 },      
       startDate: new Date("{{ season.validity}}", 10 -1, 1),
       endDate: new Date("{{ season.validity}}", 10 -1,31),
-      datesDisabled: intervalos10, 
+      datesDisabled: intervalos10,
+      //datesDisabled: intervalos22, 
       
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -487,7 +504,8 @@
       defaultViewDate: { year: "{{ season.validity}}", month: 10, day: 1 },       
       startDate: new Date("{{ season.validity}}", 11 -1, 1),
       endDate: new Date("{{ season.validity}}", 11 -1,30),
-      datesDisabled: intervalos11,  
+      datesDisabled: intervalos11,
+      //datesDisabled: intervalos23,  
       
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;
@@ -522,7 +540,8 @@
       defaultViewDate: { year: "{{ season.validity}}", month: 11, day: 1 },        
       startDate: new Date("{{ season.validity}}", 12 -1, 1),
       endDate: new Date("{{ season.validity}}", 12 -1,31),
-      datesDisabled: intervalos12, 
+      datesDisabled: intervalos12,
+      //datesDisabled: intervalos24, 
       
       beforeShowDay: function(date){ 
       var month = date.getMonth()+1;

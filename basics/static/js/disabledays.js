@@ -1,8 +1,7 @@
      //janeiro  
     let d1 = toDate("01/01/2022"),
     d2 = toDate("31/01/2022"),
-    intervalos1 = [];
-    console.log("{{ season.validity}}")
+    intervalos1 = [];    
     intervalos1.push( toString(d1) );
 
     while ( d1 < d2 ) {
@@ -246,7 +245,7 @@
     } 
 
     
-    //dezembro
+    //dezembro 2022
     
     let d23 = toDate("01/12/2022"),
     d24 = toDate("31/12/2022"),
@@ -269,6 +268,276 @@
         date.getFullYear();
     } 
     
-
+//======================================================================
+//janeiro 2023
     
-   
+let d25 = toDate("01/01/2023"),
+d26 = toDate("31/01/2023"),
+intervalos13 = [];
+
+intervalos13.push( toString(d25) );
+
+while ( d25 < d26 ) {
+d25.setDate( d25.getDate() + 1 );
+intervalos13.push( toString(d25) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+//fevereiro 2023
+let d27 = toDate("01/02/2023"),
+d28 = toDate("28/02/2023"),
+intervalos14 = [];
+
+intervalos14.push( toString(d27) );
+
+while ( d27 < d28 ) {
+d27.setDate( d27.getDate() + 1 );
+intervalos14.push( toString(d27) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+}
+
+//março
+let d29 = toDate("01/03/2023"),
+d30 = toDate("31/03/2023"),
+intervalos15 = [];
+
+intervalos15.push( toString(d29) );
+
+while ( d29 < d30 ) {
+d29.setDate( d29.getDate() + 1 );
+intervalos15.push( toString(d29) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+}
+
+//abril
+let d31 = toDate("01/04/2023"),
+d32 = toDate("30/04/2023"),
+intervalos16 = [];
+
+intervalos16.push( toString(d31) );
+
+while ( d31 < d32 ) {
+d31.setDate( d31.getDate() + 1 );
+intervalos16.push( toString(d31) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+}
+//maio
+let d33 = toDate("01/05/2023"),
+d34 = toDate("31/05/2023"),
+intervalos17 = [];
+
+intervalos17.push( toString(d33) );
+
+while ( d33 < d34 ) {
+d33.setDate( d33.getDate() + 1 );
+intervalos17.push( toString(d33) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+//junho
+let d35 = toDate("01/06/2023"),
+d36 = toDate("30/06/2023"),
+intervalos18 = [];
+
+intervalos18.push( toString(d35) );
+
+while ( d35 < d36 ) {
+d35.setDate( d35.getDate() + 1 );
+intervalos18.push( toString(d35) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+//julho
+
+let d37 = toDate("01/07/2023"),
+d38 = toDate("31/07/2023"),
+intervalos19 = [];
+
+intervalos19.push( toString(d37) );
+
+while ( d37 < d38 ) {
+d37.setDate( d37.getDate() + 1 );
+intervalos19.push( toString(d37) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+//agosto
+
+let d39 = toDate("01/08/2023"),
+d40 = toDate("31/08/2023"),
+intervalos20 = [];
+
+intervalos20.push( toString(d39) );
+
+while ( d39 < d40 ) {
+d39.setDate( d39.getDate() + 1 );
+intervalos20.push( toString(d39) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+//setembro
+
+let d41 = toDate("01/09/2023"),
+d42 = toDate("30/09/2023"),
+intervalos21 = [];
+
+intervalos21.push( toString(d41) );
+
+while ( d41 < d42 ) {
+d41.setDate( d41.getDate() + 1 );
+intervalos21.push( toString(d41) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+
+//outubro
+
+let d43 = toDate("01/10/2023"),
+d44 = toDate("31/10/2023"),
+intervalos22 = [];
+
+intervalos22.push( toString(d43) );
+
+while ( d43 < d44 ) {
+d43.setDate( d43.getDate() + 1 );
+intervalos22.push( toString(d43) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+
+//novembro
+
+let d45 = toDate("01/11/2023"),
+d46 = toDate("30/11/2023"),
+intervalos23 = [];
+
+intervalos23.push( toString(d45) );
+
+while ( d45 < d46 ) {
+d45.setDate( d45.getDate() + 1 );
+intervalos23.push( toString(d45) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
+
+
+//dezembro 2022
+
+let d47 = toDate("01/12/2023"),
+d48 = toDate("31/12/2023"),
+intervalos24 = [];
+
+intervalos24.push( toString(d47) );
+
+while ( d47 < d48 ) {
+d47.setDate( d47.getDate() + 1 );
+intervalos24.push( toString(d47) );
+}
+function toDate(texto) {
+    let partes = texto.split('/');
+    return new Date(partes[2], partes[1]-1, partes[0]);
+}
+
+function toString(date) {
+    return ('0' + date.getDate()).slice(-2) + '/' +
+    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+    date.getFullYear();
+} 
