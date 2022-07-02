@@ -6,18 +6,15 @@
 {% block dashboard %}
 
 
-<div class="container-fluid mt-2">
-    <div class="card p-0">
-        <div class="card-header mb-2 pl-2 pb-0">
-            <div class="row">
-                <div class="col-sm-12 col-md-2">
-                    <h4 class="form-title pl-2 my-2">Pacotes para</h4>
-                </div>
-                <div class="col-sm-12 col-md-10">
-                    <h4 class="form-title m-2 ml-0">{{ destiny }}</h4>
-                </div>
-                <div class="col-sm-10 col-md-10">    
-                    <div class="form-group">
+<div class="header">
+    <div class="container mt-2">
+        <div class="card p-2">
+            <div class='row'>
+                <h3 class="form-title mb-1 p-0">Pacote para {{destiny}}</h3>
+            </div>
+            <div class='row m-2'>
+                <form method="POST" enctype="multipart/form-data" class='p-0'>
+                    <div class="form-group mb-2 p-0">
                     {% for pac in package %}
                         <div class="row">
                             <div class='col-sm-12 col-md-8 jumbotron m-0 p-2' style='text-align: center;'>
@@ -42,10 +39,20 @@
                             </div>
                         </div>
                     {% endfor %}
+                    </div>                
+                    <div class='mb-1 ml-0'>
+                        {% csrf_token %}
+                        <div class='form-inline'>
+                            {{ formset }}
+                        </div>
                     </div>
-                </div>
+                    <div class='mt-2'>
+                        <button type='submit' class='btn btn-primary'>Salvar</button>
+                    </div>
+                </form>
             </div>
         </div>
+
         <div class='card-header pl-2 p-0'>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -57,6 +64,7 @@
                     </div>
             </form>
         </div>
+
     </div>
 </div>
 

@@ -17,6 +17,10 @@ urlpatterns = [
     path('<id_destiny>/create/', data_package_create, name="data_package_create"),
     path('<id_destiny>/list/', data_package_list, name="data_package_list"),
     path('<int:pk>/edit/', data_package_update, name='data_package_update'),
+
+    path('<id_destiny>/create/', data_package_create, name='data_package_create'),
+    path('<id_destiny>/list/', data_package_list, name='data_package_list'),
+
     path('<int:pk>/delete/', data_package_delete, name='data_package_delete'),
     
     path('<id_package>/children_ages_update/', children_ages_update, name='children_ages_update')

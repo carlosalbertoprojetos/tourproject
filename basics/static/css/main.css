@@ -1167,7 +1167,7 @@ footer {
         color: #6c757d;
       }
       .blockquote-footer::before {
-        content: "— ";
+        content: "— ";
       }
       
       .img-fluid {
@@ -13687,8 +13687,9 @@ footer {
         }
         .form-inline .form-control {
           display: inline-block;
-          width: auto;
+          width: 50px;
           vertical-align: middle;
+          text-align: center;
         }
         .form-inline2 .form-control {
             display: inline-block;
