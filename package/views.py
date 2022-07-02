@@ -33,7 +33,7 @@ def data_package_list(request, id_destiny):
 def data_package_create(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
     Formset_Factory = inlineformset_factory(
-    Data_Package_One, Child_Package_One, fields=('children_age',), extra=0, can_delete=False)
+    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
@@ -92,7 +92,6 @@ data_package_delete = DataPackageDeleteView.as_view()
 
 @login_required
 def children_ages_update(request, id_package):
-    
     package=Data_Package_One.objects.filter(id=id_package)
     Child_Age_formset = modelformset_factory(Child_Package_One, form=Child_Package_OneForm, extra=0)
     destiny_id=[]
@@ -119,5 +118,3 @@ def children_ages_update(request, id_package):
         'formset':formset,
     }
     return render(request, 'package/children_ages_update.html', context)
-
-  

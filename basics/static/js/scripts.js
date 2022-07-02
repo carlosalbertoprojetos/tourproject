@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
                     const formCopyTarget = document.getElementById('children_age_list')
                     const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
-                    copyEmptyFormEl.setAttribute('class', 'child_age_form form-inline2')
+                    copyEmptyFormEl.setAttribute('class', 'child_age_form')
                     copyEmptyFormEl.setAttribute('id', `id_child_package_one_set-${currentFormCount}-children_age`)
                     const regex =  new RegExp('__prefix__', 'g')
                     copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
