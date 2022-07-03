@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', event => {
                     message = document.getElementById('id_message')
                     message.setAttribute('style', 'display:flex;')
 
-                    const currentChildAgeForms = document.getElementsByClassName('child_age_form for')
+                    const currentChildAgeForms = document.getElementsByClassName('child_age_form')
                     const currentFormCount = currentChildAgeForms.length
 
                     const formCopyTarget = document.getElementById('children_age_list')

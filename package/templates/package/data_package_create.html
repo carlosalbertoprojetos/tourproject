@@ -39,7 +39,6 @@
                         <div class='col-6 mb-2'>
                             <label for="id_num_child">Quantidade crianças</label>
                             <input type="text" name="num_child" value="{{form.num_child.value|default:''}}" class="dateinput form-control mt-2" id="id_num_child">
-
                         </div>
                     </div>
                     {% if formset %}
@@ -48,14 +47,13 @@
                     </div>
                     <div class='row'>
                         {{ formset.management_form }}
-                        <div id='children_age_list' class="form-inline mt-1 my-1"> 
+                        <div id='children_age_list' class='form-inline mt-1 my-1'> 
                             {% for form in formset %}
                             <div class='child_age_form'>
                                 {{ form|crispy }}
                             </div>
                             {% endfor %}
                         </div>
-
                         <div id='empty-form' class='hidden'>{{ formset.empty_form|crispy }}</div>
                     </div>
                     {% endif %}

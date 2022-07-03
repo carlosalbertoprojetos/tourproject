@@ -30,7 +30,6 @@
                                     <th>Partida</th>
                                     <th>Adultos</th>
                                     <th>Crianças</th>
-                                    <th>Editar</th>
                                     <th>Deletar</th>
                                 </tr>
                             </thead>
@@ -42,13 +41,6 @@
                                     <td>{{ p.date_departure|date:"d/m/y" }}</td>
                                     <td align="center">{{ p.num_adults }}</td>
                                     <td align="center">{{ p.num_child }}<a class='btn pl-4' href="{% url 'package:children_ages_update' id_package=p.pk %}"> <i class="fas fa-user-plus"></i></a></td>
-
-                                    <td align="center">
-                                        <a href="{% url 'package:data_package_update' p.pk %}" class="btn">
-                                            <i class="fa fa-user-edit"></i>
-                                        </a>
-                                    </td>
-
                                     <td align="center">
                                         <a href="{% url 'package:data_package_delete' p.pk %}" class="btn">
                                             <i class="fas fa-solid fa-trash"></i>

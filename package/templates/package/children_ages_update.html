@@ -14,6 +14,7 @@
             </div>
             <div class='row m-2'>
                 <form method="POST" enctype="multipart/form-data" class='p-0'>
+                    {% csrf_token %}
                     <div class="form-group mb-2 p-0">
                     {% for pac in package %}
                         <div class="row">
@@ -41,7 +42,6 @@
                     {% endfor %}
                     </div>                
                     <div class='mb-1 ml-0'>
-                        {% csrf_token %}
                         <div class='form-inline'>
                             {{ formset }}
                         </div>

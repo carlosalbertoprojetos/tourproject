@@ -1,19 +1,16 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.forms import inlineformset_factory, modelform_factory, modelformset_factory
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from django.forms import inlineformset_factory, modelformset_factory
+from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy as _
 from django.views.generic.edit import DeleteView, UpdateView
-from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 
 from .models import Data_Package_One, Child_Package_One
 from .forms import Data_Package_OneForm, Child_Package_OneForm
 
 from destiny.models import Destiny
-
 
 
 #===============================================================================
@@ -29,6 +26,7 @@ def data_package_list(request, id_destiny):
         'object': object,
     }
     return render(request, 'package/data_package_list.html', context)
+
 
 def data_package_create(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
@@ -66,63 +64,18 @@ def data_package_create(request, id_destiny):
         return render(request, 'package/data_package_create.html', context)
 
 
-
-def data_package_list(request, id_destiny):
-    destiny = Destiny.objects.filter(id=id_destiny).first()
-    object = Data_Package_One.objects.filter(destiny_id=id_destiny)
-    
-    context = {
-        'destiny': destiny,
-        'object': object,
-    }
-    return render(request, 'package/data_package_list.html', context)
-
-
-class DataPackageUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Data_Package_One
-    fields ='__all__'
-    # form_class = Data_Package_OneForm
-    template_name = 'package/data_package_update.html'
-    success_message = 'Dado(s) do pacote atualizado(s) com sucesso!!!'
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = Data_Package_OneForm(self.request.POST, instance=self.object)
-        formset = Child_Package_OneForm(self.request.POST, instance=self.object)
-        
-        if form.is_valid() and formset.is_valid():
-            form = form.save()
-            formset.instance = form
-            formset.save()
-
-    def get_success_url(self):
-        return reverse('package:data_package_list', kwargs={'id_destiny': self.object.destiny_id})
-
-data_package_update = DataPackageUpdateView.as_view()
-
-
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Data_Package_One
     template_name = 'package/data_package_delete.html'
     success_message = 'Pacote deletado com sucesso!!!'
 
     def get_success_url(self):
-        return redirect('package:data_package_list', kwargs={'id_destiny': self.object.destiny_id})
+        return reverse('package:data_package_list', kwargs={'id_destiny': self.object.destiny_id})
 
     def delete(self, request, *args, **kwargs):
         return super(DataPackageDeleteView, self).delete(request, *args, **kwargs)
 
 data_package_delete = DataPackageDeleteView.as_view()
-
-
-# def children_ages(request, id_package):
-#     package = Data_Package_One.objects.filter(id=id_package)
-#     object = Child_Package_One.objects.filter(Data_package_one=id_package)
-#     context = {
-#         'package': package,
-#         'object': object,
-#     }
-#     return render(request, 'package/children_ages_list.html', context)
 
 
 @login_required
