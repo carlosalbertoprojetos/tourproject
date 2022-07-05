@@ -64,9 +64,8 @@ def data_package_create(request, id_destiny):
         return render(request, 'package/data_package_create.html', context)
 
 
-def data_package_create1(request):
-    id_destiny = request.obj.destiny.id
-    destiny = Destiny.objects.filter(id=id_destiny).first()
+def data_package_create1(request, city_destiny):
+    destiny = Destiny.objects.filter(city=city_destiny).first()
     Formset_Factory = inlineformset_factory(
     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
@@ -80,14 +79,14 @@ def data_package_create1(request):
             package.save()
             formset.instance = package
             formset.save()
-            return redirect('package:data_package_list', id_destiny )
+            return redirect('http://127.0.0.1:8000/package/Salvador/#nav-options' )
         else:
             context = {
                 'destiny': destiny,
                 'form': form,
                 'formset': formset,
             }    
-            return render(request, 'destiny/destiny_list_create.html', context)
+            return render(request, 'package/data_package_base.html', context)
 
     elif request.method == 'GET':
         form = Data_Package_OneForm()
@@ -98,7 +97,8 @@ def data_package_create1(request):
             'form': form,
             'formset': formset,
         }   
-        return render(request, 'package/data_package_create.html', context)
+        return render(request, 'package/data_package_base.html', context)
+
 
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Data_Package_One
