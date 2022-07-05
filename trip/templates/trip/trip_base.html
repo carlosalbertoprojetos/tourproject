@@ -32,9 +32,10 @@ Passeio
                 </div>
             </nav>
             <div class="tab-content m-2 pt-3 pl-2" id="nav-tabContent">
-                {% block trip_update %}
-                {% endblock %}
                 <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+                    {% for i in object %}
+                        <h1>{{i}}</h1>
+                    {% endfor %}
                     <h5>Informações</h5>
                     <p>Local para armazenamento do formulário para update/edit do passeio</p>
                     <iframe src="{% url 'trip:trip_update' obj.id %}" frameborder="0">

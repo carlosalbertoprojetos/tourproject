@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import inlineformset_factory, modelformset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy as _
-from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
 
 from .models import Data_Package_One, Child_Package_One
@@ -29,6 +29,43 @@ def data_package_list(request, id_destiny):
 
 
 def data_package_create(request, id_destiny):
+    destiny = Destiny.objects.filter(id=id_destiny).first()
+    Formset_Factory = inlineformset_factory(
+    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+
+    if request.method == 'POST':
+        form = Data_Package_OneForm(request.POST or None)
+        formset = Formset_Factory(request.POST or None)
+
+        if form.is_valid() and formset.is_valid():
+            package = form.save(commit=False)
+            package.destiny = destiny
+            package.save()
+            formset.instance = package
+            formset.save()
+            return redirect('package:data_package_list', id_destiny )
+        else:
+            context = {
+                'destiny': destiny,
+                'form': form,
+                'formset': formset,
+            }    
+            return render(request, 'destiny/destiny_list_create.html', context)
+
+    elif request.method == 'GET':
+        form = Data_Package_OneForm()
+        formset = Formset_Factory()
+        
+        context = {
+            'destiny': destiny,
+            'form': form,
+            'formset': formset,
+        }   
+        return render(request, 'package/data_package_create.html', context)
+
+
+def data_package_create1(request):
+    id_destiny = request.obj.destiny.id
     destiny = Destiny.objects.filter(id=id_destiny).first()
     Formset_Factory = inlineformset_factory(
     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
@@ -62,7 +99,6 @@ def data_package_create(request, id_destiny):
             'formset': formset,
         }   
         return render(request, 'package/data_package_create.html', context)
-
 
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Data_Package_One
@@ -106,3 +142,11 @@ def children_ages_update(request, id_package):
         'formset':formset,
     }
     return render(request, 'package/children_ages_update.html', context)
+
+
+def data_base(request, city_destiny):
+    object = Data_Package_One.objects.filter(destiny__city=city_destiny).first()
+    context = {
+        'object': object,
+        }
+    return render(request, 'package/data_package_base.html', context)
