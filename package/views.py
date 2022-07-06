@@ -79,7 +79,7 @@ def data_package_create1(request, city_destiny):
             package.save()
             formset.instance = package
             formset.save()
-            return redirect('http://127.0.0.1:8000/package/Salvador/#nav-options' )
+            return redirect('package:data_package_list', destiny.id)
         else:
             context = {
                 'destiny': destiny,

@@ -36,13 +36,13 @@
                         <div class="nav nav-tabs ml-2" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info"
                                 role="tab" aria-controls="nav-info" aria-selected="true">Dados iniciais</a>
-                            <a class="nav-item nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options"
+                            <a class="nav-item nav-link disabled" id="nav-options-tab" data-toggle="tab" href="#nav-options"
                                 role="tab" aria-controls="nav-options" aria-selected="false">Passeios</a>
-                            <a class="nav-item nav-link" id="nav-values-tab" data-toggle="tab" href="#nav-values" role="tab"
+                            <a class="nav-item nav-link disabled" id="nav-values-tab" data-toggle="tab" href="#nav-values" role="tab"
                                 aria-controls="nav-values" aria-selected="false">Hospedagens</a>
-                            <a class="nav-item nav-link" id="nav-local-tab" data-toggle="tab" href="#nav-local" role="tab"
+                            <a class="nav-item nav-link disabled" id="nav-local-tab" data-toggle="tab" href="#nav-local" role="tab"
                                 aria-controls="nav-local" aria-selected="false">Transporte</a>
-                            <a class="nav-item nav-link" id="nav-data-tab" data-toggle="tab" href="#nav-data" role="tab"
+                            <a class="nav-item nav-link disabled" id="nav-data-tab" data-toggle="tab" href="#nav-data" role="tab"
                                 aria-controls="nav-data" aria-selected="false">Seus dados</a>
                         </div>
                     </nav>
@@ -95,7 +95,7 @@
                                 {% endif %}
                                 <div class='row float-end'>
                                     <div class='col-2 mt-2'>
-                                        <button type='submit' class='btn btn-primary'>Avançar</button>
+                                        <button id='advance' type='submit' class='btn btn-primary'>Avançar</button>
                                     </div>
                                 </div>
                             </form>
@@ -125,44 +125,56 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
   
-<script>
-    $(function () {
-        $("#id_num_child").keyup(() => {
-            var formCopyTarget = document.getElementById('children_age_list')
-            while (formCopyTarget.firstChild) {
-                formCopyTarget.removeChild(formCopyTarget.firstChild)
-            }
-            let quantidade = $("#id_num_child").val();
-            const totalNewForms = document.getElementById('id_child_package_one_set-TOTAL_FORMS')
-
-            message = document.getElementById('id_message')
-            message.setAttribute('style', 'display:none;')
-            
-            if (quantidade) {
-                quantidade = parseInt(quantidade);                
-                
-                for (let i=0; i < quantidade; i++) {                    
-                    message = document.getElementById('id_message')
-                    message.setAttribute('style', 'display:flex;')
-
-                    const currentChildAgeForms = document.getElementsByClassName('child_age_form')
-                    const currentFormCount = currentChildAgeForms.length
-
-                    const formCopyTarget = document.getElementById('children_age_list')
-                    const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
-                    copyEmptyFormEl.setAttribute('class', 'child_age_form')
-                    copyEmptyFormEl.setAttribute('id', `id_child_package_one_set-${currentFormCount}-children_age`)
-                    const regex =  new RegExp('__prefix__', 'g')
-                    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
-                    totalNewForms.setAttribute('value', currentFormCount + 1)
-                    formCopyTarget.append(copyEmptyFormEl)
+    <script>
+        $(function () {
+            $("#id_num_child").keyup(() => {
+                var formCopyTarget = document.getElementById('children_age_list')
+                while (formCopyTarget.firstChild) {
+                    formCopyTarget.removeChild(formCopyTarget.firstChild)
                 }
-            }
-        })
-    });
-</script>
+                let quantidade = $("#id_num_child").val();
+                const totalNewForms = document.getElementById('id_child_package_one_set-TOTAL_FORMS')
+
+                message = document.getElementById('id_message')
+                message.setAttribute('style', 'display:none;')
+                
+                if (quantidade) {
+                    quantidade = parseInt(quantidade);                
+                    
+                    for (let i=0; i < quantidade; i++) {                    
+                        message = document.getElementById('id_message')
+                        message.setAttribute('style', 'display:flex;')
+
+                        const currentChildAgeForms = document.getElementsByClassName('child_age_form')
+                        const currentFormCount = currentChildAgeForms.length
+
+                        const formCopyTarget = document.getElementById('children_age_list')
+                        const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+                        copyEmptyFormEl.setAttribute('class', 'child_age_form')
+                        copyEmptyFormEl.setAttribute('id', `id_child_package_one_set-${currentFormCount}-children_age`)
+                        const regex =  new RegExp('__prefix__', 'g')
+                        copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+                        totalNewForms.setAttribute('value', currentFormCount + 1)
+                        formCopyTarget.append(copyEmptyFormEl)
+                    }
+                }
+            })
+
+            {% comment %} const advanceBtn = document.getElementById('advance')
+            advanceBtn.addEventListener('click', change_class)
+
+            function change_class(event) {
+                if (event) {
+                    event.preventDefault()
+                }
+                let cc = document.getElementById('nav-options-tab');
+                cc.classList.remove('disabled');
+            } {% endcomment %}
+        });
+
+    </script>
+
 </body>
 
 </html>
