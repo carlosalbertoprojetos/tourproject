@@ -15,8 +15,7 @@ urlpatterns = [
     #=================================================================
     # PACOTES
     path('<city_destiny>/', data_base, name='data_base'),
-    path('<city_destiny>/createbase/', data_package_create1, name='data_package_createOne'),
-     
+    path('<city_destiny>/createbase/', data_package_create1, name='data_package_createOne'),     
     
     path('<id_destiny>/create/', data_package_create, name='data_package_create'),
     path('<id_destiny>/list/', data_package_list, name='data_package_list'),
