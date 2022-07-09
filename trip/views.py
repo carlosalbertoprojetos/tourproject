@@ -328,12 +328,6 @@ activity_price_delete = ActivityPriceDeleteView.as_view()
 
 
 
-
-
-
-
-
-
 # somente se ActivityCatPax.catpax_id__t_child=True ou ActivityCatPax.catpax__t_child=True
 # def catpax_chd(request, pk):
 #     obj = get_object_or_404(ActivityCatPax, pk=pk)

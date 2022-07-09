@@ -13,29 +13,23 @@ class Data_Package_OneForm(forms.ModelForm):
         widgets = {
             'date_arrive':forms.DateInput(
                 attrs={
-                    'class':'col-md-3',
                     'class':'my-1',
                     'type':'date'
                     },
                 ),
             'date_departure':forms.DateInput(
                 attrs={
-                    'class':'col-md-3',
                     'class':'my-1',
                     'type':'date'
                     },
-                ),
-            
+                ),            
             'num_adults':forms.NumberInput(
                 attrs={
-                    'class':'col-md-3',
                     'type':'number'
                     },
-                ),
-                        
+                ),                        
             'num_child':forms.NumberInput(
                 attrs={
-                    'class':'col-md-3',
                     'class':'my-1',
                     'type':'number'
                     },
@@ -55,20 +49,4 @@ class Child_Package_OneForm(forms.ModelForm):
                     'type':'text'
                     },
                 ),
-        }
-
-class ChildPackageOneUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = Child_Package_One
-        fields = '__all__'
-        labels = {"Data_package_one":''}
-        widgets = {
-            'children_age':forms.TimeInput(
-                attrs={
-                    'class':'form-control mx-1',
-                    'type':'text'
-                    },
-                ),
-        }
-
+            }

@@ -31,4 +31,32 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
+<<<<<<< HEAD
 });
+=======
+            message = document.getElementById('id_message')
+            message.setAttribute('style', 'display:none;')
+            
+            if (quantidade) {
+                quantidade = parseInt(quantidade);                
+                
+                for (let i=0; i < quantidade; i++) {                    
+                    message = document.getElementById('id_message')
+                    message.setAttribute('style', 'display:flex;')
+
+                    const currentChildAgeForms = document.getElementsByClassName('child_age_form')
+                    const currentFormCount = currentChildAgeForms.length
+
+                    const formCopyTarget = document.getElementById('children_age_list')
+                    const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+                    copyEmptyFormEl.setAttribute('class', 'child_age_form')
+                    copyEmptyFormEl.setAttribute('id', `id_child_package_one_set-${currentFormCount}-children_age`)
+                    const regex =  new RegExp('__prefix__', 'g')
+                    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
+                    totalNewForms.setAttribute('value', currentFormCount + 1)
+                    formCopyTarget.append(copyEmptyFormEl)
+                }
+            }
+        })
+    });
+>>>>>>> c90806d98f4efc3a700327d3a85a096e0e8b0cec
