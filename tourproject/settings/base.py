@@ -220,4 +220,3 @@ LOGOUT_URL = '/accounts/logout/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
-

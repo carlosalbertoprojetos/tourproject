@@ -86,7 +86,7 @@ def calendar_event_detail(request, pk):
         #locahost
         #sys.stdout = open('/home/oem/tourproject/venv_tourproject/tourproject/basics/static/js/vet_dates.js','w')       
         #heroku
-        sys.stdout = open('/tourproject/basics/static/js/vet_dates.js','w')       
+        sys.stdout = open('static/js/vet_dates.js','w')       
         print("var vet_dates ='{}'".format(vet_dates))
         print("var year = '{}'".format(year))
         
