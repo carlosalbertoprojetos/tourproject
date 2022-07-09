@@ -5,6 +5,21 @@
 {% endblock title %}
 {% block dashboard %}
 
+<!--Menu-->
+<nav class="navbar navbar-expand-sm navbar-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">            
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="navbar-brand active " aria-current="page" href="#">Lista de Destinos Turísticos</a>
+          </li>                                    
+        </ul>       
+      </div>
+    </div>
+</nav>
 
 <div class="container-fluid mt-2">
     <div class="container-form">
@@ -12,14 +27,14 @@
             <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title m-2">Destinos Turísticos</h2>
+                        <h2 class="form-title m-2"></h2>                        
                     </div>
                     <div id="bottom_list"
                             class="col-sm-12 col-md-6">
                         <div class="row my-3">
                             <form method="POST">
-                            <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
-                                <i class="fas fa-plus-circle fa-2x"></i></a>
+                                <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
+                                    <i class="fas fa-plus-circle fa-2x"></i></a>
                                 <div class="modal fade"
                                         id="exampleModal"
                                         tabindex="-1"
@@ -29,7 +44,7 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Novo Pacote</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Novo Destino</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -64,7 +79,6 @@
                                 <th>Estado</th>
                                 <th>Cidade</th>
                                 <th>Ativo</th>
-                                <th>Pacotes</th>
                                 <th>Editar</th>
                                 <th>Deletar</th>
                             </tr>
@@ -81,11 +95,6 @@
                                     {% else %}
                                         <i class="fas fa-user-times"></i>
                                     {% endif %}
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'package:data_package_list' id_destiny=d.pk %}" class="btn">
-                                        <i class="fas fa-icons"></i>
-                                    </a>
                                 </td>
                                 <td align="center">
                                     <a href="{% url 'destiny:destiny_update' d.pk %}" class="btn">

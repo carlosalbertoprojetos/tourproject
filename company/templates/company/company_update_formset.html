@@ -24,9 +24,9 @@
                                 {{ formset_destiny.management_form }}
                                 {{ formset_destiny.non_form_errors }}
                                 {% for field in formset_destiny %}
-                                {{ field.errors }}
-                                {{ field.label_tag }}
-                                {{ field|crispy }}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
                                 {% endfor %}
                                 {{ formset_phone.management_form }}
                                 {{ formset_phone.non_form_errors }}
@@ -43,7 +43,7 @@
                                     {{ field|crispy }}
                                 {% endfor %}
                                 <p class="pt-3 col-md-3">
-                                    <input type="submit" class="btn btn-dark" value="Salvar" />
+                                    <input type="submit" class="btn btn-dark" value="Save" />
                                 </p>
                             </div>
                         </div>
@@ -53,6 +53,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

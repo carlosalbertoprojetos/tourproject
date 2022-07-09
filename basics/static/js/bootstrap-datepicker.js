@@ -407,8 +407,8 @@
 					click: $.proxy(this.navArrowsClick, this)
 				}],
 				[this.picker, '.day:not(.disabled)', {
-					click: $.proxy(this.dayCellClick, this)
-				}],
+					click: $.proxy(this.dayCellClick, this)					
+				}],				
 				[$(window), {
 					resize: $.proxy(this.place, this)
 				}],
@@ -2037,3 +2037,5 @@
 	});
 
 }));
+
+

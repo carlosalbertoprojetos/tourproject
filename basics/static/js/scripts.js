@@ -30,40 +30,5 @@ window.addEventListener('DOMContentLoaded', event => {
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
         });
     }
+
 });
-
-
-    $(function () {
-        $("#id_num_child").keyup(() => {
-            var formCopyTarget = document.getElementById('children_age_list')
-            while (formCopyTarget.firstChild) {
-                formCopyTarget.removeChild(formCopyTarget.firstChild)
-            }
-            let quantidade = $("#id_num_child").val();
-            const totalNewForms = document.getElementById('id_child_package_one_set-TOTAL_FORMS')
-
-            message = document.getElementById('id_message')
-            message.setAttribute('style', 'display:none;')
-            
-            if (quantidade) {
-                quantidade = parseInt(quantidade);                
-                
-                for (let i=0; i < quantidade; i++) {                    
-                    message = document.getElementById('id_message')
-                    message.setAttribute('style', 'display:flex;')
-
-                    const currentChildAgeForms = document.getElementsByClassName('child_age_form for')
-                    const currentFormCount = currentChildAgeForms.length
-
-                    const formCopyTarget = document.getElementById('children_age_list')
-                    const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
-                    copyEmptyFormEl.setAttribute('class', 'child_age_form')
-                    copyEmptyFormEl.setAttribute('id', `id_child_package_one_set-${currentFormCount}-children_age`)
-                    const regex =  new RegExp('__prefix__', 'g')
-                    copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, currentFormCount)
-                    totalNewForms.setAttribute('value', currentFormCount + 1)
-                    formCopyTarget.append(copyEmptyFormEl)
-                }
-            }
-        })
-    });
