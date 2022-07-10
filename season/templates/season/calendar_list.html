@@ -97,23 +97,22 @@
 <br-->            
 <script>
   
-    function reload(){
-        window.location = window.location.href;
-        console.log('teste');
+    //function reload(){
+   //     window.location = window.location.href;
+   //     console.log('teste');
   
-}
+//}
 
-
-  //function autoRefresh() {
-  //      window.location = window.location.href;
-  //  }
-  //  setInterval('autoRefresh()', 5000);
+  function autoRefresh() {
+        window.location = window.location.href;
+    }
+    setInterval('autoRefresh()', 5000);
   
   
   //function reload(){
   //  document.location.reload(true);    
-  //}
-  //setInterval('reload()', 100000);
+ // }
+  //setInterval('reload()', 10000);
            
   var obj = JSON.parse(vet_dates)
   var highlight_dates = []
