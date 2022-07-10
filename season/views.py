@@ -83,12 +83,10 @@ def calendar_event_detail(request, pk):
               
         new_dates = {i:dates[i]for i in range(0,len(dates))}
         vet_dates = json.dumps(new_dates)
-        #locahost
+
+        #locahost/heroku
         sys.stdout = open('basics/static/js/vet_dates.js','w')       
-        #heroku
-        #sys.stdout = open('basics/static/js/vet_dates.js','w')       
-       
-        #sys.stdout = open('/js/vet_dates.js','w')       
+               
         print("var vet_dates ='{}'".format(vet_dates))
         print("var year = '{}'".format(year))
         
