@@ -183,14 +183,12 @@ class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        trip_id = self.trip_id
-        form = ActivityForm(request.POST or None)
+        trip_id = self.kwargs['trip_id']
+        form = ActivityForm(request.POST or None, request.FILES)
         if form.is_valid():
             form = form.save()
             messages.success(request, 'Atividade criada com sucesso!!!')
-            # return redirect(_('trip:trip_option_list_create', trip_id=self.object.trip))
-            # return redirect(_('get_success_url'))
-            return redirect('trip:trip_list_create', trip_id)
+            return redirect('trip:activity_list_create', trip_id)
         else:
             context = {
                 'form': form
@@ -243,7 +241,6 @@ def activity_price_update(request, trip_id):
     
     try:        
         if activity != '':
-
             # existe atividade(activity) para o passeio(trip)
             for a in activity:
                 catpax=ActivityCatPax.objects.filter(activity_id=a.id)
@@ -326,22 +323,3 @@ class ActivityPriceDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteVie
 
 activity_price_delete = ActivityPriceDeleteView.as_view()
 
-
-
-# somente se ActivityCatPax.catpax_id__t_child=True ou ActivityCatPax.catpax__t_child=True
-# def catpax_chd(request, pk):
-#     obj = get_object_or_404(ActivityCatPax, pk=pk)
-#     form = CHD_ActivityForm(instance=obj)
-
-#     if request.method == 'POST':
-#         form = CHD_ActivityForm(request.POST or None, instance=obj)
-
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Dados alterados com sucesso!!!')
-
-#         else:
-#             return render(request, 'user/user_update.html', {'form': form})
-
-#     elif request.method == 'GET':
-#         return render(request, 'user/user_update.html', {'form': form})

@@ -52,3 +52,5 @@ class Destiny(models.Model):
     def __str__(self):
         return f'{self.name}: {self.city}/{self.state}'
 
+    def city_state(self):
+        return f'{self.city}/{self.state}'
