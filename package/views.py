@@ -157,7 +157,7 @@ def data_base(request, city_destiny):
 def listTripPackage(request, city_destiny):
     trip = Trip.objects.filter(destiny__city=city_destiny).first()
     trips = Trip.objects.filter(destiny__city=city_destiny)
-    activity = Activity.objects.filter(trip_id=trip.id)
+    activity = Activity.objects.filter(trip_id=trip)
 
     # filtrar pelo período informado em Data_Package_One, mostrar somente quando houver valor
     price = ActivityPrice.objects.all()
