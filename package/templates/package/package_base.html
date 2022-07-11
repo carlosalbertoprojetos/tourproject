@@ -116,12 +116,13 @@
                                     </div>
                                     <div class="row mt-4">
                                     {% for a in activity %}
-                                    {{activity}}
                                         {% if a.trip == t %}
                                             <div class="col-sm-6 col-md-6">
                                                 <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
                                                 <div class='row'>
+                                                    {% if a.image %}
                                                     <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;" max-width="450px" align="center"/>
+                                                    {% andif %}
                                                 </div>
                                                 <div class='row'>
                                                     <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{a.description|truncatewords:50}}</i></h6>
