@@ -52,7 +52,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="header">
                             <div class='row m-2'>
-                                <h4 class="p-4 pb-0" align='center'>Informe os dados do período de estadia em {{ destiny }}/{{ city_destiny }}</h4>
+                                <h4 class="p-4 pb-0">Informe os dados do período de estadia em {{ destiny }}/{{ city_destiny }}</h4>
                             </div>
                         </div>
                         <div class='row'>
@@ -102,7 +102,56 @@
                             </form>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="container-flex">
+                            <h1 class="form-title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            <hr class='mb-0'>
+                        </div>
+                        <div class="container-flex">
+                            <div class="card-header p-1">
+                                {% for t in trips %}
+                                <div class='row'>
+                                    <div class="col-sm-12 col-md-12">
+                                        <h3 class="jumbotron form-title mb-0 p-3" align="center">{{ t.name }}<h3>
+                                    </div>
+                                    <div class="row mt-4">
+                                    {% for a in activity %}
+                                        {% if a.trip == t %}
+                                            <div class="col-sm-6 col-md-6">
+                                                <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
+                                                <div class='row'>
+                                                    <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;" max-width="450px" align="center"/>
+                                                </div>
+                                                <div class='row'>
+                                                    <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{a.description|truncatewords:50}}</i></h6>
+                                                </div>
+                                                <div class="row">
+                                                {% for p in price %}
+                                                    {% if a.id == p.activity_id %}
+                                                    <div class='col-sm-6 col-md-6 px-4 py-2'>
+                                                        <h6 class='px-1' style='text-align: justify; font-weight: normal;'>{{ p.season }}</h6>
+                                                        <h6 class='px-1' style='text-align: justify; font-weight: normal; '>{{ p.catpax }} - R$ {{p.price}}</h6>
+                                                    </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="container-fluid mt-2">
+                            <div class="container-form">
+                                <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,7 +194,16 @@
                 }
             })
 
+            {% comment %} const advanceBtn = document.getElementById('advance')
+            advanceBtn.addEventListener('click', change_class)
 
+            function change_class(event) {
+                if (event) {
+                    event.preventDefault()
+                }
+                let cc = document.getElementById('nav-options-tab');
+                cc.classList.remove('disabled');
+            } {% endcomment %}
         });
 
     </script>
