@@ -78,6 +78,10 @@ class Trip(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
 class CategoryPax(models.Model):
     name = models.CharField('Nome', max_length=255, unique=True)
@@ -88,12 +92,12 @@ class CategoryPax(models.Model):
     age_min = models.IntegerField('Idade Mínima', blank=True, null=True)
     age_max = models.IntegerField('Idade Máxima', blank=True, null=True)
 
-    def __str__(self):
-        return str(self.name)
-
     class Meta:
         verbose_name = "Categoria PAX de Passeio"
         verbose_name_plural = "Categorias PAX de Passeio"
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Activity(models.Model):
@@ -123,12 +127,18 @@ class Activity(models.Model):
     customer_option = models.BooleanField('A opção pode ser selecionada pelos clientes nos sites?')
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?')
 
-    def __str__(self):
-        return self.name
-    
     class Meta:
         verbose_name = "Atividade do Passeio"
         verbose_name_plural = "Atividades do Passeio"
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+    
 
 class ActivityCatPax(models.Model): 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE )
@@ -144,12 +154,12 @@ class ActivityPrice(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
     price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
 
-    def __str__(self):
-        return self.activity
-
     class Meta:
         verbose_name = "Preço da atividade"
         verbose_name_plural = "Preços das atividades"
+
+    def __str__(self):
+        return self.activity
 
 # deleta catpax quando desmarcado(desflegado) da activity por manytomany
 @receiver(post_delete, sender=ActivityCatPax)
