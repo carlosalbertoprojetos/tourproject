@@ -52,7 +52,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="header">
                             <div class='row m-2'>
-                                <h4 class="p-4 pb-0">Informe os dados do período de estadia em {{ destiny }}/{{ city_destiny }}</h4>
+                                <h4 class="p-4 pb-0" align='center'>Informe os dados do período de estadia em {{ destiny }}/{{ city_destiny }}</h4>
                             </div>
                         </div>
                         <div class='row'>
@@ -196,16 +196,7 @@
                 }
             })
 
-            {% comment %} const advanceBtn = document.getElementById('advance')
-            advanceBtn.addEventListener('click', change_class)
 
-            function change_class(event) {
-                if (event) {
-                    event.preventDefault()
-                }
-                let cc = document.getElementById('nav-options-tab');
-                cc.classList.remove('disabled');
-            } {% endcomment %}
         });
 
     </script>
