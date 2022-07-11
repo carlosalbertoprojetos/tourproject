@@ -205,3 +205,11 @@ def listTripPackage(request, city_destiny):
             'formset': formset,
         }
         return render(request, template, context)
+
+def tas(city_destiny):
+    trip = Trip.objects.filter(destiny__city=city_destiny).first()
+    activity = Activity.objects.filter(trip_id=trip)
+    print(trip)
+    print(activity)
+    
+tas('Gramado')
