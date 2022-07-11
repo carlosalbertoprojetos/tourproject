@@ -79,6 +79,7 @@
                                 <th>Estado</th>
                                 <th>Cidade</th>
                                 <th>Ativo</th>
+                                <th>Pacotes</th>
                                 <th>Editar</th>
                                 <th>Deletar</th>
                             </tr>
@@ -95,6 +96,11 @@
                                     {% else %}
                                         <i class="fas fa-user-times"></i>
                                     {% endif %}
+                                </td>
+                                <td align="center">
+                                    <a href="{% url 'package:data_package_list' id_destiny=d.pk %}" class="btn">
+                                        <i class="fas fa-icons"></i>
+                                    </a>
                                 </td>
                                 <td align="center">
                                     <a href="{% url 'destiny:destiny_update' d.pk %}" class="btn">
