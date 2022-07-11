@@ -1,0 +1,55 @@
+{% extends 'package/package_base.html' %}
+{% load i18n account static crispy_forms_tags %}
+{% block title %}
+    Pacotes
+{% endblock title %}
+{% block package_trip %}
+
+
+<div class="container-fluid mt-2">
+    <div class="container-form">
+        <div class="card">
+            <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+            <div class="card-header p-1">
+                <hr>
+                {% for t in trips %}
+                <div class="row">
+                    <div class='card'>
+                        <div class='row'>
+                            <div class="col-sm-12 col-md-12">
+                                <h3 class="form-title mb-0 p-3" align="center">{{ t.name }}<h3>
+                            </div>
+                            <div class="row">
+                            {% for a in activity %}
+                                {% if a.trip == t %}
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <h4 align="center">{{ a.name }}<h4>
+                                        <img src="{{ a.image.url }}" class="img-responsive mb-2" style="width: 100%; float: left; margin-right: 10px;" />                           
+                                        <p class='px-4 mt-2' style='text-align: justify'><i>{{a.description|truncatewords:50}}</i></p>
+                                        <div class="row">
+                                        {% for p in price %}
+                                            {% if a.id == p.activity_id %}
+                                            <div class='col-6 px-4 py-2'>
+                                                <p class='px-1' style='text-align: justify'>{{ p.season }}
+                                                <p class='px-1' style='text-align: justify'>{{ p.catpax }} - R$ {{p.price}}<p>
+                                            </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

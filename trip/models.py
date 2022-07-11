@@ -43,7 +43,7 @@ class Trip(models.Model):
     name = models.CharField('Nome', max_length=255, default='teste', unique=True)
     slug = models.SlugField(max_length=250)
     image = models.ImageField(
-        'Imagem do produto', upload_to="produtos/%Y", blank=True)
+        'Imagem do produto', upload_to="passeio/%Y", blank=True)
     trip_description = models.TextField('Descrição do passeio', blank=True, default='teste')
     short_description = models.TextField('Descrição curta', blank=True, default='teste')
 
@@ -113,6 +113,8 @@ class Activity(models.Model):
 
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name='Passeio')
     name = models.CharField('Atividade', max_length=255)
+    image = models.ImageField(
+    'Imagem da atividade', upload_to="atividade/%Y", blank=True)
     description = models.TextField('Descrição da atividade', blank=True)
     catpax = models.ManyToManyField(CategoryPax, verbose_name=('Categoria PAX'), blank=True, through='ActivityCatPax')
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
