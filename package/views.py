@@ -21,11 +21,11 @@ from destiny.models import Destiny
 
 def data_package_list(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
-    # object = Data_Package_One.objects.filter(destiny_id=id_destiny)
-    object = Data_Package_One.objects.all()
+    packages = Data_Package_One.objects.filter(destiny_id=id_destiny)
+
     context = {
         'destiny': destiny,
-        'object': object,
+        'packages': packages,
     }
     return render(request, 'package/data_package_list.html', context)
 
