@@ -56,7 +56,7 @@ class Trip(models.Model):
     ride_distance = models.CharField('Distância do passeio (Km)', max_length=255, default='1')
     limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255, default='6')
     commission = models.DecimalField('Comissão paga pelo fornecedor (%)', max_digits=5, decimal_places=2, blank=True, null=True, default='10')
-    category = models.ForeignKey(TripCategory, on_delete=models.DO_NOTHING, verbose_name='Categoria')
+    category = models.ForeignKey(TripCategory, on_delete=models.CASCADE, verbose_name='Categoria')
 
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
 
