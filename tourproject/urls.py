@@ -33,7 +33,7 @@ urlpatterns = [
 
     path('package/', include('package.urls'), name='package'),
 
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),    
 
     path('admin/', admin.site.urls),
 ]
