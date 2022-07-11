@@ -46,6 +46,7 @@ class Child_Package_OneForm(forms.ModelForm):
             'children_age':forms.NumberInput(
                 attrs={
                     'class':'form-control mx-1',
+                    'size': '2',
                     'type':'text'
                     },
                 ),
