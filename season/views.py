@@ -69,6 +69,7 @@ def calendar_event_detail(request, pk):
     else:
         #pdb.set_trace()
         dates = [] # array de datas
+        year = {}
         new_dates = {} #dicionario para criar arquivo json     
         event = Event.objects.filter(season=pk)               
         season = Season.objects.get(pk=pk)
