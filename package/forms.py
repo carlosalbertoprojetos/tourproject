@@ -14,24 +14,29 @@ class Data_Package_OneForm(forms.ModelForm):
             'date_arrive':forms.DateInput(
                 attrs={
                     'class':'my-1',
-                    'type':'date'
+                    'type':'date',
+                    'required': 'true'
                     },
                 ),
             'date_departure':forms.DateInput(
                 attrs={
                     'class':'my-1',
-                    'type':'date'
+                    'type':'date',
+                    'required': 'true'
                     },
                 ),            
             'num_adults':forms.NumberInput(
                 attrs={
-                    'type':'number'
+                    'class':'my-1',
+                    'type':'number',
+                    'required': 'true'
                     },
                 ),                        
             'num_child':forms.NumberInput(
                 attrs={
                     'class':'my-1',
-                    'type':'number'
+                    'type':'number',
+                    'required': 'true'
                     },
                 ),
         }
@@ -47,7 +52,8 @@ class Child_Package_OneForm(forms.ModelForm):
                 attrs={
                     'class':'form-control mx-1',
                     'size': '2',
-                    'type':'text'
+                    'type':'text',
+                    'required': 'true'
                     },
                 ),
             }

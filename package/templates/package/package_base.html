@@ -38,13 +38,19 @@
                 <div class="form-title m-0">
                     <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dados iniciais</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" disabled>Passeios</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                            <button class="nav-link" id="accommodation-tab" data-bs-toggle="tab" data-bs-target="#accommodation" type="button" role="tab" aria-controls="accommodation" aria-selected="false" disabled>Hospedagens</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="transport-tab" data-bs-toggle="tab" data-bs-target="#transport" type="button" role="tab" aria-controls="transport" aria-selected="false" disabled>Transporte</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="contact" aria-selected="false" disabled>Seus dados</button>
                         </li>
                     </ul>                    
                 </div>
@@ -61,21 +67,25 @@
                                 <div class='row'>    
                                     <div class='col-6 mb-2'>
                                         <label for="id_date_arrive">Data da Chegada</label>
-                                        <input value="{{form.date_arrive.value}}" type="date" name="date_arrive"  class="dateinput form-control mt-2" id="id_date_arrive" title="Escolha uma data">
+                                        <input value="{{form.date_arrive.value}}" type="date" name="date_arrive"  class="dateinput form-control mt-2" id="id_date_arrive" title="Escolha uma data" required>
+                                        {{ form.date_arrive.non_field_errors }}
                                     </div>
                                     <div class='col-6 mb-2'>
                                         <label for="id_date_departure">Data da Partida</label>
-                                        <input type="date" name="date_departure" value="{{form.date_departure.value}}" class="dateinput form-control mt-2" id="id_date_departure">
+                                        <input type="date" name="date_departure" value="{{form.date_departure.value}}" class="dateinput form-control mt-2" id="id_date_departure" required>
+                                        {{ form.date_departure.date_arrive.non_field_errors }}
                                     </div>
                                 </div>
                                 <div class='row'>
                                     <div class='col-6 mb-2'>
                                         <label for="id_num_adults">Quantidade adultos</label>
-                                        <input type="text" name="num_adults" value="{{form.num_adults.value|default:''}}" class="dateinput form-control mt-2" id="id_num_adults">
+                                        <input type="text" name="num_adults" value="{{form.num_adults.value|default:''}}" class="dateinput form-control mt-2" id="id_num_adults" required>
+                                        {{ form.num_adults.non_field_errors }}
                                     </div>
                                     <div class='col-6 mb-2'>
                                         <label for="id_num_child">Quantidade crianças</label>
-                                        <input type="text" name="num_child" value="{{form.num_child.value|default:''}}" class="dateinput form-control mt-2" id="id_num_child">
+                                        <input type="text" name="num_child" value="{{form.num_child.value|default:''}}" class="dateinput form-control mt-2" id="id_num_child" required>
+                                        {{ form.num_child.non_field_errors }}
                                     </div>
                                 </div>
                                 {% if formset %}
@@ -87,6 +97,7 @@
                                     <div id='children_age_list' class='form-inline mt-1 my-1'> 
                                         {% for form in formset %}
                                         <div class='child_age_form'>
+                                            {{ form.non_field_errors }}
                                             {{ form|crispy }}
                                         </div>
                                         {% endfor %}
@@ -102,7 +113,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="container-flex">
                             <h1 class="form-title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h1>
                             <hr class='mb-0'>
@@ -145,9 +156,29 @@
                                 {% endfor %}
                             </div>
                         </div>
-
                     </div>
-                    <div class="tab-pane fade show" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="container-fluid mt-2">
+                            <div class="container-form">
+                                <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
+                        <div class="container-fluid mt-2">
+                            <div class="container-form">
+                                <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="transport" role="tabpanel" aria-labelledby="transport-tab">
+                        <div class="container-fluid mt-2">
+                            <div class="container-form">
+                                <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
                         <div class="container-fluid mt-2">
                             <div class="container-form">
                                 <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
@@ -196,17 +227,30 @@
                 }
             })
 
-            {% comment %} const advanceBtn = document.getElementById('advance')
+            const advanceBtn = document.getElementById('advance')
             advanceBtn.addEventListener('click', change_class)
 
+            function null_or_empty(str) {
+                var v = document.getElementById(str).value;
+                return v == null || v == "";
+            }
+            
             function change_class(event) {
-                if (event) {
-                    event.preventDefault()
+                if (null_or_empty("id_date_arrive")
+                        && null_or_empty("id_date_departure")
+                        && null_or_empty("id_num_adults")
+                        && null_or_empty("id_num_child"))
+                    return false
+                else {
+                    document.getElementById("profile-tab").removeAttribute("disabled");
+        
+                    let b = document.querySelector('#profile');
+                    b.classList.add('show active');
                 }
-                let cc = document.getElementById('nav-options-tab');
-                cc.classList.remove('disabled');
-            } {% endcomment %}
+            }
         });
+
+        
 
     </script>
 
