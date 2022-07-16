@@ -7,6 +7,8 @@ from django.urls import reverse, reverse_lazy as _
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
 
+from trip.models import Activity, ActivityPrice, Trip
+
 from .models import Data_Package_One, Child_Package_One
 from .forms import Data_Package_OneForm, Child_Package_OneForm
 
@@ -19,11 +21,11 @@ from destiny.models import Destiny
 
 def data_package_list(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
-    object = Data_Package_One.objects.filter(destiny_id=id_destiny)
-    
+    packages = Data_Package_One.objects.filter(destiny_id=id_destiny)
+
     context = {
         'destiny': destiny,
-        'object': object,
+        'packages': packages,
     }
     return render(request, 'package/data_package_list.html', context)
 
@@ -43,7 +45,7 @@ def data_package_create(request, id_destiny):
             package.save()
             formset.instance = package
             formset.save()
-            return redirect('package:data_package_list', id_destiny )
+            return redirect('package:listTripPackage', id_destiny )
         else:
             context = {
                 'destiny': destiny,
@@ -79,14 +81,14 @@ def data_package_create1(request, city_destiny):
             package.save()
             formset.instance = package
             formset.save()
-            return redirect('http://127.0.0.1:8000/package/Salvador/#nav-options' )
+            return redirect('package:listTripPackage', city_destiny)
         else:
             context = {
                 'destiny': destiny,
                 'form': form,
                 'formset': formset,
             }    
-            return render(request, 'package/data_package_base.html', context)
+            return render(request, 'package/package_base.html', context)
 
     elif request.method == 'GET':
         form = Data_Package_OneForm()
@@ -97,7 +99,7 @@ def data_package_create1(request, city_destiny):
             'form': form,
             'formset': formset,
         }   
-        return render(request, 'package/data_package_base.html', context)
+        return render(request, 'package/package_base.html', context)
 
 
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -149,4 +151,58 @@ def data_base(request, city_destiny):
     context = {
         'object': object,
         }
-    return render(request, 'package/data_package_base.html', context)
+    return render(request, 'package/package_base.html', context)
+
+
+def listTripPackage(request, city_destiny):
+    trip = Trip.objects.filter(destiny__city=city_destiny).first()
+    trips = Trip.objects.filter(destiny__city=city_destiny)
+    activity = Activity.objects.filter(trip_id=trip)
+
+    # filtrar pelo período informado em Data_Package_One, mostrar somente quando houver valor
+    price = ActivityPrice.objects.all()
+    
+    template = 'package/package_base.html'
+    
+    destiny = Destiny.objects.filter(city=city_destiny).first()
+    Formset_Factory = inlineformset_factory(
+    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+
+    if request.method == 'POST':
+        form = Data_Package_OneForm(request.POST or None)
+        formset = Formset_Factory(request.POST or None)
+        
+        if form.is_valid() and formset.is_valid():
+            package = form.save(commit=False)
+            package.destiny = destiny
+            package.save()
+            formset.instance = package
+            formset.save()
+            return redirect('package:listTripPackage', city_destiny)
+        else:
+            context = {
+                'trips':trips,
+                'trip':trip,
+                'activity':activity,
+                'price':price,
+                'destiny': destiny,
+                'form': form,
+                'formset': formset,
+            }    
+            return render(request, 'package/package_base.html', context)
+    
+    elif request.method == 'GET':
+        form = Data_Package_OneForm()
+        formset = Formset_Factory()
+
+        context = {
+            'trips':trips,
+            'trip':trip,
+            'activity':activity,
+            'price':price,
+            'destiny': destiny,
+            'form': form,
+            'formset': formset,
+        }
+        return render(request, template, context)
+

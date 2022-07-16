@@ -14,7 +14,7 @@ class TripCategoryForm(forms.ModelForm):
 
 
 class TripForm(forms.ModelForm):
-    destiny = forms.ModelChoiceField(queryset=Destiny.objects.all(), empty_label=None)
+    destiny = forms.ModelChoiceField(queryset=Destiny.objects.all(), label='Destino')
     class Meta:
         model = Trip
         fields = '__all__'

@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
-from season.models import Season
+from season.models import Season, Event
 
 
 class TripCategory(models.Model):
@@ -43,7 +43,7 @@ class Trip(models.Model):
     name = models.CharField('Nome', max_length=255, default='teste', unique=True)
     slug = models.SlugField(max_length=250)
     image = models.ImageField(
-        'Imagem do produto', upload_to="produtos/%Y", blank=True)
+        'Imagem do produto', upload_to="passeio/%Y", blank=True)
     trip_description = models.TextField('Descrição do passeio', blank=True, default='teste')
     short_description = models.TextField('Descrição curta', blank=True, default='teste')
 
@@ -56,7 +56,7 @@ class Trip(models.Model):
     ride_distance = models.CharField('Distância do passeio (Km)', max_length=255, default='1')
     limit_load = models.CharField('Limite de carga por passeio ou guia (Nº de pessoas)', max_length=255, default='6')
     commission = models.DecimalField('Comissão paga pelo fornecedor (%)', max_digits=5, decimal_places=2, blank=True, null=True, default='10')
-    category = models.ForeignKey(TripCategory, on_delete=models.DO_NOTHING, verbose_name='Categoria')
+    category = models.ForeignKey(TripCategory, on_delete=models.CASCADE, verbose_name='Categoria')
 
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
 
@@ -78,6 +78,10 @@ class Trip(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
 class CategoryPax(models.Model):
     name = models.CharField('Nome', max_length=255, unique=True)
@@ -88,12 +92,12 @@ class CategoryPax(models.Model):
     age_min = models.IntegerField('Idade Mínima', blank=True, null=True)
     age_max = models.IntegerField('Idade Máxima', blank=True, null=True)
 
-    def __str__(self):
-        return str(self.name)
-
     class Meta:
         verbose_name = "Categoria PAX de Passeio"
         verbose_name_plural = "Categorias PAX de Passeio"
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Activity(models.Model):
@@ -113,6 +117,8 @@ class Activity(models.Model):
 
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name='Passeio')
     name = models.CharField('Atividade', max_length=255)
+    image = models.ImageField(
+    'Imagem da atividade', upload_to="atividade/%Y", blank=True)
     description = models.TextField('Descrição da atividade', blank=True)
     catpax = models.ManyToManyField(CategoryPax, verbose_name=('Categoria PAX'), blank=True, through='ActivityCatPax')
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
@@ -121,12 +127,18 @@ class Activity(models.Model):
     customer_option = models.BooleanField('A opção pode ser selecionada pelos clientes nos sites?')
     night_walk = models.BooleanField(' O passeio é realizado somente no período noturno?')
 
-    def __str__(self):
-        return self.name
-    
     class Meta:
         verbose_name = "Atividade do Passeio"
         verbose_name_plural = "Atividades do Passeio"
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+    
 
 class ActivityCatPax(models.Model): 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE )
@@ -142,12 +154,12 @@ class ActivityPrice(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name='Temporada')
     price = models.DecimalField('',max_digits=8, decimal_places=2, default=0)
 
-    def __str__(self):
-        return self.activity
-
     class Meta:
         verbose_name = "Preço da atividade"
         verbose_name_plural = "Preços das atividades"
+
+    def __str__(self):
+        return self.activity
 
 # deleta catpax quando desmarcado(desflegado) da activity por manytomany
 @receiver(post_delete, sender=ActivityCatPax)
@@ -161,3 +173,25 @@ def delete_trip_catpax_prices(sender, instance, **kwargs):
                 ActivityPrice.objects.filter(id=i.id).delete()
 
 
+# date_arrival, date_departure
+
+def trips_filter():
+    trip = Trip.objects.all()
+    activ = Activity.objects.all()
+    season = Season.objects.all()
+    for t in trip:
+        if t.destiny_id == 5:
+            print(t.id, t.name, t.destiny)
+            for a in activ:
+                if t.id == a.trip_id:
+                    print('      ', a.id, a.name)
+    for s in season:
+        if s.destiny_id == 5:
+            print(s.id, s.name, s.destiny)
+    
+    period = Event.objects.all()
+    for p in period:
+        print(p)
+        print(p.id, p.name_event, p.date_init, p.date_fin)
+
+# trips_filter()

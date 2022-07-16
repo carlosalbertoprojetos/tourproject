@@ -8,8 +8,6 @@ from .views import (categorypax_list_create, categorypax_update, categorypax_del
                     activity_list_create, activity_update, activity_delete, 
                     
                     activity_price_list_create, activity_price_update, activity_price_delete,
-                    
-                    aba_trip
                     )
 
 app_name = 'trip'
@@ -25,9 +23,6 @@ urlpatterns = [
     #=================================================================
     # PASSEIO
     path('list/create/', trip_list_create, name='trip_list_create'),
-    
-    path('<trip_id>/aba/trip/', aba_trip, name='aba_trip'),
-    
     path('<int:pk>/edit/', trip_update, name='trip_update'),
     path('<int:pk>/delete/', trip_delete, name='trip_delete'),
 
@@ -46,6 +41,6 @@ urlpatterns = [
     #=================================================================
     # PREÇOS DAS ATIVIDADES
     path('<trip_id>/price_activity/list/create/', activity_price_list_create, name='activity_price_list_create'),
-    path('<trip_id>/price_activity/edittr/', activity_price_update, name='activity_price_update'),
+    path('<trip_id>/price_activity/edit/', activity_price_update, name='activity_price_update'),
     path('<int:pk>/price_activity/delete/', activity_price_delete, name='activity_price_delete'),
 ]

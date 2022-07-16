@@ -58,7 +58,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="header">
                             <div class='row m-2'>
-                                <h4 class="p-4 pb-0">Informe os dados do período de estadia em {{ destiny }}/{{ city_destiny }}</h4>
+                                <h4 class="p-4 pb-0">Informe os dados do período de estadia em {{ destiny }}</h4>
                             </div>
                         </div>
                         <div class='row'>
@@ -89,12 +89,12 @@
                                     </div>
                                 </div>
                                 {% if formset %}
-                                <div style="display: None;" class="alert alert-primary m-1" role="alert" id="id_message">
+                                <div style="display: None;" class="alert alert-primary m-1 justify-content-center" role="alert" id="id_message">
                                     Por favor, informe as idades das crianças
                                 </div>
                                 <div class='row'>
                                     {{ formset.management_form }}
-                                    <div id='children_age_list' class='form-inline mt-1 my-1'> 
+                                    <div id='children_age_list' class='form-inline mt-1 my-1 justify-content-center'> 
                                         {% for form in formset %}
                                         <div class='child_age_form'>
                                             {{ form.non_field_errors }}
@@ -113,7 +113,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="container-flex">
                             <h1 class="form-title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h1>
                             <hr class='mb-0'>
@@ -157,14 +157,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="tab-pane fade show" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="container-fluid mt-2">
                             <div class="container-form">
                                 <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
+                    <div class="tab-pane fade " id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
                         <div class="container-fluid mt-2">
                             <div class="container-form">
                                 <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
@@ -204,11 +204,11 @@
 
                 message = document.getElementById('id_message')
                 message.setAttribute('style', 'display:none;')
-                
+
                 if (quantidade) {
-                    quantidade = parseInt(quantidade);                
-                    
-                    for (let i=0; i < quantidade; i++) {                    
+                    quantidade = parseInt(quantidade);
+
+                    for (let i=0; i < quantidade; i++) {
                         message = document.getElementById('id_message')
                         message.setAttribute('style', 'display:flex;')
 
@@ -226,31 +226,18 @@
                     }
                 }
             })
-
-            const advanceBtn = document.getElementById('advance')
-            advanceBtn.addEventListener('click', change_class)
-
-            function null_or_empty(str) {
-                var v = document.getElementById(str).value;
-                return v == null || v == "";
-            }
-            
-            function change_class(event) {
-                if (null_or_empty("id_date_arrive")
-                        && null_or_empty("id_date_departure")
-                        && null_or_empty("id_num_adults")
-                        && null_or_empty("id_num_child"))
-                    return false
-                else {
-                    document.getElementById("profile-tab").removeAttribute("disabled");
-        
-                    let b = document.querySelector('#profile');
-                    b.classList.add('show active');
-                }
-            }
         });
 
-        
+        const advanceBtn = document.getElementById('advance')
+        advanceBtn.addEventListener('click', change_class)
+
+        function change_class(event) {
+            if (event) {
+                event.preventDefault()
+            }
+            document.getElementById("profile-tab").removeAttribute("disabled");
+            document.getElementById('profile-tab').click();
+        }
 
     </script>
 

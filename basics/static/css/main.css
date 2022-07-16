@@ -1167,7 +1167,7 @@ footer {
         color: #6c757d;
       }
       .blockquote-footer::before {
-        content: "— ";
+        content: "— ";
       }
       
       .img-fluid {
@@ -13687,17 +13687,9 @@ footer {
         }
         .form-inline .form-control {
           display: inline-block;
-          width: 70px;
+          width: auto;
           vertical-align: middle;
-          text-align: center;
         }
-        .form-inline2 .form-control {
-            display: inline-block;
-            width: 10%;
-            vertical-align: middle;
-            text-align: center;
-          }
-
         .form-inline .form-control-plaintext {
           display: inline-block;
         }
@@ -13732,15 +13724,8 @@ footer {
         .form-inline .custom-control-label {
           margin-bottom: 0;
         }
-
-
-        aqui
-        #field_age {
-            width: 10%;
-            text-align: center;
-        }
       }
-
+      
       .btn {
         display: inline-block;
         font-weight: 400;
@@ -14933,6 +14918,7 @@ footer {
       }
       
       .input-group-append {
+        cursor: pointer;
         margin-left: -1px;
       }
       
@@ -63491,8 +63477,4 @@ footer {
 .dataTable-dropdown > label > .dataTable-selector {
   width: 25%;
   padding: 0 6px;
-}
-
-.text-align-center {
-   text-align: center;
 }

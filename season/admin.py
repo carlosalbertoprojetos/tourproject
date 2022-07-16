@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Validity, Period, Season
+from .models import Validity, Season, Event
 
 
 @admin.register(Validity)
@@ -11,7 +11,7 @@ class SeasonAdmin(admin.ModelAdmin):
 class SeasonAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Period)
-class PeriodSeasonsDestiniesAdmin(admin.ModelAdmin):
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
     pass
 

@@ -5,6 +5,50 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
+<script src="{% static 'tinymce_js/langs/pt_BR.js' %}"></script>
+
+<!--Menu-->
+<nav class="navbar navbar-expand-sm navbar-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">            
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"></a>
+          </li>                           
+        </ul>
+        <div class="d-flex">
+            <a href="{% url 'transport:transport_price_list_create' %}">
+              <button class="btn bg-gradient-primary" type="submit">Preços</button>
+            </a>     
+        </div>
+        <div class="d-flex">
+            <a href="{% url 'transport:transport_category_list_create' %}">
+              <button class="btn bg-gradient-warning" type="submit">Categorias</button>
+            </a>     
+          </div>
+        <div class="d-flex">
+          <a href="{% url 'transport:transport_list_create' %}">
+            <button class="btn bg-gradient-success" type="submit">Transportes</button>
+          </a>     
+        </div>                  
+        <div class="d-flex">
+            <a href="{% url 'transport:transport_catpax_list_create' %}">
+              <button class="btn bg-gradient-red" type="submit">CategoriasPAX</button>
+            </a>     
+          </div>
+      </div>
+    </div>
+</nav>
 
 <div class="container-fluid mt-2">
     <div class="container-form">
@@ -12,11 +56,9 @@
             <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title">Transportes</h2>
+                        <h2 class="form-title">Lista de Transportes</h2>
                     </div>
-                    <div id="bottom_list"
-                            class="col-sm-12 col-md-6"
-                            style="text-align-last">
+                    <div id="bottom_list" class="col-sm-12 col-md-6" >
                         <div class="row my-3">
                             <form method="POST" enctype="multipart/form-data">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
@@ -100,5 +142,14 @@
         </div>
     </div>
 </div>
+
+<script>tinymce.init(
+    {
+        selector:'textarea',
+        language: 'pt_BR',        
+        
+    }
+    );
+</script>
 
 {% endblock %}

@@ -1,89 +1,106 @@
 import pdb
-from django import views
+import html
+from datetime import datetime
+import json
+import sys
+from textwrap import indent
 from django.contrib import messages
+from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, render
+from django.urls import reverse
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
-from .forms import PeriodForm, SeasonForm, ValidityForm, EventForm, CommentForm
-from .models import Period, Season, Validity, Event
+from .forms import SeasonForm, ValidityForm, EventForm
+from .models import Season, Validity, Event
 
-
-
-#template_name = 'season/calendar_view.html'
-
-def calendar_event(request):
-    form = CommentForm()
-    return render(request, "season/calendar_event.html", {'form':form}) 
-
-def mode_calendar(request):    
-    return render(request, "season/mode_calendar.html")     
 
 #===============================================================================
-# CALENDÁRIO
-class CalendarListCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
+# EVENTO
+def season_event_detail(request, pk):
+    #pdb.set_trace()
+    context = {}
+    form = EventForm(request.POST or None)    
+    event = Event.objects.filter(season=pk)
+    season = Season.objects.get(pk=pk)
+    context = {
+        'event':event,        
+        'season': season,
+        'form': form,            
+    }               
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Evento salvo com sucesso!!!')    
+        return render(request, 'season/season_event_list_create.html', context)
+    else:         
+         return render(request, 'season/season_event_list_create.html', context)   
+    
+
+class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Event
-    template_name = 'season/calendar_list_create.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CalendarListCreateView, self).get_context_data(**kwargs)
-        context['form'] = EventForm(self.request.POST or None)
-        return context
-
-    def post(self,request, *args, **kwargs):            
-            form = EventForm(request.POST or None)
-            #pdb.set_trace()
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:calendar_list_create')
-            else:
-                messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/calendar_list_create.html', {'object':'object','form': form})
-                
-
-calendar_list_create = CalendarListCreateView.as_view()
-
-class CalendarDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Event
-    template_name = 'season/calendar_delete.html'
-    success_message = 'Evento deletada com sucesso!'
-    success_url = _('season:calendar_list_create')
+    template_name = 'season/event_delete.html'
+    success_message = 'Evento deletado com sucesso!'
+    success_url = _('season:season_list_create')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request,self.success_message)
-        return super(CalendarDeleteView, self).delete(request, *args, **kwargs)
+        return super(EventDeleteView, self).delete(request, *args, **kwargs)
 
-calendar_delete = CalendarDeleteView.as_view()
+event_delete = EventDeleteView.as_view()
 
-class CalendarCreateView(LoginRequiredMixin, SuccessMessageMixin,ListView):
-    model = Event
-    template_name = 'season/calendar_new.html'
+class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Event    
+    fields = '__all__'
+    template_name = 'season/event_update.html'
+    success_message = 'Evento alterado com sucesso!!!'    
+    success_url = _('season:season_list_create')
 
-    def get_context_data(self, **kwargs):
-        context = super(CalendarCreateView, self).get_context_data(**kwargs)
-        context['form'] = EventForm(self.request.POST or None)
-        return context
+event_update = EventUpdateView.as_view()
 
-    def post(self,request, *args, **kwargs):            
-            form = EventForm(request.POST or None)
-            #pdb.set_trace()
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Evento salvo com sucesso!!!')
-                return redirect('season:calendar_list_create')
-            else:
-                messages.success(request, 'Erro ao salvar evento!!!')
-                return render(request, 'season/calendar_list_view.html', {'object':'object','form': form})
-                
+#===============================================================================
+# CALENDÁRIO
 
-calendar_new = CalendarCreateView.as_view()
+def calendar_event_detail(request, pk):   
+    if pk == None :
+        event = get_object_or_404(Event, pk=pk)
+    else:
+        #pdb.set_trace()
+        dates = [] # array de datas
+        year = {}
+        new_dates = {} #dicionario para criar arquivo json     
+        event = Event.objects.filter(season=pk)               
+        season = Season.objects.get(pk=pk)
+
+        for e in Event.objects.filter(season=pk):
+           date_init = e.date_init.strftime("%-d/%-m/%Y")           
+           date_fin = e.date_fin.strftime("%-d/%-m/%Y")
+           #evento = e.name_event
+           year = season.validity.year                        
+           dates.extend([date_init,date_fin])          
+        
+              
+        new_dates = {i:dates[i]for i in range(0,len(dates))}
+        vet_dates = json.dumps(new_dates)
+
+        #locahost/heroku
+        sys.stdout = open('basics/static/js/vet_dates.js','w')       
+               
+        print("var vet_dates ='{}'".format(vet_dates))
+        print("var year = '{}'".format(year))
+        
+        context = {
+            'dates': dates,            
+            'event': event,
+            'season': season,
+            'range': range(0,13),                        
+        }    
+        
+        return render(request, 'season/calendar_list.html', context)
 
 #=====================================================================================================
-
 # VIGÊNCIA
 
 class ValidityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
@@ -167,62 +184,20 @@ class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 season_update = SeasonUpdateView.as_view()
 
 
-class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Season
-    template_name = 'season/season_delete.html'
-    success_message = 'Temporada deletada com sucesso!'
-    success_url = _('season:season_list_create')
+class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):    
+    try:
+        model = Season        
+        template_name = 'season/season_delete.html'
+        success_message = 'Temporada deletada com sucesso!!!'
+        success_url = _('season:season_list_create')
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(SeasonDeleteView, self).delete(request, *args, **kwargs)
+        def delete(self, request, *args, **kwargs):
+            messages.success(self.request,self.success_message)
+            return super(SeasonDeleteView, self).delete(request, *args, **kwargs)
+
+    except IntegrityError:
+         success_message = 'Erro ao deletar temporada!!!'
+         success_url = _('season:season_list_create')
 
 season_delete = SeasonDeleteView.as_view()
 
-
-#===============================================================================
-# PERÍODO
-
-class PeriodListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
-    model = Period
-    template_name = 'season/period_list_create.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(PeriodListCreateView, self).get_context_data(**kwargs)
-        context['form'] = PeriodForm(self.request.POST or None)
-        return context
-
-    def post(self, request, *args, **kwargs):
-        form = PeriodForm(request.POST or None)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Período criado com sucesso!!!')
-            return redirect('season:period_list_create')
-        else:
-            return render(request, 'season/period_list_create.html', {'object':'object','form': form})
-
-period_list_create = PeriodListCreateView.as_view()
-
-
-class PeriodUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Period
-    fields = '__all__'
-    template_name = 'season/period_update.html'
-    success_message = 'Período alterado com sucesso!!!'
-    success_url = _('season:period_list_create')
-
-period_update = PeriodUpdateView.as_view()
-
-
-class PeriodDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
-    model = Period
-    template_name = 'season/period_delete.html'
-    success_message = 'Período deletado com sucesso!!!'
-    success_url = _('season:period_list_create')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(PeriodDeleteView, self).delete(request, *args, **kwargs)
-
-period_delete = PeriodDeleteView.as_view()

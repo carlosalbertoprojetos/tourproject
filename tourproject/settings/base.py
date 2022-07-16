@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'package',
     
     'client',
-    'transport',    
+    'transport',            
     
 ]
 
@@ -70,7 +70,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
+    
 ]
 
 ROOT_URLCONF = 'tourproject.urls'
@@ -190,8 +191,8 @@ STATIC_URL = '/static/'
 
 
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_ROOT = BASE_DIR / 'static'
-
+#STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'basics', 'static'),
@@ -220,4 +221,3 @@ LOGOUT_URL = '/accounts/logout/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 django_heroku.settings(locals())
-
