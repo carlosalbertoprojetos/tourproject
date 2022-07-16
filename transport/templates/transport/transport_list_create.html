@@ -5,6 +5,9 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
+<script src="{% static 'tinymce_js/langs/pt_BR.js' %}"></script>
+
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
@@ -139,5 +142,14 @@
         </div>
     </div>
 </div>
+
+<script>tinymce.init(
+    {
+        selector:'textarea',
+        language: 'pt_BR',        
+        
+    }
+    );
+</script>
 
 {% endblock %}
