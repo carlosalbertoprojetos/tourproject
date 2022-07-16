@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
-from season.models import Season
+from season.models import Season, Event
 
 
 class TripCategory(models.Model):
@@ -173,3 +173,25 @@ def delete_trip_catpax_prices(sender, instance, **kwargs):
                 ActivityPrice.objects.filter(id=i.id).delete()
 
 
+# date_arrival, date_departure
+
+def trips_filter():
+    trip = Trip.objects.all()
+    activ = Activity.objects.all()
+    season = Season.objects.all()
+    for t in trip:
+        if t.destiny_id == 5:
+            print(t.id, t.name, t.destiny)
+            for a in activ:
+                if t.id == a.trip_id:
+                    print('      ', a.id, a.name)
+    for s in season:
+        if s.destiny_id == 5:
+            print(s.id, s.name, s.destiny)
+    
+    period = Event.objects.all()
+    for p in period:
+        print(p)
+        print(p.id, p.name_event, p.date_init, p.date_fin)
+
+# trips_filter()

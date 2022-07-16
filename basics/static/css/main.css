@@ -14918,6 +14918,7 @@ footer {
       }
       
       .input-group-append {
+        cursor: pointer;
         margin-left: -1px;
       }
       

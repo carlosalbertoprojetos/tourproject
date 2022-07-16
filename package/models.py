@@ -17,11 +17,11 @@ class Data_Package_One(models.Model):
 
 class Child_Package_One(models.Model):
     data_package_one = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
-    children_age = models.CharField('', max_length=2)
+    children_age = models.CharField('', max_length=2, blank=True, null=True)
     
     class Meta:
         verbose_name = "Idade da criança"
-        verbose_name_plural = "Idades das crianças"
+        verbose_name_plural = "Idade das crianças"
 
 
 # class Data_Package_Two(models.Model):
