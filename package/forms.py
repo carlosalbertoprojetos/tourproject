@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Data_Package_One, Child_Package_One
+from .models import Data_Package_One, Child_Package_One,Data_Customer_Package
 
 
 class Data_Package_OneForm(forms.ModelForm):
@@ -53,6 +53,50 @@ class Child_Package_OneForm(forms.ModelForm):
                     'size': '2',
                     'type':'text',
                     # 'required': 'true' - não salva
+                    },
+                ),
+            }
+
+class Data_Customer_PackageForm(forms.ModelForm):
+
+    class Meta:
+        model = Data_Customer_Package
+        fields = ('name', 'email', 'phonenumber', 'city', 'description')
+        widgets = {
+            'name':forms.TextInput(
+                attrs={
+                    'class':'col-md-12 form-control mx-1 text-center',
+                    'type':'text',
+                    'required': 'true'
+                    },
+                ),
+            'email':forms.TextInput(
+                attrs={
+                    'class':'col-md-6 form-control mx-1 text-center',
+                    'type':'email',
+                    'required': 'true'
+                    },
+                ),
+            'phonenumber':forms.TextInput(
+                attrs={
+                    'class':'col-md-6 form-control mx-1 text-center',
+                    'type':'text',
+                    'required': 'true',
+                    'data-inputmask-mask':'"(9-)AAAAA-9999"',
+                    },
+                ),
+            'city':forms.TextInput(
+                attrs={
+                    'class':'col-md-12 form-control mx-1 text-center',
+                    'type':'text',
+                    'required': 'true'
+                    },
+                ),
+            'description':forms.TextInput(
+                attrs={
+                    'class':'col-md-12 form-control mx-1 text-center',
+                    'type':'text',
+                    'required': 'true'
                     },
                 ),
             }

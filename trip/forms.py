@@ -67,7 +67,9 @@ class ActivityPriceForm(forms.ModelForm):
         widgets = {
             'activity':forms.TextInput({'readonly':'readonly', 'type':'hidden'}),
             'catpax':forms.TextInput({'readonly':'readonly', 'type':'hidden'}),
-            'price':forms.NumberInput(attrs={'class':'text-center', 'style': 'border: 0; padding: 0 5px;'}),
+            'price':forms.NumberInput(attrs={'class':'text-center', 'style': 'border: 0; padding: 0 5px;',
+            # 'data-inputmask':"'prefix': 'R$ ;'"
+            }),
             }
         labels = {"price":''}
 

@@ -38,10 +38,10 @@
                 <div class="form-title m-0">
                     <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Dados iniciais</button>
+                            <button class="nav-link active" id="dados_iniciais-tab" data-bs-toggle="tab" data-bs-target="#dados_iniciais" type="button" role="tab" aria-controls="dados_iniciais" aria-selected="true">Dados iniciais</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" disabled>Passeios</button>
+                            <button class="nav-link" id="trips-tab" data-bs-toggle="tab" data-bs-target="#trips" type="button" role="tab" aria-controls="trips" aria-selected="false" disabled>Passeios</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="accommodation-tab" data-bs-toggle="tab" data-bs-target="#accommodation" type="button" role="tab" aria-controls="accommodation" aria-selected="false" disabled>Hospedagens</button>
@@ -55,7 +55,7 @@
                     </ul>                    
                 </div>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active" id="dados_iniciais" role="tabpanel" aria-labelledby="dados_iniciais-tab">
                         <div class="header">
                             <div class='row m-2'>
                                 <h4 class="p-4 pb-0">Informe os dados do período de estadia em {{ destiny }}</h4>
@@ -113,7 +113,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade active" id="trips" role="tabpanel" aria-labelledby="trips-tab">
                         <div class="container-flex">
                             <h1 class="form-title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h1>
                             <hr class='mb-0'>
@@ -157,14 +157,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade show" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        <div class="container-fluid mt-2">
-                            <div class="container-form">
-                                <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade " id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
+                    <div class="tab-pane fade" id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
                         <div class="container-fluid mt-2">
                             <div class="container-form">
                                 <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
@@ -179,10 +172,51 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
-                        <div class="container-fluid mt-2">
-                            <div class="container-form">
-                                <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                        <div class="header">
+                            <div class='row m-2'>
+                                <h4 class="p-4 pb-0">Informe os seus dados nos campos abaixo</h4>
                             </div>
+                        </div>
+                        <div class='row'>
+                            <form action='.' method='POST' class='mb-2'>
+                                {% csrf_token %}
+                                <div class='row'>
+                                    <div class='col-12 mb-2'>
+                                        <label for="id_name">Seu Nome</label>
+                                        <input type="text" name="name" value="{{form.name.value|default:''}}" class="dateinput form-control mt-2" id="id_name" required>
+                                        {{ form.name.non_field_errors }}
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='col-6 mb-2'>
+                                        <label for="id_email">Email para Contato</label>
+                                        <input type="text" name="email" value="{{form.email.value|default:''}}" class="dateinput form-control mt-2" id="id_email" required>
+                                        {{ form.email.non_field_errors }}
+                                    </div>
+                                    <div class='col-6 mb-2'>
+                                        <label for="id_phonenumber">Telefone para contato</label>
+                                        <input type="text" name="phonenumber" value="{{form.phonenumber.value|default:''}}" class="dateinput form-control mt-2" id="id_phonenumber" required>
+                                        {{ form.phonenumber.non_field_errors }}
+                                    </div>
+                                </div>  
+                                <div class='col-12 mb-2'>
+                                    <label for="id_city">Cidade</label>
+                                    <input value="{{form.city.value}}" type="text" name="city"  class="dateinput form-control mt-2" id="id_city" title="Escolha uma data" required>
+                                    {{ form.city.non_field_errors }}
+                                </div>
+                                <div class='col-12 mb-2'>
+                                    <label for="id_description">Descrição</label>
+                                    <input type="text" name="description" value="{{form.description.value}}" class="dateinput form-control mt-2" id="id_description" required>
+                                    {{ form.description.non_field_errors }}
+                                </div>
+                                </div>
+
+                                <div class='row float-end'>
+                                    <div class='col-2 my-2'>
+                                        <button type='submit' class='btn btn-primary'>Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -228,6 +262,11 @@
             })
         });
 
+        function null_or_empty(str) {
+            var v = document.getElementById(str).value;
+            return v == null || v == "";
+        }
+
         const advanceBtn = document.getElementById('advance')
         advanceBtn.addEventListener('click', change_class)
 
@@ -235,8 +274,16 @@
             if (event) {
                 event.preventDefault()
             }
-            document.getElementById("profile-tab").removeAttribute("disabled");
-            document.getElementById('profile-tab').click();
+            if (null_or_empty("id_date_arrive")
+                && null_or_empty("id_date_departure")
+                && null_or_empty("id_num_adults")
+                && null_or_empty("id_num_child"))
+                return false, alert('Por favor, preencha todos os campos') 
+            else {
+                document.getElementById("trips-tab").removeAttribute("disabled");
+                document.getElementById("data-tab").removeAttribute("disabled");
+                document.getElementById('trips-tab').click();
+            }             
         }
 
     </script>
