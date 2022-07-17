@@ -270,20 +270,22 @@
         const advanceBtn = document.getElementById('advance')
         advanceBtn.addEventListener('click', change_class)
 
+
         function change_class(event) {
             if (event) {
                 event.preventDefault()
-            }
-            if (null_or_empty("id_date_arrive")
-                && null_or_empty("id_date_departure")
-                && null_or_empty("id_num_adults")
-                && null_or_empty("id_num_child"))
+                if (null_or_empty("id_date_arrive")
+                || null_or_empty("id_date_departure")
+                || null_or_empty("id_num_adults")
+                || null_or_empty("id_num_child"))
+
                 return false, alert('Por favor, preencha todos os campos') 
-            else {
-                document.getElementById("trips-tab").removeAttribute("disabled");
-                document.getElementById("data-tab").removeAttribute("disabled");
-                document.getElementById('trips-tab').click();
-            }             
+                else {
+                    document.getElementById("trips-tab").removeAttribute("disabled");
+                    document.getElementById("data-tab").removeAttribute("disabled");
+                    document.getElementById('trips-tab').click();
+                }             
+            }
         }
 
     </script>
