@@ -58,7 +58,7 @@
                     <div class="tab-pane fade show active" id="dados_iniciais" role="tabpanel" aria-labelledby="dados_iniciais-tab">
                         <div class="header">
                             <div class='row m-2'>
-                                <h4 class="p-4 pb-0">Informe os dados do período de estadia em {{ destiny }}</h4>
+                                <h4 class="p-4 pb-0" align="center">Informe os dados do período de estadia em {{ destiny }}</h4>
                             </div>
                         </div>
                         <div class='row'>
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 {% if formset %}
-                                <div style="display: None;" class="alert alert-primary m-1 justify-content-center" role="alert" id="id_message">
+                                <div style="display: None;" class="alert alert-primary justify-content-center" role="alert" id="id_message">
                                     Por favor, informe as idades das crianças
                                 </div>
                                 <div class='row'>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="tab-pane fade active" id="trips" role="tabpanel" aria-labelledby="trips-tab">
                         <div class="container-flex">
-                            <h1 class="form-title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            <h3 class="form-title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h3>
                             <hr class='mb-0'>
                         </div>
                         <div class="container-flex">
@@ -123,10 +123,10 @@
                                 {% for t in trips %}
                                 <div class='row'>
                                     <div class="col-sm-12 col-md-12">
-                                        <h3 class="jumbotron form-title mb-0 p-3" align="center">{{ t.name }}<h3>
+                                        <h4 class="jumbotron form-title mb-0 p-2" align="center">{{ t.name }}<h4>
                                     </div>
                                     <div class="row mt-4">
-                                    {% for a in activity %}
+                                        {% for a in activity %}
                                         {% if a.trip == t %}
                                             <div class="col-sm-6 col-md-6">
                                                 <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
                                         {% endif %}
-                                    {% endfor %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -174,7 +174,7 @@
                     <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
                         <div class="header">
                             <div class='row m-2'>
-                                <h4 class="p-4 pb-0">Informe os seus dados nos campos abaixo</h4>
+                                <h4 class="p-4 pb-0" align="center">Informe os seus dados nos campos abaixo</h4>
                             </div>
                         </div>
                         <div class='row'>
