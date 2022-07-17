@@ -175,7 +175,7 @@ class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ActivityListCreateView, self).get_context_data(**kwargs)
-        context['form'] = ActivityForm(self.request.POST or None)
+        context['form'] = ActivityForm(self.request.POST or None, self.request.FILES)
         a=[]
         for i in self.object_list:
             a = i
