@@ -4,16 +4,16 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import inlineformset_factory, modelformset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy as _
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
-
-from trip.models import Activity, ActivityPrice, Trip
 
 from .models import Data_Package_One, Child_Package_One
 from .forms import Data_Package_OneForm, Child_Package_OneForm
 
+from trip.models import Activity, ActivityPrice, Trip
 from destiny.models import Destiny
-
+from package.models import Data_Customer_Package
+from package.forms import Data_Customer_PackageForm
 
 #===============================================================================
 # DADOS PARA PACOTE - Data_package_One
@@ -21,10 +21,11 @@ from destiny.models import Destiny
 
 def data_package_list(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
-    object = Data_Package_One.objects.filter(destiny_id=id_destiny)
+    packages = Data_Package_One.objects.filter(destiny_id=id_destiny)
+
     context = {
         'destiny': destiny,
-        'object': object,
+        'packages': packages,
     }
     return render(request, 'package/data_package_list.html', context)
 
@@ -156,7 +157,7 @@ def data_base(request, city_destiny):
 def listTripPackage(request, city_destiny):
     trip = Trip.objects.filter(destiny__city=city_destiny).first()
     trips = Trip.objects.filter(destiny__city=city_destiny)
-    activity = Activity.objects.filter(trip_id=trip.id)
+    activity = Activity.objects.filter(trip_id=trip)
 
     # filtrar pelo período informado em Data_Package_One, mostrar somente quando houver valor
     price = ActivityPrice.objects.all()
@@ -204,3 +205,46 @@ def listTripPackage(request, city_destiny):
             'formset': formset,
         }
         return render(request, template, context)
+
+class DataCustomerPackageCreateView(SuccessMessageMixin, CreateView):
+    model = Data_Customer_Package
+    form_class = Data_Customer_PackageForm
+    template_name = 'package/package_base.html'
+    # success_message = 'Cadastrado com sucesso!'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.package = self.package
+        obj.save()
+        return super().form_valid(form)
+
+data_customer_package_create = DataCustomerPackageCreateView.as_view()
+
+
+class DataCustomerPackageUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Data_Customer_Package
+    form_class = Data_Customer_PackageForm
+    success_message = 'Editado com sucesso!'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.package = self.package
+        obj.save()
+        return super().form_valid(form)
+
+
+data_customer_package_update = DataCustomerPackageUpdateView.as_view()
+
+
+class DataCustomerPackageDeleteView(DeleteView):
+    model = Data_Customer_Package
+    template_name = 'reinosdeferro/deletar_post.html'
+    success_url = _('')
+    success_message = 'Deletado com sucesso!'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,self.success_message)
+        return super(DataCustomerPackageDeleteView, self).delete(request, *args, **kwargs)
+
+
+data_customer_package_delete = DataCustomerPackageDeleteView.as_view()

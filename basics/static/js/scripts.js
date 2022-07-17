@@ -32,3 +32,66 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+
+$(function () {
+    $("#id_num_child").keyup(() => {
+        var formCopyTarget = document.getElementById('children_age_list')
+        while (formCopyTarget.firstChild) {
+            formCopyTarget.removeChild(formCopyTarget.firstChild)
+        }
+
+        let quantidade = $("#id_num_child").val();
+        const totalNewForms = document.getElementById('id_child_package_one_set-TOTAL_FORMS')
+
+        if (quantidade) {
+            quantidade = parseInt(quantidade);
+
+            for (let i=0; i < quantidade; i++) {
+                message = document.getElementById('id_message')
+                message.setAttribute('style', 'display:flex;')
+
+                const formCopyTarget = document.getElementById('children_age_list')
+                const copyEmptyFormEl = document.getElementById('empty-form').cloneNode(true)
+                copyEmptyFormEl.setAttribute('class', 'child_age_form')
+                copyEmptyFormEl.setAttribute('id', `id_child_package_one_set-${i}-children_age`)
+                const regex =  new RegExp('__prefix__', 'g')
+                copyEmptyFormEl.innerHTML = copyEmptyFormEl.innerHTML.replace(regex, i)
+                totalNewForms.setAttribute('value', i + 1)
+                formCopyTarget.append(copyEmptyFormEl)
+            }
+        }
+    });
+
+    function null_or_empty(str) {
+        var v = document.getElementById(str).value;
+        return v == null || v == "";
+    }
+    
+    $(function change_class() {
+
+        let quantidade = $("#id_num_child").val();
+        if (quantidade) {
+            quantidade = parseInt(quantidade)
+
+            for (let i=0; i < quantidade; i++) {
+                if (null_or_empty(`id_child_package_one_set-${i}-children_age`))
+                    alert('Por favor, informe as idade(s) da(s) criança(s)');
+                    return false
+                
+                document.getElementById("profile-tab").removeAttribute("disabled");
+                let a = document.querySelector('#profile');
+                a.classList.add('show active');
+                document.getElementById("accommodation-tab").removeAttribute("disabled");
+                let b = document.querySelector('#accommodation');
+                b.classList.add('show active');
+                document.getElementById("transport-tab").removeAttribute("disabled");
+                let c = document.querySelector('#transport');
+                c.classList.add('show active');
+                document.getElementById("data-tab").removeAttribute("disabled");
+                let d = document.querySelector('#data');
+                d.classList.add('show active');
+            }
+        }
+    });
+});
