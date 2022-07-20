@@ -12,8 +12,7 @@ from .forms import Data_Package_OneForm, Child_Package_OneForm
 
 from trip.models import Activity, ActivityPrice, Trip
 from destiny.models import Destiny
-from package.models import Data_Customer_Package
-from package.forms import Data_Customer_PackageForm
+
 
 #===============================================================================
 # DADOS PARA PACOTE - Data_package_One
@@ -206,45 +205,45 @@ def listTripPackage(request, city_destiny):
         }
         return render(request, template, context)
 
-class DataCustomerPackageCreateView(SuccessMessageMixin, CreateView):
-    model = Data_Customer_Package
-    form_class = Data_Customer_PackageForm
-    template_name = 'package/package_base.html'
-    # success_message = 'Cadastrado com sucesso!'
+# class DataCustomerPackageCreateView(SuccessMessageMixin, CreateView):
+#     model = Data_Customer_Package
+#     form_class = Data_Customer_PackageForm
+#     template_name = 'package/package_base.html'
+#     # success_message = 'Cadastrado com sucesso!'
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.package = self.package
-        obj.save()
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         obj = form.save(commit=False)
+#         obj.package = self.package
+#         obj.save()
+#         return super().form_valid(form)
 
-data_customer_package_create = DataCustomerPackageCreateView.as_view()
-
-
-class DataCustomerPackageUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Data_Customer_Package
-    form_class = Data_Customer_PackageForm
-    success_message = 'Editado com sucesso!'
-
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.package = self.package
-        obj.save()
-        return super().form_valid(form)
+# data_customer_package_create = DataCustomerPackageCreateView.as_view()
 
 
-data_customer_package_update = DataCustomerPackageUpdateView.as_view()
+# class DataCustomerPackageUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+#     model = Data_Customer_Package
+#     form_class = Data_Customer_PackageForm
+#     success_message = 'Editado com sucesso!'
+
+#     def form_valid(self, form):
+#         obj = form.save(commit=False)
+#         obj.package = self.package
+#         obj.save()
+#         return super().form_valid(form)
 
 
-class DataCustomerPackageDeleteView(DeleteView):
-    model = Data_Customer_Package
-    template_name = 'reinosdeferro/deletar_post.html'
-    success_url = _('')
-    success_message = 'Deletado com sucesso!'
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
-        return super(DataCustomerPackageDeleteView, self).delete(request, *args, **kwargs)
+# data_customer_package_update = DataCustomerPackageUpdateView.as_view()
 
 
-data_customer_package_delete = DataCustomerPackageDeleteView.as_view()
+# class DataCustomerPackageDeleteView(DeleteView):
+#     model = Data_Customer_Package
+#     template_name = 'reinosdeferro/deletar_post.html'
+#     success_url = _('')
+#     success_message = 'Deletado com sucesso!'
+
+#     def delete(self, request, *args, **kwargs):
+#         messages.success(self.request,self.success_message)
+#         return super(DataCustomerPackageDeleteView, self).delete(request, *args, **kwargs)
+
+
+# data_customer_package_delete = DataCustomerPackageDeleteView.as_view()

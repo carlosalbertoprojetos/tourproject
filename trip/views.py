@@ -186,7 +186,9 @@ class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
         trip_id = self.kwargs['trip_id']
         form = ActivityForm(request.POST or None, request.FILES)
         if form.is_valid():
-            form = form.save()
+            form = form.save(commit=False)
+            form.trip_id = trip_id
+            form.save()
             messages.success(request, 'Atividade criada com sucesso!!!')
             return redirect('trip:activity_list_create', trip_id)
         else:

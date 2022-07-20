@@ -162,7 +162,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-DATE_FORMAT = ["%d/%m/%Y",]
+DATE_FORMAT = ["%d/%m/%Y"]
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 DECIMAL_SEPARATOR = ','
 USE_THOUSAND_SEPARATOR = True
@@ -173,6 +173,8 @@ USE_THOUSAND_SEPARATOR = True
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
+
+USE_L10N = False
 
 USE_I18N = True
 

@@ -179,19 +179,27 @@ def trips_filter():
     trip = Trip.objects.all()
     activ = Activity.objects.all()
     season = Season.objects.all()
+    destiny = 2
     for t in trip:
-        if t.destiny_id == 5:
+        if t.destiny_id == destiny:
             print(t.id, t.name, t.destiny)
             for a in activ:
                 if t.id == a.trip_id:
                     print('      ', a.id, a.name)
-    for s in season:
-        if s.destiny_id == 5:
-            print(s.id, s.name, s.destiny)
+    # for s in season:
+    #     if s.destiny_id == destiny:
+    #         print(s.id, s.name, s.destiny)
+    
     
     period = Event.objects.all()
     for p in period:
-        print(p)
-        print(p.id, p.name_event, p.date_init, p.date_fin)
+        print('\n')
+        print(p.name_event ,'-',p.season.name, '-', p.season.destiny)
+        print('início', p.date_init, '/ fim', p.date_fin, '\n')
+    
+        for a in activ:
+            if a.trip == p:
+                print(a.trip)
+                print(a.name)
 
 # trips_filter()

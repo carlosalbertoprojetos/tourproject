@@ -52,6 +52,7 @@ class ActivityForm(forms.ModelForm):
     class Meta:
         model = Activity
         fields = '__all__'
+        exclude = ['trip',]
 
     def __init__(self, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)

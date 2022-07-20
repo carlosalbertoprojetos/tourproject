@@ -98,11 +98,11 @@
                                         {% for form in formset %}
                                         <div class='child_age_form'>
                                             {{ form.non_field_errors }}
-                                            {{ form|crispy }}
+                                            {{ form }}
                                         </div>
                                         {% endfor %}
                                     </div>
-                                    <div id='empty-form' class='hidden'>{{ formset.empty_form|crispy }}</div>
+                                    <div id='empty-form' class='hidden'>{{ formset.empty_form }}</div>
                                 </div>
                                 {% endif %}
                                 <div class='row float-end'>
@@ -239,7 +239,7 @@
                 message = document.getElementById('id_message')
                 message.setAttribute('style', 'display:none;')
 
-                if (quantidade) {
+                if (quantidade > 0) {
                     quantidade = parseInt(quantidade);
 
                     for (let i=0; i < quantidade; i++) {
@@ -269,7 +269,6 @@
 
         const advanceBtn = document.getElementById('advance')
         advanceBtn.addEventListener('click', change_class)
-
 
         function change_class(event) {
             if (event) {
