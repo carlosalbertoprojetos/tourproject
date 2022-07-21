@@ -189,7 +189,8 @@ def trips_filter():
     # for s in season:
     #     if s.destiny_id == destiny:
     #         print(s.id, s.name, s.destiny)
-
+    
+    
     period = Event.objects.all()
     for p in period:
         print('\n')
@@ -205,32 +206,19 @@ def trips_filter():
 
 
 
-import datetime as dt
 
 
+# def event(start_date, end_date):
 def event():
-    start_date = dt.date(2023, 1, 1)
-    end_date = dt.date(2023, 2, 1)
-    # season = Season.objects.get(id=2)
-    # print('\n', season.name)
-    # events = Event.objects.filter(name_event__icontains='car')
-
-    # print('\n')
+    # destiny = Season.objects.get()
+    # trips = Trip.objects.filter(id=1)
+    # for t in trips:
+    #     print(t)
+    season = Season.objects.get(id=1)
+    print(season.name)
+    # events = season.event_set.all()
     # for e in events:
-        # if e.season.name == season.name:
-    #     print(e.id, '-',e.name_event,'/', e.season.name)
-    # print('\n')
-
-    eve = Event.objects.all()
-    for e in eve:
-        print(e.date_init)
-    # print(dir(eve))
-    # print(type(eve))
-    # for b in eve:
-    #     print(b)
-
-# event()
-
+    #     print('EVENT SEASON ID', e.id)
     
     # event = Event.objects.filter(season_id='Alta Temporada - Bonito: Mato Grosso do Sul/MS - 2023')
     # for e in event:
@@ -242,25 +230,5 @@ def event():
         # if e.season.name == 'Alta Temporada':
         #     print(e.season.name)
             # print(e.date_init)
-"""
->>> from season.models import Season, Event
 
->>> Event.objects.filter(name_event__icontains='Férias')
-<QuerySet [<Event: Férias>, <Event: Férias de Inverno>]>
-
->>> Event.objects.filter(season__destiny=1)
-<QuerySet [<Event: Férias de Inverno>, <Event: Férias>, <Event: Carnaval>]>
-
-
-import datetime as dt
->>> start_date = dt.date(2023, 1, 1)                              
->>> end_date = dt.date(2023, 2, 9)                              
->>> Event.objects.filter(date_init__range=(start_date, end_date))
-<QuerySet [<Event: Férias>, <Event: Carnaval>, <Event: Férias de Inverno>]>
-
->>> season = Season.objects.get(pk=2) 
->>> season.event_set.all()
-<QuerySet [<Event: Férias>, <Event: Carnaval>]>
-
-
-"""
+event()

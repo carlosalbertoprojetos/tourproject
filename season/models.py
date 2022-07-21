@@ -48,10 +48,10 @@ class Season(models.Model):
 
  
 class Event(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     name_event = models.CharField('Evento:', max_length=255)
     date_init = models.DateField('Data Inicial:')
     date_fin = models.DateField('Data Final:')
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
 
     class Meta:
         verbose_name = 'Evento'

@@ -9,37 +9,40 @@ class Data_Package_OneForm(forms.ModelForm):
 
     class Meta:
         model = Data_Package_One
-        fields = ['date_arrive', 'date_departure', 'num_adults', 'num_child']
-        # widgets = {
-        #     'date_arrive':forms.DateInput(
-        #         attrs={
-        #             'class':'my-1',
-        #             'type':'date',
-        #             'required': 'true'
-        #             },
-        #         ),
-        #     'date_departure':forms.DateInput(
-        #         attrs={
-        #             'class':'my-1',
-        #             'type':'date',
-        #             'required': 'true'
-        #             },
-        #         ),            
-        #     'num_adults':forms.NumberInput(
-        #         attrs={
-        #             'class':'my-1',
-        #             'type':'number',
-        #             'required': 'true'
-        #             },
-        #         ),                        
-        #     'num_child':forms.NumberInput(
-        #         attrs={
-        #             'class':'my-1',
-        #             'type':'number',
-        #             'required': 'true'
-        #             },
-        #         ),
-        # }
+        # fields = ['date_arrive', 'date_departure', 'num_adults', 'num_child']
+        fields = '__all__'
+        exclude = ['destiny']
+        widgets = {
+            'date_arrive':forms.DateInput(
+                format=('%d/%m/%Y'),
+                attrs={
+                    'class':'my-1',
+                    'type':'date',
+                    'required': 'true'
+                    },
+                ),
+            'date_departure':forms.DateInput(
+                attrs={
+                    'class':'my-1',
+                    'type':'date',
+                    'required': 'true'
+                    },
+                ),            
+            'num_adults':forms.NumberInput(
+                attrs={
+                    'class':'my-1',
+                    'type':'number',
+                    'required': 'true'
+                    },
+                ),                        
+            'num_child':forms.NumberInput(
+                attrs={
+                    'class':'my-1',
+                    'type':'number',
+                    'required': 'true'
+                    },
+                ),
+        }
 
 class Child_Package_OneForm(forms.ModelForm):
 
@@ -52,7 +55,7 @@ class Child_Package_OneForm(forms.ModelForm):
                 attrs={
                     'class':'form-control mx-1 text-center',
                     'size': '2',
-                    # 'type':'text',
+                    'type':'text',
                     # 'required': 'true' - não salva
                     },
                 ),

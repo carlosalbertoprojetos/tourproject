@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import inlineformset_factory, modelformset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy as _
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
 
 from .models import Data_Package_One, Child_Package_One

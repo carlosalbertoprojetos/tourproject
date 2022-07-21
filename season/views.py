@@ -1,14 +1,9 @@
-import pdb
-import html
-from datetime import datetime
 import json
 import sys
-from textwrap import indent
 from django.contrib import messages
 from django.db import IntegrityError
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
@@ -17,11 +12,12 @@ from django.views.generic.edit import DeleteView, UpdateView
 from .forms import SeasonForm, ValidityForm, EventForm
 from .models import Season, Validity, Event
 
+import datetime as dt
+
 
 #===============================================================================
 # EVENTO
 def season_event_detail(request, pk):
-    #pdb.set_trace()
     context = {}
     form = EventForm(request.POST or None)    
     event = Event.objects.filter(season=pk)
@@ -29,7 +25,7 @@ def season_event_detail(request, pk):
     context = {
         'event':event,        
         'season': season,
-        'form': form,            
+        'form': form,
     }               
     if form.is_valid():
         form.save()
@@ -201,3 +197,40 @@ class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 season_delete = SeasonDeleteView.as_view()
 
+
+"""
+objetivo:
+    Listar todos as atividades(activity) cujos passeios(trip) são relacionados ao destino(destiny) selecionado, dentro do intervalo de tempo informado(event/date_init, date_fin)
+    1) Filtrar todas atividades dos passeios relacionados ao destino=1:
+    activities = Activity.objects.all().filter(trip__destiny=1)
+    2) Filtrar data_init/data_fin, comprar com as datas dos eventos e extrair a season correspondente
+"""
+from trip.models import Activity, ActivityPrice
+import datetime as dt
+from django.db.models import Q
+
+# todas as atividades dos passeios relacionadas aos destino = 1
+def teste(id_destiny=1):
+    start_date = dt.date(2023, 1, 1)
+    end_date = dt.date(2023, 1, 9)
+
+    season = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date))).first()
+
+    activities_prices = ActivityPrice.objects.filter(season=season.id)
+    activity = Activity.objects.filter(trip__destiny=id_destiny).first()
+    activities = Activity.objects.filter(trip_id=activity.id)
+    print('Destino: ', activity.trip.destiny, '\n', 'Passeio: ', activity.trip.name)   
+    print('\nEventos para', season.season.name, 'em', activity.trip.destiny.name)
+    #, end="")
+    events = Event.objects.filter(season__name=season.season.name)
+    for e in events:
+        print(f' {e} de Início:{e.date_init:%d/%m/%Y} a Fim:{e.date_fin:%d/%m/%Y}')
+
+    print('\nAtividades:')
+    for a in activities:
+        print(' ', a)
+        for ap in activities_prices:
+            if a == ap.activity:
+                print('   ', ap.catpax, ap.price)
+    print('\n')
+teste()

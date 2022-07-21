@@ -3,14 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import modelformset_factory
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from season.models import Season
 
 from .forms import (ActivityForm, ActivityPriceForm, CategoryPaxForm,
-                    TripCategoryForm, TripForm,CHD_ActivityForm)
+                    TripCategoryForm, TripForm)
 from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
                      Trip, TripCategory)
 

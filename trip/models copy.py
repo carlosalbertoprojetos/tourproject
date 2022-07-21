@@ -83,6 +83,7 @@ class Trip(models.Model):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
 
+
 class CategoryPax(models.Model):
     name = models.CharField('Nome', max_length=255, unique=True)
     note = models.TextField('Observação', max_length=255, blank=True, null=True)
@@ -115,6 +116,7 @@ class Activity(models.Model):
         ('10','10'),
     ]
 
+    # trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name='Passeio', related_name='activities')
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name='Passeio')
     name = models.CharField('Atividade', max_length=255)
     image = models.ImageField(
@@ -139,6 +141,38 @@ class Activity(models.Model):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
     
+    
+""" def get_prices(data_inicio, data_fim):
+    
+    1- pegar o destino
+    2- ter a data inicio e a data fim
+    3- pegar os eventos que estao dentro da data inicio e data fim
+    4 - se nao tiver nenhum evento retorna o preco da baixa temporada
+    5- se tiver eventos(so pode ter um, mas como o codigo nao bloqueia isso pode retornar 2)
+    se retornar mais de 1 nao importa, retorna o primeiro evento
+    6- pega a temporada do primeiro evento
+    7- pega o preco referente a temporada, esta na tabela ActivityPrice
+
+    # import pdb;pdb.set_trace()
+    #1
+    destino = self.trip.destiny
+    #2 
+    #3
+    #
+    # eventos = Events.objects.filter(__range=(start, end))
+    #4
+    if not eventos:
+        prices = self.trip.activityprice
+        for o in prices:
+            if o.season.baixa:
+                return price
+    #5
+    else:
+        if len(eventos) > 1:
+            eventos = eventos[0]
+            # aqui so pego 2 eventos
+    #6 """
+
 
 class ActivityCatPax(models.Model): 
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE )
@@ -160,6 +194,7 @@ class ActivityPrice(models.Model):
 
     def __str__(self):
         return self.activity.name
+    
 
 # deleta catpax quando desmarcado(desflegado) da activity por manytomany
 @receiver(post_delete, sender=ActivityCatPax)
@@ -175,22 +210,40 @@ def delete_trip_catpax_prices(sender, instance, **kwargs):
 
 # date_arrival, date_departure
 #-========================================= TESTES#
-def trips_filter():
-    trip = Trip.objects.all()
-    activ = Activity.objects.all()
-    season = Season.objects.all()
-    destiny = 2
-    for t in trip:
-        if t.destiny_id == destiny:
-            print(t.id, t.name, t.destiny)
-            for a in activ:
+def trips_filter(id_destiny, data_inicio, datafim):
+    trips = Trip.objects.filter(destiny_id=id_destiny)
+    activs = Activity.objects.filter(trip__in=trips)  
+    import pdb;pdb.set_trace()
+    dir(trips[0])
+    trips[0].activitys
+    return object
+    
+    #'retorna todas atividades de trips'
+    season = Season.objects.filter(destiny_id=id_destiny)
+    price = ActivityPrice.objects.filter(ativitity__in=activ)
+    period = Event.objects.filter(season__in=season)
+    lista_passeios = []
+    for t in trips:
+        for a in t.atividades: #activs.filter(passeio=o): # o.activs
+            
+            #[passeio1,passeio2,passeio3]
+            #passeio = {'passeio', passeio, 'atividades':[ativ1, ativ2,ativ3]}
+            #{'atividade':atividade, 'precos': precos}
+            
+            lista_passeios.append({'passeio':o, 'atividades':o.activ})
+        
+    
+    # lista passeios/ lista atividades/ lista preços
+    for t in trips:
+        print(t.id, t.name, t.destiny)
+        for a in activ:
                 if t.id == a.trip_id:
                     print('      ', a.id, a.name)
-    # for s in season:
-    #     if s.destiny_id == destiny:
-    #         print(s.id, s.name, s.destiny)
-
-    period = Event.objects.all()
+    for s in season:
+        if s.destiny_id == id_destiny:
+            print(s.id, s.name, s.destiny)
+    
+    
     for p in period:
         print('\n')
         print(p.name_event ,'-',p.season.name, '-', p.season.destiny)
@@ -202,65 +255,3 @@ def trips_filter():
                 print(a.name)
 
 # trips_filter()
-
-
-
-import datetime as dt
-
-
-def event():
-    start_date = dt.date(2023, 1, 1)
-    end_date = dt.date(2023, 2, 1)
-    # season = Season.objects.get(id=2)
-    # print('\n', season.name)
-    # events = Event.objects.filter(name_event__icontains='car')
-
-    # print('\n')
-    # for e in events:
-        # if e.season.name == season.name:
-    #     print(e.id, '-',e.name_event,'/', e.season.name)
-    # print('\n')
-
-    eve = Event.objects.all()
-    for e in eve:
-        print(e.date_init)
-    # print(dir(eve))
-    # print(type(eve))
-    # for b in eve:
-    #     print(b)
-
-# event()
-
-    
-    # event = Event.objects.filter(season_id='Alta Temporada - Bonito: Mato Grosso do Sul/MS - 2023')
-    # for e in event:
-    #     print('EVENT SEASON ID', e.id)
-    # event = Event.objects.filter(recordDate__gte='2023-01-01', recordDate__lt='2023-02-08')
-    # event = Event.objects.filter(season_id=season.id)
-    # for e in event:
-    #     print(e.season.id)
-        # if e.season.name == 'Alta Temporada':
-        #     print(e.season.name)
-            # print(e.date_init)
-"""
->>> from season.models import Season, Event
-
->>> Event.objects.filter(name_event__icontains='Férias')
-<QuerySet [<Event: Férias>, <Event: Férias de Inverno>]>
-
->>> Event.objects.filter(season__destiny=1)
-<QuerySet [<Event: Férias de Inverno>, <Event: Férias>, <Event: Carnaval>]>
-
-
-import datetime as dt
->>> start_date = dt.date(2023, 1, 1)                              
->>> end_date = dt.date(2023, 2, 9)                              
->>> Event.objects.filter(date_init__range=(start_date, end_date))
-<QuerySet [<Event: Férias>, <Event: Carnaval>, <Event: Férias de Inverno>]>
-
->>> season = Season.objects.get(pk=2) 
->>> season.event_set.all()
-<QuerySet [<Event: Férias>, <Event: Carnaval>]>
-
-
-"""
