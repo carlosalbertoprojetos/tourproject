@@ -17,14 +17,14 @@ class Data_Package_OneForm(forms.ModelForm):
                 format=('%d/%m/%Y'),
                 attrs={
                     'class':'my-1',
-                    'type':'date',
+                    # 'type':'date',
                     'required': 'true'
                     },
                 ),
             'date_departure':forms.DateInput(
                 attrs={
                     'class':'my-1',
-                    'type':'date',
+                    # 'type':'date',
                     'required': 'true'
                     },
                 ),            

@@ -120,7 +120,6 @@ class ValidityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 validity_list_create = ValidityListCreateView.as_view()
 
-
 class ValidityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Validity
     fields = '__all__'
@@ -129,7 +128,6 @@ class ValidityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = _('season:validity_list_create')
 
 validity_update = ValidityUpdateView.as_view()
-
 
 class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Validity
@@ -168,7 +166,6 @@ class SeasonListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 season_list_create = SeasonListCreateView.as_view()
 
-
 class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     
     model = Season
@@ -178,7 +175,6 @@ class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = 'Temporada alterada com sucesso!!!'
 
 season_update = SeasonUpdateView.as_view()
-
 
 class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):    
     try:
@@ -233,4 +229,4 @@ def teste(id_destiny=1):
             if a == ap.activity:
                 print('   ', ap.catpax, ap.price)
     print('\n')
-teste()
+# teste()

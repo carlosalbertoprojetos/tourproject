@@ -1,3 +1,4 @@
+import datetime as dt
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -6,12 +7,15 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy as _
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
 
 from .models import Data_Package_One, Child_Package_One
 from .forms import Data_Package_OneForm, Child_Package_OneForm
 
 from trip.models import Activity, ActivityPrice, Trip
 from destiny.models import Destiny
+from season.models import Event
 
 
 #===============================================================================
@@ -154,15 +158,20 @@ def data_base(request, city_destiny):
 
 
 def listTripPackage(request, city_destiny):
-    trip = Trip.objects.filter(destiny__city=city_destiny).first()
-    trips = Trip.objects.filter(destiny__city=city_destiny)
-    activity = Activity.objects.filter(trip_id=trip)
+    
+    city = Destiny.objects.filter(city=city_destiny).first()
 
-    # filtrar pelo período informado em Data_Package_One, mostrar somente quando houver valor
-    price = ActivityPrice.objects.all()
-    
+    start_date = dt.date(2023, 1, 1)
+    end_date = dt.date(2023, 1, 9)
+
+    season = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date))).first()
+
+    activities_prices = ActivityPrice.objects.filter(season=season.id)
+    activity = Activity.objects.filter(trip__destiny__name=city_destiny)
+    trips = Trip.objects.filter(destiny__city=city_destiny)
+
     template = 'package/package_base.html'
-    
+
     destiny = Destiny.objects.filter(city=city_destiny).first()
     Formset_Factory = inlineformset_factory(
     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
@@ -170,7 +179,7 @@ def listTripPackage(request, city_destiny):
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
         formset = Formset_Factory(request.POST or None)
-        
+
         if form.is_valid() and formset.is_valid():
             package = form.save(commit=False)
             package.destiny = destiny
@@ -180,28 +189,26 @@ def listTripPackage(request, city_destiny):
             return redirect('package:listTripPackage', city_destiny)
         else:
             context = {
+                'city': city,
                 'trips':trips,
-                'trip':trip,
-                'activity':activity,
-                'price':price,
-                'destiny': destiny,
+                'activity': activity,
+                'activities_prices': activities_prices,
                 'form': form,
                 'formset': formset,
-            }    
+            }
             return render(request, 'package/package_base.html', context)
-    
+
     elif request.method == 'GET':
         form = Data_Package_OneForm()
         formset = Formset_Factory()
 
         context = {
-            'trips':trips,
-            'trip':trip,
-            'activity':activity,
-            'price':price,
-            'destiny': destiny,
-            'form': form,
-            'formset': formset,
+                'city': city,
+                'trips':trips,
+                'activity': activity,
+                'activities_prices': activities_prices,
+                'form': form,
+                'formset': formset,
         }
         return render(request, template, context)
 
