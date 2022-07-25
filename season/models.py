@@ -4,7 +4,7 @@ from destiny.models import Destiny
 
 class Validity(models.Model):
 
-    year = models.CharField('Ano', max_length=4)
+    year = models.CharField('Ano', max_length=4, unique=True)
     active = models.BooleanField('Ativo Agência', default=False)
     sell = models.BooleanField('Ativo Venda', default=False)
 
@@ -54,6 +54,7 @@ class Event(models.Model):
     date_fin = models.DateField('Data Final:')
 
     class Meta:
+        unique_together = [['name_event','date_init','date_fin']]
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
 
