@@ -5,8 +5,8 @@ from destiny.models import Destiny
 # Create your models here.
 class Data_Package_One(models.Model):
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
-    date_arrive = models.DateField('Data da Chegada', default='01/01/2022')
-    date_departure = models.DateField('Data da Partida', default='31/01/2022')
+    date_arrive = models.DateField('Data da Chegada', default='01/01/2023')
+    date_departure = models.DateField('Data da Partida', default='31/01/2023')
     num_adults = models.IntegerField('Quantidade adultos', default=2)
     num_child =  models.IntegerField('Quantidade crianças', default='0')
     name = models.CharField('Seu nome', max_length=200)
