@@ -11,7 +11,7 @@ class Data_Package_One(models.Model):
     num_child =  models.IntegerField('Quantidade crianças', default='0')
     name = models.CharField('Seu nome', max_length=200)
     email = models.EmailField('E-mail para contato', max_length=254)
-    phonenumber = models.CharField('Telefone para contato', max_length=13)
+    phonenumber = models.CharField('Telefone para contato', max_length=14)
     city = models.CharField('Cidade', max_length=100, null=True)
     description = models.TextField('Descrição', blank=True) 
 
