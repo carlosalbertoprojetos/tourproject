@@ -159,8 +159,6 @@ def data_base(request, city_destiny):
 
 def listTripPackage(request, city_destiny):
 
-    # start_date = request.POST.get('id_date_arrive')   # dt.date(2023, 1, 1)
-    # end_date = request.POST.get('id_date_departure')  #dt.date(2023, 12, 31)
     start_date =  dt.date(2023, 1, 1)
     end_date = dt.date(2023, 2, 28)
 
@@ -170,41 +168,6 @@ def listTripPackage(request, city_destiny):
     season = Season.objects.filter(destiny__city=city_destiny)
     events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
     activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__name=events.season.name)
-
-    # for e in activities_prices:
-    #     print(e.season.name, e.season.destiny)
-    #     for t in trips:
-    #         if e.season.destiny == t.destiny:
-    #             print(' ', t.name)
-    #         for a in activities:
-    #             if t.name == a.trip.name:
-    #                 print('   ', a)
-    #                 for ap in activities_prices:
-    #                     if (e.season == ap.season and a == ap.activity):
-    #                         print('     ', ap.catpax, ap.price)
-
-    # for s in season:
-    #     print('season', s.name)
-
-
-    # for ap in activities_prices:
-    #     print('     ', ap.activity, ap.season.name, ap.catpax, ap.price)
-
-    # for a in activities:
-    #     print('  ', a.trip.destiny.name, a.trip)
-    #     for ap in activities_prices:
-    #         if a.trip == ap.activity.trip:
-    #             print(ap.catpax, ap.price)
-    
-    # for e in events:
-    #     print(e.season)
-    #     for t in trips:
-    #         if e.season.destiny == t.destiny:
-    #             print(' ', t.name)
-    #             for a in activities:
-    #                 if t.name == a.trip.name:
-    #                     print('   ', a, a.trip.destiny.name)
-
            
     template = 'package/package_base.html'
 
