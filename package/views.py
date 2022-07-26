@@ -11,7 +11,7 @@ from django.db.models import Q
 
 
 from .models import Data_Package_One, Child_Package_One
-from .forms import Data_Package_OneForm, Child_Package_OneForm
+from .forms import Data_Package_OneForm, Child_Package_OneForm, Formset_Factory, Child_Age_formset, Child_Formset_Factory, Chosen_Formset_Factory
 
 from trip.models import Activity, ActivityPrice, Trip
 from destiny.models import Destiny
@@ -35,8 +35,8 @@ def data_package_list(request, id_destiny):
 
 def data_package_create(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
-    Formset_Factory = inlineformset_factory(
-    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+    # Formset_Factory = inlineformset_factory(
+    # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
@@ -71,8 +71,8 @@ def data_package_create(request, id_destiny):
 
 def data_package_create1(request, city_destiny):
     destiny = Destiny.objects.filter(city=city_destiny).first()
-    Formset_Factory = inlineformset_factory(
-    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+    # Formset_Factory = inlineformset_factory(
+    # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
@@ -122,7 +122,7 @@ data_package_delete = DataPackageDeleteView.as_view()
 @login_required
 def children_ages_update(request, id_package):
     package=Data_Package_One.objects.filter(id=id_package)
-    Child_Age_formset = modelformset_factory(Child_Package_One, form=Child_Package_OneForm, extra=0)
+    # Child_Age_formset = modelformset_factory(Child_Package_One, form=Child_Package_OneForm, extra=0)
     destiny_id=[]
     destiny=[]
     for p in package:
@@ -162,6 +162,7 @@ def listTripPackage(request, city_destiny):
     start_date =  dt.date(2023, 1, 1)
     end_date = dt.date(2023, 2, 28)
 
+
     city = Destiny.objects.filter(city=city_destiny).first()
     trips = Trip.objects.filter(destiny__city=city_destiny)
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
@@ -172,19 +173,25 @@ def listTripPackage(request, city_destiny):
     template = 'package/package_base.html'
 
     destiny = Destiny.objects.filter(city=city_destiny).first()
-    Formset_Factory = inlineformset_factory(
-    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+    # Child_Formset_Factory = inlineformset_factory(
+    # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+    # Chosen_Formset_Factory = inlineformset_factory(
+    # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
-        formset = Formset_Factory(request.POST or None)
+        Childformset = Child_Formset_Factory(request.POST or None)
+        # Chosenformset = Chosen_Formset_Factory(request.POST or None)
 
-        if form.is_valid() and formset.is_valid():
+        # if all(form.is_valid(), Childformset.is_valid(), Chosenformset.is_valid()):
+        if form.is_valid() and Childformset.is_valid():
             package = form.save(commit=False)
             package.destiny = destiny
+            Childformset.instance = package
+            # Chosenformset.instance = package   
             package.save()
-            formset.instance = package
-            formset.save()
+            Childformset.save()
+            # Chosenformset.save()
             return redirect('package:listTripPackage', city_destiny)
         else:
             context = {
@@ -193,22 +200,27 @@ def listTripPackage(request, city_destiny):
                 'activities': activities,
                 'activities_prices': activities_prices,
                 'form': form,
-                'formset': formset,
+                'Childformset': Childformset,
+                # 'Chosenformset': Chosenformset
             }
             return render(request, template, context)
 
     elif request.method == 'GET':
         form = Data_Package_OneForm()
-        formset = Formset_Factory()
+        Childformset = Child_Formset_Factory()
+        # Chosenformset = Chosen_Formset_Factory()
         context = {
                 'city': city,
                 'trips':trips,
                 'activities': activities,
-                'activities_prices': activities_prices,
+                # 'activities_prices': activities_prices,
                 'form': form,
-                'formset': formset,
+                'Childformset': Childformset,
+                # 'Chosenformset': Chosenformset
         }
         return render(request, template, context)
+
+
 
 # class DataCustomerPackageCreateView(SuccessMessageMixin, CreateView):
 #     model = Data_Customer_Package
