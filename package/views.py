@@ -162,7 +162,6 @@ def listTripPackage(request, city_destiny):
     start_date =  dt.date(2023, 1, 1)
     end_date = dt.date(2023, 2, 28)
 
-
     city = Destiny.objects.filter(city=city_destiny).first()
     trips = Trip.objects.filter(destiny__city=city_destiny)
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)

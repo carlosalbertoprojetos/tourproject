@@ -40,7 +40,12 @@
         <div class="container-fluid">
             <div class="card m-0 px-4">
                 <form action='' method='POST'>
+                    {% for hidden_field in form.hidden_fields %}
+                        {{ hidden_field.errors }}
+                        {{ hidden_field }}
+                    {% endfor %}
                     {% csrf_token %}
+                        {{ form.media }}
                     <div class="form-title m-0">
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -77,14 +82,14 @@
                                     {{ form.date_departure }}
                                 </div>
                             </div>
-                            <div class='row'>
+                            <div class='row mt-3'>
                                 <div class='col-6 mb-2'>
                                     <label for="id_num_adults">Quantidade adultos</label>
-                                    <input type="text" name="num_adults" value="{{form.num_adults.value|default:''}}" class="dateinput form-control mt-2" id="id_num_adults" required>
+                                    <input type="text" name="num_adults" class="dateinput form-control mt-2" id="id_num_adults" required>
                                 </div>
                                 <div class='col-6 mb-2'>
                                     <label for="id_num_child">Quantidade crianças</label>
-                                    <input type="text" name="num_child" value="{{form.num_child.value|default:''}}" class="dateinput form-control mt-2" id="id_num_child" required>
+                                    <input type="text" name="num_child" class="dateinput form-control mt-2" id="id_num_child" required>
                                 </div>
                             </div>
                             <div style="display: None;" class="alert alert-primary justify-content-center" role="alert" id="id_message">
@@ -92,10 +97,13 @@
                             </div>
                             <div class='row'>
                                 {{ Childformset.management_form }}
+                                {{ formset_destiny.non_form_errors }}
                                 <div id='children_age_list' class='form-inline mt-1 my-1 justify-content-center'> 
-                                    {% for form in Childformset %}
+                                    {% for field in Childformset %}
                                     <div class='child_age_form'>
-                                        {{ form }}
+                                        {{ field.errors }}
+                                        {{ field.label_tag }}
+                                        {{ field|crispy }}
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -165,26 +173,26 @@
                             <div class='row'>
                                 <div class='col-12 mb-2'>
                                     <label for="id_name">Seu Nome</label>
-                                    <input type="text" name="name" value="{{form.name.value|default:''}}" class="dateinput form-control mt-2" id="id_name" required>
+                                    <input type="text" name="name" class="form-control mt-2" id="id_name" required>
                                 </div>
                             </div>
                             <div class='row'>
                                 <div class='col-6 mb-2'>
                                     <label for="id_email">Email para Contato</label>
-                                    <input type="text" name="email" value="{{form.email.value|default:''}}" class="dateinput form-control mt-2" id="id_email" required>
+                                    <input type="text" name="email" class="form-control mt-2" id="id_email" required>
                                 </div>
                                 <div class='col-6 mb-2'>
                                     <label for="id_phonenumber">Telefone para contato</label>
-                                    <input type="text" name="phonenumber" value="{{form.phonenumber.value|default:''}}" class="dateinput form-control mt-2" id="id_phonenumber" required>
+                                    <input type="text" name="phonenumber" class="form-control mt-2" id="id_phonenumber" required data-mask="(00) 0000-0000" data-mask-selectonfocus="true" />
                                 </div>
                             </div>  
                             <div class='col-12 mb-2'>
                                 <label for="id_city">Cidade</label>
-                                <input value="{{form.city.value|default:''}}" type="text" name="city"  class="dateinput form-control mt-2" id="id_city" title="Escolha uma data" required>
+                                <input type="text" name="city"  class="form-control mt-2" id="id_city" required>
                             </div>
                             <div class='col-12 mb-2'>
                                 <label for="id_description">Descrição</label>
-                                <input type="text" name="description" value="{{form.description.value|default:''}}" class="dateinput form-control mt-2" id="id_description" required>
+                                <input type="text" name="description" class="form-control mt-2" id="id_description" required>
                             </div>
                             <div class='row'>
                                 <div class='col-12 my-2'>
@@ -200,7 +208,8 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-    <script>
+
+    <script type="text/javascript">
         $(function () {
             $("#id_num_child").keyup(() => {
                 var formCopyTarget = document.getElementById('children_age_list')
@@ -260,7 +269,6 @@
                 }             
             }
         }
-
     </script>
 
 </body>

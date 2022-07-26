@@ -7,7 +7,6 @@ from django.contrib.admin.widgets import AdminDateWidget
 
 class Data_Package_OneForm(forms.ModelForm):
 
-
     class Meta:
         model = Data_Package_One
         # fields = ['date_arrive', 'date_departure', 'num_adults', 'num_child']
@@ -41,7 +40,6 @@ class Data_Package_OneForm(forms.ModelForm):
                     },
                 ),
         }
-
 class Child_Package_OneForm(forms.ModelForm):
 
     class Meta:
