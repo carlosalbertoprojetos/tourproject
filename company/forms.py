@@ -17,7 +17,6 @@ class CompanyForm(forms.ModelForm):
             {'class': 'mask-cnpj'})
         self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
         
-        
     def clean_email(self):
         email = self.cleaned_data.get('email')
         email = sanitize_number(email)
@@ -50,6 +49,7 @@ class PhoneForm(forms.ModelForm):
     class Meta:
         model = Phone
         fields = '__all__'
+        
 
     def __init__(self, *args, **kwargs):
         super(PhoneForm, self).__init__(*args, **kwargs)

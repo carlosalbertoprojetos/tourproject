@@ -22,11 +22,11 @@
                                 <div class="row mt-2">
                                     <div class='col-3'>
                                         <label>Data de Chegada</label>
-                                        <p class='p-2'>{{ pac.date_arrive }}</p>
+                                        <p class='p-2'>{{ pac.date_arrive|date:"d/m/y" }}</p>
                                     </div>
                                     <div class='col-3'>
                                         <label>Data de Partida</label>
-                                        <p class='p-2'>{{ pac.date_departure }}</p>
+                                        <p class='p-2'>{{ pac.date_departure|date:"d/m/y" }}</p>
                                     </div>
                                     <div class='col-3'>
                                         <label >Quantidade Adultos</label>
