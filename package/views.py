@@ -160,12 +160,12 @@ def data_base(request, city_destiny):
 def listTripPackage(request, city_destiny):
 
     start_date =  dt.date(2023, 1, 1)
-    end_date = dt.date(2023, 2, 28)
+    end_date = dt.date(2023, 12, 31)
 
     city = Destiny.objects.filter(city=city_destiny).first()
     trips = Trip.objects.filter(destiny__city=city_destiny)
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
-    season = Season.objects.filter(destiny__city=city_destiny)
+    # season = Season.objects.filter(destiny__city=city_destiny)
     events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
     activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__name=events.season.name)
            
