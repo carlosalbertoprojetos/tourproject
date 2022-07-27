@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
-from season.models import Season, Event
+from season.models import Season
 
 
 class TripCategory(models.Model):
@@ -173,94 +173,3 @@ def delete_trip_catpax_prices(sender, instance, **kwargs):
                 ActivityPrice.objects.filter(id=i.id).delete()
 
 
-# date_arrival, date_departure
-#-========================================= TESTES#
-def trips_filter():
-    trip = Trip.objects.all()
-    activ = Activity.objects.all()
-    season = Season.objects.all()
-    destiny = 2
-    for t in trip:
-        if t.destiny_id == destiny:
-            print(t.id, t.name, t.destiny)
-            for a in activ:
-                if t.id == a.trip_id:
-                    print('      ', a.id, a.name)
-    # for s in season:
-    #     if s.destiny_id == destiny:
-    #         print(s.id, s.name, s.destiny)
-
-    period = Event.objects.all()
-    for p in period:
-        print('\n')
-        print(p.name_event ,'-',p.season.name, '-', p.season.destiny)
-        print('início', p.date_init, '/ fim', p.date_fin, '\n')
-    
-        for a in activ:
-            if a.trip == p:
-                print(a.trip)
-                print(a.name)
-
-# trips_filter()
-
-
-
-import datetime as dt
-
-
-def event():
-    start_date = dt.date(2023, 1, 1)
-    end_date = dt.date(2023, 2, 1)
-    # season = Season.objects.get(id=2)
-    # print('\n', season.name)
-    # events = Event.objects.filter(name_event__icontains='car')
-
-    # print('\n')
-    # for e in events:
-        # if e.season.name == season.name:
-    #     print(e.id, '-',e.name_event,'/', e.season.name)
-    # print('\n')
-
-    eve = Event.objects.all()
-    for e in eve:
-        print(e.date_init)
-    # print(dir(eve))
-    # print(type(eve))
-    # for b in eve:
-    #     print(b)
-
-# event()
-
-    
-    # event = Event.objects.filter(season_id='Alta Temporada - Bonito: Mato Grosso do Sul/MS - 2023')
-    # for e in event:
-    #     print('EVENT SEASON ID', e.id)
-    # event = Event.objects.filter(recordDate__gte='2023-01-01', recordDate__lt='2023-02-08')
-    # event = Event.objects.filter(season_id=season.id)
-    # for e in event:
-    #     print(e.season.id)
-        # if e.season.name == 'Alta Temporada':
-        #     print(e.season.name)
-            # print(e.date_init)
-"""
->>> from season.models import Season, Event
-
->>> Event.objects.filter(name_event__icontains='Férias')
-<QuerySet [<Event: Férias>, <Event: Férias de Inverno>]>
-
->>> Event.objects.filter(season__destiny=1)
-<QuerySet [<Event: Férias de Inverno>, <Event: Férias>, <Event: Carnaval>]>
-
-
-import datetime as dt
->>> start_date = dt.date(2023, 1, 1)                              
->>> end_date = dt.date(2023, 2, 9)                              
->>> Event.objects.filter(date_init__range=(start_date, end_date))
-<QuerySet [<Event: Férias>, <Event: Carnaval>, <Event: Férias de Inverno>]>
-
->>> season = Season.objects.get(pk=2) 
->>> season.event_set.all()
-<QuerySet [<Event: Férias>, <Event: Carnaval>]>
-
-
-"""
