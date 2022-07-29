@@ -19,21 +19,23 @@ import datetime as dt
 # EVENTO
 def season_event_detail(request, pk):
     context = {}
-    form = EventForm(request.POST or None)    
+    form = EventForm(request.POST or None)
     event = Event.objects.filter(season=pk)
     season = Season.objects.get(pk=pk)
     context = {
-        'event':event,        
+        'event':event,
         'season': season,
         'form': form,
-    }               
+    }
     if form.is_valid():
+        form = form.save(commit=False)
+        form.season_id = pk
         form.save()
         messages.success(request, 'Evento salvo com sucesso!!!')    
         return render(request, 'season/season_event_list_create.html', context)
-    else:         
-         return render(request, 'season/season_event_list_create.html', context)   
-    
+    else:
+         return render(request, 'season/season_event_list_create.html', context)
+
 
 class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Event
@@ -47,9 +49,11 @@ class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 event_delete = EventDeleteView.as_view()
 
+
 class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Event    
-    fields = '__all__'
+    model = Event
+    # fields = '__all__'
+    form_class = EventForm
     template_name = 'season/event_update.html'
     success_message = 'Evento alterado com sucesso!!!'    
     success_url = _('season:season_list_create')
