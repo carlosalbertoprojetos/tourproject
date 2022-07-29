@@ -165,10 +165,20 @@ def listTripPackage(request, city_destiny):
     city = Destiny.objects.filter(city=city_destiny).first()
     trips = Trip.objects.filter(destiny__city=city_destiny)
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
-    # season = Season.objects.filter(destiny__city=city_destiny)
+    season = Season.objects.filter(destiny__city=city_destiny)
     events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
-    activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__name=events.season.name)
-           
+    print(events)
+    # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__id=events.season.name)
+    activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny)
+    
+    # se não existir eventos para o período informado, deverá exibir o último evento registrado
+    # -> utilizar o período informado (datas início e fim) para filtrar todos os eventos cadastrados para o mesmo período (mesmo haja apenas um dia, pensar regrar para informar os dias compatíveis vs disponíveis)
+    # exemplo: 
+    #     período informado   10/01/2000 - 20/01/2000  
+    #     único evento        20/01/2000 - 31/01/2000        => apenas o dia 20/01/2000 estará disponível
+    
+    # criar dinamicamente campos contendo id dos preços das atividades selecionados - instanciados no form(Data_Package_OneForm)
+    
     template = 'package/package_base.html'
 
     destiny = Destiny.objects.filter(city=city_destiny).first()
@@ -187,7 +197,7 @@ def listTripPackage(request, city_destiny):
             package = form.save(commit=False)
             package.destiny = destiny
             Childformset.instance = package
-            # Chosenformset.instance = package   
+            # Chosenformset.instance = package
             package.save()
             Childformset.save()
             # Chosenformset.save()
@@ -212,7 +222,7 @@ def listTripPackage(request, city_destiny):
                 'city': city,
                 'trips':trips,
                 'activities': activities,
-                # 'activities_prices': activities_prices,
+                'activities_prices': activities_prices,
                 'form': form,
                 'Childformset': Childformset,
                 # 'Chosenformset': Chosenformset
