@@ -45,7 +45,7 @@ def signup_step_2(request):
         else:
             context = {
                 'form': form,
-                'formset_destiny' : destiny_form,
+                'formset_destiny': destiny_form,
                 'formset_phone': phone_form,
                 'formset_socmedia': socmedia_form
             }
@@ -66,7 +66,7 @@ def signup_step_2(request):
         
         context = {
             'form': form,
-            'formset_destiny' : destiny_form,
+            'formset_destiny': destiny_form,
             'formset_phone': phone_form,
             'formset_socmedia': socmedia_form
         }
@@ -79,7 +79,7 @@ def companies_list(request):
     context = {
         'object': object,
     }
-    return render(request, 'company/companies_list.html', context)
+    return render(request, 'company/companies_list_create.html', context)
 
 
 @user_passes_test(lambda u: u.is_staff)

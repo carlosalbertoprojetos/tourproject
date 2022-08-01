@@ -51,7 +51,7 @@ class Phone(models.Model):
 
     phone = models.CharField(
         _("Telefone"),
-        max_length=15,
+        max_length=16,
         blank=True,
         null=True
     )

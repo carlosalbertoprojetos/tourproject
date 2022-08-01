@@ -19,15 +19,12 @@
                                     <div class="signup-form">
                                         <form method="POST" class="register-form" id="register-form" action="/accounts/signup/">
                                             {% csrf_token %}
-                                            
-                                            {{ form.non_field_errors }}
                                             <h2 class="form-title">Cadastrar</h2>
                                             <div class="row mb-1">
                                                 <div class="btn-group w-100" role="group" >
                                                     <input type="radio" name="option" value="1" class="btn-check" id="id_option2"
                                                         autocomplete="off" checked>
                                                     <label class="btn btn-outline-primary" for="id_option2">Agência</label>
-
                                                     <input type="radio" name="option" value="3" class="btn-check" id="id_option3"
                                                         autocomplete="off">
                                                     <label class="btn btn-outline-primary" for="id_option3">Fornecedor</label>

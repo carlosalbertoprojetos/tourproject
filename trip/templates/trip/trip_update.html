@@ -13,7 +13,6 @@
                 <h2 class="form-title">Editar Passeio</h2>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form.non_field_errors }}
                     {{ form|crispy }}
                     <div class="col-md-12 mb-2">
                         <div class="form-group form-button">

@@ -4,6 +4,7 @@
     Empresa
 {% endblock title %}
 {% block dashboard %}
+
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
@@ -49,8 +50,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 {% csrf_token %}
-                                                {{ form.non_field_errors }}
-                                                {{ form|crispy }}                                                
+                                                {{ form|crispy }}
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">

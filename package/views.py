@@ -196,6 +196,8 @@ def listTripPackage(request, city_destiny):
         if form.is_valid() and Childformset.is_valid():
             package = form.save(commit=False)
             package.destiny = destiny
+            start_date = form.cleaned_data['date_arrive']
+            end_date = form.cleaned_data['date_departure']
             Childformset.instance = package
             # Chosenformset.instance = package
             package.save()

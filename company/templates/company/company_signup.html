@@ -17,30 +17,31 @@
                 <div class="card-body col-md-8">
                     <form method="POST" enctype="multipart/form-data">
                         <div class="row form-group">
-                            {% for hidden_field in form.hidden_fields %}
+                            {% comment %} {% for hidden_field in form.hidden_fields %}
                                 {{ hidden_field.errors }}
                                 {{ hidden_field }}
-                            {% endfor %}
+                            {% endfor %} {% endcomment %}
                             {% csrf_token %}
-                            <div class="form-group col-md-6">{{ form|crispy }}</div>
+                            <div class="form-group col-md-6">
+                                {{ form.errors }}
+                                {{ form.label_tag }}
+                                {{ form|crispy }}
+                            </div>
                             <div class="form-group col-md-6">
                                 <div class="form-group">
                                     {{ formset_destiny.management_form }}
-                                    {{ formset_destiny.non_form_errors }}
                                     {% for field in formset_destiny %}
                                         {{ field.errors }}
                                         {{ field.label_tag }}
                                         {{ field|crispy }}
                                     {% endfor %}
                                     {{ formset_phone.management_form }}
-                                    {{ formset_phone.non_form_errors }}
                                     {% for field in formset_phone %}
                                         {{ field.errors }}
                                         {{ field.label_tag }}
                                         {{ field|crispy }}
                                     {% endfor %}
                                     {{ formset_socmedia.management_form }}
-                                    {{ formset_socmedia.non_form_errors }}
                                     {% for field in formset_socmedia %}
                                         {{ field.errors }}
                                         {{ field.label_tag }}

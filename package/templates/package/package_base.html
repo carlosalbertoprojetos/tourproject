@@ -97,11 +97,9 @@
                             </div>
                             <div class='row'>
                                 {{ Childformset.management_form }}
-                                {{ formset_destiny.non_form_errors }}
                                 <div id='children_age_list' class='form-inline mt-1 my-1 justify-content-center'> 
                                     {% for field in Childformset %}
                                     <div class='child_age_form'>
-                                        {{ field.errors }}
                                         {{ field.label_tag }}
                                         {{ field|crispy }}
                                     </div>

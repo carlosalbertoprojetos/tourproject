@@ -34,7 +34,7 @@ def season_event_detail(request, pk):
         messages.success(request, 'Evento salvo com sucesso!!!')    
         return render(request, 'season/season_event_list_create.html', context)
     else:
-         return render(request, 'season/season_event_list_create.html', context)
+        return render(request, 'season/season_event_list_create.html', context)
 
 
 class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
