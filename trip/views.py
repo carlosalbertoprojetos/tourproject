@@ -181,7 +181,7 @@ class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
     def post(self, request, *args, **kwargs):
         trip_id = self.kwargs['trip_id']
-        form = ActivityForm(request.POST or None, request.FILES)
+        form = ActivityForm(self.request.POST or None, self.request.FILES)
         if form.is_valid():
             form = form.save(commit=False)
             form.trip_id = trip_id
