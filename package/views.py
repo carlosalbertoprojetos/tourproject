@@ -1,4 +1,5 @@
 import datetime as dt
+from re import template
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -156,9 +157,11 @@ def data_base(request, city_destiny):
         }
     return render(request, 'package/package_base.html', context)
 
+""" 
 
-def listTripPackage(request, city_destiny):
-
+def list_activities_destiny(request):
+    
+    city_destiny = 'Bonito'
     start_date =  dt.date(2023, 1, 1)
     end_date = dt.date(2023, 12, 31)
 
@@ -167,10 +170,46 @@ def listTripPackage(request, city_destiny):
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
     season = Season.objects.filter(destiny__city=city_destiny)
     events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
-    print(events)
     # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__id=events.season.name)
-    activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny)
-    
+    activities_prices = ActivityPrice.objects.filter(activity_id=activities)
+
+    template = 'package/teste.html'
+    context = {
+        'city': city,
+        'trips':trips,
+        'activities': activities,
+        'activities_prices': activities_prices,
+    }
+    return render(_(request, template, context))
+
+ """
+
+ 
+def listTripPackage(request, city_destiny):
+
+    city = Destiny.objects.filter(city=city_destiny).first()
+    """ start_date = dt.date(2023, 1, 1)
+    end_date = dt.date(2023, 12, 28)
+    trips = Trip.objects.filter(destiny__city=city_destiny)
+    activities = Activity.objects.filter(trip__destiny__name=city_destiny)
+
+    season = Season.objects.filter(destiny__city=city_destiny)
+    events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
+    activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__id=events.season.id) """
+    # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny)
+
+    """ 
+        for t in trips:
+            # print(t)
+            activities = Activity.objects.filter(trip=t)
+            for a in activities:
+                # print('  ', a)
+                events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
+                activities_prices = ActivityPrice.objects.filter(activity_id=a.id, season__id=events.season.id)
+                for p in activities_prices:
+                    # print('    ', p.catpax, p.price)
+    """
+
     # se não existir eventos para o período informado, deverá exibir o último evento registrado
     # -> utilizar o período informado (datas início e fim) para filtrar todos os eventos cadastrados para o mesmo período (mesmo haja apenas um dia, pensar regrar para informar os dias compatíveis vs disponíveis)
     # exemplo: 
@@ -178,6 +217,19 @@ def listTripPackage(request, city_destiny):
     #     único evento        20/01/2000 - 31/01/2000        => apenas o dia 20/01/2000 estará disponível
     
     # criar dinamicamente campos contendo id dos preços das atividades selecionados - instanciados no form(Data_Package_OneForm)
+    # start_date = []
+    # end_date = []
+    # events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
+    # events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season=season)
+
+    # data_init >= start_date <= end_date
+    # date_fin >= start_date <= end_date
+
+    # for p in events:
+    #     print(p, p.season)
+
+    # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__name=events.season.name)
+    # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny)
     
     template = 'package/package_base.html'
 
@@ -188,48 +240,132 @@ def listTripPackage(request, city_destiny):
     # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
     if request.method == 'POST':
+        
+        #data_inicio = Request.Post.GET('data_inicio')
         form = Data_Package_OneForm(request.POST or None)
-        Childformset = Child_Formset_Factory(request.POST or None)
-        # Chosenformset = Chosen_Formset_Factory(request.POST or None)
+        formset = Child_Formset_Factory(request.POST or None)
+        # import pdb;pdb.set_trace()
+        # start_date = form.POST.get['date_arrive']
+        # end_date = form.POST.get['date_departure']
+        # print('início:', start_date,'\n', 'fim:', end_date)
 
+        # start_date = form.cleaned_data['date_arrive']
+        # end_date = form.cleaned_data['date_departure']
+        # print('início:', start_date,'\n', 'fim:', end_date)
+
+        # filterform=form.cleaned_data
+
+        # start_date = request.POST.get['date_arrive']
+        # end_date = request.POST.get['date_departure']
+        # print('início:', start_date,'\n', 'fim:', end_date)
+        
+        # events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season=season).first()
+        # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season=events.season)
+        # for a in activities_prices:
+        #     print(a)        
+
+        # events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
+        # print(events)
+        # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__id=events.season.name)
+        # for p in activities_prices:
+        #     print(p, ' R$', p.price)
+
+        # if (Q(form.POST.get['name']) | Q(form.POST.get['email']) | Q(form.POST.get['city']) | Q(form.POST.get['description']) | Q(form.POST.get['phonenumber'])) == '':
         # if all(form.is_valid(), Childformset.is_valid(), Chosenformset.is_valid()):
-        if form.is_valid() and Childformset.is_valid():
+        if form.is_valid() and formset.is_valid():
+            print(form['date_arrive'])
+            # if todos os dados estao preenchidos:
+            #     package = form.save(commit=False)
+            # else:
+            #     return formuoario parcial
             package = form.save(commit=False)
             package.destiny = destiny
-            start_date = form.cleaned_data['date_arrive']
-            end_date = form.cleaned_data['date_departure']
-            Childformset.instance = package
+            # package=package.cleaned_data
+
+            # start_date = request.POST.get['date_arrive']
+            # end_date = request.POST.get['date_departure']
+            # print('início:', start_date,'\n', 'fim:', end_date)
+
+            # date_arrive = package['date_arrive']
+            # date_departure = package['date_departure']
+            # print('início:', date_arrive, 'fim:', date_departure)
+
+            # events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season=season).first()
+            # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season=events.season)
+            # print(activities_prices)
+            
+            formset.instance = package
             # Chosenformset.instance = package
-            package.save()
-            Childformset.save()
+            # package.save()
+            # formset.save()
             # Chosenformset.save()
             return redirect('package:listTripPackage', city_destiny)
         else:
             context = {
                 'city': city,
-                'trips':trips,
-                'activities': activities,
-                'activities_prices': activities_prices,
+                # 'trips': trips,
+                # 'activities': activities,
+                # 'activities_prices': activities_prices,
                 'form': form,
-                'Childformset': Childformset,
+                'Childformset': formset,
                 # 'Chosenformset': Chosenformset
             }
             return render(request, template, context)
 
     elif request.method == 'GET':
         form = Data_Package_OneForm()
-        Childformset = Child_Formset_Factory()
+        formset = Child_Formset_Factory()
         # Chosenformset = Chosen_Formset_Factory()
+
+        # start_date = request.GET.get['date_arrive']
+        # end_date = request.GET.get['date_departure']
+        # print('início:', start_date,'\n', 'fim:', end_date)
+
         context = {
                 'city': city,
-                'trips':trips,
-                'activities': activities,
-                'activities_prices': activities_prices,
+                # 'trips': trips,
+                # 'activities': activities,
+                # 'activities_prices': activities_prices,
                 'form': form,
-                'Childformset': Childformset,
+                'Childformset': formset,
                 # 'Chosenformset': Chosenformset
         }
         return render(request, template, context)
+
+
+
+
+
+def list_activities_package(request, city_destiny):
+    start_date = dt.date(2023, 1, 1)
+    end_date = dt.date(2023, 12, 28)
+    trips = Trip.objects.filter(destiny__city=city_destiny)
+    activities = Activity.objects.filter(trip__destiny__name=city_destiny)
+
+    season = Season.objects.filter(destiny__city=city_destiny)
+    events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
+    activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny, season__id=events.season.id) 
+
+        # for t in trips:
+        #     # print(t)
+        #     activities = Activity.objects.filter(trip=t)
+        #     for a in activities:
+        #         # print('  ', a)
+        #         events = Event.objects.filter(Q(date_init__range=(start_date, end_date)) | Q(date_fin__range=(start_date, end_date)), season__destiny__city=city_destiny).first()
+        #         activities_prices = ActivityPrice.objects.filter(activity_id=a.id, season__id=events.season.id)
+        #         for p in activities_prices:
+        #             # print('    ', p.catpax, p.price)
+    template = 'package/package_base.html'
+    context = {
+                'trips': trips,
+                'activities': activities,
+                'activities_prices': activities_prices,
+                # 'Chosenformset': Chosenformset
+    }
+    return render(request, template, context)
+
+
+
 
 
 
@@ -275,3 +411,11 @@ def listTripPackage(request, city_destiny):
 
 
 # data_customer_package_delete = DataCustomerPackageDeleteView.as_view()
+
+def teste():
+        activities_prices = ActivityPrice.objects.all()
+        # Chosenformset = Chosen_Formset_Factory(request.POST or None)
+        for p in activities_prices:
+            print(p, ' R$', p.price)
+
+# teste()

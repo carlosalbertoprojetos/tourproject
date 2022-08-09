@@ -1,0 +1,78 @@
+{% load i18n account static crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+   
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'%}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- calendario -->
+    <script src="{% url 'js-catlog' %}"></script>
+    <script src="{% static '/admin/js/core.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
+    <style>
+        .hidden {
+            display: none
+        }
+    </style>
+
+    <title> {% block title %} Pacotes {% endblock title%} </title>
+
+</head>
+
+<body class='row justify-content-center'>
+
+    <div class="container-flex">
+        <div class="card-header p-1">
+            {% for t in trips %}
+            <div class='row'>
+                <div class="col-sm-12 col-md-12">
+                    <h4 class="jumbotron form-title mb-0 p-2" align="center">{{ t.name }}<h4>
+                </div>
+                <div class="row mt-4">
+                    {% for a in activities %}
+                        {% if t == a.trip  %}
+                        <div class="col-sm-6 col-md-6">
+                            <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
+                            <div class='row'>
+                                {% if a.image %}
+                                <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;" max-width="450px" align="center"/>
+                                {% endif %}
+                            </div>
+                            <div class='row'>
+                                <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
+                            </div>
+                            <div class="row">
+                            {% for p in activities_prices %}
+                                <div class='col-sm-6 col-md-6 px-4 py-2'>
+                                    <h6 class='px-1' style='text-align: justify; font-weight: normal;'>{{ p.season }}</h6>
+                                    <h6 class='px-1' style='text-align: justify; font-weight: normal; '>{{ p.catpax }} - R$ {{p.price}}</h6>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

@@ -7,6 +7,8 @@ from .views import (data_package_list,
                     data_package_create1,
                     children_ages_update,
                     listTripPackage,
+                    # list_activities_destiny
+                    list_activities_package
                     )
 
 app_name = 'package'
@@ -25,5 +27,9 @@ urlpatterns = [
 
     path('<int:pk>/delete/', data_package_delete, name='data_package_delete'),
 
-    path('<id_package>/children_ages_update/', children_ages_update, name='children_ages_update'),    
+    path('<id_package>/children_ages_update/', children_ages_update, name='children_ages_update'),
+
+    # path('teste/', list_activities_destiny, name='list_activities_destiny'),    
+    
+    path('<city_destiny>/activities/', list_activities_package, name='list_activities_package'),
 ]

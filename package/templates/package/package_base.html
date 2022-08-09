@@ -45,7 +45,7 @@
                         {{ hidden_field }}
                     {% endfor %}
                     {% csrf_token %}
-                        {{ form.media }}
+                    {{ form.media }}
                     <div class="form-title m-0">
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -69,7 +69,7 @@
                         <div class="tab-pane fade show active" id="dados_iniciais" role="tabpanel" aria-labelledby="dados_iniciais-tab">
                             <div class="header">
                                 <div class='row m-2'>
-                                    <h4 class="p-4 pb-0" align="center">Informe os dados do período de estadia em {{ destiny }}</h4>
+                                    <h4 class="p-4 pb-0" align="center">Informe os dados do período de estadia em {{ city }}</h4>
                                 </div>
                             </div>
                             <div class='row'>    
@@ -85,11 +85,13 @@
                             <div class='row mt-3'>
                                 <div class='col-6 mb-2'>
                                     <label for="id_num_adults">Quantidade adultos</label>
-                                    <input type="text" name="num_adults" class="dateinput form-control mt-2" id="id_num_adults" required>
+                                    {{ form.num_adults }}
+                                    {% comment %} <input type="text" name="num_adults" class="dateinput form-control mt-2" id="id_num_adults" required> {% endcomment %}
                                 </div>
                                 <div class='col-6 mb-2'>
                                     <label for="id_num_child">Quantidade crianças</label>
-                                    <input type="text" name="num_child" class="dateinput form-control mt-2" id="id_num_child" required>
+                                    {% comment %} <input type="text" name="num_child" class="dateinput form-control mt-2" id="id_num_child" required> {% endcomment %}
+                                    {{ form.num_child }}
                                 </div>
                             </div>
                             <div style="display: None;" class="alert alert-primary justify-content-center" role="alert" id="id_message">
@@ -115,19 +117,22 @@
                         </div>
                         <div class="tab-pane fade" id="trips" role="tabpanel" aria-labelledby="trips-tab">
                             <div class="container-flex">
-                                <h3 class="title px-3 pt-4 my-0" align="center">{{ trip.destiny.city_state }}</h3>
+                                <h3 class="title px-3 pt-4 my-0" align="center">{{ city }}</h3>
                                 <hr class='mb-0'>
                             </div>
-                            <div class="container-flex">
+                            {% block activities %}
+                            {% endblock activities %}
+                            {% comment %} <div class="container-flex">
                                 <div class="card-header p-1">
                                     {% for t in trips %}
                                     <div class='row'>
                                         <div class="col-sm-12 col-md-12">
                                             <h4 class="jumbotron form-title mb-0 p-2" align="center">{{ t.name }}<h4>
                                         </div>
-                                        <div class="row mt-4">
-                                            {% for a in t.activity %}
-                                                <div class="col-sm-6 col-md-6">
+                                        <div class="row mt-2">
+                                            {% for a in activities %}
+                                                {% if t == a.trip  %}
+                                                <div class="col-sm-12 col-md-6">
                                                     <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
                                                     <div class='row'>
                                                         {% if a.image %}
@@ -135,18 +140,28 @@
                                                         {% endif %}
                                                     </div>
                                                     <div class='row'>
-                                                        <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{a.description|truncatewords:50}}</i></h6>
+                                                        <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
                                                     </div>
                                                     <div class="row">
-
+                                                    {% for p in activities_prices %}
+                                                        {% if a.id == p.activity_id %}
+                                                        <div class='col-sm-6 col-md-6 px-1 py-2'>
+                                                            <div class="row p-0">
+                                                                <input type="checkbox" class="col-1" value="" id="flexCheckDefault">
+                                                                <h6 class='col-11 px-2 m-0'>{{ p.catpax }} - R$ {{ p.price}}</h6>
+                                                            </div>
+                                                        </div>
+                                                        {% endif %}
+                                                    {% endfor %}
                                                     </div>
                                                 </div>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
                                     {% endfor %}
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                         <div class="tab-pane fade" id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
                             <div class="container-fluid mt-2">
@@ -267,6 +282,13 @@
                 }             
             }
         }
+
+        $.ajax({
+            method: "POST",
+            url: "package:list_activities_package",
+        })
+        document.getElementById('id_date_arrive');
+        document.getElementById('id_date_departure');
     </script>
 
 </body>

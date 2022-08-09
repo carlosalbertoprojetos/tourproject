@@ -83,6 +83,7 @@ class Trip(models.Model):
         if self.image and hasattr(self.image, 'url'):
             return self.image.url
 
+
 class CategoryPax(models.Model):
     name = models.CharField('Nome', max_length=255, unique=True)
     note = models.TextField('Observação', max_length=255, blank=True, null=True)
@@ -120,7 +121,7 @@ class Activity(models.Model):
     image = models.ImageField(
     'Imagem da atividade', upload_to="atividade/%Y", blank=True)
     description = models.TextField('Descrição da atividade', blank=True)
-    catpax = models.ManyToManyField(CategoryPax, verbose_name='Categoria PAX', blank=True, through='ActivityCatPax')
+    catpax = models.ManyToManyField(CategoryPax, verbose_name='Categoria PAX', through='ActivityCatPax')
     min_amount_pax = models.IntegerField('Quantidade mínima PAX')
     occ_scale = models.CharField('Escala de Ocupação diária (1 a 10)', max_length=2, choices=SCALE_CHOICE)
     tariff_group = models.BooleanField('A tarifa é de Grupo',)
@@ -171,5 +172,3 @@ def delete_trip_catpax_prices(sender, instance, **kwargs):
         for j in to:
             if i.activity_id == j.id:
                 ActivityPrice.objects.filter(id=i.id).delete()
-
-
