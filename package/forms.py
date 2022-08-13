@@ -14,15 +14,15 @@ class Data_Package_OneForm(forms.ModelForm):
         exclude = ['destiny']
         widgets = {
             'date_arrive':AdminDateWidget(
-                attrs={'class': 'vDateField form-control mt-2',  
-                       'title':"Selecione uma data", 
-                       'required': 'true'
+                attrs={'class': 'vDateField form-control mt-2', 
+                        'title':"Selecione uma data",
+                        'required': 'true',
                 }
             ),
-            'date_departure': AdminDateWidget(
-                attrs={'class': 'vDateField form-control mt-2',  
-                       'title':"Selecione uma data", 
-                       'required': 'true'
+            'date_departure':AdminDateWidget(
+                attrs={'class': 'vDateField form-control mt-2', 
+                        'title':"Selecione uma data", 
+                        'required': 'true',
                 }
             ),           
             'num_adults':forms.NumberInput(

@@ -33,19 +33,20 @@
 
     <title> {% block title %} Pacotes {% endblock title%} </title>
 
+
+
 </head>
 
 <body class='row justify-content-center'>
     <div class='card-header col-md-10 col-sm-12 mt-4'>
         <div class="container-fluid">
             <div class="card m-0 px-4">
-                <form action='' method='POST'>
+                <form action='' method='POST' action="{% url 'package:list_activities_package' %}">
+                    {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field.errors }}
                         {{ hidden_field }}
                     {% endfor %}
-                    {% csrf_token %}
-                    {{ form.media }}
                     <div class="form-title m-0">
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -122,7 +123,7 @@
                             </div>
                             {% block activities %}
                             {% endblock activities %}
-                            {% comment %} <div class="container-flex">
+                            <div class="container-flex">
                                 <div class="card-header p-1">
                                     {% for t in trips %}
                                     <div class='row'>
@@ -140,7 +141,7 @@
                                                         {% endif %}
                                                     </div>
                                                     <div class='row'>
-                                                        <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
+                                                        <h6 class='px-3 mt-2' style='text-align:city justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
                                                     </div>
                                                     <div class="row">
                                                     {% for p in activities_prices %}
@@ -161,7 +162,7 @@
                                     </div>
                                     {% endfor %}
                                 </div>
-                            </div> {% endcomment %}
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
                             <div class="container-fluid mt-2">
@@ -214,10 +215,12 @@
                             </div>
                         </div>
                     </div>
+                    {{ form.media }}
                 </form>
             </div>
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -256,6 +259,10 @@
                     }
                 }
             })
+            //var dt1 = $('#id_date_arrive').val()
+            //console.log('Data chegada: ', dt1)
+            //var dt2 = $('#id_date_departure').val()
+            //console.log('Data partida: ', dt2)
         });
 
         function null_or_empty(str) {
@@ -282,13 +289,42 @@
                 }             
             }
         }
+        
+        const start_date = $('#id_date_arrive').val()
+        const end_date = $('#id_date_departure').val()
+        
+        //if(start_date && end_date){
+        //    data={
+        //    'start_date':start_date,
+        //    'end_date':end_date            
+        //    }
+        //    console.log('Período: ', data)
+        //    console.log('Data chegada: ', data['start_date'])
+        //    console.log('Data partida: ', data['end_date'])
+        //}
 
-        $.ajax({
-            method: "POST",
-            url: "package:list_activities_package",
-        })
-        document.getElementById('id_date_arrive');
-        document.getElementById('id_date_departure');
+        $("#advance").click(function () {
+
+            $.ajax({
+                type: 'POST',
+                url: "",
+                data: {
+                    start_date : start_date,
+                    end_date : $('#id_date_departure').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
+                },
+                success: function(data){
+                    alert('Alerta!!');
+                }
+                
+            });
+        });
+
+        {% comment %} start_date = document.getElementById('id_date_arrive');
+        console.log('Data chegada: ', start_date['value'])
+        end_date = document.getElementById('id_date_departure');
+        console.log('Data partida: ', end_date['value']) {% endcomment %}
+
     </script>
 
 </body>

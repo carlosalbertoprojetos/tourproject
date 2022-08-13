@@ -163,7 +163,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 DATE_FORMAT = ["%d/%m/%Y"]
-DATE_INPUT_FORMATS = ['%d/%m/%Y']
+DATE_INPUT_FORMATS = ('%d/%m/%Y','%d-%m-%Y','%Y-%m-%d')
 DECIMAL_SEPARATOR = ','
 USE_THOUSAND_SEPARATOR = True
 
@@ -194,7 +194,7 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 #STATIC_ROOT = BASE_DIR / 'static'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'basics', "static")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'basics', 'static'),
