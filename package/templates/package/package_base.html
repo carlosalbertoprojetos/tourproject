@@ -41,7 +41,7 @@
     <div class='card-header col-md-10 col-sm-12 mt-4'>
         <div class="container-fluid">
             <div class="card m-0 px-4">
-                <form action='' method='POST' action="{% url 'package:list_activities_package' %}">
+                <form action='' method='POST' action="{ url 'package:package' city_destiny=city.name %}">
                     {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field.errors }}
@@ -118,49 +118,14 @@
                         </div>
                         <div class="tab-pane fade" id="trips" role="tabpanel" aria-labelledby="trips-tab">
                             <div class="container-flex">
-                                <h3 class="title px-3 pt-4 my-0" align="center">{{ city }}</h3>
+                                <h3 class="title px-3 pt-4 my-0" align="center" id="city_destiny">{{ city.name }}</h3>
                                 <hr class='mb-0'>
                             </div>
-                            {% block activities %}
-                            {% endblock activities %}
                             <div class="container-flex">
-                                <div class="card-header p-1">
-                                    {% for t in trips %}
-                                    <div class='row'>
-                                        <div class="col-sm-12 col-md-12">
-                                            <h4 class="jumbotron form-title mb-0 p-2" align="center">{{ t.name }}<h4>
-                                        </div>
-                                        <div class="row mt-2">
-                                            {% for a in activities %}
-                                                {% if t == a.trip  %}
-                                                <div class="col-sm-12 col-md-6">
-                                                    <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
-                                                    <div class='row'>
-                                                        {% if a.image %}
-                                                        <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;" max-width="450px" align="center"/>
-                                                        {% endif %}
-                                                    </div>
-                                                    <div class='row'>
-                                                        <h6 class='px-3 mt-2' style='text-align:city justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
-                                                    </div>
-                                                    <div class="row">
-                                                    {% for p in activities_prices %}
-                                                        {% if a.id == p.activity_id %}
-                                                        <div class='col-sm-6 col-md-6 px-1 py-2'>
-                                                            <div class="row p-0">
-                                                                <input type="checkbox" class="col-1" value="" id="flexCheckDefault">
-                                                                <h6 class='col-11 px-2 m-0'>{{ p.catpax }} - R$ {{ p.price}}</h6>
-                                                            </div>
-                                                        </div>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                    </div>
-                                                </div>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    {% endfor %}
+                                <div class="card-header p-1" id="id_trips">
+                                    {% block package_trips %}
+
+                                    {% endblock package_trips %}
                                 </div>
                             </div>
                         </div>
@@ -224,7 +189,7 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-
+{% block js %}
     <script type="text/javascript">
         $(function () {
             $("#id_num_child").keyup(() => {
@@ -289,36 +254,47 @@
                 }             
             }
         }
-        
-        const start_date = $('#id_date_arrive').val()
-        const end_date = $('#id_date_departure').val()
-        
+
         //if(start_date && end_date){
         //    data={
-        //    'start_date':start_date,
-        //    'end_date':end_date            
+            //    'start_date':start_date,
+            //    'end_date':end_date            
         //    }
         //    console.log('Período: ', data)
         //    console.log('Data chegada: ', data['start_date'])
         //    console.log('Data partida: ', data['end_date'])
         //}
 
+
+        const url = document.getElementById('city_destiny');
+        {% comment %} const url2 = {% url 'package:package' city_destiny="+url.innerText+" %}; {% endcomment %}
+        const url2 = "{% url 'package:package_trips' city_destiny="+url.innerText+" %}";
+
+
         $("#advance").click(function () {
 
+            const start_date = $('#id_date_arrive').val();
+            const end_date = $('#id_date_departure').val();
+            const city_destiny = url.innerText;
+
+            console.log(start_date);
+            console.log(end_date);
+            console.log(city_destiny);
             $.ajax({
                 type: 'POST',
-                url: "",
+                url: url2,
                 data: {
                     start_date : start_date,
-                    end_date : $('#id_date_departure').val(),
+                    end_date : end_date,
+                    city_destiny : city_destiny,
                     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
                 },
                 success: function(data){
-                    alert('Alerta!!');
+                    $('#id_trips').html(data)
                 }
-                
             });
         });
+
 
         {% comment %} start_date = document.getElementById('id_date_arrive');
         console.log('Data chegada: ', start_date['value'])
@@ -326,6 +302,7 @@
         console.log('Data partida: ', end_date['value']) {% endcomment %}
 
     </script>
+{% endblock js %}
 
 </body>
 </html>
