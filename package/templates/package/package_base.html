@@ -41,7 +41,7 @@
     <div class='card-header col-md-10 col-sm-12 mt-4'>
         <div class="container-fluid">
             <div class="card m-0 px-4">
-                <form action='' method='POST' action="{ url 'package:package' city_destiny=city.name %}">
+                <form action='' method='POST' action="">
                     {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field.errors }}
@@ -118,7 +118,7 @@
                         </div>
                         <div class="tab-pane fade" id="trips" role="tabpanel" aria-labelledby="trips-tab">
                             <div class="container-flex">
-                                <h3 class="title px-3 pt-4 my-0" align="center" id="city_destiny">{{ city.name }}</h3>
+                                <h3 class="title px-3 pt-4 my-0" align="center" id="city_destiny">{{ city.city }}</h3>
                                 <hr class='mb-0'>
                             </div>
                             <div class="container-flex">
@@ -266,23 +266,20 @@
         //}
 
 
-        const url = document.getElementById('city_destiny');
+        const b_url = document.getElementById('city_destiny');
         {% comment %} const url2 = {% url 'package:package' city_destiny="+url.innerText+" %}; {% endcomment %}
-        const url2 = "{% url 'package:package_trips' city_destiny="+url.innerText+" %}";
+        const url = "{% url 'package:package_trips' city_destiny="+b_url.innerText+" %}";
 
 
         $("#advance").click(function () {
 
             const start_date = $('#id_date_arrive').val();
             const end_date = $('#id_date_departure').val();
-            const city_destiny = url.innerText;
+            const city_destiny = b_url.innerText;
 
-            console.log(start_date);
-            console.log(end_date);
-            console.log(city_destiny);
             $.ajax({
                 type: 'POST',
-                url: url2,
+                url: url,
                 data: {
                     start_date : start_date,
                     end_date : end_date,

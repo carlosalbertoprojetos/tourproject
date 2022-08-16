@@ -38,7 +38,7 @@ class Season(models.Model):
     active_sell = models.BooleanField('Ativo Venda', default=False)
 
     class Meta:
-        unique_together = [['name','destiny','validity']]
+        # unique_together = [['name','destiny.city','validity']]
         verbose_name = 'Temporada'
         verbose_name_plural = 'Temporadas'
 

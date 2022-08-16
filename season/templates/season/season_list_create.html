@@ -109,7 +109,7 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Destino Turístico</th>
+                                <th>Cidade / Destino Turístico</th>
                                 <th>Vigência</th>
                                 <th>Agência</th>
                                 <th>Vender</th>
@@ -122,7 +122,7 @@
                             {% for s in object_list %}
                                 <tr>
                                     <td>{{ s.name }}</td>
-                                    <td>{{ s.destiny.name }}</td>
+                                    <td>{{ s.destiny.city }} / {{ s.destiny.name }}</td>
                                     <td align="center">{{ s.validity }}</td>                                    
                                     <td align="center">
                                         {% if s.active_company %}
