@@ -38,7 +38,7 @@ class Season(models.Model):
     active_sell = models.BooleanField('Ativo Venda', default=False)
 
     class Meta:
-        # unique_together = [['name','destiny.city','validity']]
+        # unique_together = [['name','self.destiny.city','validity']]
         verbose_name = 'Temporada'
         verbose_name_plural = 'Temporadas'
 
@@ -54,7 +54,7 @@ class Event(models.Model):
     date_fin = models.DateField('Data Final:')
 
     class Meta:
-        unique_together = [['name_event','date_init','date_fin']]
+        # unique_together = [['name_event','date_init','date_fin']]
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
 

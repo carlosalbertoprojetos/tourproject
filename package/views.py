@@ -162,30 +162,24 @@ def data_base(request, city_destiny):
 
 
 def package(request, city_destiny):
-    
     city = Destiny.objects.filter(city=city_destiny).first()
-
+    destiny = Destiny.objects.filter(city=city_destiny).first()
     template = 'package/package_base.html'
 
-    destiny = Destiny.objects.filter(city=city_destiny).first()
-    # Child_Formset_Factory = inlineformset_factory(
-    # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
-    # Chosen_Formset_Factory = inlineformset_factory(
-    # Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
     form = Data_Package_OneForm()
     formset = Child_Formset_Factory()
 
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
         formset = Child_Formset_Factory(request.POST or None)
-        
+        # import pdb;pdb.set_trace()
         if form.is_valid() and formset.is_valid():
             package = form.save(commit=False)
             package.destiny = destiny
             # package=package.cleaned_data
+            # Chosenformset.instance = package
 
             formset.instance = package
-            # Chosenformset.instance = package
             package.save()
             formset.save()
             # Chosenformset.save()
@@ -284,7 +278,7 @@ def package_trips(request, city_destiny):
         }
     return render(request, template, context)
 
-
+""" 
 # class DataCustomerPackageCreateView(SuccessMessageMixin, CreateView):
 #     model = Data_Customer_Package
 #     form_class = Data_Customer_PackageForm
@@ -327,11 +321,37 @@ def package_trips(request, city_destiny):
 
 
 # data_customer_package_delete = DataCustomerPackageDeleteView.as_view()
+ """
 
-def teste():
-        activities_prices = ActivityPrice.objects.all()
-        # Chosenformset = Chosen_Formset_Factory(request.POST or None)
-        for p in activities_prices:
-            print(p, ' R$', p.price)
+@csrf_exempt
+def package_accommodation(request, city_destiny):
+    st = request.POST.get('start_date')
+    start_date = parse_date(st)
+    ed = request.POST.get('end_date')
+    end_date = parse_date(ed)
+    city_destiny = request.POST.get('city_destiny')
+    trips = Trip.objects.filter(destiny__city=city_destiny)
+    # import pdb;pdb.set_trace()
 
-# teste()
+    template = 'package/includes/package_accommodation_list.html'
+    context = {
+        'trips': trips,
+        }
+    return render(request, template, context)
+
+
+@csrf_exempt
+def package_transport(request, city_destiny):
+    st = request.POST.get('start_date')
+    start_date = parse_date(st)
+    ed = request.POST.get('end_date')
+    end_date = parse_date(ed)
+    city_destiny = request.POST.get('city_destiny')
+    trips = Trip.objects.filter(destiny__city=city_destiny)
+
+    template = 'package/includes/package_transport_list.html'
+    context = {
+        'trips': trips,
+        }
+    return render(request, template, context)
+

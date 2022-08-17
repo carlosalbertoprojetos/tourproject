@@ -40,7 +40,7 @@
 <body class='row justify-content-center'>
     <div class='card-header col-md-10 col-sm-12 mt-4'>
         <div class="container-fluid">
-            <div class="card m-0 px-4">
+            <div class="card m-0 px-2">
                 <form action='' method='POST' action="">
                     {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}
@@ -62,15 +62,23 @@
                                 <button class="nav-link" id="transport-tab" data-bs-toggle="tab" data-bs-target="#transport" type="button" role="tab" aria-controls="transport" aria-selected="false" disabled>Transporte</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="contact" aria-selected="false" disabled>Seus dados</button>
+                                <button class="nav-link" id="dados_finais-tab" data-bs-toggle="tab" data-bs-target="#dados_finais" type="button" role="tab" aria-controls="contact" aria-selected="false" disabled>Seus dados</button>
                             </li>
                         </ul>                    
+                    </div>
+                    <div class="jumbotron row mt-1 m-0 p-0">
+                        <div class="col-6 p-2" align="right">
+                            <h5 class='m-0'><i>Seu destino:</i></h5>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="form-title m-0 p-2" align="left" id="city_destiny">{{ city.city }}</h4>                            
+                        </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="dados_iniciais" role="tabpanel" aria-labelledby="dados_iniciais-tab">
                             <div class="header">
                                 <div class='row m-2'>
-                                    <h4 class="p-4 pb-0" align="center">Informe os dados do período de estadia em {{ city }}</h4>
+                                    <h4 class="p-2 pb-0" align="center">Informe os dados do período de estadia em {{ city }}</h4>
                                 </div>
                             </div>
                             <div class='row'>    
@@ -118,10 +126,6 @@
                         </div>
                         <div class="tab-pane fade" id="trips" role="tabpanel" aria-labelledby="trips-tab">
                             <div class="container-flex">
-                                <h3 class="title px-3 pt-4 my-0" align="center" id="city_destiny">{{ city.city }}</h3>
-                                <hr class='mb-0'>
-                            </div>
-                            <div class="container-flex">
                                 <div class="card-header p-1" id="id_trips">
                                     {% block package_trips %}
 
@@ -130,20 +134,24 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="accommodation" role="tabpanel" aria-labelledby="accommodation-tab">
-                            <div class="container-fluid mt-2">
-                                <div class="container-form">
-                                    <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            <div class="container-flex">
+                                <div class="card-header p-1" id="id_accommodation">
+                                    {% block package_accommodation %}
+
+                                    {% endblock package_accommodation %}
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="transport" role="tabpanel" aria-labelledby="transport-tab">
-                            <div class="container-fluid mt-2">
-                                <div class="container-form">
-                                    <h1 class="form-title px-3 pt-4 mb-0" align="center">{{ trip.destiny.city_state }}</h1>
+                            <div class="container-flex">
+                                <div class="card-header p-1" id="id_transport">                 
+                                    {% block package_transport %}
+
+                                    {% endblock package_transport %}
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
+                        <div class="tab-pane fade" id="dados_finais" role="tabpanel" aria-labelledby="dados_finais-tab">
                             <div class="header">
                                 <div class='row m-2'>
                                     <h4 class="p-4 pb-0" align="center">Informe os seus dados nos campos abaixo</h4>
@@ -249,7 +257,7 @@
                 return false, alert('Por favor, preencha todos os campos') 
                 else {
                     document.getElementById("trips-tab").removeAttribute("disabled");
-                    document.getElementById("data-tab").removeAttribute("disabled");
+
                     document.getElementById('trips-tab').click();
                 }             
             }
@@ -268,14 +276,18 @@
 
         const b_url = document.getElementById('city_destiny');
         {% comment %} const url2 = {% url 'package:package' city_destiny="+url.innerText+" %}; {% endcomment %}
-        const url = "{% url 'package:package_trips' city_destiny="+b_url.innerText+" %}";
-
-
+        {% comment %} data = {
+            start_date : start_date,
+            end_date : end_date,
+            city_destiny : city_destiny,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
+        } {% endcomment %}
+        
         $("#advance").click(function () {
-
             const start_date = $('#id_date_arrive').val();
             const end_date = $('#id_date_departure').val();
-            const city_destiny = b_url.innerText;
+            const url = "{% url 'package:package_trips' city_destiny="+b_url.innerText+" %}";
+            var city_destiny = b_url.innerText;
 
             $.ajax({
                 type: 'POST',
@@ -287,17 +299,21 @@
                     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
                 },
                 success: function(data){
-                    $('#id_trips').html(data)
+                    $('#id_trips').html(data);
+                    $('#id_accommodation').html(data);
+                    $('#id_transport').html(data);
                 }
             });
         });
 
 
-        {% comment %} start_date = document.getElementById('id_date_arrive');
-        console.log('Data chegada: ', start_date['value'])
-        end_date = document.getElementById('id_date_departure');
-        console.log('Data partida: ', end_date['value']) {% endcomment %}
-
+{% comment %}         $("#advance2").click(function (event) {
+            //const start_date = $('#id_date_arrive').val();
+            //const end_date = $('#id_date_departure').val();
+            event.preventDefault()
+            document.getElementById("accommodation-tab").removeAttribute("disabled");
+            document.getElementById('accommodation-tab').click();
+        }); {% endcomment %}
     </script>
 {% endblock js %}
 

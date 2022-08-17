@@ -1,0 +1,38 @@
+{% load i18n account static crispy_forms_tags %}
+{% block package_transport %}
+
+
+<forms method='POST'>
+    {% for t in trips %}
+    <div class='row'>
+        <div class="col-3 row mt-1 mb-0 p-1">
+            <h5 class='m-0'><i>Transporte:</i></h5>
+        </div>
+        <div class="col-9">
+            <h4 class="form-title mb-0 p-2" align="left">Nome<h4>                            
+        </div>
+        <div class="row mt-2">
+        </div>
+    </div>
+    {% endfor %}
+    <div class='row'>
+        <div class='col-12 my-2'>
+            <button id='advance4' type='submit' class='btn btn-primary float-end'>Avançar</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $("#advance4").click(function (event) {
+            event.preventDefault();
+            const start_date = $('#id_date_arrive').val();
+            const end_date = $('#id_date_departure').val();
+
+            document.getElementById("dados_finais-tab").removeAttribute("disabled");
+            document.getElementById('dados_finais-tab').click();
+        });  
+    </script>
+{% endblock js %}

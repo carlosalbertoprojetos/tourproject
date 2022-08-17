@@ -1,10 +1,15 @@
 {% load i18n account static crispy_forms_tags %}
 {% block package_trips %}
 
+
+<forms method='POST'>
     {% for t in trips %}
     <div class='row'>
-        <div class="col-sm-12 col-md-12">
-            <h4 class="jumbotron form-title mb-0 p-2" align="center">{{ t.name }}<h4>
+        <div class="col-2 row mt-1 mb-0 p-1">
+            <h5 class='m-0'><i>Passeio:</i></h5>
+        </div>
+        <div class="col-10">
+            <h4 class="form-title mb-0 p-2" align="left">{{ t.name }}<h4>                            
         </div>
         <div class="row mt-2">
             {% for a in activities %}
@@ -37,11 +42,53 @@
         </div>
     </div>
     {% endfor %}
+    <div class='row'>
+        <div class='col-12 my-2'>
+            <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
+        </div>
+    </div>
+</form>
 
 {% endblock %}
 
 {% block js %}
-    <script>
+    <script type="text/javascript">
+        {% comment %} const b_url = document.getElementById('city_destiny'); {% endcomment %}
         
+        $("#advance2").click(function (event) {
+            event.preventDefault();
+            const start_date = $('#id_date_arrive').val();
+            const end_date = $('#id_date_departure').val();
+            const url = "{% url 'package:package_accommodation' city_destiny="+b_url.innerText+" %}";
+            const city_destiny = b_url.innerText;
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    start_date : start_date,
+                    end_date : end_date,
+                    city_destiny : city_destiny,
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
+                },
+                success: function(data){
+                    $('#id_accommodation').html(data);
+                    document.getElementById("accommodation-tab").removeAttribute("disabled");
+                    document.getElementById('accommodation-tab').click();
+                }
+            });
+        });
+
+        {% comment %} const advanceBtn2 = document.getElementById('advance2')
+        advanceBtn2.addEventListener('click', change_class2) {% endcomment %}
+
+
+        {% comment %} function change_class2(event) {
+            event.preventDefault()
+            document.getElementById("accommodation-tab").removeAttribute("disabled");
+            document.getElementById('accommodation-tab').click();
+        };        {% endcomment %}
+
     </script>
+
 {% endblock js %}
