@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date
 
 from destiny.models import Destiny
+from trip.models import ActivityPrice 
+
 
 # Create your models here.
 class Data_Package_One(models.Model):
@@ -30,6 +32,8 @@ class Child_Package_One(models.Model):
         verbose_name_plural = "Idade das crianças"
 
 
-class Chosen_Package(models.Model):
-    package = models.OneToOneField(Data_Package_One, on_delete=models.CASCADE)
-    id_price = models.CharField('Passeio selecionado', max_length=200)
+class PackageTrips(models.Model):
+    package = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
+    id_price = models.ForeignKey(ActivityPrice, on_delete=models.CASCADE)
+    catpax = models.CharField('CatPax', max_length=255)
+    price = models.CharField('Preço', max_length=255)

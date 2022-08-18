@@ -1,0 +1,80 @@
+{% load i18n account static crispy_forms_tags %}
+{% block package_transport %}
+
+
+<forms method='POST'>
+
+    <div class='row'>
+        <div class="col-2 row mt-1 mb-0 p-1">
+            <h5 class='m-0' align="right"><i>Transporte:</i></h5>
+        </div>
+        <div class="col-9">
+            <h4 class="form-title mb-0 p-2" align="left">Nome<h4>                            
+        </div>
+        <div class="row mt-2">
+        </div>
+    </div>
+    <div class="group">
+        <div class='col-sm-6 col-md-6 px-1 py-2'>
+            <div class="row p-0">
+                <input type="checkbox" class="col-1 check" value="" id="21"/>
+                <h6 class='col-11 px-2 m-0'>Adulto - R$ 10,00</h6>
+            </div>
+        </div>
+        <div class='col-sm-6 col-md-6 px-1 py-2'>
+            <div class="row p-0">
+                <input type="checkbox" class="col-1 check" value="" id="22"/>
+                <h6 class='col-11 px-2 m-0'>Criança - R$ 5,00</h6>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-12 my-2'>
+            <button id='advance4' type='submit' class='btn btn-primary float-end'>Avançar</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $("#advance4").click(function (event) {
+            event.preventDefault();
+            document.getElementById("dados_finais-tab").removeAttribute("disabled");
+            document.getElementById('dados_finais-tab').click();
+        });
+
+        var ds = document.getElementsByClassName('group');
+
+        for (var i = 0; i < ds.length; i++) {
+        var inputs = ds[i].getElementsByTagName('input');
+        
+            for (var j = 0; j < inputs.length; j++) {
+                console.log(`Input id: ${inputs[j].id}`);
+                console.log(`Input checked: ${inputs[j].checked}`);
+            }
+        };
+
+        {% comment %} let els = document.querySelectorAll("input");
+        console.log(els); {% endcomment %}
+
+
+        {% comment %} quantidade = document.querySelectorAll('.check').length;
+        console.log('Quantidade: '+ quantidade)
+        if (quantidade > 0) {
+            quantidade = parseInt(quantidade);
+            for (let i=0; i < quantidade; i++) {
+                console.log(i+1);
+            } {% endcomment %}
+        //};
+
+        $(".check").change(function(){
+            if ($(this).is(":checked")){
+                console.log("Está checked");
+            } else {
+                console.log("Não esta checked");
+            }            
+        });
+    </script>
+{% endblock js %}

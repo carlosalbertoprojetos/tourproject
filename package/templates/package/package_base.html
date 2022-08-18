@@ -32,16 +32,13 @@
     </style>
 
     <title> {% block title %} Pacotes {% endblock title%} </title>
-
-
-
 </head>
 
 <body class='row justify-content-center'>
     <div class='card-header col-md-10 col-sm-12 mt-4'>
         <div class="container-fluid">
             <div class="card m-0 px-2">
-                <form action='' method='POST' action="">
+                <form action='' method='POST' action=''>
                     {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field.errors }}
@@ -67,11 +64,11 @@
                         </ul>                    
                     </div>
                     <div class="jumbotron row mt-1 m-0 p-0">
-                        <div class="col-6 p-2" align="right">
-                            <h5 class='m-0'><i>Seu destino:</i></h5>
+                        <div class="col-6 py-2" align="right">
+                            <h5 class='align-items-center m-0'><i>Destino:</i></h5>
                         </div>
-                        <div class="col-6">
-                            <h4 class="form-title m-0 p-2" align="left" id="city_destiny">{{ city.city }}</h4>                            
+                        <div class="col-6 py-2">
+                            <h4 class="title m-0 px-2 align-items-center" align="left" id="city_destiny">{{ city.city }}</h4>                            
                         </div>
                     </div>
                     <div class="tab-content" id="myTabContent">
@@ -95,11 +92,9 @@
                                 <div class='col-6 mb-2'>
                                     <label for="id_num_adults">Quantidade adultos</label>
                                     {{ form.num_adults }}
-                                    {% comment %} <input type="text" name="num_adults" class="dateinput form-control mt-2" id="id_num_adults" required> {% endcomment %}
                                 </div>
                                 <div class='col-6 mb-2'>
                                     <label for="id_num_child">Quantidade crianças</label>
-                                    {% comment %} <input type="text" name="num_child" class="dateinput form-control mt-2" id="id_num_child" required> {% endcomment %}
                                     {{ form.num_child }}
                                 </div>
                             </div>
@@ -194,7 +189,6 @@
         </div>
     </div>
 
-
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 {% block js %}
@@ -232,10 +226,6 @@
                     }
                 }
             })
-            //var dt1 = $('#id_date_arrive').val()
-            //console.log('Data chegada: ', dt1)
-            //var dt2 = $('#id_date_departure').val()
-            //console.log('Data partida: ', dt2)
         });
 
         function null_or_empty(str) {
@@ -263,25 +253,7 @@
             }
         }
 
-        //if(start_date && end_date){
-        //    data={
-            //    'start_date':start_date,
-            //    'end_date':end_date            
-        //    }
-        //    console.log('Período: ', data)
-        //    console.log('Data chegada: ', data['start_date'])
-        //    console.log('Data partida: ', data['end_date'])
-        //}
-
-
         const b_url = document.getElementById('city_destiny');
-        {% comment %} const url2 = {% url 'package:package' city_destiny="+url.innerText+" %}; {% endcomment %}
-        {% comment %} data = {
-            start_date : start_date,
-            end_date : end_date,
-            city_destiny : city_destiny,
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
-        } {% endcomment %}
         
         $("#advance").click(function () {
             const start_date = $('#id_date_arrive').val();
@@ -305,15 +277,6 @@
                 }
             });
         });
-
-
-{% comment %}         $("#advance2").click(function (event) {
-            //const start_date = $('#id_date_arrive').val();
-            //const end_date = $('#id_date_departure').val();
-            event.preventDefault()
-            document.getElementById("accommodation-tab").removeAttribute("disabled");
-            document.getElementById('accommodation-tab').click();
-        }); {% endcomment %}
     </script>
 {% endblock js %}
 

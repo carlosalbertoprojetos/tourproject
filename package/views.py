@@ -1,25 +1,20 @@
-from operator import length_hint
-from re import template
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.forms import inlineformset_factory, modelformset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy as _
-from django.views import View
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.dateparse import parse_date
 
 from .models import Data_Package_One, Child_Package_One
-from .forms import Data_Package_OneForm, Child_Package_OneForm, Formset_Factory, Child_Age_formset, Child_Formset_Factory, Chosen_Formset_Factory
+from .forms import Formset_Factory, Data_Package_OneForm, PackageTrip_Factory, Child_Age_formset, Child_Formset_Factory
 
 from trip.models import Activity, ActivityPrice, Trip
 from destiny.models import Destiny
-from season.models import Event, Season
+from season.models import Event
 
 
 #===============================================================================
@@ -108,7 +103,6 @@ def data_package_create1(request, city_destiny):
         }   
         return render(request, 'package/package_base.html', context)
 
-
 class DataPackageDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Data_Package_One
     template_name = 'package/data_package_delete.html'
@@ -168,72 +162,44 @@ def package(request, city_destiny):
 
     form = Data_Package_OneForm()
     formset = Child_Formset_Factory()
+    formset_trips = PackageTrip_Factory()
 
     if request.method == 'POST':
         form = Data_Package_OneForm(request.POST or None)
         formset = Child_Formset_Factory(request.POST or None)
+        formset_trips = PackageTrip_Factory(request.POST or None)
+
         # import pdb;pdb.set_trace()
         if form.is_valid() and formset.is_valid():
             package = form.save(commit=False)
             package.destiny = destiny
-            # package=package.cleaned_data
-            # Chosenformset.instance = package
-
-            formset.instance = package
             package.save()
+            formset.instance = package
             formset.save()
-            # Chosenformset.save()
-            # return redirect('package:package', city_destiny)
+            formset_trips.instance = package
+            formset_trips.save()
             return redirect('destiny:destiny_list_create')
-            
+
         else:
             context = {
                 'city': city,
-                # 'trips': trips,
-                # 'activities': activities,
-                # 'activities_prices': activities_prices,
                 'form': form,
                 'Childformset': formset,
-                # 'Chosenformset': Chosenformset
+                'formset_trips': formset_trips
             }
             return render(request, template, context)
 
     elif request.method == 'GET':
-        # form = Data_Package_OneForm()
-        # formset = Child_Formset_Factory()
-        # Chosenformset = Chosen_Formset_Factory()
-        
+       
         context = {
             'city': city,
-            # 'trips': trips,
-            # 'activities': activities,
-            # 'activities_prices': activities_prices,
             'form': form,
             'Childformset': formset,
-            # 'Chosenformset': Chosenformset
+            'formset_trips': formset_trips
         }
         return render(request, template, context)
 
 
-    """ 
-    def list_activities_package(request, city_destiny):
-        # city_destiny = request.city_destiny
-        
-        context = {'start_date': None, 'end_date': None}
-        if request.method == 'POST':
-            form = Data_Package_OneForm(request.POST or None)
-            start_date = parse_date(form.data['start_date'])
-            end_date = parse_date(form.data['end_date'])
-
-            context = {
-                'start_date': start_date,
-                'end_date': end_date
-            }
-            import pdb;pdb.set_trace()
-
-        return JsonResponse(context)
-
-    """
 
 @csrf_exempt
 def package_trips(request, city_destiny):
@@ -252,31 +218,16 @@ def package_trips(request, city_destiny):
         events = events_exists
 
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
-
-    # for t in trips:
-    #     print(t.destiny.city)
-    # for a in activities:
-    #     print('  ', a, a.id, a.trip.destiny.city)
-
     activities_prices = ActivityPrice.objects.filter(season__id=events.season.id, activity__trip__destiny__city=city_destiny)
-    # activities_prices = ActivityPrice.objects.filter(activity__trip__destiny__city=city_destiny)
 
-    # for t in trips:
-        # print(t)
-        # activities = Activity.objects.filter(trip_id=t.id)
-        # for a in activities:
-            # print('  ', a)
-            # activities_prices = ActivityPrice.objects.filter(activity_id=a.id, season__id=events.season.id)
-            # for ap in activities_prices:
-            #     print('     ', ap.price)
-
-    template = 'package/includes/package_trips_list.html'
+    template = 'package/includes/package_trips.html'
     context = {
         'trips': trips,
         'activities': activities,
         'activities_prices': activities_prices,
         }
     return render(request, template, context)
+
 
 """ 
 # class DataCustomerPackageCreateView(SuccessMessageMixin, CreateView):
@@ -323,6 +274,7 @@ def package_trips(request, city_destiny):
 # data_customer_package_delete = DataCustomerPackageDeleteView.as_view()
  """
 
+
 @csrf_exempt
 def package_accommodation(request, city_destiny):
     st = request.POST.get('start_date')
@@ -333,7 +285,7 @@ def package_accommodation(request, city_destiny):
     trips = Trip.objects.filter(destiny__city=city_destiny)
     # import pdb;pdb.set_trace()
 
-    template = 'package/includes/package_accommodation_list.html'
+    template = 'package/includes/package_accommodation.html'
     context = {
         'trips': trips,
         }
@@ -349,7 +301,7 @@ def package_transport(request, city_destiny):
     city_destiny = request.POST.get('city_destiny')
     trips = Trip.objects.filter(destiny__city=city_destiny)
 
-    template = 'package/includes/package_transport_list.html'
+    template = 'package/includes/package_transport.html'
     context = {
         'trips': trips,
         }
