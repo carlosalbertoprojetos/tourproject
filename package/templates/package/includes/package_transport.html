@@ -17,13 +17,13 @@
         <div class='col-sm-6 col-md-6 px-1 py-2'>
             <div class="row p-0">
                 <input type="checkbox" class="col-1 check" value="" id="03"/>
-                <h6 class='col-11 px-2 m-0'>Adulto - R$ 10,00</h6>
+                <h6 class='col-11 px-2 m-0'>CHD - R$ 30,00</h6>
             </div>
         </div>
         <div class='col-sm-6 col-md-6 px-1 py-2'>
             <div class="row p-0">
                 <input type="checkbox" class="col-1 check" value="" id="04"/>
-                <h6 class='col-11 px-2 m-0'>Criança - R$ 5,00</h6>
+                <h6 class='col-11 px-2 m-0'>Estudante - R$ 35,00</h6>
             </div>
         </div>
     </div>
@@ -40,29 +40,18 @@
     <script type="text/javascript">
         $("#advance4").click(function (event) {
             event.preventDefault();
-            document.getElementById("dados_finais-tab").removeAttribute("disabled");
-            document.getElementById('dados_finais-tab').click();
-
+            
             var ds = document.getElementsByClassName('group');
             for (var i = 0; i < ds.length; i++) {
                 var inputs = ds[i].getElementsByTagName('input');
                 for (var j = 0; j < inputs.length; j++) {
                     if (`${inputs[j].checked}` == 'true')
-                        console.log(`id_price ${inputs[j].id}`);
+                    console.log(`${inputs[j].id}`);
                 }
             }
-
+            document.getElementById("dados_finais-tab").removeAttribute("disabled");
+            document.getElementById('dados_finais-tab').click();
         });
-
-
-        {% comment %} 
-
-        $(".check").change(function(){
-            if ($(this).is(":checked")){
-                console.log("Está checked");
-            } else {
-                console.log("Não esta checked");
-            }            
-        }); {% endcomment %}
     </script>
+
 {% endblock js %}

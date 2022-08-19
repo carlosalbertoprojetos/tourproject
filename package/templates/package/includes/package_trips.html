@@ -2,7 +2,7 @@
 {% block package_trips %}
 
 
-{% comment %} <forms method='POST'>
+<forms method='POST'>
     {% for t in trips %}
     <div class='row justify-content-center'>
         <hr class='m-0'>
@@ -43,41 +43,21 @@
             {% endfor %}
         </div>
     </div>
-
     {% endfor %}
-    <div class='row'>
-        <div class='col-12 my-2'>
-            <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
-        </div>
-    </div>
-</form> {% endcomment %}
 
-
-<forms method='POST'>
     <div class='row'>
-        <div class="col-2 row mt-1 mb-0 p-1">
-            <h5 class='m-0' align="right"><i>Passeio:</i></h5>
-        </div>
-        <div class="col-9">
-            <h4 class="form-title mb-0 p-2" align="left">Nome<h4>                            
-        </div>
-        <div class="row mt-2">
-        </div>
-    </div>
-    <div class="trip_group">
-        <div class='col-sm-6 col-md-6 px-1 py-2'>
-            <div class="row p-0">
-                <input type="checkbox" class="col-1 check" value="" id="01"/>
-                <h6 class='col-11 px-2 m-0'>Adulto - R$ 10,00</h6>
+        {{ formset_trips.management_form }}
+        <div id='trip_package_list' class='form-inline mt-1 my-1 justify-content-center'> 
+            {% for field in formset_trips %}
+            <div class='price_package_form'>
+                {{ field.label_tag }}
+                {{ field|crispy }}
             </div>
+            {% endfor %}
         </div>
-        <div class='col-sm-6 col-md-6 px-1 py-2'>
-            <div class="row p-0">
-                <input type="checkbox" class="col-1 check" value="" id="02"/>
-                <h6 class='col-11 px-2 m-0'>Criança - R$ 5,00</h6>
-            </div>
-        </div>
+        <div id='empty-form' class='hidden'>{{ Childformset.empty_form }}</div>
     </div>
+
     <div class='row'>
         <div class='col-12 my-2'>
             <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
@@ -89,16 +69,27 @@
 
 {% block js %}
     <script type="text/javascript">
-        $("#advance2").click(function (event) {
-            event.preventDefault();
-            var ds = document.getElementsByClassName('trip_group');            
+
+
+        $(function () {
+            var ds = document.getElementsByClassName('trip_group');
             for (var i = 0; i < ds.length; i++) {
                 var inputs = ds[i].getElementsByTagName('input');
                 for (var j = 0; j < inputs.length; j++) {
                     if (`${inputs[j].checked}` == 'true')
-                    console.log(`id_price ${inputs[j].id}`);
+                    console.log(`${inputs[j].id}`);
                 }
             };
+        });
+
+
+
+
+
+
+
+        $("#advance2").click(function (event) {
+            event.preventDefault();
 
             const start_date = $('#id_date_arrive').val();
             const end_date = $('#id_date_departure').val();
@@ -119,8 +110,16 @@
                     document.getElementById('accommodation-tab').click();  
                 }
             });
-        });
 
+            var ds = document.getElementsByClassName('trip_group');
+            for (var i = 0; i < ds.length; i++) {
+                var inputs = ds[i].getElementsByTagName('input');
+                for (var j = 0; j < inputs.length; j++) {
+                    if (`${inputs[j].checked}` == 'true')
+                    console.log(`${inputs[j].id}`);
+                }
+            };
+        });
     </script>
 
 {% endblock js %}

@@ -3,18 +3,30 @@
 
 
 <forms method='POST'>
-
     <div class='row'>
         <div class="col-2 row mt-1 mb-0 p-1">
             <h5 class='m-0' align="right"><i>Hospedagem:</i></h5>
         </div>
         <div class="col-10">
-            <h4 class="form-title mb-0 p-2" align="left">Nome<h4>                            
+            <h4 class="form-title mb-0 p-2" align="left">Nome<h4>
         </div>
         <div class="row mt-2">
         </div>
     </div>
-
+    <div class="accommodation_group">
+        <div class='col-sm-6 col-md-6 px-1 py-2'>
+            <div class="row p-0">
+                <input type="checkbox" class="col-1 check" value="" id="01"/>
+                <h6 class='col-11 px-2 m-0'>Convidado - R$ 15,00</h6>
+            </div>
+        </div>
+        <div class='col-sm-6 col-md-6 px-1 py-2'>
+            <div class="row p-0">
+                <input type="checkbox" class="col-1 check" value="" id="02"/>
+                <h6 class='col-11 px-2 m-0'>Adulto - R$ 25,00</h6>
+            </div>
+        </div>
+    </div>
     <div class='row'>
         <div class='col-12 my-2'>
             <button id='advance3' type='submit' class='btn btn-primary float-end'>Avançar</button>
@@ -28,6 +40,15 @@
     <script type="text/javascript">
         $("#advance3").click(function (event) {
             event.preventDefault();
+            var ds = document.getElementsByClassName('accommodation_group');
+            for (var i = 0; i < ds.length; i++) {
+                var inputs = ds[i].getElementsByTagName('input');
+                for (var j = 0; j < inputs.length; j++) {
+                    if (`${inputs[j].checked}` == 'true')
+                    console.log(`${inputs[j].id}`);
+                }
+            };
+
             const start_date = $('#id_date_arrive').val();
             const end_date = $('#id_date_departure').val();
             const url = "{% url 'package:package_transport' city_destiny="+b_url.innerText+" %}";
@@ -48,21 +69,7 @@
                     document.getElementById('transport-tab').click();
                 }
             });
-        });
-
-
-        {% comment %} const b_url = document.getElementById('city_destiny');
-        const url = ;
-
-        const advanceBtn3 = document.getElementById('advance3')
-        advanceBtn3.addEventListener('click', change_class3)
-        
-        function change_class3(event) {
-            event.preventDefault()
-            document.getElementById("transport-tab").removeAttribute("disabled");
-            document.getElementById('transport-tab').click();
-        }; {% endcomment %}
-       
+        });  
     </script>
 
 {% endblock js %}
