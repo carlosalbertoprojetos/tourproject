@@ -247,7 +247,6 @@
                 return false, alert('Por favor, preencha todos os campos') 
                 else {
                     document.getElementById("trips-tab").removeAttribute("disabled");
-
                     document.getElementById('trips-tab').click();
                 }             
             }
@@ -272,8 +271,6 @@
                 },
                 success: function(data){
                     $('#id_trips').html(data);
-                    $('#id_accommodation').html(data);
-                    $('#id_transport').html(data);
                 }
             });
         });
