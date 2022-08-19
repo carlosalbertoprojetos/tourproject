@@ -5,6 +5,11 @@ Passeio
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 <div class="container-fluid mt-2">
     <div class="container-form">
         <div class="card">
@@ -14,29 +19,27 @@ Passeio
                         <h5 class="form-title ml-2 my-2 pl-1">Passeio:
                         </h5>
                     </div>
-                        <div class="col-sm-12 col-md-6 mb-1">
+                    <div class="col-sm-12 col-md-6 mb-1">
                         <h3 class="form-title mt-1"><a href="{% url 'trip:trip_list_create' %}">
-                                {% if trip %}
-                                {{ trip }}
+                                {% if trip.trip %}
+                                {{ trip.trip }}
                                 {% else %}
                                 Retornar a Lista de Passeios
                                 {% endif %}
                             </a></h3>
                     </div>
-                    <div id="bottom_list" class="col-sm-12 col-md-3" style="text-align-last">
+                    <div id="bottom_list" class="col-sm-12 col-md-3"style="text-align-last">
                         <div class="row my-3">
-                            <form method="POST" enctype="multipart/form-data">
+                            <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header p-0">
-                                                <div class="col-md-12">
-                                                    <p><h5 class="modal-title pl-4" id="exampleModalLabel">Nova Atividade</h5></p>
-                                                    <h5 class="jumbotron modal-title py-3 px-4" id="exampleModalLabel">{{ trip }}</h5>
-                                                </div>
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Nova Atividade
+                                                </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -44,6 +47,7 @@ Passeio
                                             </div>
                                             <div class="modal-body">
                                                 {% csrf_token %}
+                                                {{ form.non_field_errors }}
                                                 {{ form|crispy }}
                                                 {{ form.media }}
                                             </div>
@@ -96,6 +100,7 @@ Passeio
                                     NÃO
                                     {% endif %}
                                 </td> {% endcomment %}
+
                                 <td align="center">
                                     <a href="{% url 'trip:activity_update' p.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>

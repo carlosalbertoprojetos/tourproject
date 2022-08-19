@@ -5,6 +5,11 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 
 <div class="container-fluid mt-2">
     <div class="card">
@@ -13,6 +18,7 @@
                 <h2 class="form-title">Editar Passeio</h2>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
+                    {{ form.non_field_errors }}
                     {{ form|crispy }}
                     <div class="col-md-12 mb-2">
                         <div class="form-group form-button">

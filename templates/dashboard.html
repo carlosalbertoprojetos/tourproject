@@ -2,6 +2,11 @@
 {% load i18n account static %}
 {% block base %}
 
+    <script src="{% url 'js-catlog' %}"></script>
+    <script src="{% static '/admin/js/core.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark pt-8">
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <a class="navbar-brand ps-3" href="/">TourProject</a>
@@ -35,7 +40,7 @@
                         <a class="nav-link ps-3" href="{% url 'user:dashboard' %}">
                             <div class="sb-nav-link-icon">
                                 <i class="fa fa-address-card"></i>
-                            </div>
+                            </div>                            
                             Dashboard
                         </a>
                         <a class="nav-link" href="{% url 'user:user_update' user.pk %}">
@@ -43,7 +48,8 @@
                                 <i class="fas fa-users-cog"></i>
                             </div>
                             Configurações
-                        </a>                        
+                        </a>
+                        
                         {% if user.is_superuser %}
                             <div class="sb-sidenav-menu-heading">Gestão</div>
                             <a class="nav-link" href="{% url 'user:users_list' %}">
@@ -76,14 +82,10 @@
                                 </div>
                                 Temporadas
                             </a>
+                            
+                            
                         {% endif %}
                         {% if user.option == '1' %}
-                            <a class="nav-link" href="{% url 'company:company_update' request.user.pk %}">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-business-time"></i>
-                                </div>
-                                Empresas
-                            </a>
                             <div class="sb-sidenav-menu-heading">Agentes</div>
                             <a class="nav-link collapsed"
                             href="#"
@@ -94,7 +96,7 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-book-open"></i>
                                 </div>
-                                Registro
+                                Cadastro
                                 <div class="sb-sidenav-collapse-arrow">
                                     <i class="fas fa-angle-down"></i>
                                 </div>
@@ -241,6 +243,8 @@
             </div>
         </div>
     </footer>
-
+    {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="{% static 'js/jquery.mask.min.js'  %}"></script>
+    <script src="{% static 'js/mascara.js' %}"></script> {% endcomment %}
 
 {% endblock %}

@@ -1,4 +1,5 @@
 import json
+import pdb
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -23,9 +24,10 @@ from season.models import Event
 # client => package
 
 def data_package_list(request, id_destiny):
+    #pdb.set_trace()
     destiny = Destiny.objects.filter(id=id_destiny).first()
     packages = Data_Package_One.objects.filter(destiny_id=id_destiny)
-
+    print(id_destiny)
     context = {
         'destiny': destiny,
         'packages': packages,
@@ -54,7 +56,8 @@ def data_package_create(request, id_destiny):
                 'destiny': destiny,
                 'form': form,
                 'formset': formset,
-            }    
+            }
+            print(destiny)    
             return render(request, 'destiny/destiny_list_create.html', context)
 
     elif request.method == 'GET':

@@ -5,6 +5,11 @@ Passeio
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 
 <div class="container-fluid mt-2">
     <div class="card">
@@ -29,12 +34,13 @@ Passeio
                             </div>
                             {% csrf_token %}
                             {{ formset.management_form|crispy }}
+                            {{ formset.non_form_errors }}
                             <div class="col-md-10 p-0 m-0">
                                 <div class="row">
                                     {% for c in catpax %}
                                     {% if c.activity_id == a.id %}
                                     <div class="col-md-3 card p-1 m-0">
-                                        <h6><center>{{ c.catpax }}</center></h6>
+                                        <h6><center>{{c.catpax}}</center></h6>
                                         <div class="row">
                                             {% for s in season %}
                                             <div class="col-md-6">

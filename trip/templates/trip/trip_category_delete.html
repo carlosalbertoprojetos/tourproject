@@ -5,27 +5,22 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
                 <h2 class="form-title">Você tem certeza que deseja excluir este passeio?</h2>
-                <form method="POST" class="register-form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="row ml-0">
-                                <div class="col-md-1">
-                                    <div class="form-floating">
-                                        <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <form method="POST">
+                  {% csrf_token %}
+                  {{ form.non_field_errors }}
+                                      
+                  <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>  
+                </form>              
             </div>
         </div>
     </div>

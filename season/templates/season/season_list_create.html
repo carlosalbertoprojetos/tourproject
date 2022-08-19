@@ -5,15 +5,13 @@
 {% endblock title %}
 {% block dashboard %}
 
-<!--Calenário datepicker-->
+<!--Calenário datepicker>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />  
 <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}" />
 
-<!--
 <link rel="stylesheet/less" type="text/css" href="{% static 'css/less/datepicker.less' %}" />
 
--->
-<!-- Bootstrap CSS -->
+<Bootstrap CSS>
 
 <script src="https://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -23,7 +21,7 @@
 <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
 <script src="{% static 'js/bootstrap-datepicker.pt-BR.min.js' %}"></script>
 <script src="{% static 'js/disabledays.js' %}"></script>
-
+-->
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
@@ -41,19 +39,22 @@
           <li class="nav-item">
             <a class="nav-link" href="#"></a>
           </li>                           
-        </ul>                       
-        <div class="d-flex">
+        </ul>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
+          <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
             <a href="{% url 'season:validity_list_create' %}">
-              <button class="btn bg-gradient-warning" type="submit">Vigências</button>
+              <button class="btn bg-gradient-olive" type="submit" >Vigências</button>
+            </a>      
+          </div>
+
+          <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
+            <a href="{% url 'season:season_list_create' %}" >
+              <button class="btn bg-gradient-olive" type="submit" >Temporadas</button>
             </a>     
-        </div>        
-        <div class="d-flex">
-            <a href="{% url 'season:season_list_create' %}">
-              <button class="btn bg-gradient-red" type="submit">Temporadas</button>
-            </a>     
-        </div>
+          </div>      
+        </div>                         
       </div>
-    </div>
+    </div>  
 </nav>
 
 <div class="container-fluid mt-2">
@@ -67,7 +68,7 @@
                     <div id="bottom_list" class="col-sm-12 col-md-6">
                         <div class="row my-3">
                             <form method="POST">
-                                <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
+                                <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
                                 <div class="modal fade"
                                         id="exampleModal"
@@ -83,12 +84,14 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">                                                
+                                            <div class="modal-body">                     
                                                 {% csrf_token %}
-                                                {{ form|crispy }}
+                                                {{ form.non_field_errors }}
+                                                {{ form|crispy }}                                              
+
                                             </div>
                                             <div class="modal-footer">
-                                                <div class="form-group form-button">
+                                                <div class="form-group form-button" >
                                                     <input type="submit"
                                                             name="signup"
                                                             id="signup"
@@ -98,18 +101,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                                                                                           </div>
+                                </div>                        
                             </form>
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
                 <div class="table-responsive">
                     <table id="myTable1" class="table table-striped table-bordered mt-5">
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Cidade / Destino Turístico</th>
+                                <th>Destino Turístico</th>
                                 <th>Vigência</th>
                                 <th>Agência</th>
                                 <th>Vender</th>
@@ -122,7 +124,7 @@
                             {% for s in object_list %}
                                 <tr>
                                     <td>{{ s.name }}</td>
-                                    <td>{{ s.destiny.city }} / {{ s.destiny.name }}</td>
+                                    <td>{{ s.destiny.name }} - {{ s.destiny.state }}</td>
                                     <td align="center">{{ s.validity }}</td>                                    
                                     <td align="center">
                                         {% if s.active_company %}
@@ -139,7 +141,7 @@
                                         {% endif %}
                                     </td>
                                     <td align="center">
-                                        <a href="{% url 'season:season_event_detail' s.pk %}" class="btn">
+                                        <a href="{% url 'season:event_list' s.pk %}" class="btn">
                                             <i class="fas fa-calendar-check"></i>
                                         </a>
                                     </td>
@@ -154,9 +156,14 @@
                                         </a>
                                     </td>                                    
                                 </tr>
+                                <script type="text/javascript">
+                                    function myFunction() {
+                                      window.open("http://127.0.0.1:8000/season/3/update","_blank","width=600, height=400");
+                                    }
+                                </script>
                             {% endfor %}
                             <tbody>
-                            </table>
+                    </table>
                         </div>
                     </div>                    
                 </div>
@@ -164,5 +171,8 @@
         </div>
     </div>
 </div>
+
+
+
 {% endblock %}
 

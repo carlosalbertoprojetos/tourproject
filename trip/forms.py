@@ -52,7 +52,6 @@ class ActivityForm(forms.ModelForm):
     class Meta:
         model = Activity
         fields = '__all__'
-        exclude = ['trip',]
 
     def __init__(self, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)
@@ -68,9 +67,7 @@ class ActivityPriceForm(forms.ModelForm):
         widgets = {
             'activity':forms.TextInput({'readonly':'readonly', 'type':'hidden'}),
             'catpax':forms.TextInput({'readonly':'readonly', 'type':'hidden'}),
-            'price':forms.NumberInput(attrs={'class':'text-center', 'style': 'border: 0; padding: 0 5px;',
-            # 'data-inputmask':"'prefix': 'R$ ;'"
-            }),
+            'price':forms.NumberInput(attrs={'class':'text-center', 'style': 'border: 0; padding: 0 5px;'}),
             }
         labels = {"price":''}
 

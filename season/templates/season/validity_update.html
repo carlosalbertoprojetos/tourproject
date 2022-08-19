@@ -5,7 +5,6 @@
 {% endblock title %}
 {% block dashboard %}
 
-
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
@@ -13,7 +12,10 @@
                 <h2 class="form-title">Vigência</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ form.non_field_errors }}
+                    {{ form.as_p }}
+                    {{ form.media }}
+                    
                     <div class="row form-group form-button ">
                         <div class="col-md-1 p-1">
                             <input type="submit" class="btn btn-primary" value="Salvar"/>

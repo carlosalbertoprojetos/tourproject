@@ -5,6 +5,11 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">

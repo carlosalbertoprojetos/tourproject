@@ -4,32 +4,33 @@ from .views import (
    
     season_delete, season_list_create, season_update,
     validity_list_create, validity_delete, validity_update,
-    event_delete, season_event_detail, calendar_event_detail, 
-    event_update
+    event_delete, calendar_event_detail, event_update_view,
+    event_list, event_create_view
 )
 
 app_name = 'season'
 
-urlpatterns = [
-    
-    #EVENTO
-    path('<int:pk>/event/detail/', season_event_detail, name='season_event_detail'),
-    path('<int:pk>/event/edit/', event_update, name='event_update'),
-    path('<int:pk>/event/delete/', event_delete, name='event_delete'),    
-    #============================================================================
+urlpatterns = [    
+      
     #CALEDÁRIO
     path('<int:pk>/event/calendar/', calendar_event_detail, name='calendar_event_detail'),
     
     #============================================================================
     #TEMPORADA
     path('list/', season_list_create, name='season_list_create'),
-    path('<int:pk>/edit/', season_update, name='season_update'),
+    path('<int:pk>/update/', season_update, name='season_update'),
     path('<int:pk>/delete/', season_delete, name='season_delete'),
     #============================================================================
     #VIGÊNCIA
     path('validity/list/', validity_list_create, name='validity_list_create'),
-    path('<int:pk>/validity/edit/', validity_update, name='validity_update'),
+    path('<int:pk>/validity/update/', validity_update, name='validity_update'),
     path('<int:pk>/validity/delete/', validity_delete, name='validity_delete'),
+    #============================================================================
+    #EVENTO
+    path('<int:season_id>/event/', event_create_view, name='event_create'),
+    path('<int:pk>/event/detail/', event_list, name='event_list'),
+    path('<int:season_id>/event/<int:pk>/update/', event_update_view, name='event_update'),
+    path('<int:season_id>/event/<int:pk>/delete/', event_delete, name='event_delete'),  
     #============================================================================
     #PERIODO
     #path('period/list/', period_list_create, name='period_list_create'),

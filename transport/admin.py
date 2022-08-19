@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
-
 from .models import Transport, Transport_Type, TransportCategoryPax, TransportPrices
-
 
 class TransportAdmin(admin.ModelAdmin):
     list_display = ('stretch','hits', 'document', 'description', 'is_active')

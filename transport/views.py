@@ -41,7 +41,7 @@ class TransportCategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, Updat
     model = Transport_Type
     form_class = TransportTypeForm
     template_name = 'transport/transport_category_update.html'
-    success_message = 'Categoria de Transporte alterada com sucessoo!!!'
+    success_message = 'Categoria de Transporte alterada com sucesso!!!'
     success_url = _('transport:transport_category_list_create')
 
 transport_category_update = TransportCategoryUpdateView.as_view()
@@ -50,7 +50,7 @@ transport_category_update = TransportCategoryUpdateView.as_view()
 class TransportCategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Transport_Type
     template_name = 'transport/transport_category_delete.html'
-    success_message = 'Categoria de Transporte deletada com sucessoo!!!'
+    success_message = 'Categoria de Transporte deletada com sucesso!!!'
     success_url = _('transport:transport_category_list_create')
 
     def delete(self, request, *args, **kwargs):
@@ -89,7 +89,7 @@ class TransportCategoryPaxUpdateView(LoginRequiredMixin, SuccessMessageMixin, Up
     model = TransportCategoryPax
     form_class = TransportCategoryPaxForm
     template_name = 'transport/transport_catpax_update.html'
-    success_message = 'Categoria PAX de Transporte alterada com sucessoo!!!'
+    success_message = 'Categoria PAX de Transporte alterada com sucesso!!!'
     success_url = _('transport:transport_catpax_list_create')
 
 transport_catpax_update = TransportCategoryPaxUpdateView.as_view()
@@ -98,7 +98,7 @@ transport_catpax_update = TransportCategoryPaxUpdateView.as_view()
 class TransportCategoryPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = TransportCategoryPax
     template_name = 'transport/transport_catpax_delete.html'
-    success_message = 'Categoria PAX de Transporte deletada com sucessoo!!!'
+    success_message = 'Categoria PAX de Transporte deletada com sucesso!!!'
     success_url = _('transport:transport_catpax_list_create')
 
     def delete(self, request, *args, **kwargs):

@@ -5,13 +5,18 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
                 <form method="POST">
-                    <h2 class="form-title">Você tem certeza que deseja excluir categoria pax de passeio ?</h2>
+                    <h2 class="form-title">Você tem certeza que deseja excluir categoria pax de passeio ?</h2>                    
                     <button type="button"
                             class="btn btn-danger"
                             data-toggle="modal"
@@ -36,6 +41,7 @@
                                 </div>
                                 <div class="modal-body">
                                     {% csrf_token %}
+                                    {{ form.non_field_errors }}
                                     {{ form|crispy }}
                                     {{ form.media }}
                                 </div>

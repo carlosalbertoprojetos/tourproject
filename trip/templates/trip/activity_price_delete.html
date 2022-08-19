@@ -5,6 +5,11 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
@@ -12,7 +17,8 @@
                 <h2 class="form-title">Você tem certeza que deseja excluir este valor?</h2>
                 <form method="POST" class="register-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ form.non_field_errors }}
+                    
                     <div class="card-body">
                         <div class="row ml-0">
                             <div class="col-md-1">

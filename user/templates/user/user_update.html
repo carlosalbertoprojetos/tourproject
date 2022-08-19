@@ -5,6 +5,11 @@
 {% endblock title %}
 {% block dashboard %}
 
+<script src="{% url 'js-catlog' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
@@ -23,16 +28,16 @@
             <a class="nav-link" href="#"></a>
           </li>                           
         </ul>
-        <div class="d-flex">
-          <a href="{% url 'account_change_password' %}">
-            <button class="btn bg-gradient-primary" type="submit">Senha</button>
-          </a>     
+        <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
+            <a href="{% url 'account_change_password' %}" >
+              <button class="btn bg-gradient-olive" type="submit" >Senha</button>
+            </a>   
         </div>
-        <div class="d-flex">
+        <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
             <a href="{% url 'user:user_update' user.pk %}">
-              <button class="btn bg-gradient-warning" type="submit">Usuário/Email</button>
-            </a>     
-          </div>                    
+              <button class="btn bg-gradient-olive" type="submit" >Usuário/Email</button>
+            </a>   
+        </div>                          
       </div>
     </div>
 </nav>
@@ -44,7 +49,9 @@
                 <h2 class="form-title">Editar Cadastro do Usuário</h2>
                 <form method="POST">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ form.non_field_errors }}
+                    {{ form.media }}
+                    {{ form.as_p }}
                     <div class="col-md-12 mb-2">
                         <div class="form-group form-button">
                             <input type="submit" class="form-submit" value="Salvar" />

@@ -55,11 +55,6 @@ class TransportPrices(models.Model):
     def __str__(self):
         return self.transport
 
-    transport = models.ForeignKey(Transport, on_delete=models.DO_NOTHING, verbose_name='Transporte')
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
-    cadpax = models.ForeignKey(TransportCategoryPax, on_delete=models.DO_NOTHING, verbose_name='Cadastro PAX')
-    price = models.CharField('Preço', max_length=9)
-
     class Meta:
         ordering = ('transport',)
         verbose_name ='Preço do Transporte'

@@ -1,9 +1,9 @@
 from django import forms
 
-from .models import Transport, Transport_Type, TransportCategoryPax, TransportPrices
+from .models import Transport, Transport_Type, TransportCategoryPax, TransportPrices ,Destiny
 
 
-class TransportTypeForm(forms.ModelForm):
+class TransportTypeForm(forms.ModelForm):    
 
     class Meta:
         model = Transport_Type
@@ -17,7 +17,7 @@ class TransportCategoryPaxForm(forms.ModelForm):
         fields = '__all__'
 
 
-class TransportForm(forms.ModelForm):
+class TransportForm(forms.ModelForm):    
 
     class Meta:
         model = Transport

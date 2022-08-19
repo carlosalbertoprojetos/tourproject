@@ -23,6 +23,5 @@ class TripOptionAdmin(admin.ModelAdmin):
 
 @admin.register(ActivityPrice)
 class TripPriceAdmin(admin.ModelAdmin):
-    list_display = ['activity', 'catpax', 'season', 'price']
     ...
 

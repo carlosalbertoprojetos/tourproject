@@ -3,14 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import modelformset_factory
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from season.models import Season
 
 from .forms import (ActivityForm, ActivityPriceForm, CategoryPaxForm,
-                    TripCategoryForm, TripForm)
+                    TripCategoryForm, TripForm,CHD_ActivityForm)
 from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
                      Trip, TripCategory)
 
@@ -175,17 +175,18 @@ class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ActivityListCreateView, self).get_context_data(**kwargs)
-        context['form'] = ActivityForm(self.request.POST or None, self.request.FILES)
-        context['trip'] = Trip.objects.filter(id=self.kwargs['trip_id']).first()
+        context['form'] = ActivityForm(self.request.POST or None)
+        a=[]
+        for i in self.object_list:
+            a = i
+        context['trip'] = a
         return context
 
     def post(self, request, *args, **kwargs):
         trip_id = self.kwargs['trip_id']
-        form = ActivityForm(self.request.POST or None, self.request.FILES)
+        form = ActivityForm(request.POST or None, request.FILES)
         if form.is_valid():
-            form = form.save(commit=False)
-            form.trip_id = trip_id
-            form.save()
+            form = form.save()
             messages.success(request, 'Atividade criada com sucesso!!!')
             return redirect('trip:activity_list_create', trip_id)
         else:

@@ -4,7 +4,7 @@ from destiny.models import Destiny
 
 class Validity(models.Model):
 
-    year = models.CharField('Ano', max_length=4, unique=True)
+    year = models.CharField('Ano', max_length=4)
     active = models.BooleanField('Ativo Agência', default=False)
     sell = models.BooleanField('Ativo Venda', default=False)
 
@@ -38,23 +38,22 @@ class Season(models.Model):
     active_sell = models.BooleanField('Ativo Venda', default=False)
 
     class Meta:
-        # unique_together = [['name','self.destiny.city','validity']]
         verbose_name = 'Temporada'
         verbose_name_plural = 'Temporadas'
 
     def __str__(self):
-        return  self.name + ' - ' + str(self.destiny) + ' - ' + str(self.validity)
-
+        #return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
+        return  self.name
 
  
 class Event(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
     name_event = models.CharField('Evento:', max_length=255)
     date_init = models.DateField('Data Inicial:')
     date_fin = models.DateField('Data Final:')
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING, verbose_name='Temporada')
 
     class Meta:
-        # unique_together = [['name_event','date_init','date_fin']]
+        unique_together = [['name_event','date_init','date_fin']]
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
 

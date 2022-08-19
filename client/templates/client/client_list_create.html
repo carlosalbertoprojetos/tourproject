@@ -19,7 +19,7 @@
         </ul>       
       </div>
     </div>
-  </nav>
+</nav>
 
 <div class="container-fluid mt-2">
     <div class="container-form">
@@ -32,7 +32,7 @@
                     <div id="bottom_list" class="col-sm-12 col-md-6">
                         <div class="row my-3">
                             <form method="POST">
-                                <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id='+'>
+                                <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
                                 <div class="modal fade"
                                         id="exampleModal"
@@ -50,8 +50,10 @@
                                             </div>
                                             <div class="modal-body">
                                                 {% csrf_token %}
+                                                {{ form.non_field_errors }}                                                                 
                                                 {{ form|crispy }}
                                                 {{ form.media }}
+                                                                                                
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
@@ -109,5 +111,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function myFunction() {
+      window.open("http://127.0.0.1:8000/client/list/","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=600, height=400");
+    }
+</script>
 
 {% endblock %}
