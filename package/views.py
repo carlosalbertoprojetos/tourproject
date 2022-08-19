@@ -1,3 +1,4 @@
+import json
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -219,9 +220,12 @@ def package_trips(request, city_destiny):
 
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
     activities_prices = ActivityPrice.objects.filter(season__id=events.season.id, activity__trip__destiny__city=city_destiny)
+    len_prices = len(activities_prices)
 
     template = 'package/includes/package_trips.html'
     context = {
+        'len_prices': json.dumps(len_prices),
+
         'trips': trips,
         'activities': activities,
         'activities_prices': activities_prices,
@@ -277,10 +281,10 @@ def package_trips(request, city_destiny):
 
 @csrf_exempt
 def package_accommodation(request, city_destiny):
-    st = request.POST.get('start_date')
-    start_date = parse_date(st)
-    ed = request.POST.get('end_date')
-    end_date = parse_date(ed)
+    # st = request.POST.get('start_date')
+    # start_date = parse_date(st)
+    # ed = request.POST.get('end_date')
+    # end_date = parse_date(ed)
     city_destiny = request.POST.get('city_destiny')
     trips = Trip.objects.filter(destiny__city=city_destiny)
     # import pdb;pdb.set_trace()
@@ -294,10 +298,10 @@ def package_accommodation(request, city_destiny):
 
 @csrf_exempt
 def package_transport(request, city_destiny):
-    st = request.POST.get('start_date')
-    start_date = parse_date(st)
-    ed = request.POST.get('end_date')
-    end_date = parse_date(ed)
+    # st = request.POST.get('start_date')
+    # start_date = parse_date(st)
+    # ed = request.POST.get('end_date')
+    # end_date = parse_date(ed)
     city_destiny = request.POST.get('city_destiny')
     trips = Trip.objects.filter(destiny__city=city_destiny)
 
