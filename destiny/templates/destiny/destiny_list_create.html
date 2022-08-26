@@ -5,25 +5,20 @@
 {% endblock title %}
 {% block dashboard %}
 
-
-
-<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
-
-<!-- You can alternatively load the minified version -->
-<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
-
+{% comment %} <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script> {% endcomment %}
 <!--Menu-->
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">            
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="navbar-brand active " aria-current="page" href="#">Lista de Destinos Turísticos</a>
-          </li>                                    
-        </ul>       
+          </li>
+        </ul>
       </div>
     </div>
 </nav>
@@ -34,7 +29,7 @@
             <div class="card-header p-1">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <h2 class="form-title m-2"></h2>                        
+                        <h2 class="form-title m-2"></h2>
                     </div>
                     <div id="bottom_list"
                             class="col-sm-12 col-md-6">
@@ -104,7 +99,7 @@
                                     {% endif %}
                                 </td>
                                 <td align="center">
-                                    <a href="{% url 'package:data_package_list' d.pk %}" class="btn">
+                                    <a href="{% url 'package:package' d.city %}" class="btn">
                                         <i class="fas fa-icons"></i>
                                     </a>
                                 </td>
@@ -129,14 +124,14 @@
 </div>
 
 
-  <script type="text/javascript">
+  {% comment %} <script type="text/javascript">
     $(document).ready(function() {
-    
+
         $("#create-book").modalForm({
             formURL: "{% url 'destiny:destiny_list_create' %}"
         });
-    
+
     });
-    </script>
+    </script> {% endcomment %}
 
 {% endblock %}

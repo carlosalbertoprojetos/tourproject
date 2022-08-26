@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load i18n account static %}
 {% block base %}
+    
 
     <script src="{% url 'js-catlog' %}"></script>
     <script src="{% static '/admin/js/core.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
@@ -243,8 +245,6 @@
             </div>
         </div>
     </footer>
-    {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="{% static 'js/jquery.mask.min.js'  %}"></script>
-    <script src="{% static 'js/mascara.js' %}"></script> {% endcomment %}
+
 
 {% endblock %}

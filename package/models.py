@@ -8,19 +8,22 @@ from trip.models import ActivityPrice
 # Create your models here.
 class Data_Package_One(models.Model):
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
-    date_arrive = models.DateField('Data da Chegada', default=date.today)
-    date_departure = models.DateField('Data da Partida', default='31/12/2023')
+    date_arrive = models.DateField('Data da Chegada', default='01/01/2023')
+    date_departure = models.DateField('Data da Partida', default='01/12/2023')
     num_adults = models.IntegerField('Quantidade adultos', default=2)
     num_child =  models.IntegerField('Quantidade crianças', default=0)
     name = models.CharField('Seu nome', max_length=200)
     email = models.EmailField('E-mail para contato', max_length=255)
-    phonenumber = models.CharField('Telefone para contato', max_length=13)
+    phonenumber = models.CharField('Telefone para contato', max_length=15)
     city = models.CharField('Cidade', max_length=100, null=True)
     description = models.TextField('Descrição', blank=True) 
 
     class Meta:
         verbose_name = "Pacote"
         verbose_name_plural = "Pacotes"
+    
+    # def __str__(self):
+    #     return self.name
 
 
 class Child_Package_One(models.Model):
@@ -30,10 +33,18 @@ class Child_Package_One(models.Model):
     class Meta:
         verbose_name = "Idade da criança"
         verbose_name_plural = "Idade das crianças"
+    
+    # def __str__(self):
+    #     return self.children_age
 
 
 class PackageTrips(models.Model):
     package = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
     id_price = models.ForeignKey(ActivityPrice, on_delete=models.CASCADE)
-    catpax = models.CharField('CatPax', max_length=255)
-    price = models.CharField('Preço', max_length=255)
+    
+    # def __str__(self):
+    #     return str(self.id_price.id)
+    
+    class Meta:
+        verbose_name = "Atividade do pacote"
+        verbose_name_plural = "Atividades do Pacote"

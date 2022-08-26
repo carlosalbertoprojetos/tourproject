@@ -1,7 +1,10 @@
 from django.urls import path
 
-from .views import (data_package_list, data_package_create, data_package_delete,
-                    data_base, data_package_create1, children_ages_update,
+from .views import (#data_package_list, data_package_create, 
+                    data_package_delete,
+                    data_base, 
+                    #data_package_create1, 
+                    children_ages_update,
                     package,
                     package_trips,
                     package_accommodation,
@@ -21,9 +24,9 @@ urlpatterns = [
     # Passeio
     path('<city_destiny>/trips/list/', package_trips, name='package_trips'),
 
-    path('createbase/<city_destiny>/', data_package_create1, name='data_package_createOne'),
-    path('create/<id_destiny>/', data_package_create, name='data_package_create'),
-    path('list/<id_destiny>/', data_package_list, name='data_package_list'),
+    # path('createbase/<city_destiny>/', data_package_create1, name='data_package_createOne'),
+    # path('create/<id_destiny>/', data_package_create, name='data_package_create'),
+    # path('list/<id_destiny>/', data_package_list, name='data_package_list'),
 
     path('<int:pk>/delete/', data_package_delete, name='data_package_delete'),
 

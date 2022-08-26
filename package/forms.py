@@ -16,12 +16,14 @@ class Data_Package_OneForm(forms.ModelForm):
                 attrs={'class': 'vDateField form-control mt-2', 
                         'title':"Selecione uma data",
                         'required': 'true',
+                        # 'type': 'date'
                 }
             ),
             'date_departure':AdminDateWidget(
                 attrs={'class': 'vDateField form-control mt-2', 
                         'title':"Selecione uma data", 
                         'required': 'true',
+                        # 'type': 'date'
                 }
             ),           
             'num_adults':forms.NumberInput(
@@ -38,8 +40,46 @@ class Data_Package_OneForm(forms.ModelForm):
                     'required': 'true'
                     },
                 ),
+            'name':forms.TextInput(
+                attrs={
+                    'class':'form-control mt-2',
+                    'type':'text',
+                    'required': 'true'
+                    },
+                ),
+            'email':forms.EmailInput(
+                attrs={
+                    'class':'form-control mt-2',
+                    'type':'email',
+                    'required': 'true'
+                    },
+                ),
+            'phonenumber':forms.TextInput(
+                attrs={
+                    'class':'mask-telefone form-control mt-2',
+                    'type':'text',
+                    'required': 'true',
+                    'max':"15"
+                    },
+                ),
+            'city':forms.TextInput(
+                attrs={
+                    'class':'form-control mt-2',
+                    'type':'text',
+                    'required': 'true'
+                    },
+                ),
+            'description':forms.Textarea(
+                attrs={
+                    'class':'form-control mt-2',
+                    'type':'text',
+                    'required': 'true'
+                    },
+                ),
+                    
         }
-
+        
+        
 class Child_Package_OneForm(forms.ModelForm):
 
     class Meta:
@@ -103,7 +143,7 @@ class Child_Package_OneForm(forms.ModelForm):
 #             }
 
 
-class Package_Trips_Forms(forms.ModelForm):
+class Package_Trips_Form(forms.ModelForm):
 
     class Meta:
         model = PackageTrips
@@ -121,15 +161,17 @@ class Package_Trips_Forms(forms.ModelForm):
         #         ),
         #     }
 
-
-Formset_Factory = inlineformset_factory(
+ChildAge_Factory = inlineformset_factory(
     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
-
-Child_Age_formset = modelformset_factory(
-    Child_Package_One, form=Child_Package_OneForm, extra=0)
 
 PackageTrip_Factory = inlineformset_factory(
-    Data_Package_One, PackageTrips, form=Package_Trips_Forms, extra=0, can_delete=False)
+    Data_Package_One, PackageTrips, form=Package_Trips_Form, extra=1, can_delete=False)
 
-Child_Formset_Factory = inlineformset_factory(
-    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+# Child_Age_formset = modelformset_factory(
+#     Child_Package_One, form=Child_Package_OneForm, extra=0)
+
+# Child_Age_formset = inlineformset_factory(
+#     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0)
+
+# Child_Formset_Factory = inlineformset_factory(
+#     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
