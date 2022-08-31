@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
     
 
-<script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
-<script src="{% static 'tinymce_js/langs/pt_BR.js' %}"></script>
+{% comment %} <script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
+<script src="{% static 'tinymce_js/langs/pt_BR.js' %}"></script> {% endcomment %}
 
 
 
@@ -37,7 +37,7 @@
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
           <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
             <a href="{% url 'trip:trip_list_create' %}">
-                <button class="btn bg-gradient-olive" type="submit">Passeios</button>
+                <button id='Passeios' class="btn bg-gradient-olive" type="submit">Passeios</button>
             </a>         
           </div>
 
@@ -161,6 +161,7 @@
         
     }
     );
+
 </script>
     
 {% endblock %}

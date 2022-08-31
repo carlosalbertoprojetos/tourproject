@@ -165,10 +165,6 @@ def package(request, city_destiny):
     destiny = Destiny.objects.filter(city=city_destiny).first()
     template = 'package/package_base.html'
 
-
-    # trip_prices = request.POST.get('a')
-    # print(trip_prices)
-
     if request.method == 'GET':
         form = Data_Package_OneForm()
         formset_ChildAge = ChildAge_Factory()

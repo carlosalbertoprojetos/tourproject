@@ -285,7 +285,7 @@ def activity_price_update(request, trip_id):
 
         # formulário para alteração de valores/ alteração dos npreços
         if request.method == 'POST':
-            formset = activity_price_formset(request.POST, queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
+            formset = activity_price_formset(request.POST, request.FILES, queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
 
             if formset.is_valid():
                 instances = formset.save(commit=False)
