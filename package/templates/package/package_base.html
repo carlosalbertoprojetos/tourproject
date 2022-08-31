@@ -72,7 +72,7 @@
                 </div>
             </nav>
             <div class="card m-0 px-4">
-                <form action='' method='POST' id='package'>
+                <form action='' method='POST' id='id_package'>
                     {% for hidden_field in form.hidden_fields %}
                     {{ hidden_field.errors }}
                     {{ hidden_field }}
@@ -226,10 +226,10 @@
                             </div>
                             <div class='row'>
                                 {{ formset_trips.management_form }}
-                                <div id='trip_package_list' class='form-inline mt-1 my-1 justify-content-center'> 
+                                <div class='form-inline mt-1 my-1 justify-content-center' id='trip_package_list'>
                                     {% for field in formset_trips %}
-                                    <div class='price_package_form'>
-                                        {{ field|crispy }}
+                                    <div class='price_package_form hidden'>
+                                        {{ field }}
                                     </div>
                                     {% endfor %}
                                 </div>

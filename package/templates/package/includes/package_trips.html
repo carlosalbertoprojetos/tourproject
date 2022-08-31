@@ -38,7 +38,7 @@
     </div>
     {% endfor %}
 
-{% comment %}     <div class='row'>
+    {% comment %} <div class='row'>
         {{ formset_trips.management_form }}
         <div id='trip_package_list' class='form-inline mt-1 my-1 justify-content-center'> 
             {% for field in formset_trips %}
@@ -70,30 +70,99 @@
 {% endcomment %}
 {% block js %}
     <script type="text/javascript">
-
-        //retorna a quantiade de valores referentes às atividades disponíveis
         var prices = JSON.parse('{{ len_prices|escapejs }}');
+
+        const start_date = $('#id_date_arrive').val();
+        const end_date = $('#id_date_departure').val();
+        const url = "{% url 'package:package_accommodation' city_destiny="+b_url.innerText+" %}";
+        const city_destiny = b_url.innerText;
 
         $("#advance2").click(function (event) {
             event.preventDefault();
 
-            const start_date = $('#id_date_arrive').val();
-            const end_date = $('#id_date_departure').val();
-            const url = "{% url 'package:package_accommodation' city_destiny="+b_url.innerText+" %}";
-            const city_destiny = b_url.innerText;
+            var lista = []
+            var checkeds = document.querySelectorAll('input[type=checkbox]:checked');
+            for (var i = 0; i < checkeds.length; i++) {
+                lista.push(checkeds[i].id);
+            }
+            console.log('lista',lista);
 
-            var prices = []
-            var ds = document.getElementsByClassName('trip_group');
-            for (var i = 0; i < ds.length; i++) {
-                var inputs = ds[i].getElementsByTagName('input');
-                for (var j = 0; j < inputs.length; j++) {
-                    if (`${inputs[j].checked}` == 'true')
-                        prices.push(`${inputs[j].id}`);
-                }
-            };
-            //packagetrips_set-0-id_price
-            a = JSON.stringify(prices);
-            console.log(a);
+            //const totalNewforms = document.getElementById('packagetrips_set-TOTAL_FORMS')
+
+            //list = [1,2]
+            for (var i = 0; i < lista.length; i++) {
+                id = (`${lista[i]}`)
+
+               const formCopyTarget = document.getElementById('trip_package_list');
+               const emptyForm = document.getElementById('empty-price-form').cloneNode(true);
+               emptyForm.setAttribute('class', 'formset_trips');
+               emptyForm.setAttribute('id', `id_packagetrips_set-${lista[i]}`);
+               formCopyTarget.append(emptyForm);
+
+
+               //NÃO APAGAR
+               //$('#id_packagetrips_set-__prefix__-option').val('22')
+               //document.getElementById('id_packagetrips_set-__prefix__-option').value = id;
+
+
+               //deu
+               //var z = document.getElementById('id_packagetrips_set-__prefix__-option')
+               //z.setAttribute('id', `id_packagetrips_set-${id}-option`)
+               //z.setAttribute('name', `packagetrips_set-${id}-option`)
+               //document.getElementById(`id_packagetrips_set-${id}-option`).value = id;
+               //console.log(z)
+
+               //foreignkey
+               var z = document.getElementById('id_packagetrips_set-__prefix__-id_price')
+               z.setAttribute('id', `id_packagetrips_set-${lista[i]}-id_price`)
+               z.setAttribute('name', `packagetrips_set-${lista[i]}-id_price`)
+               document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).value=id
+
+
+
+               //getElementsByName('packagetrips_set-__prefix__-option').value = id;
+
+               //b.setAttribute('id', `id_packagetrips_set-${lista[i]}-option`)
+               //b.getElementById('id_packagetrips_set-__prefix__-option');
+
+               //document.setAttribute('id', `id_packagetrips_set-${lista[i]}-id_price`);
+               //document.getElementById(`id_packagetrips_set-0-id_price`).getElementsByTagName('option').innerHTML=id
+
+               //document.getElementById(`id_packagetrips_set-0-id_price`).getElementsByTagName('option').innerHTML=id
+               //var a = document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).getElementsByTagName('input').innerHTML=(`${lista[i]}`)
+
+               //var f = document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).getElementsByTagName('option');
+               //f.item(`${lista[i]}`).selected = 'selected';
+
+               //const select = document.getElementById(`id_packagetrips_set-0-id_price`).getElementsByTagName('option').innerHTML=id;
+
+               //select.setAttribute('id', `id_packagetrips_set-${id}-id_price`);
+               //const regex = new RegExp('__prefix__', 'g')
+
+               //document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).getElementsByTagName('option').value=id.selected = 'selected';
+               //a = document.getElementsByTagName('select').selectedIndex=[i]
+               //console.log(a)
+
+               //document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).getElementsByTagName('option').value=id;
+
+               //z = document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).getElementsByTagName('option').value='22';
+               //console.log(z)
+
+               //var x = document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).options[0].selected = 'selected';
+               //packagetrips_set-__prefix__-id_price
+               //var x = document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).options[1]
+               //console.log(x)
+               //var id_price = document.getElementById(`id_packagetrips_set-${lista[i]}-id_price`).value=id
+               
+               
+               
+               //console.log(emptyForm)
+            }
+
+            //emptyForm.setAttribute('id',`packagetrips_set-${list[i]}-id_price`);
+
+            //a = JSON.stringify(list);
+            //console.log(a);
 
             $.ajax({
                 type: 'POST',
@@ -108,6 +177,9 @@
                     $('#id_accommodation').html(data);
                     document.getElementById('accommodation-tab').removeAttribute("disabled");
                     document.getElementById('accommodation-tab').click();  
+                },
+                failure: function(data) { 
+                    alert("Ocorreu um erro, realize a operação novamente");
                 }
             });
         });

@@ -160,7 +160,8 @@ class ActivityPrice(models.Model):
         verbose_name_plural = "Preços das atividades"
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
 
 # deleta catpax quando desmarcado(desflegado) da activity por manytomany
 @receiver(post_delete, sender=ActivityCatPax)

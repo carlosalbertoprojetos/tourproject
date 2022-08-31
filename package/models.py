@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import date
 
 from destiny.models import Destiny
 from trip.models import ActivityPrice 
@@ -29,7 +28,7 @@ class Data_Package_One(models.Model):
 class Child_Package_One(models.Model):
     data_package_one = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
     children_age = models.CharField('', max_length=2, blank=True, null=True)
-    
+
     class Meta:
         verbose_name = "Idade da criança"
         verbose_name_plural = "Idade das crianças"
@@ -41,10 +40,10 @@ class Child_Package_One(models.Model):
 class PackageTrips(models.Model):
     package = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
     id_price = models.ForeignKey(ActivityPrice, on_delete=models.CASCADE)
-    
-    # def __str__(self):
-    #     return str(self.id_price.id)
-    
+
     class Meta:
         verbose_name = "Atividade do pacote"
         verbose_name_plural = "Atividades do Pacote"
+    
+    # def __str__(self):
+    #     return str(self.id_price.id)

@@ -12,11 +12,12 @@ from django.utils.dateparse import parse_date
 from django.forms import formset_factory
 
 from .models import Data_Package_One, Child_Package_One
-from .forms import Data_Package_OneForm, Package_Trips_Form, Child_Package_OneForm
+from .forms import Data_Package_OneForm, Package_Trips_Form, Child_Package_OneForm, ChildAge_Factory ,PackageTrip_Factory
 
 from trip.models import Activity, ActivityPrice, Trip
 from destiny.models import Destiny
 from season.models import Event
+
 
 
 #===============================================================================
@@ -132,7 +133,7 @@ def children_ages_update(request, id_package):
         destiny = p.destiny
     
     if request.method == 'POST':
-        formset = ChildAge_Factury(request.POST, queryset=Child_Package_One.objects.filter(data_package_one=id_package))
+        formset = ChildAge_Factory(request.POST, queryset=Child_Package_One.objects.filter(data_package_one=id_package))
 
         if formset.is_valid():
             instances = formset.save(commit=False)
@@ -141,7 +142,7 @@ def children_ages_update(request, id_package):
             messages.success(request, 'Idade(s) alterada(s) com sucesso!!!')
             return redirect('package:data_package_list', id_destiny=destiny_id)
 
-    formset = ChildAge_Factury(queryset=Child_Package_One.objects.filter(data_package_one=id_package))
+    formset = ChildAge_Factory(queryset=Child_Package_One.objects.filter(data_package_one=id_package))
 
     context = {
         'destiny': destiny,
@@ -164,49 +165,43 @@ def package(request, city_destiny):
     destiny = Destiny.objects.filter(city=city_destiny).first()
     template = 'package/package_base.html'
 
-   
-    ChildAge_Factory = formset_factory(Child_Package_OneForm, extra=0, can_delete=False)
-    PackageTrip_Factory = formset_factory(Package_Trips_Form, extra=1, can_delete=False)
-    
-    
+
     # trip_prices = request.POST.get('a')
     # print(trip_prices)
 
     if request.method == 'GET':
         form = Data_Package_OneForm()
         formset_ChildAge = ChildAge_Factory()
-        # formset_Trips = PackageTrip_Factory()
-       
+        formset_Trips = PackageTrip_Factory()       
         context = {
             'city': city,
             'form': form,
             'childformset': formset_ChildAge,
-            # 'formset_trips': formset_Trips
+            'formset_trips': formset_Trips
         }
         return render(request, template, context)
 
-
     elif request.method == 'POST':
+        # print(request.POST)
         form = Data_Package_OneForm(request.POST)
-        formset_ChildAge = ChildAge_Factory(request.POST or None, instance=form)
-        # formset_Trips = PackageTrip_Factory(request.POST or None, instance=form)
+        formset_ChildAge = ChildAge_Factory(request.POST or None)
+        formset_Trips = PackageTrip_Factory(request.POST or None)
 
-        # if form.is_valid() and formset_ChildAge.is_valid() and formset_Trips.is_valid():
-        if form.is_valid() and formset_ChildAge.is_valid():
+        if form.is_valid() and formset_ChildAge.is_valid() and formset_Trips.is_valid():
             package = form.save(commit=False)
             package.destiny = destiny
             package.save()
-            # formset_ChildAge.instance = package
+            formset_ChildAge.instance = package
             formset_ChildAge.save()
-            # formset_Trips.instance = package
-            # formset_Trips.save()
+            formset_Trips.instance = package
+            formset_Trips.save()
             return redirect('destiny:destiny_list_create')
         else:
             context = {
                 'city': city,
                 'form': form,
                 'childformset': formset_ChildAge,
-                # 'formset_trips': formset_Trips
+                'formset_trips': formset_Trips
             }
             return render(request, template, context)
 
@@ -230,10 +225,6 @@ def package_trips(request, city_destiny):
     activities = Activity.objects.filter(trip__destiny__city=city_destiny)
     activities_prices = ActivityPrice.objects.filter(season__id=events.season.id, activity__trip__destiny__city=city_destiny)
     len_prices = len(activities_prices)
-
-    if request.method == 'POST':
-        trip_prices = request.POST.get('a')
-        print(trip_prices)
 
     template = 'package/includes/package_trips.html'
     context = {
