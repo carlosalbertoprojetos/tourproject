@@ -149,7 +149,7 @@ class Package_Trips_Form(forms.ModelForm):
         model = PackageTrips
         # fields = ('id_price, catpax, price',)
         fields = '__all__'
-        # labels = {"Data_package_one":''}
+        labels = {"id_price":''}
         # widgets = {
         #     'children_age':forms.NumberInput(
         #         attrs={
@@ -165,7 +165,7 @@ ChildAge_Factory = inlineformset_factory(
     Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
 PackageTrip_Factory = inlineformset_factory(
-    Data_Package_One, PackageTrips, form=Package_Trips_Form, extra=1, can_delete=False)
+    Data_Package_One, PackageTrips, form=Package_Trips_Form, extra=0, can_delete=False)
 
 # Child_Age_formset = modelformset_factory(
 #     Child_Package_One, form=Child_Package_OneForm, extra=0)

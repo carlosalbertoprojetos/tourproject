@@ -38,20 +38,6 @@
     </div>
     {% endfor %}
 
-    {% comment %} <div class='row'>
-        {{ formset_trips.management_form }}
-        <div id='trip_package_list' class='form-inline mt-1 my-1 justify-content-center'> 
-            {% for field in formset_trips %}
-            <div class='price_package_form'>
-                {{ field.errors }}
-                {{ field.label_tag }}
-                {{ field|crispy }}
-            </div>
-            {% endfor %}
-        </div>
-        <div id='empty-price-form' class='hidden'>{{ formset_trips.empty_form }}</div>
-    </div> {% endcomment %}
-    
     <div class='row'>
         <div class='col-12 my-2'>
             <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
@@ -61,13 +47,6 @@
 
 {% endblock %}
 
-{% comment %}
-
-1° coletar todos os ids dos preços das atividades disponíveis
-2° criar campo com flag para cada id usando formset
-3° salvar arquivo
-
-{% endcomment %}
 {% block js %}
     <script type="text/javascript">
         var prices = JSON.parse('{{ len_prices|escapejs }}');
@@ -82,20 +61,69 @@
 
             var lista = []
             var checkeds = document.querySelectorAll('input[type=checkbox]:checked');
+            console.log('checked ', checkeds)
             for (var i = 0; i < checkeds.length; i++) {
                 lista.push(checkeds[i].id);
             }
             console.log('lista',lista);
 
-            //const totalNewforms = document.getElementById('packagetrips_set-TOTAL_FORMS')
-
-            //list = [1,2]
 
 
-            //emptyForm.setAttribute('id',`packagetrips_set-${list[i]}-id_price`);
+            const totalNewForms = document.getElementById('id_packagetrips_set-TOTAL_FORMS');
+            totalNewForms.setAttribute('value', checkeds.length);
 
-            //a = JSON.stringify(list);
-            //console.log(a);
+
+            for (var i = 0; i < lista.length; i++) {
+                id = (`${lista[i]}`);
+
+               const formCopyTarget = document.getElementById('trip_package_list');
+               const emptyForm = document.getElementById('empty-price-form').cloneNode(true);
+               emptyForm.setAttribute('class', 'formset_trips');
+               emptyForm.setAttribute('id', `id_packagetrips_set-${lista[i]}`);
+               formCopyTarget.append(emptyForm);
+
+
+               //NÃO APAGAR
+               //$('#id_packagetrips_set-__prefix__-option').val('22')
+               //document.getElementById('id_packagetrips_set-__prefix__-option').value = id;
+
+
+               //deu
+               //var z = document.getElementById('id_packagetrips_set-__prefix__-option')
+               //z.setAttribute('id', `id_packagetrips_set-${id}-option`)
+               //z.setAttribute('name', `packagetrips_set-${id}-option`)
+               //document.getElementById(`id_packagetrips_set-${id}-option`).value = id;
+               //console.log(z)
+
+
+               //foreignkey
+               var trip_packages = document.getElementById('id_packagetrips_set-__prefix__-id_price')
+               trip_packages.setAttribute('id', `id_packagetrips_set-${id}-id_price`)
+               trip_packages.setAttribute('name', `packagetrips_set-${id}-id_price`)
+               document.getElementById(`id_packagetrips_set-${id}-id_price`).value=id
+               
+               
+               //const regex = new RegExp('__prefix__', 'g')
+               //trip_packages.innerHTML = trip_packages.innerHTML.replace(regex, id)
+               //var input1 = document.getElementById(`packagetrips_set-${id}-package`)
+               //input1.setAttribute('id', `id_packagetrips_set-${id}-package`)
+               //input1.setAttribute('name', `packagetrips_set-${id}-package`)
+               //var input2 = document.getElementById(`packagepackagetrips_set-${id}-id`)
+               //input2.setAttribute('id', `id_packagetrips_set-${id}-id`)
+               //input2.setAttribute('name', `packagetrips_set-${id}-id`)
+
+
+
+               //const q = document.querySelectorAll('select')
+               //console.log(q)
+
+
+
+
+
+
+
+            }
 
             $.ajax({
                 type: 'POST',
