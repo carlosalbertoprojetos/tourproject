@@ -47,6 +47,7 @@
 
 {% endblock %}
 
+
 {% block js %}
     <script type="text/javascript">
         var prices = JSON.parse('{{ len_prices|escapejs }}');
@@ -59,70 +60,27 @@
         $("#advance2").click(function (event) {
             event.preventDefault();
 
-            var lista = []
             var checkeds = document.querySelectorAll('input[type=checkbox]:checked');
-            console.log('checked ', checkeds)
+
+            const totalNewTripsPackForms = document.getElementById('id_packagetrips_set-TOTAL_FORMS');
+
             for (var i = 0; i < checkeds.length; i++) {
-                lista.push(checkeds[i].id);
-            }
-            console.log('lista',lista);
+                id = (`${checkeds[i].id}`);
 
+                const currentTripsForms = document.getElementsByClassName('price_package_form')
+                const currentTripsFormCount = currentTripsForms.length
 
+                const tripsFormCopyTarget = document.getElementById('trip_package_list')
+                const copyEmptyTripsForm = document.getElementById('empty-price-form').cloneNode(true)
+                copyEmptyTripsForm.setAttribute('class', 'price_package_form')
+                copyEmptyTripsForm.setAttribute('id', `packagetrips_set-${currentTripsFormCount}`)
+                const regex = new RegExp('__prefix__', 'g')
+                copyEmptyTripsForm.innerHTML = copyEmptyTripsForm.innerHTML.replace(regex, currentTripsFormCount)
+                totalNewTripsPackForms.setAttribute('value', currentTripsFormCount + 1)
 
-            const totalNewForms = document.getElementById('id_packagetrips_set-TOTAL_FORMS');
-            totalNewForms.setAttribute('value', checkeds.length);
+                tripsFormCopyTarget.append(copyEmptyTripsForm)
 
-
-            for (var i = 0; i < lista.length; i++) {
-                id = (`${lista[i]}`);
-
-               const formCopyTarget = document.getElementById('trip_package_list');
-               const emptyForm = document.getElementById('empty-price-form').cloneNode(true);
-               emptyForm.setAttribute('class', 'formset_trips');
-               emptyForm.setAttribute('id', `id_packagetrips_set-${lista[i]}`);
-               formCopyTarget.append(emptyForm);
-
-
-               //NÃO APAGAR
-               //$('#id_packagetrips_set-__prefix__-option').val('22')
-               //document.getElementById('id_packagetrips_set-__prefix__-option').value = id;
-
-
-               //deu
-               //var z = document.getElementById('id_packagetrips_set-__prefix__-option')
-               //z.setAttribute('id', `id_packagetrips_set-${id}-option`)
-               //z.setAttribute('name', `packagetrips_set-${id}-option`)
-               //document.getElementById(`id_packagetrips_set-${id}-option`).value = id;
-               //console.log(z)
-
-
-               //foreignkey
-               var trip_packages = document.getElementById('id_packagetrips_set-__prefix__-id_price')
-               trip_packages.setAttribute('id', `id_packagetrips_set-${id}-id_price`)
-               trip_packages.setAttribute('name', `packagetrips_set-${id}-id_price`)
-               document.getElementById(`id_packagetrips_set-${id}-id_price`).value=id
-               
-               
-               //const regex = new RegExp('__prefix__', 'g')
-               //trip_packages.innerHTML = trip_packages.innerHTML.replace(regex, id)
-               //var input1 = document.getElementById(`packagetrips_set-${id}-package`)
-               //input1.setAttribute('id', `id_packagetrips_set-${id}-package`)
-               //input1.setAttribute('name', `packagetrips_set-${id}-package`)
-               //var input2 = document.getElementById(`packagepackagetrips_set-${id}-id`)
-               //input2.setAttribute('id', `id_packagetrips_set-${id}-id`)
-               //input2.setAttribute('name', `packagetrips_set-${id}-id`)
-
-
-
-               //const q = document.querySelectorAll('select')
-               //console.log(q)
-
-
-
-
-
-
-
+                document.getElementById(`id_packagetrips_set-${currentTripsFormCount}-id_price`).value = id;
             }
 
             $.ajax({

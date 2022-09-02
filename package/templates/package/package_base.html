@@ -228,7 +228,7 @@
                                 {{ formset_trips.management_form }}
                                 <div class='form-inline mt-1 my-1 justify-content-center' id='trip_package_list'>
                                     {% for field in formset_trips %}
-                                    <div class='price_package_form hidden'>
+                                    <div class='price_package_form'>
                                         {{ field }}
                                     </div>
                                     {% endfor %}
@@ -313,9 +313,6 @@
             var v = document.getElementById(str).value;
             return v == null || v == "";
         }
-
-        {% comment %} const advanceBtn = document.getElementById('advance')
-        advanceBtn.addEventListener('click', change_class) {% endcomment %}
 
         const transport_advanceBtn = document.getElementById('advance_transport')
         transport_advanceBtn.addEventListener('click', transport_change_class)
