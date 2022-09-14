@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Data_Package_One, Child_Package_One, PackageTrips
+from .models import Package, Child_Package_One, PackageTrips
 
 
 
@@ -18,8 +18,8 @@ class Child_Package_OneAdmin(admin.StackedInline):
     ...
 
 
-@admin.register(Data_Package_One)
-class Data_package_OneAdmin(admin.ModelAdmin):
+@admin.register(Package)
+class PackageAdmin(admin.ModelAdmin):
     list_display = ['destiny', 'date_arrive', 'date_departure']
     readonly_fields= ('destiny',)
     inlines = [

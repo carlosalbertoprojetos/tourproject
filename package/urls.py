@@ -1,14 +1,12 @@
 from django.urls import path
 
-from .views import (#data_package_list, data_package_create, 
-                    data_package_delete,
-                    data_base, 
-                    #data_package_create1, 
+from .views import (data_base, 
                     children_ages_update,
                     package,
                     package_trips,
                     package_accommodation,
-                    package_transport
+                    package_transport,
+                    package_concluded
                     )
 
 app_name = 'package'
@@ -24,12 +22,6 @@ urlpatterns = [
     # Passeio
     path('<city_destiny>/trips/list/', package_trips, name='package_trips'),
 
-    # path('createbase/<city_destiny>/', data_package_create1, name='data_package_createOne'),
-    # path('create/<id_destiny>/', data_package_create, name='data_package_create'),
-    # path('list/<id_destiny>/', data_package_list, name='data_package_list'),
-
-    path('<int:pk>/delete/', data_package_delete, name='data_package_delete'),
-
     path('<id_package>/children_ages_update/', children_ages_update, name='children_ages_update'),
     
     # Hospedagem
@@ -37,4 +29,9 @@ urlpatterns = [
     
     # Transporte
     path('<city_destiny>/transport/', package_transport, name='package_transport'),
+    
+    # Pacote
+    # path('<int:pk>/delete/', data_package_delete, name='data_package_delete'),
+    path('<id_package>/concluded/', package_concluded, name='package_concluded'),
+    
 ]

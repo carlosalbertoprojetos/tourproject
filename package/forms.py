@@ -2,12 +2,12 @@ from django import forms
 from django.forms import inlineformset_factory, modelformset_factory
 from django.contrib.admin.widgets import AdminDateWidget
 
-from .models import Data_Package_One, Child_Package_One, PackageTrips
+from .models import Package, Child_Package_One, PackageTrips
 
-class Data_Package_OneForm(forms.ModelForm):
+class PackageForm(forms.ModelForm):
 
     class Meta:
-        model = Data_Package_One
+        model = Package
         # fields = ['date_arrive', 'date_departure', 'num_adults', 'num_child']
         fields = '__all__'
         exclude = ['destiny']
@@ -162,10 +162,10 @@ class Package_Trips_Form(forms.ModelForm):
         #     }
 
 ChildAge_Factory = inlineformset_factory(
-    Data_Package_One, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
+    Package, Child_Package_One, form=Child_Package_OneForm, extra=0, can_delete=False)
 
 PackageTrip_Factory = inlineformset_factory(
-    Data_Package_One, PackageTrips, form=Package_Trips_Form, extra=0, can_delete=False)
+    Package, PackageTrips, form=Package_Trips_Form, extra=0, can_delete=False)
 
 # Child_Age_formset = modelformset_factory(
 #     Child_Package_One, form=Child_Package_OneForm, extra=0)

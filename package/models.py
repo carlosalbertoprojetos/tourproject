@@ -5,7 +5,7 @@ from trip.models import ActivityPrice
 
 
 # Create your models here.
-class Data_Package_One(models.Model):
+class Package(models.Model):
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
     date_arrive = models.DateField('Data da Chegada', default='01/01/2022')
     date_departure = models.DateField('Data da Partida', default='01/12/2022')
@@ -26,7 +26,7 @@ class Data_Package_One(models.Model):
 
 
 class Child_Package_One(models.Model):
-    data_package_one = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
+    data_package_one = models.ForeignKey(Package, on_delete=models.CASCADE)
     children_age = models.CharField('', max_length=2, blank=True, null=True)
 
     class Meta:
@@ -38,7 +38,7 @@ class Child_Package_One(models.Model):
 
 
 class PackageTrips(models.Model):
-    package = models.ForeignKey(Data_Package_One, on_delete=models.CASCADE)
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
     id_price = models.ForeignKey(ActivityPrice, on_delete=models.CASCADE)
 
     class Meta:
