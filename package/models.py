@@ -20,10 +20,6 @@ class Package(models.Model):
     class Meta:
         verbose_name = "Pacote"
         verbose_name_plural = "Pacotes"
-    
-    # def __str__(self):
-    #     return self.name
-
 
 class Child_Package_One(models.Model):
     data_package_one = models.ForeignKey(Package, on_delete=models.CASCADE)
@@ -32,10 +28,6 @@ class Child_Package_One(models.Model):
     class Meta:
         verbose_name = "Idade da criança"
         verbose_name_plural = "Idade das crianças"
-    
-    # def __str__(self):
-    #     return self.children_age
-
 
 class PackageTrips(models.Model):
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
@@ -44,6 +36,3 @@ class PackageTrips(models.Model):
     class Meta:
         verbose_name = "Atividade do pacote"
         verbose_name_plural = "Atividades do Pacote"
-    
-    # def __str__(self):
-    #     return str(self.id_price.id)

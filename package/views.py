@@ -159,14 +159,8 @@ def package_trips(request, city_destiny):
 
 @csrf_exempt
 def package_accommodation(request, city_destiny):
-    # st = request.POST.get('start_date')
-    # start_date = parse_date(st)
-    # ed = request.POST.get('end_date')
-    # end_date = parse_date(ed)
     city_destiny = request.POST.get('city_destiny')
     trips = Trip.objects.filter(destiny__city=city_destiny)
-    # import pdb;pdb.set_trace()
-
     template = 'package/includes/package_accommodation.html'
     context = {
         'trips': trips,
@@ -176,10 +170,6 @@ def package_accommodation(request, city_destiny):
 
 @csrf_exempt
 def package_transport(request, city_destiny):
-    # st = request.POST.get('start_date')
-    # start_date = parse_date(st)
-    # ed = request.POST.get('end_date')
-    # end_date = parse_date(ed)
     city_destiny = request.POST.get('city_destiny')
     trips = Trip.objects.filter(destiny__city=city_destiny)
 

@@ -31,7 +31,6 @@ urlpatterns = [
     path('<city_destiny>/transport/', package_transport, name='package_transport'),
     
     # Pacote
-    # path('<int:pk>/delete/', data_package_delete, name='data_package_delete'),
     path('<id_package>/concluded/', package_concluded, name='package_concluded'),
     
 ]

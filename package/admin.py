@@ -10,7 +10,7 @@ class PackageTripsAdmin(admin.StackedInline):
     extra = 0
     ...
     
-# @admin.register(Child_Package_One)
+
 class Child_Package_OneAdmin(admin.StackedInline):
     model = Child_Package_One
     fields = ('children_age',)
