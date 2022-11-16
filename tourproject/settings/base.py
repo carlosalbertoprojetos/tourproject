@@ -117,12 +117,12 @@ ACCOUNT_SIGNUP_REDIRECT_URL = '/company/signup/2/'
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET=False
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '187b88ac805f83'
-EMAIL_HOST_PASSWORD = '446e98ebfc9de3'
-EMAIL_PORT = '2525'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = ''
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_PORT = '2525'
 
 ACCOUNT_EMAIL_VERIFICATION = None
 
