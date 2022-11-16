@@ -124,6 +124,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_PORT = '2525'
 
+
 ACCOUNT_EMAIL_VERIFICATION = None
 
 # Database
