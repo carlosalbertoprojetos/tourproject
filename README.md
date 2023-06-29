@@ -1,8 +1,10 @@
-# SISTEMA DE TURISMO
+# SISTEMA PARA GESTÃO DE PASSEIOS E PACOTES TURÍSTICOS
 
 ## Escopo
-O propósito deste projeto visa o desenvolvimento de um sistema de cadastro e login de forma que os usuários possam cadastrar usuário, email e senha, bem como dados da sua empresa. Conterá com diversas funcionalidades como alteração dos seus dados, recuperação e alteração de senha.
-O acesso administrador conta, ainda, com lista de todos os usuários e empresas cadastrados e tem acesso para editar os dados e deixar inativo os usuários. 
+O propósito deste projeto visa o desenvolvimento de um sistema para cadastro e administração de determinadas atividades de turismo.
+Consiste no cadastro e login para empresas do ramo turísticos e afins, bem como o registro de seus respectivos agentes a fim de administrar a gestão de passeios e pacotes turísticos. 
+Os usuários realizam o cadastro do administrador da empresa e, este, cadastra seus agentes colaboradores, os quais realizarão os registros das atividades ofertadas.
+O cadastro pede um usuário, email e senha, além dos dados da empresa. Ele conta com diversas funcionalidades como uma tela para edição dos dados, dos usuários e da empresa, recuperação e alteração de senha.
 O projeto está utilizando o framework Django 4.0 e a linguagem de programação Python 3.9.5.
 
 # Estrutura
