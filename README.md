@@ -1,7 +1,7 @@
 # SISTEMA DE TURISMO
 
 ## Escopo
-O Desenvolvimento de um sistema de cadastro e login de forma que os usuários possam cadastrar usuário, email e senha, bem como dados da sua empresa. Conterá com diversas funcionalidades como alteração dos seus dados, recuperação e alteração de senha.
+O propósito deste projeto visa o desenvolvimento de um sistema de cadastro e login de forma que os usuários possam cadastrar usuário, email e senha, bem como dados da sua empresa. Conterá com diversas funcionalidades como alteração dos seus dados, recuperação e alteração de senha.
 O acesso administrador conta, ainda, com lista de todos os usuários e empresas cadastrados e tem acesso para editar os dados e deixar inativo os usuários. 
 O projeto está utilizando o framework Django 4.0 e a linguagem de programação Python 3.9.5.
 
