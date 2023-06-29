@@ -14,6 +14,3 @@ urlpatterns = [
     
     path('signup_agent/', agent_signup, name='agent_signup'),
 ]
-
-
-        

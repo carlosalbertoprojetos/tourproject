@@ -79,30 +79,3 @@ class EditUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email', 'is_active']
-
-# class PhoneFormSet(forms.Form):
-
-#     class Meta:
-#         model = Contact
-#         fields = '__all__'
-
-#     def clean_cel_phone(self):
-#         data = self.cleaned_data['cel_phone']
-#         return sanitize_number(data)
-
-#     def save(self, commit=False):
-#         instance = super().save(commit=commit)
-#         instance.save()
-#         return instance
-
-
-# class SocialFormSet(forms.Form):
-
-#     class Meta:
-#         model = SocialMedia
-#         fields = '__all__'
-
-#     def save(self, commit=False):
-#         instance = super().save(commit=commit)
-#         instance.save()
-#         return instance

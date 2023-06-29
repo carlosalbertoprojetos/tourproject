@@ -1,8 +1,8 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static %}
+
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Cliente
+Cliente
 {% endblock title %}
 {% block dashboard %}
 
@@ -12,11 +12,11 @@
             <div class="card-header">
                 <h2 class="form-title">Você tem certeza que deseja excluir este Cliente?</h2>
                 <form method="POST">
-                  {% csrf_token %}
-                  {{ form.non_field_errors }}
-                                                        
-                  <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>     
-                </form>               
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    <button type="submit" value="Confirmar" class="btn btn-danger">Confirmar</button>
+                </form>
             </div>
         </div>
     </div>

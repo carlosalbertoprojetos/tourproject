@@ -10,30 +10,16 @@ from .views import (
 
 app_name = 'season'
 
-urlpatterns = [    
-      
-    #CALEDÁRIO
+urlpatterns = [
     path('<int:pk>/event/calendar/', calendar_event_detail, name='calendar_event_detail'),
-    
-    #============================================================================
-    #TEMPORADA
     path('list/', season_list_create, name='season_list_create'),
     path('<int:pk>/update/', season_update, name='season_update'),
     path('<int:pk>/delete/', season_delete, name='season_delete'),
-    #============================================================================
-    #VIGÊNCIA
     path('validity/list/', validity_list_create, name='validity_list_create'),
     path('<int:pk>/validity/update/', validity_update, name='validity_update'),
     path('<int:pk>/validity/delete/', validity_delete, name='validity_delete'),
-    #============================================================================
-    #EVENTO
     path('<int:season_id>/event/', event_create_view, name='event_create'),
     path('<int:pk>/event/detail/', event_list, name='event_list'),
     path('<int:season_id>/event/<int:pk>/update/', event_update_view, name='event_update'),
-    path('<int:season_id>/event/<int:pk>/delete/', event_delete, name='event_delete'),  
-    #============================================================================
-    #PERIODO
-    #path('period/list/', period_list_create, name='period_list_create'),
-    #path('<int:pk>/option/edit/', period_update, name='period_update'),
-    #path('<int:pk>/option/delete/', period_delete, name='period_delete'),
+    path('<int:season_id>/event/<int:pk>/delete/', event_delete, name='event_delete'), 
 ]

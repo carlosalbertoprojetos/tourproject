@@ -36,7 +36,6 @@ class CategoryPaxForm(forms.ModelForm):
     class Meta:
         model = CategoryPax 
         fields = '__all__'
-        # fields = ['name', 'note', 't_child', 'age_min', 'age_max']
         
         widgets = {
             't_adult':forms.CheckboxInput(attrs={'class':''}),

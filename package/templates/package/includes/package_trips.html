@@ -2,106 +2,110 @@
 {% block package_trips %}
 
 
-    {% for t in trips %}
-    <div class='justify-content-center'>
-        <h4 class="form-title mb-0 p-2" align="center">{{ t.name }}<h4>
-        <hr class='m-0'>
-        <div class="row card-header mt-3">
-            {% for a in activities %}
-                {% if t == a.trip %}
-                <div class="col-sm-12 col-md-6">
-                    <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
-                    <div class='row'>
-                        {% if a.image %}
-                        <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;" max-width="450px" align="center"/>
-                        {% endif %}
-                    </div>
-                    <div class='row'>
-                        <h6 class='px-3 mt-2' style='text-align:city justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
-                    </div>
-                    <div class="row ml-2 trip_group">
-                        {% for p in activities_prices %}
-                        {% if a == p.activity %}
-                        <div class='col-sm-6 col-md-6 px-1 py-2'>
-                            <div class="row p-0">
-                                <input type="checkbox" class="col-1" value="" id="{{ p.id }}"/>
-                                <h6 class='col-11 px-2 m-0'>{{ p.catpax }} - R$ {{ p.price}}</h6>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
+{% for t in trips %}
+<div class='justify-content-center'>
+    <h4 class="form-title mb-0 p-2" align="center">{{ t.name }}
+</div>h4>
+<hr class='m-0'>
+<div class="row card-header mt-3">
+    {% for a in activities %}
+    {% if t == a.trip %}
+    <div class="col-sm-12 col-md-6">
+        <h4 align="center"><b><i>{{ a.name }}</i></b>
+        </h4>
+        <div class='row'>
+            {% if a.image %}
+            <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;"
+                max-width="450px" align="center" />
+            {% endif %}
+        </div>
+        <div class='row'>
+            <h6 class='px-3 mt-2' style='text-align:city justify; font-weight: normal;'><i>{{
+                    a.description|truncatewords:50 }}</i></h6>
+        </div>
+        <div class="row ml-2 trip_group">
+            {% for p in activities_prices %}
+            {% if a == p.activity %}
+            <div class='col-sm-6 col-md-6 px-1 py-2'>
+                <div class="row p-0">
+                    <input type="checkbox" class="col-1" value="" id="{{ p.id }}" />
+                    <h6 class='col-11 px-2 m-0'>{{ p.catpax }} - R$ {{ p.price}}</h6>
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
+    {% endif %}
     {% endfor %}
+</div>
+</div>
+{% endfor %}
 
-    <div class='row'>
-        <div class='col-12 my-2'>
-            <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
-        </div>
+<div class='row'>
+    <div class='col-12 my-2'>
+        <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
     </div>
+</div>
 
 
 {% endblock %}
 
 
 {% block js %}
-    <script type="text/javascript">
-        var prices = JSON.parse('{{ len_prices|escapejs }}');
+<script type="text/javascript">
+    var prices = JSON.parse('{{ len_prices|escapejs }}');
 
-        const start_date = $('#id_date_arrive').val();
-        const end_date = $('#id_date_departure').val();
-        const url = "{% url 'package:package_accommodation' city_destiny="+b_url.innerText+" %}";
-        const city_destiny = b_url.innerText;
+    const start_date = $('#id_date_arrive').val();
+    const end_date = $('#id_date_departure').val();
+    const url = "{% url 'package:package_accommodation' city_destiny=" + b_url.innerText + " %}";
+    const city_destiny = b_url.innerText;
 
-        $("#advance2").click(function (event) {
-            event.preventDefault();
+    $("#advance2").click(function (event) {
+        event.preventDefault();
 
-            var checkeds = document.querySelectorAll('input[type=checkbox]:checked');
+        var checkeds = document.querySelectorAll('input[type=checkbox]:checked');
 
-            const totalNewTripsPackForms = document.getElementById('id_packagetrips_set-TOTAL_FORMS');
+        const totalNewTripsPackForms = document.getElementById('id_packagetrips_set-TOTAL_FORMS');
 
-            for (var i = 0; i < checkeds.length; i++) {
-                id = (`${checkeds[i].id}`);
+        for (var i = 0; i < checkeds.length; i++) {
+            id = (`${checkeds[i].id}`);
 
-                const currentTripsForms = document.getElementsByClassName('price_package_form')
-                const currentTripsFormCount = currentTripsForms.length
+            const currentTripsForms = document.getElementsByClassName('price_package_form')
+            const currentTripsFormCount = currentTripsForms.length
 
-                const tripsFormCopyTarget = document.getElementById('trip_package_list')
-                const copyEmptyTripsForm = document.getElementById('empty-price-form').cloneNode(true)
-                copyEmptyTripsForm.setAttribute('class', 'price_package_form')
-                copyEmptyTripsForm.setAttribute('id', `packagetrips_set-${currentTripsFormCount}`)
-                const regex = new RegExp('__prefix__', 'g')
-                copyEmptyTripsForm.innerHTML = copyEmptyTripsForm.innerHTML.replace(regex, currentTripsFormCount)
-                totalNewTripsPackForms.setAttribute('value', currentTripsFormCount + 1)
+            const tripsFormCopyTarget = document.getElementById('trip_package_list')
+            const copyEmptyTripsForm = document.getElementById('empty-price-form').cloneNode(true)
+            copyEmptyTripsForm.setAttribute('class', 'price_package_form')
+            copyEmptyTripsForm.setAttribute('id', `packagetrips_set-${currentTripsFormCount}`)
+            const regex = new RegExp('__prefix__', 'g')
+            copyEmptyTripsForm.innerHTML = copyEmptyTripsForm.innerHTML.replace(regex, currentTripsFormCount)
+            totalNewTripsPackForms.setAttribute('value', currentTripsFormCount + 1)
 
-                tripsFormCopyTarget.append(copyEmptyTripsForm)
+            tripsFormCopyTarget.append(copyEmptyTripsForm)
 
-                document.getElementById(`id_packagetrips_set-${currentTripsFormCount}-id_price`).value = id;
+            document.getElementById(`id_packagetrips_set-${currentTripsFormCount}-id_price`).value = id;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                start_date: start_date,
+                end_date: end_date,
+                city_destiny: city_destiny,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
+            },
+            success: function (data) {
+                $('#id_accommodation').html(data);
+                document.getElementById('accommodation-tab').removeAttribute("disabled");
+                document.getElementById('accommodation-tab').click();
+            },
+            failure: function (data) {
+                alert("Ocorreu um erro, realize a operação novamente");
             }
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    start_date : start_date,
-                    end_date : end_date,
-                    city_destiny : city_destiny,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
-                },
-                success: function(data){
-                    $('#id_accommodation').html(data);
-                    document.getElementById('accommodation-tab').removeAttribute("disabled");
-                    document.getElementById('accommodation-tab').click();  
-                },
-                failure: function(data) { 
-                    alert("Ocorreu um erro, realize a operação novamente");
-                }
-            });
         });
-    </script>
+    });
+</script>
 
 {% endblock js %}

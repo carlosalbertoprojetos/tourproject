@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Passeio
+Passeio
 {% endblock title %}
 {% block dashboard %}
 
@@ -10,50 +10,51 @@
 <script src="{% static '/admin/js/core.js' %}"></script>
 <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
 <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
-    
 
-{% comment %} <script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
+
+{% comment %}
+<script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
 <script src="{% static 'tinymce_js/langs/pt_BR.js' %}"></script> {% endcomment %}
-
 
 
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">            
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>                           
-        </ul>
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
-          <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
-            <a href="{% url 'trip:trip_list_create' %}">
-                <button id='Passeios' class="btn bg-gradient-olive" type="submit">Passeios</button>
-            </a>         
-          </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+            </ul>
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
+                <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
+                    <a href="{% url 'trip:trip_list_create' %}">
+                        <button id='Passeios' class="btn bg-gradient-olive" type="submit">Passeios</button>
+                    </a>
+                </div>
 
-          <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
-            <a href="{% url 'trip:trip_category_list_create' %}">
-              <button class="btn bg-gradient-olive" type="submit">Categorias</button>
-            </a>     
-          </div>
+                <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
+                    <a href="{% url 'trip:trip_category_list_create' %}">
+                        <button class="btn bg-gradient-olive" type="submit">Categorias</button>
+                    </a>
+                </div>
 
-          <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
-            <a href="{% url 'trip:categorypax_list_create' %}">
-              <button class="btn bg-gradient-olive" type="submit">CategoriasPAX</button>
-            </a>    
-          </div>
-        </div>               
-      </div>
+                <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
+                    <a href="{% url 'trip:categorypax_list_create' %}">
+                        <button class="btn bg-gradient-olive" type="submit">CategoriasPAX</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
 
@@ -65,30 +66,27 @@
                     <div class="col-sm-12 col-md-6">
                         <h2 class="form-title m-2">Lista de Passeios</h2>
                     </div>
-                    <div id="bottom_list" class="col-sm-12 col-md-6"style="text-align-last">
+                    <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
                         <div class="row my-3">
                             <form method="POST" enctype="multipart/form-data">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
-                                <div class="modal fade"
-                                        id="exampleModal"
-                                        tabindex="-1"
-                                        role="dialog"
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Novo Passeio</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 {% csrf_token %}
                                                 {{ form.non_field_errors }}
-                                                {{ form.media }} 
-                                                {{ form|crispy }}  
+                                                {{ form.media }}
+                                                {{ form|crispy }}
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
@@ -98,7 +96,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -120,33 +118,33 @@
                     </thead>
                     <tbody>
                         {% for t in object_list %}
-                            <tr>
-                                <td>{{ t.name }}</td>
-                                <td>{{ t.destiny.city_state }}</td>
-                                <td>{{ t.short_description|safe|truncatechars:"20" }}</td>
-                                <td>{{ t.trip_duration }}</td>
-                                <td align="center">{{ t.updated|date:'d/m/Y' }}</td>
-                                <td align="center">
-                                    <a href="{% url 'trip:activity_list_create' trip_id=t.pk %}" class="btn">
-                                        <i class="fas fa-diagnoses"></i>
-                                    </a>
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'trip:activity_price_update' trip_id=t.pk %}" class="btn">
-                                        <i class="fas fa-money-bill-wave"></i>
-                                    </a>
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'trip:trip_update' t.pk %}" class="btn">
-                                        <i class="fas fa-user-edit"></i>
-                                    </a>
-                                </td>
-                                <td align="center">
-                                    <a href="{% url 'trip:trip_delete' t.pk %}" class="btn">
-                                        <i class="fas fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ t.name }}</td>
+                            <td>{{ t.destiny.city_state }}</td>
+                            <td>{{ t.short_description|safe|truncatechars:"20" }}</td>
+                            <td>{{ t.trip_duration }}</td>
+                            <td align="center">{{ t.updated|date:'d/m/Y' }}</td>
+                            <td align="center">
+                                <a href="{% url 'trip:activity_list_create' trip_id=t.pk %}" class="btn">
+                                    <i class="fas fa-diagnoses"></i>
+                                </a>
+                            </td>
+                            <td align="center">
+                                <a href="{% url 'trip:activity_price_update' trip_id=t.pk %}" class="btn">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </a>
+                            </td>
+                            <td align="center">
+                                <a href="{% url 'trip:trip_update' t.pk %}" class="btn">
+                                    <i class="fas fa-user-edit"></i>
+                                </a>
+                            </td>
+                            <td align="center">
+                                <a href="{% url 'trip:trip_delete' t.pk %}" class="btn">
+                                    <i class="fas fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -155,13 +153,13 @@
     </div>
 </div>
 <script>tinymce.init(
-    {
-        selector:'textarea',
-        language: 'pt_BR',        
-        
-    }
+        {
+            selector: 'textarea',
+            language: 'pt_BR',
+
+        }
     );
 
 </script>
-    
+
 {% endblock %}

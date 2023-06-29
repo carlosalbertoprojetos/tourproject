@@ -1,9 +1,10 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Passeio
+Passeio
 {% endblock title %}
 {% block dashboard %}
+
 
 <script src="{% url 'js-catlog' %}"></script>
 <script src="{% static '/admin/js/core.js' %}"></script>
@@ -35,24 +36,25 @@
                         </thead>
                         <tbody>
                             {% for p in object_list %}
-                                <tr>
-                                    <td>{{ p.trip_activity_id.trip }}
-                                    <td>{{ p.trip_activity_id }}</td>
-                                    <td>{{ p.cadpax }}</td>
-                                    <td>{{ p.season }}</td>
-                                    <td>{{ p.price }}</td>
-                                    <td align="center">
-                                        {% comment %} <a href="{ url 'trip:activity_price_update' p.trip_activity_id %}" class="btn"> {% endcomment %}
+                            <tr>
+                                <td>{{ p.trip_activity_id.trip }}
+                                <td>{{ p.trip_activity_id }}</td>
+                                <td>{{ p.cadpax }}</td>
+                                <td>{{ p.season }}</td>
+                                <td>{{ p.price }}</td>
+                                <td align="center">
+                                    {% comment %} <a href="{ url 'trip:activity_price_update' p.trip_activity_id %}"
+                                        class="btn"> {% endcomment %}
                                         <a href="{ url 'trip:activity_price_update' p.trip_activity_id %}" class="btn">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{ url 'trip:trip_price_delete' p.pk %}" class="btn">
-                                            <i class="fas fa-solid fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                </td>
+                                <td align="center">
+                                    <a href="{ url 'trip:trip_price_delete' p.pk %}" class="btn">
+                                        <i class="fas fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             {% endfor %}
                         <tbody>
                     </table>
@@ -61,5 +63,5 @@
         </div>
     </div>
 </div>
-        
+
 {% endblock %}

@@ -1,8 +1,6 @@
 {% load i18n account static crispy_forms_tags %}
 {% block package_transport %}
 
-
-
 <div class='row'>
     <div class='col-12 my-2'>
         <button id='advance4' type='submit' class='btn btn-primary float-end'>Avançar</button>
@@ -12,21 +10,21 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript">
-        $("#advance4").click(function (event) {
-            event.preventDefault();
-            
-            var ds = document.getElementsByClassName('group');
-            for (var i = 0; i < ds.length; i++) {
-                var inputs = ds[i].getElementsByTagName('input');
-                for (var j = 0; j < inputs.length; j++) {
-                    if (`${inputs[j].checked}` == 'true')
+<script type="text/javascript">
+    $("#advance4").click(function (event) {
+        event.preventDefault();
+
+        var ds = document.getElementsByClassName('group');
+        for (var i = 0; i < ds.length; i++) {
+            var inputs = ds[i].getElementsByTagName('input');
+            for (var j = 0; j < inputs.length; j++) {
+                if (`${inputs[j].checked}` == 'true')
                     console.log(`${inputs[j].id}`);
-                }
             }
-            document.getElementById("dados_finais-tab").removeAttribute("disabled");
-            document.getElementById('dados_finais-tab').click();
-        });
-    </script>
+        }
+        document.getElementById("dados_finais-tab").removeAttribute("disabled");
+        document.getElementById('dados_finais-tab').click();
+    });
+</script>
 
 {% endblock js %}

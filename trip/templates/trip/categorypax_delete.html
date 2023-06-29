@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Passeio
+Passeio
 {% endblock title %}
 {% block dashboard %}
 
@@ -11,33 +11,29 @@
 <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
 
+
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
             <div class="card-header">
                 <form method="POST">
-                    <h2 class="form-title">Você tem certeza que deseja excluir categoria pax de passeio ?</h2>                    
-                    <button type="button"
-                            class="btn btn-danger"
-                            data-toggle="modal"
-                            data-target="#deleteModal">Confirmar</button>
+                    <h2 class="form-title">Você tem certeza que deseja excluir categoria pax de passeio ?</h2>
+                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#deleteModal">Confirmar</button>
                     <!-- Modal -->
-                    <div class="modal fade"
-                            id="deleteModal"
-                            tabindex="-1"
-                            role="dialog"
-                            aria-labelledby="deleteModalLabel"
-                            aria-hidden="true">
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="deleteModalLabel">
-                                    Você tem certeza que deseja excluir <b><i>"{{ object.name }}"</i></b> das Categorias PAX para Passeios?
-                                </h5>
-                                <h5 class="modal-title" id="exampleModalLabel">Excluir Categoria PAX</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                        Você tem certeza que deseja excluir <b><i>"{{ object.name }}"</i></b> das
+                                        Categorias PAX para Passeios?
+                                    </h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Excluir Categoria PAX</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <div class="modal-body">
                                     {% csrf_token %}
@@ -49,7 +45,8 @@
                                     <div class="row ml-0">
                                         <div class="col-md-1">
                                             <div class="form-floating">
-                                                <button type="submit" value="Confirmar" class="btn btn-danger">Excluir</button>
+                                                <button type="submit" value="Confirmar"
+                                                    class="btn btn-danger">Excluir</button>
                                             </div>
                                         </div>
                                     </div>

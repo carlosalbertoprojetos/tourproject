@@ -20,27 +20,16 @@ from .forms import SeasonForm, ValidityForm, EventForm
 from .models import Season, Validity, Event 
 
 
-#===============================================================================
-#Cria Evento
 class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Event
     form_class = EventForm
     template_name = 'season/event_create.html'    
     
     def post(self, request, *args, **kwargs):
-
         form = EventForm(request.POST or None)        
-        season_pk = self.kwargs.get('season_id')
-        
+        season_pk = self.kwargs.get('season_id')        
         event = Event.objects.filter(season=season_pk)               
-        season = Season.objects.get(id=season_pk)
-        #print(event)
-        #print(season)
-        
-        #for e in Event.objects.filter(season=pk):           
-        #   date_init_list = e.date_init #.strftime("%-d/%-m/%Y")           
-        #   date_fin_list = e.date_fin #.strftime("%-d/%-m/%Y")
-        #   delta = date_fin_list - date_init_list       
+        season = Season.objects.get(id=season_pk)   
         
         if form.is_valid():
             form = form.save(commit=False)
@@ -53,8 +42,6 @@ class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 event_create_view = EventCreateView.as_view()
 
-#===============================================================================
-# Listar Evento
 
 def event_list(request, pk):
     context = {}
@@ -74,8 +61,6 @@ def event_list(request, pk):
     else:         
          return render(request, 'season/event_list.html', context)  
 
-#=====================================================================================================
-#Editar Evento
 
 class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):    
   
@@ -97,8 +82,6 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 event_update_view = EventUpdateView.as_view()
 
-#=====================================================================================================
-#Deletar Evento  
 
 def event_delete(request, **kwargs):
     
@@ -109,15 +92,12 @@ def event_delete(request, **kwargs):
  
     if request.method =="POST":
         season_pk = kwargs.get('season_id')
-        # delete object
         obj.delete()
         messages.success(request, 'Evento deletado com sucesso!!!')
         return HttpResponseRedirect("/season/"+str(season_pk)+"/event/detail")
  
     return render(request, "season/event_delete.html", context)
 
-#===============================================================================
-# CALENDÁRIO
 
 def calendar_event_detail(request, pk):
     list_dates= []        
@@ -162,12 +142,9 @@ def calendar_event_detail(request, pk):
             'season': season,
             'range': range(0,13),
             }    
-        #pyautogui.press('browserrefresh')
         sys.stdout = close()
         return render(request, 'season/calendar_list.html', context)
 
-#=====================================================================================================
-# Listar e criar Vigência
 
 class ValidityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = Validity
@@ -190,8 +167,6 @@ class ValidityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 validity_list_create = ValidityListCreateView.as_view()
 
-#=====================================================================================================
-#Editar Vigência
 
 class ValidityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Validity
@@ -202,8 +177,6 @@ class ValidityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 validity_update = ValidityUpdateView.as_view()
 
-#=====================================================================================================
-#Deletar Vigência
 
 class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     try:
@@ -218,8 +191,6 @@ class ValidityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 validity_delete = ValidityDeleteView.as_view()
 
-#===============================================================================
-# Listar e criar Temporada
 
 class SeasonListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = Season
@@ -241,8 +212,6 @@ class SeasonListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
 
 season_list_create = SeasonListCreateView.as_view()
 
-#===============================================================================
-# Editar Temporada
 
 class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     
@@ -254,8 +223,6 @@ class SeasonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 season_update = SeasonUpdateView.as_view()
 
-#===============================================================================
-# Deletar Temporada
 
 class SeasonDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):    
     try:

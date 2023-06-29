@@ -13,6 +13,7 @@ Passeio
     </style>
 </header>
 
+
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="col-md-6 form-title p-4">
@@ -21,10 +22,10 @@ Passeio
 
             <nav>
                 <div class="nav nav-tabs ml-2" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info"
-                        role="tab" aria-controls="nav-info" aria-selected="true">Informações</a>
-                    <a class="nav-item nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options"
-                        role="tab" aria-controls="nav-options" aria-selected="false">Opções</a>
+                    <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab"
+                        aria-controls="nav-info" aria-selected="true">Informações</a>
+                    <a class="nav-item nav-link" id="nav-options-tab" data-toggle="tab" href="#nav-options" role="tab"
+                        aria-controls="nav-options" aria-selected="false">Opções</a>
                     <a class="nav-item nav-link" id="nav-values-tab" data-toggle="tab" href="#nav-values" role="tab"
                         aria-controls="nav-values" aria-selected="false">Valores</a>
                     <a class="nav-item nav-link" id="nav-local-tab" data-toggle="tab" href="#nav-local" role="tab"
@@ -34,7 +35,7 @@ Passeio
             <div class="tab-content m-2 pt-3 pl-2" id="nav-tabContent">
                 <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                     {% for i in object %}
-                        <h1>{{i}}</h1>
+                    <h1>{{i}}</h1>
                     {% endfor %}
                     <h5>Informações</h5>
                     <p>Local para armazenamento do formulário para update/edit do passeio</p>
@@ -59,7 +60,10 @@ Passeio
                 </div>
                 <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-local-tab">
                     <h5>Local</h5>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7534.804737919865!2d-42.490638456755626!3d-19.221288104659425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1655392543269!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7534.804737919865!2d-42.490638456755626!3d-19.221288104659425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1655392543269!5m2!1spt-BR!2sbr"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
             {% endfor %}

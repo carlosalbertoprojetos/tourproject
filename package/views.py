@@ -20,10 +20,6 @@ from package.models import PackageTrips
 
 
 
-#===============================================================================
-# DADOS PARA PACOTE - Data_package_One
-# client => package
-
 def data_package_list(request, id_destiny):
     destiny = Destiny.objects.filter(id=id_destiny).first()
     packages = Package.objects.filter(destiny_id=id_destiny)
@@ -51,7 +47,6 @@ data_package_delete = DataPackageDeleteView.as_view()
 @login_required
 def children_ages_update(request, id_package):
     package=Package.objects.filter(id=id_package)
-    # Child_Age_formset = modelformset_factory(Child_Package_One, form=Child_Package_OneForm, extra=0)
     destiny_id=[]
     destiny=[]
     for p in package:
@@ -178,8 +173,6 @@ def package_transport(request, city_destiny):
         'trips': trips,
         }
     return render(request, template, context)
-
-
 
 
 def package_concluded(request, id_package=4):

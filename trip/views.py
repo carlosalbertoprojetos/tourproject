@@ -3,20 +3,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import modelformset_factory
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy as _
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from season.models import Season
 
 from .forms import (ActivityForm, ActivityPriceForm, CategoryPaxForm,
-                    TripCategoryForm, TripForm,CHD_ActivityForm)
+                    TripCategoryForm, TripForm)
 from .models import (Activity, ActivityCatPax, ActivityPrice, CategoryPax,
                      Trip, TripCategory)
 
 
-#===============================================================================
-# CATEGORIA DE PASSEIO - TripCategory
 class TripCategoryListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = TripCategory
     template_name = 'trip/trip_category_list_create.html'
@@ -61,12 +59,9 @@ class TripCategoryDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView
 trip_category_delete = TripCategoryDeleteView.as_view()
 
 
-#===============================================================================
-# PASSEIO - Trip
 class TripListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = Trip
     template_name = 'trip/trip_list_create.html'
-    # template_name = 'trip/trip_base.html'
 
     def get_context_data(self, **kwargs):
         context = super(TripListCreateView, self).get_context_data(**kwargs)
@@ -116,8 +111,6 @@ class TripDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 trip_delete = TripDeleteView.as_view()
 
 
-#===============================================================================
-# CATEGORIA PAX - CategoryPax
 class CategoryPAXListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = CategoryPax
     template_name = 'trip/categorypax_list_create.html'
@@ -162,8 +155,6 @@ class CategoryPaxDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView)
 categorypax_delete = CategoryPaxDeleteView.as_view()
 
 
-#===============================================================================
-# ATIVIDADES - Activity
 class ActivityListCreateView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = Activity
     template_name = 'trip/activity_list_create.html'
@@ -224,8 +215,6 @@ class ActivityDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 activity_delete = ActivityDeleteView.as_view()
 
 
-#===============================================================================
-# PREÇOS DOS PASSEIOS - ActivityPrice
 class ActivityPriceListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = ActivityPrice
     template_name = 'trip/activity_price_list_create.html'
@@ -241,18 +230,15 @@ def activity_price_update(request, trip_id):
     
     try:        
         if activity != '':
-            # existe atividade(activity) para o passeio(trip)
             for a in activity:
                 catpax=ActivityCatPax.objects.filter(activity_id=a.id)
                 act_price=ActivityPrice.objects.filter(activity_id=a.id)
                 season=Season.objects.filter(destiny_id=a.trip.destiny_id)
 
-                # existe catpax para esta activity
                 if catpax.exists():
                     cp_a=[]
                     cp_p=[]
 
-                    # lista catpax da activity
                     for c in catpax:
                         cp_a.append(c.catpax_id)
 
@@ -264,14 +250,11 @@ def activity_price_update(request, trip_id):
                                 sea = Season.objects.get(id=s.id)
                                 form = ActivityPrice(activity=top, catpax=tca, season=sea, price=0.00)
                                 form.save()
-                    else:
-                        
-                        # lista catpax_price da activity
+                    else:                        
                         for p in act_price:
                             cp_p.append(p.catpax_id)
                         cp_p_d=set(cp_a)-set(cp_p)
                         
-                        # cria registro para cada activity, catpax, season, price
                         for c in cp_p_d:                    
                             for s in season:
                                 top = Activity.objects.get(id=a.id)
@@ -283,7 +266,6 @@ def activity_price_update(request, trip_id):
                 else:
                     print('Não há CATPAX cadastrado para esta ACTIVITY!')
 
-        # formulário para alteração de valores/ alteração dos npreços
         if request.method == 'POST':
             formset = activity_price_formset(request.POST, request.FILES, queryset=ActivityPrice.objects.filter(activity_id__trip_id=trip_id))
 

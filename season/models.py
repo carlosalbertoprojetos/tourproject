@@ -42,7 +42,6 @@ class Season(models.Model):
         verbose_name_plural = 'Temporadas'
 
     def __str__(self):
-        #return  self.name + ' - ' + str(self.validity) + ' - ' + str(self.destiny)
         return  self.name
 
  

@@ -4,7 +4,6 @@ from destiny.models import Destiny
 from trip.models import ActivityPrice 
 
 
-# Create your models here.
 class Package(models.Model):
     destiny = models.ForeignKey(Destiny, on_delete=models.CASCADE, verbose_name='Destino')
     date_arrive = models.DateField('Data da Chegada', default='01/01/2022')

@@ -1,42 +1,43 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Temporada
+Temporada
 {% endblock title %}
 {% block dashboard %}
 
-<!--Menu-->
+
 <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">            
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>                           
-        </ul>        
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
-          <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
-            <a href="{% url 'season:validity_list_create' %}" >
-              <button class="btn bg-gradient-olive" type="submit" >Vigências</button>
-            </a>      
-          </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+            </ul>
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
+                <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
+                    <a href="{% url 'season:validity_list_create' %}">
+                        <button class="btn bg-gradient-olive" type="submit">Vigências</button>
+                    </a>
+                </div>
 
-          <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
-            <a href="{% url 'season:season_list_create' %}" >
-              <button class="btn bg-gradient-olive" type="submit" >Temporadas</button>
-            </a>     
-          </div>      
-        </div>    
-      </div>
+                <div class="btn-group mr-2" role="group" aria-label="Segundo grupo">
+                    <a href="{% url 'season:season_list_create' %}">
+                        <button class="btn bg-gradient-olive" type="submit">Temporadas</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
 
@@ -48,23 +49,19 @@
                     <div class="col-sm-12 col-md-6">
                         <h2 class="form-title m-2">Lista de Vigências</h2>
                     </div>
-                    <div id="bottom_list"
-                            class="col-sm-12 col-md-6">
+                    <div id="bottom_list" class="col-sm-12 col-md-6">
                         <div class="row my-3">
                             <form method="POST">
                                 <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
                                     <i class="fas fa-plus-circle fa-2x"></i></a>
-                                <div class="modal fade"
-                                        id="exampleModal"
-                                        tabindex="-1"
-                                        role="dialog"
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Nova Vigência</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -73,15 +70,12 @@
                                                 {{ form.non_field_errors }}
                                                 {{ form.media }}
                                                 {{ form.as_p }}
-                                                
+
                                             </div>
                                             <div class="modal-footer">
                                                 <div class="form-group form-button">
-                                                    <input type="submit"
-                                                            name="signup"
-                                                            id="signup"
-                                                            class="form-submit"
-                                                            value="Salvar"/>
+                                                    <input type="submit" name="signup" id="signup" class="form-submit"
+                                                        value="Salvar" />
                                                 </div>
                                             </div>
                                         </div>
@@ -104,42 +98,42 @@
                         </thead>
                         <tbody>
                             {% for s in object_list %}
-                                <tr>
-                                    <td align="center">{{ s.year }}</td>
-                                    <td align="center">
-                                        {% if s.active %}
-                                        <i class="fas fa-user-check"></i>
-                                        {% else %}
-                                        <i class="fas fa-user-times"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td align="center">
-                                        {% if s.sell %}
-                                        <i class="fas fa-user-check"></i>
-                                        {% else %}
-                                        <i class="fas fa-user-times"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td align="center">
-                                        <a href="{% url 'season:validity_update' s.id %}" class="btn">
-                                            <i class="fas fa-user-edit"></i>
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{% url 'season:validity_delete' s.pk %}" class="btn">
-                                            <i class="fas fa-solid fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td align="center">{{ s.year }}</td>
+                                <td align="center">
+                                    {% if s.active %}
+                                    <i class="fas fa-user-check"></i>
+                                    {% else %}
+                                    <i class="fas fa-user-times"></i>
+                                    {% endif %}
+                                </td>
+                                <td align="center">
+                                    {% if s.sell %}
+                                    <i class="fas fa-user-check"></i>
+                                    {% else %}
+                                    <i class="fas fa-user-times"></i>
+                                    {% endif %}
+                                </td>
+                                <td align="center">
+                                    <a href="{% url 'season:validity_update' s.id %}" class="btn">
+                                        <i class="fas fa-user-edit"></i>
+                                    </a>
+                                </td>
+                                <td align="center">
+                                    <a href="{% url 'season:validity_delete' s.pk %}" class="btn">
+                                        <i class="fas fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             {% endfor %}
-                            <tbody>
-                            </table>
-                        </div>
-                    </div>
+                        <tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 {% endblock %}

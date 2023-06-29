@@ -13,12 +13,12 @@ from .models import User
 #     extra = 0
 
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'option', 'is_active', 'last_login')
-    # inlines = [
-    #     ContactAdmin,
-    #     SocialMediaAdmin,
-    # ]
-    readonly_fields = ('last_login',)
-    fields = ['option', ('email', 'is_active')]
+# @admin.register(User)
+# class UserAdmin(admin.ModelAdmin):
+#     list_display = ('email', 'option', 'is_active', 'last_login')
+#     # inlines = [
+#     #     ContactAdmin,
+#     #     SocialMediaAdmin,
+#     # ]
+#     readonly_fields = ('last_login',)
+#     fields = ['option', ('email', 'is_active')]

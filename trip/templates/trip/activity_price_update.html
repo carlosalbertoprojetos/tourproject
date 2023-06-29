@@ -11,6 +11,7 @@ Passeio
 <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
 
+
 <div class="container-fluid mt-2">
     <div class="card">
         <div class="container-form">
@@ -40,7 +41,9 @@ Passeio
                                     {% for c in catpax %}
                                     {% if c.activity_id == a.id %}
                                     <div class="col-md-3 card p-1 m-0">
-                                        <h6><center>{{c.catpax}}</center></h6>
+                                        <h6>
+                                            <center>{{c.catpax}}</center>
+                                        </h6>
                                         <div class="row">
                                             {% for s in season %}
                                             <div class="col-md-6">
