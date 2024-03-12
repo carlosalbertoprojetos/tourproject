@@ -2,15 +2,13 @@
 {% load i18n account static %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Transporte
+Transporte
 {% endblock title %}
 {% block dashboard %}
 
-<script src="{% static 'tinymce_js/tinymce.min.js' %}"></script>
-<script src="{% static 'tinymce_js/langs/pt_BR.js' %}"></script>
 <script src="{% static 'js/jquery-1.8.2.js' %}"></script>
 
-<div class="card-header">               
+<div class="card-header">
     <form method="POST" enctype="multipart/form-data">
         <div class="modal fade" id="myModal" tabindex="-1">
             <div class="modal-dialog">
@@ -24,30 +22,22 @@
                         {{ form.non_field_errors }}
                         {{ form|crispy }}
                         {{ form.media }}
-                    </div>                            
+                    </div>
                     <div class="modal-footer">
                         <div class="form-group form-button">
-                            <input type="submit"
-                                class="form-submit"
-                                value="Salvar"/>
+                            <input type="submit" class="form-submit" value="Salvar" />
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                    
+        </div>
     </form>
 </div>
-<script>tinymce.init(
-    {
-        selector:'textarea',
-        language: 'pt_BR',        
-        
-    }
-    );
-</script>
+
 <script>
-   $(window).on('load',function(){
-    $('#myModal').modal('show'); });
+    $(window).on('load', function () {
+        $('#myModal').modal('show');
+    });
 </script>
 
 {% endblock %}

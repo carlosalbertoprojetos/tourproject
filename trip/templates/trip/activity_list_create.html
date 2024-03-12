@@ -85,16 +85,16 @@ Passeio
                             <tr>
                                 <td>{{ p.name }}</td>
                                 <td>{{ p.description|safe|truncatechars:"20" }}</td>
-                                <td align="center">{{ p.min_amount_pax }}</td>
-                                <td align="center">{{ p.occ_scale }}</td>
-                                {% comment %} <td align="center">
+                                <td class="text-center">{{ p.min_amount_pax }}</td>
+                                <td class="text-center">{{ p.occ_scale }}</td>
+                                {% comment %} <td class="text-center">
                                     {% if p.tariff_group %}
                                     SIM
                                     {% else %}
                                     NÃO
                                     {% endif %}
                                 </td>
-                                <td align="center">
+                                <td class="text-center">
                                     {% if p.night_walk %}
                                     SIM
                                     {% else %}
@@ -102,12 +102,12 @@ Passeio
                                     {% endif %}
                                 </td> {% endcomment %}
 
-                                <td align="center">
+                                <td class="text-center">
                                     <a href="{% url 'trip:activity_update' p.pk %}" class="btn">
                                         <i class="fas fa-user-edit"></i>
                                     </a>
                                 </td>
-                                <td align="center">
+                                <td class="text-center">
                                     <a href="{% url 'trip:activity_delete' p.pk %}" class="btn">
                                         <i class="fas fa-solid fa-trash"></i>
                                     </a>

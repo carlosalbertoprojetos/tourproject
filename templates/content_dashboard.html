@@ -6,7 +6,7 @@ Dashboard
 {% block dashboard %}
 
 
-<nav class="navbar navbar-expand-sm navbar-dark">
+<!-- <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ Dashboard
             </ul>
         </div>
     </div>
-</nav>
+</nav> -->
 
 
 <div class="container-fluid">
@@ -50,10 +50,10 @@ Dashboard
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Fornecedores</div>
+            <div class="card bg-success mb-4">
+                <div class="card-body text-white">Empresas</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="#">Listar Empresas</a>
                     <div class="small text-white">
                         <i class="fas fa-angle-right"></i>
                     </div>
@@ -61,10 +61,10 @@ Dashboard
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Produtos</div>
+            <div class="card bg-warning mb-4">
+                <div class="card-body text-white">Clientes</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <a class="small text-white stretched-link" href="#">Listar Clientes</a>
                     <div class="small text-white">
                         <i class="fas fa-angle-right"></i>
                     </div>
@@ -72,10 +72,11 @@ Dashboard
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
+            <div class="card bg-secondary text-white mb-4">
                 <div class="card-body">Serviços</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="{ url 'package:data_package_list' %}">Pacote</a>
+                    <a class="small text-white stretched-link" href="#">Listar
+                        Serviços</a>
                     <div class="small text-white">
                         <i class="fas fa-angle-right"></i>
                     </div>

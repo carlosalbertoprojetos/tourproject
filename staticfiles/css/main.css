@@ -6093,10 +6093,10 @@ fieldset:disabled .btn {
   border-top: 0;
 }
 
-.card-body {
+/* .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
-}
+} */
 
 .card-title {
   margin-bottom: 0.5rem;
@@ -9650,10 +9650,10 @@ fieldset:disabled .btn {
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
 }
 
-.text-white {
+/* .text-white {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
-}
+} */
 
 .text-body {
   --bs-text-opacity: 1;
@@ -19663,9 +19663,9 @@ button.bg-info:focus {
   background-color: #117a8b !important;
 }
 
-.bg-warning {
+/* .bg-warning {
   background-color: #ffc107 !important;
-}
+} */
 
 a.bg-warning:hover,
 a.bg-warning:focus,
