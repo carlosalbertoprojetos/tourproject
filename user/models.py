@@ -6,34 +6,29 @@ from django.utils.translation import gettext_lazy as _
 from .managers import DefaultUserManager
 
 
-
 class User(AbstractUser):
 
     OPTION_CHOICES = [
-        ('0', _('Admin')),
-        ('1', _('Agência')),
-        ('2', _('Agente')),
-        ('3', _('Fornecedor')),
+        ("0", _("Admin")),
+        ("1", _("Agência")),
+        ("2", _("Agente")),
+        ("3", _("Fornecedor")),
     ]
+    username = models.CharField(_("Usuário"), max_length=100, unique=True)
 
-    email = models.EmailField(
-        _('Email'),
-        unique=True
+    email = models.EmailField(_("Email"), unique=True)
+
+    option = models.CharField(_("Opção"), max_length=8, choices=OPTION_CHOICES)
+
+    company = models.ForeignKey(
+        Company, on_delete=models.CASCADE, null=True, verbose_name="Empresa"
     )
 
-    option = models.CharField(
-        _('Opção'),
-        max_length=8,
-        choices=OPTION_CHOICES
-    )
-
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, verbose_name='Empresa')
-
-    EMAIL_FIELD = 'email'
-    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = "email"
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name_plural = 'Usuários'
+        verbose_name_plural = "Usuários"
 
     objects = DefaultUserManager()

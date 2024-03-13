@@ -9,29 +9,26 @@ from .models import User
 
 class CustomSignupForm(SignupForm):
 
-    option = forms.CharField(
-        label=_('Opção'),
-        widget=forms.Select
-    )
+    option = forms.CharField(label=_("Opção"), widget=forms.Select)
 
     def clean_password1(self):
-        password = self.data.get('password1')
+        password = self.data.get("password1")
         lpassword = len(password)
 
         if lpassword < 8 or lpassword > 16:
-            raise ValidationError('A senha deve ter de 8 a 16 caracteres')
+            raise ValidationError("A senha deve ter de 8 a 16 caracteres")
 
         if not any(char.isdigit() for char in password):
-            raise ValidationError('A senha deve conter pelo menos 1 dígito')
+            raise ValidationError("A senha deve conter pelo menos 1 dígito")
 
         if not any(char.isalpha() for char in password):
-            raise ValidationError('A senha deve conter pelo menos 1 letra')
+            raise ValidationError("A senha deve conter pelo menos 1 letra")
 
         return password
 
     def save(self, request):
         user = super(CustomSignupForm, self).save(request)
-        user.option = self.cleaned_data.get('option')
+        user.option = self.cleaned_data.get("option")
         user.save()
         return user
 
@@ -39,36 +36,40 @@ class CustomSignupForm(SignupForm):
 class SignupAgentForm(UserCreationForm):
 
     email = forms.EmailField(
-        required=True, help_text='Campo obrigatório! Insira um email válido!')
+        required=True, help_text="Campo obrigatório! Insira um email válido!"
+    )
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['email', ]
+        fields = [
+            "email",
+        ]
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(
-                'Este email já está cadastrado, por favor insira outro.')
+                "Este email já está cadastrado, por favor insira outro."
+            )
         return email
 
     def clean_password1(self):
-        password = self.data.get('password1')
+        password = self.data.get("password1")
         lpassword = len(password)
 
         if lpassword < 8 or lpassword > 16:
-            raise ValidationError('A senha deve ter de 8 a 16 caracteres')
+            raise ValidationError("A senha deve ter de 8 a 16 caracteres")
 
         if not any(char.isdigit() for char in password):
-            raise ValidationError('A senha deve conter pelo menos 1 dígito')
+            raise ValidationError("A senha deve conter pelo menos 1 dígito")
 
         if not any(char.isalpha() for char in password):
-            raise ValidationError('A senha deve conter pelo menos 1 letra')
+            raise ValidationError("A senha deve conter pelo menos 1 letra")
         return password
 
     def save(self, commit=True):
         user = super(SignupAgentForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+        user.email = self.cleaned_data["email"]
         if commit:
             user.save()
         return user
@@ -78,4 +79,4 @@ class EditUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['email', 'is_active']
+        fields = ["email", "is_active"]

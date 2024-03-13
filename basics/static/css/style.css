@@ -182,13 +182,13 @@ body {
 }
 
 
-.signup-content{
+.signup-content {
     padding: 20px 20px 0 20px;
     min-height: 470px;
     max-height: 750px;
 }
 
-.signup2-content{
+.signup2-content {
     padding: 20px 20px 0 20px;
     min-height: 470px;
     max-height: 1200px;
@@ -323,7 +323,7 @@ input:focus:-moz-placeholder {
 }
 
 input[type=checkbox]:not(old) {
-    width: 2em;
+    width: 1em;
     margin: 0;
     padding: 0;
     font-size: 1em;
@@ -530,7 +530,7 @@ label.valid:after {
 
 @media screen and (max-width: 1200px) {
     .container {
-        width: calc( 100% - 30px);
+        width: calc(100% - 30px);
         max-width: 100%;
     }
 }
@@ -542,6 +542,7 @@ label.valid:after {
 }
 
 @media screen and (max-width: 768px) {
+
     .signup-content,
     .signup2-content,
     .signin-content {
@@ -556,6 +557,7 @@ label.valid:after {
         -o-justify-content: center;
         -ms-justify-content: center;
     }
+
     .signup-form {
         margin-left: 0px;
         margin-right: 0px;
@@ -563,9 +565,11 @@ label.valid:after {
         /* box-sizing: border-box; */
         /* padding: 0 20px; */
     }
-    .signup-form2{
+
+    .signup-form2 {
         padding-bottom: 0px;
     }
+
     .signin-image {
         margin-left: 0px;
         margin-right: 0px;
@@ -576,18 +580,22 @@ label.valid:after {
         -o-order: 2;
         -ms-order: 2;
     }
+
     .form-group:last-child {
         margin-bottom: 100px;
     }
-    .signup2-content{
+
+    .signup2-content {
         padding-bottom: 10px;
     }
+
     .signup-form,
     .signup-image,
     .signin-form,
     .signin-image {
         width: auto;
     }
+
     .social-login {
         justify-content: center;
         -moz-justify-content: center;
@@ -596,11 +604,13 @@ label.valid:after {
         -ms-justify-content: center;
     }
 
-    .form-button, #novasenha, .img{
+    .form-button,
+    #novasenha,
+    .img {
         text-align: center;
     }
 
-    
+
     .signin-form {
         order: 1;
         -moz-order: 1;
@@ -611,6 +621,7 @@ label.valid:after {
         margin-left: 0px;
         padding: 0 30px;
     }
+
     .form-title {
         text-align: center;
     }
@@ -624,12 +635,15 @@ label.valid:after {
         -o-flex-direction: column;
         -ms-flex-direction: column;
     }
+
     .social-label {
         margin-right: 0px;
         margin-bottom: 10px;
     }
+
     .xlflex {
         margin-bottom: 50px;
     }
 }
+
 /*# sourceMappingURL=style.css.map */
