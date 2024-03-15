@@ -85,6 +85,7 @@ venv_tourproject\bin\activate
 ### Clonar o projeto
 
 ```
+git init
 git clone https://github.com/carlosalbertoprojetos/tourproject.git
 ```
 
