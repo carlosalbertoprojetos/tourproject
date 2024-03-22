@@ -60,12 +60,12 @@ ROOT_URLCONF = "tourproject.urls"
 
 SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 
-# TEMPLATE_DIRS = (os.path.join(SETTINGS_PATH, "templates"),)
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, SETTINGS_PATH, "tourproject/templates")],
+        "DIRS": [
+            os.path.join(BASE_DIR, SETTINGS_PATH, "tourproject/templates", "templates")
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -162,7 +162,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -178,7 +178,7 @@ LOGIN_REDIRECT_URL = "user:dashboard"
 LOGIN_URL = "index"
 
 LOGOUT_REDIRECT_URL = "index"
-LOGOUT_URL = "/accounts/logout/"
+LOGOUT_URL = "accounts/logout/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 

@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -20,28 +21,22 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django.views.i18n import JavaScriptCatalog
 
+
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path('user/', include('user.urls'), name='user'),
-    path('company/', include('company.urls'), name='company'),
-
-    path('trip/', include('trip.urls'), name='company'),
-    path('destiny/', include('destiny.urls'), name='destiny'),
-    path('season/', include('season.urls'), name='season'),
-
-    path('client/', include('client.urls'), name='client'),
-    path('transport/', include('transport.urls'), name='transport'),
-
-    path('package/', include('package.urls'), name='package'),
-
-    path('accounts/', include('allauth.urls')),    
-
-    path('admin/', admin.site.urls),
-    path('jsi18n', JavaScriptCatalog.as_view(), name='js-catlog'),
+    path("", TemplateView.as_view(template_name="index.html"), name="index"),
+    path("user/", include("user.urls"), name="user"),
+    path("company/", include("company.urls"), name="company"),
+    path("trip/", include("trip.urls"), name="company"),
+    path("destiny/", include("destiny.urls"), name="destiny"),
+    path("season/", include("season.urls"), name="season"),
+    path("client/", include("client.urls"), name="client"),
+    path("transport/", include("transport.urls"), name="transport"),
+    path("package/", include("package.urls"), name="package"),
+    path("accounts/", include("allauth.urls")),
+    path("admin/", admin.site.urls),
+    path("jsi18n", JavaScriptCatalog.as_view(), name="js-catlog"),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
