@@ -65,7 +65,7 @@ SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "tourproject/templates")],
+        "DIRS": [os.path.join(BASE_DIR, SETTINGS_PATH, "tourproject/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
