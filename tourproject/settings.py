@@ -16,7 +16,7 @@ SECRET_KEY = "django-insecure-+*&_mmj9d2+1342gf#!4k&#67g=b_+y=y7u^_5tqxtkyn8ja%&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = [".vercel.app", ".now.sh", "127.0.0.1", "localhost"]
 
 
 INSTALLED_APPS = [
@@ -53,14 +53,19 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "tourproject.urls"
 
+SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
+
+# TEMPLATE_DIRS = (os.path.join(SETTINGS_PATH, "templates"),)
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "tourproject/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -108,21 +113,23 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_EMAIL_VERIFICATION = None
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": str(os.path.join(BASE_DIR / "db.sqlite3")),
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": str(os.path.join(BASE_DIR / "db.sqlite3")),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "railway",
+        "USER": "postgres",
+        "PASSWORD": "lNMoWdtPZdiqKbaItZKwwAqmgMDMnfTj",
+        "HOST": "roundhouse.proxy.rlwy.net",
+        "PORT": "52005",
     }
 }
-
-if "DATABASE_URL" in os.environ:
-    import dj_database_url
-
-    DATABASES = {"default": dj_database_url.config()}
-
-# utilizado pelo heroku
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -159,9 +166,9 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
