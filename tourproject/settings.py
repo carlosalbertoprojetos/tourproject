@@ -16,7 +16,7 @@ SECRET_KEY = "django-insecure-+*&_mmj9d2+1342gf#!4k&#67g=b_+y=y7u^_5tqxtkyn8ja%&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app", ".now.sh", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [".vercel.app", ".now.sh", "127.0.0.1", "localhost", "*"]
 
 
 INSTALLED_APPS = [
@@ -55,6 +55,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
 ]
+
 
 ROOT_URLCONF = "tourproject.urls"
 

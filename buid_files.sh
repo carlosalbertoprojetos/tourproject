@@ -1,2 +1,2 @@
 pip install -r requirements.txt
-python 3.10 manage.py collestatic
+python 3.9 manage.py collestatic
