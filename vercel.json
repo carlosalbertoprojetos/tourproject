@@ -2,8 +2,13 @@
     "version": 2,
     "builds": [
         {
+<<<<<<< HEAD
             "src": "tourproject/wsgi.py",
             "use": "@vercel/python",
+=======
+            "src": "wsgi.py",
+            "user": "@vercel/python",
+>>>>>>> fe8c87b513f2c5b28e6111ba07d782f0f6ce65a7
             "config": {
                 "maxLambdaSize": "15mb",
                 "runtime": "python3.9"
@@ -24,7 +29,7 @@
         },
         {
             "src": "/(.*)",
-            "dest": "tourproject/wsgi.py"
+            "dest": "wsgi.py"
         }
     ]
 }
