@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-import django_heroku
+# import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -53,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "tourproject.urls"
@@ -175,4 +176,4 @@ LOGOUT_URL = "/accounts/logout/"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

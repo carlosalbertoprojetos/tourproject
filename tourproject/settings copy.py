@@ -6,7 +6,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -16,7 +15,7 @@ SECRET_KEY = "django-insecure-+*&_mmj9d2+1342gf#!4k&#67g=b_+y=y7u^_5tqxtkyn8ja%&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app", ".now.sh", "127.0.0.1", "localhost", "*"]
+ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
@@ -59,14 +58,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "tourproject.urls"
 
-SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
+# SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            os.path.join(BASE_DIR, SETTINGS_PATH, "tourproject/templates", "templates")
-        ],
+        # "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -98,10 +96,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-
 ACCOUNT_SIGNUP_REDIRECT_URL = "/company/signup/2/"
-
-
 ACCOUNT_CONFIRM_EMAIL_ON_GET = False
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -114,12 +109,12 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_EMAIL_VERIFICATION = None
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": str(os.path.join(BASE_DIR / "db.sqlite3")),
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": str(os.path.join(BASE_DIR / "db.sqlite3")),
+    }
+}
 
 DATABASES = {
     "default": {
