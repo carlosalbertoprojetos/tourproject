@@ -5,81 +5,68 @@ Passeio
 {% endblock title %}
 {% block dashboard %}
 
-<script src="{% url 'js-catlog' %}"></script>
-<script src="{% static '/admin/js/core.js' %}"></script>
-<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
-<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
-
-
-
-<div class="container-fluid mt-2">
-    <div class="card">
-        <div class="container-form">
-            <div class="card-header">
-                <div class="row form-title m-2 pb-1">
-                    <div class="col-md-1 pt-1">
-                        <h5>Passeio:</h5>
-                    </div>
-                    <div class="col-md-6 align-content-center">
-                        <h3 class="mb-0"><a href="{% url 'trip:trip_list_create' %}">{{ trip.name }}</a></h3>
-                    </div>
-                </div>
-                <form method="POST" enctype="multipart/form-data">
-                    {% for a in activity %}
-                    <div class="card-header p-0">
-                        <div class="row">
-                            <div class="col-md-2 card m-0 px-2">
-                                <div class="align-middle p-1">
-                                    <h6><i>{{ a.name }}</i></h6>
-                                </div>
-                            </div>
-                            {% csrf_token %}
-                            {{ formset.management_form|crispy }}
-                            {{ formset.non_form_errors }}
-                            <div class="col-md-10 p-0 m-0">
-                                <div class="row">
-                                    {% for c in catpax %}
-                                    {% if c.activity_id == a.id %}
-                                    <div class="col-md-3 card p-1 m-0">
-                                        <h6>
-                                            <center>{{c.catpax}}</center>
-                                        </h6>
-                                        <div class="row">
-                                            {% for s in season %}
-                                            <div class="col-md-6">
-                                                <h6 style="font-size:0.60em">
-                                                    <center>{{ s }}</center>
-                                                </h6>
-                                            </div>
-                                            {% endfor %}
-                                            {% for field in formset %}
-                                            {% if field.activity.value == a.id and field.catpax.value == c.catpax_id %}
-                                            <div class="col-md-6 p-0 m-0">
-                                                <h6 style="font-size:0.9em">
-                                                    <center>{{ field }}</center>
-                                                </h6>
-                                            </div>
-                                            {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    {% endfor %}
-                    <div class="col-md-12 mb-2">
-                        <div class="form-group form-button">
-                            <input type="submit" class="form-submit form-group" value="Salvar" />
-                        </div>
-                    </div>
-                </form>
-            </div>
+<div class="card-header">
+    <div class="row form-title m-2 pb-1">
+        <div class="col-md-1 pt-1">
+            <h5>Passeio:</h5>
+        </div>
+        <div class="col-md-6 align-content-center">
+            <h3 class="mb-0"><a href="{% url 'trip:trip_list_create' %}">{{ trip.name }}</a></h3>
         </div>
     </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% for a in activity %}
+        <div class="card-header p-0">
+            <div class="row">
+                <div class="col-md-2 card m-0 px-2">
+                    <div class="align-middle p-1">
+                        <h6><i>{{ a.name }}</i></h6>
+                    </div>
+                </div>
+                {% csrf_token %}
+                {{ formset.management_form|crispy }}
+                {{ formset.non_form_errors }}
+                <div class="col-md-10 p-0 m-0">
+                    <div class="row">
+                        {% for c in catpax %}
+                        {% if c.activity_id == a.id %}
+                        <div class="col-md-3 card p-1 m-0">
+                            <h6>
+                                <center>{{c.catpax}}</center>
+                            </h6>
+                            <div class="row">
+                                {% for s in season %}
+                                <div class="col-md-6">
+                                    <h6 style="font-size:0.60em">
+                                        <center>{{ s }}</center>
+                                    </h6>
+                                </div>
+                                {% endfor %}
+                                {% for field in formset %}
+                                {% if field.activity.value == a.id and field.catpax.value == c.catpax_id %}
+                                <div class="col-md-6 p-0 m-0">
+                                    <h6 style="font-size:0.9em">
+                                        <center>{{ field }}</center>
+                                    </h6>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+        <div class="col-md-12 mb-2">
+            <div class="form-group form-button">
+                <input type="submit" class="form-submit form-group" value="Salvar" />
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}
