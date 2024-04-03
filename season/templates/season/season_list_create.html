@@ -7,10 +7,10 @@ Temporadas
 
 <div class="card-header p-1">
     <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <h2 class="form-title m-2">Temporadas</h2>
+        <div class="col">
+            <h1 class="form-title m-2">Temporadas</h1>
         </div>
-        <div id="bottom_list" class="col-sm-12 col-md-6">
+        <div id="bottom_list" class="col">
             <div class="row my-3">
                 <form method="POST">
                     <a data-toggle="modal" data-target="#exampleModal" class="btn float-end">
@@ -64,32 +64,32 @@ Temporadas
                 <tr>
                     <td>{{ s.name }}</td>
                     <td>{{ s.destiny.name }} - {{ s.destiny.state }}</td>
-                    <td align="center">{{ s.validity }}</td>
-                    <td align="center">
+                    <td class="text-center">{{ s.validity }}</td>
+                    <td class="text-center">
                         {% if s.active_company %}
-                        <i class="fas fa-user-check"></i>
+                        <i class="fas fa-user-check text-success"></i>
                         {% else %}
-                        <i class="fas fa-user-times"></i>
+                        <i class="fas fa-user-times text-danger"></i>
                         {% endif %}
                     </td>
-                    <td align="center">
+                    <td class="text-center">
                         {% if s.active_sell %}
-                        <i class="fas fa-user-check"></i>
+                        <i class="fas fa-user-check text-success"></i>
                         {% else %}
-                        <i class="fas fa-user-times"></i>
+                        <i class="fas fa-user-times text-danger"></i>
                         {% endif %}
                     </td>
-                    <td align="center">
+                    <td class="text-center">
                         <a href="{% url 'season:event_list' s.pk %}" class="btn">
                             <i class="fas fa-calendar-check"></i>
                         </a>
                     </td>
-                    <td align="center">
+                    <td class="text-center">
                         <a href="{% url 'season:season_update' s.pk %}" class="btn">
                             <i class="fas fa-user-edit"></i>
                         </a>
                     </td>
-                    <td align="center">
+                    <td class="text-center">
                         <a href="{% url 'season:season_delete' s.pk%}" class="btn">
                             <i class="fas fa-solid fa-trash"></i>
                         </a>

@@ -14,7 +14,6 @@ Usuário
                 <form method="POST">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
-
                     <label for="id_email">Email</label>
                     <input class="form-control my-2" type="email" name="email" id="id_email"
                         value="{{ form.email.value }}">

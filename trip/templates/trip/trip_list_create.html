@@ -7,10 +7,10 @@ Passeio
 
 <div class="card-header p-1">
     <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col">
             <h1 class="m-2">Passeios</h1>
         </div>
-        <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
+        <div id="bottom_list" class="col">
             <div class="row my-3">
                 <form method="POST" enctype="multipart/form-data">
                     <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
@@ -66,23 +66,23 @@ Passeio
                 <td>{{ t.destiny.city_state }}</td>
                 <td>{{ t.short_description|safe|truncatechars:"20" }}</td>
                 <td>{{ t.trip_duration }}</td>
-                <td align="center">{{ t.updated|date:'d/m/Y' }}</td>
-                <td align="center">
+                <td class="text-center">{{ t.updated|date:'d/m/Y' }}</td>
+                <td class="text-center">
                     <a href="{% url 'trip:activity_list_create' trip_id=t.pk %}" class="btn">
                         <i class="fas fa-diagnoses"></i>
                     </a>
                 </td>
-                <td align="center">
+                <td class="text-center">
                     <a href="{% url 'trip:activity_price_update' trip_id=t.pk %}" class="btn">
                         <i class="fas fa-money-bill-wave"></i>
                     </a>
                 </td>
-                <td align="center">
+                <td class="text-center">
                     <a href="{% url 'trip:trip_update' t.pk %}" class="btn">
                         <i class="fas fa-user-edit"></i>
                     </a>
                 </td>
-                <td align="center">
+                <td class="text-center">
                     <a href="{% url 'trip:trip_delete' t.pk %}" class="btn">
                         <i class="fas fa-solid fa-trash"></i>
                     </a>

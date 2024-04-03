@@ -5,31 +5,23 @@ Passeio
 {% endblock title %}
 {% block dashboard %}
 
-<script src="{% url 'js-catlog' %}"></script>
-<script src="{% static '/admin/js/core.js' %}"></script>
-<link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
-<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
 
 
 
-<div class="container-fluid mt-2">
-    <div class="card">
-        <div class="container-form">
-            <div class="card-header">
-                <h2 class="form-title">Editar Atividade</h2>
-                <form method="POST" class="register-form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    {{ form|crispy }}
-                    <div class="row form-group form-button ">
-                        <div class="col-md-1 p-1">
-                            <input type="submit" class="btn btn-primary" value="Salvar" />
-                        </div>
-                    </div>
-                </form>
-            </div>
+
+<h2 class="form-title">Editar Atividade</h2>
+<form method="POST" class="register-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {{ form|crispy }}
+    <div class="row form-group form-button ">
+        <div class="col-md-1 p-1">
+            <input type="submit" class="btn btn-primary" value="Salvar" />
         </div>
     </div>
-</div>
+</form>
+
+
+
 
 {% endblock %}

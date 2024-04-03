@@ -7,12 +7,10 @@ Passeio
 
 <div class="card-header p-1">
     <div class="row">
-        <div class="col-sm-2 col-md-1 mb-0">
-            <h5 class="form-title ml-2 my-2 pl-1">Passeio:
+        <div class="col d-flex mb-0">
+            <h5 class="form-title my-2 ">Passeio:
             </h5>
-        </div>
-        <div class="col-sm-12 col-md-6 mb-1">
-            <h3 class="form-title mt-1"><a href="{% url 'trip:trip_list_create' %}">
+            <h3 class="form-title mt-1 ps-2"><a href="{% url 'trip:trip_list_create' %}">
                     {% if trip.trip %}
                     {{ trip.trip }}
                     {% else %}
@@ -20,7 +18,7 @@ Passeio
                     {% endif %}
                 </a></h3>
         </div>
-        <div id="bottom_list" class="col-sm-12 col-md-3" style="text-align-last">
+        <div id="bottom_list" class="col">
             <div class="row my-3">
                 <form method="POST">
                     <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
@@ -63,9 +61,6 @@ Passeio
                     <th>Descrição</th>
                     <th>PAX Mínimo</th>
                     <th>Ocupação</th>
-                    {% comment %} <th>Tarifa de Grupo</th> {% endcomment %}
-                    {% comment %} <th>Somente Noturno</th> {% endcomment %}
-                    <!-- <th>Valores</th> -->
                     <th>Editar</th>
                     <th>Deletar</th>
                 </tr>
@@ -77,21 +72,6 @@ Passeio
                     <td>{{ p.description|safe|truncatechars:"20" }}</td>
                     <td class="text-center">{{ p.min_amount_pax }}</td>
                     <td class="text-center">{{ p.occ_scale }}</td>
-                    {% comment %} <td class="text-center">
-                        {% if p.tariff_group %}
-                        SIM
-                        {% else %}
-                        NÃO
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        {% if p.night_walk %}
-                        SIM
-                        {% else %}
-                        NÃO
-                        {% endif %}
-                    </td> {% endcomment %}
-
                     <td class="text-center">
                         <a href="{% url 'trip:activity_update' p.pk %}" class="btn">
                             <i class="fas fa-user-edit"></i>

@@ -7,10 +7,10 @@ Passeio
 
 <div class="card-header p-1">
     <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col">
             <h2 class="form-title m-2">Lista de Categorias de Passeio</h2>
         </div>
-        <div id="bottom_list" class="col-sm-12 col-md-6" style="text-align-last">
+        <div id="bottom_list" class="col">
             <div class="row my-3">
                 <form method="POST">
                     <a data-toggle="modal" data-target="#exampleModal" class="btn float-end" id="+">
@@ -56,12 +56,12 @@ Passeio
             <tbody>
                 {% for c in object_list %}
                 <td>{{ c.name }}</td>
-                <td align="center">
+                <td class="text-center">
                     <a href="{% url 'trip:trip_category_update' c.pk %}" class="btn">
                         <i class="fas fa-user-edit"></i>
                     </a>
                 </td>
-                <td align="center">
+                <td class="text-center">
                     <a href="{% url 'trip:trip_category_delete' c.pk %}" class="btn">
                         <i class="fas fa-solid fa-trash"></i>
                     </a>
