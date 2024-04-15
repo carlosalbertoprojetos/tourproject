@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Empresa
+Empresa
 {% endblock title %}
 {% block base %}
 
@@ -18,8 +18,8 @@
                     <form method="POST" enctype="multipart/form-data">
                         <div class="row form-group">
                             {% comment %} {% for hidden_field in form.hidden_fields %}
-                                {{ hidden_field.errors }}
-                                {{ hidden_field }}
+                            {{ hidden_field.errors }}
+                            {{ hidden_field }}
                             {% endfor %} {% endcomment %}
                             {% csrf_token %}
                             <div class="form-group col-md-6">
@@ -31,24 +31,24 @@
                                 <div class="form-group">
                                     {{ formset_destiny.management_form }}
                                     {% for field in formset_destiny %}
-                                        {{ field.errors }}
-                                        {{ field.label_tag }}
-                                        {{ field|crispy }}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
                                     {% endfor %}
                                     {{ formset_phone.management_form }}
                                     {% for field in formset_phone %}
-                                        {{ field.errors }}
-                                        {{ field.label_tag }}
-                                        {{ field|crispy }}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
                                     {% endfor %}
                                     {{ formset_socmedia.management_form }}
                                     {% for field in formset_socmedia %}
-                                        {{ field.errors }}
-                                        {{ field.label_tag }}
-                                        {{ field|crispy }}
+                                    {{ field.errors }}
+                                    {{ field.label_tag }}
+                                    {{ field|crispy }}
                                     {% endfor %}
                                     <p class="pt-3 col-md-3">
-                                        <input type="submit" class="btn btn-dark" value="Save" />
+                                        <input type="submit" class="btn btn-dark" value="Salvar" />
                                     </p>
                                 </div>
                             </div>

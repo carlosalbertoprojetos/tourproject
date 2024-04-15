@@ -1,27 +1,27 @@
 {% load i18n account static crispy_forms_tags %}
-{% block package_trips %}
 
+{% block package_trips %}
 
 {% for t in trips %}
 <div class='justify-content-center'>
-    <h4 class="form-title mb-0 p-2" align="center">{{ t.name }}
-</div>h4>
+    <h4 class="form-title mb-0 p-2 text-center">{{ t.name }}
+</div>
 <hr class='m-0'>
 <div class="row card-header mt-3">
     {% for a in activities %}
     {% if t == a.trip %}
     <div class="col-sm-12 col-md-6">
-        <h4 align="center"><b><i>{{ a.name }}</i></b>
-        </h4>
+        <h4 class="text-center"><b><i>{{ a.name }}</i></b></h4>
         <div class='row'>
             {% if a.image %}
             <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;"
-                max-width="450px" align="center" />
+                max-width="450px text-center" />
             {% endif %}
         </div>
         <div class='row'>
-            <h6 class='px-3 mt-2' style='text-align:city justify; font-weight: normal;'><i>{{
-                    a.description|truncatewords:50 }}</i></h6>
+            <h6 class='px-3 mt-2' style='text-align:city justify; font-weight: normal;'>
+                <i>{{ a.description|truncatewords:50 }}</i>
+            </h6>
         </div>
         <div class="row ml-2 trip_group">
             {% for p in activities_prices %}
@@ -39,20 +39,20 @@
     {% endif %}
     {% endfor %}
 </div>
-</div>
+
 {% endfor %}
 
 <div class='row'>
-    <div class='col-12 my-2'>
-        <button id='advance2' type='submit' class='btn btn-primary float-end'>Avançar</button>
+    <div class="col-12 mb-2">
+        <input type="submit" id='advance2' class="btn btn-primary btn-sm float-end" value="Avançar" />
     </div>
 </div>
-
 
 {% endblock %}
 
 
 {% block js %}
+
 <script type="text/javascript">
     var prices = JSON.parse('{{ len_prices|escapejs }}');
 

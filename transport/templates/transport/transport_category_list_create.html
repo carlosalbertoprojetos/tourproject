@@ -1,8 +1,11 @@
 {% extends 'dashboard.html' %}
+
 {% load i18n account static crispy_forms_tags %}
+
 {% block title %}
 Transportes
 {% endblock title %}
+
 {% block dashboard %}
 
 <div class="card-header p-1">
@@ -30,11 +33,10 @@ Transportes
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
                                     {{ form|crispy }}
-                                    {{ form.media }}
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="form-group form-button">
-                                        <input type="submit" name="signup" id="signup" class="form-submit"
+                                    <div class="col-3 col-lg-2 mt-2">
+                                        <input type="submit" class="btn btn-primary btn-sm" name="signup" id="signup"
                                             value="Salvar" />
                                     </div>
                                 </div>
@@ -58,12 +60,12 @@ Transportes
                 {% for t in object_list %}
                 <tr>
                     <td>{{ t.transport_type }}</td>
-                    <td align="center">
+                    <td class="text-center">
                         <a href="{% url 'transport:transport_category_update' t.pk %}" class="btn">
                             <i class="fas fa-user-edit"></i>
                         </a>
                     </td>
-                    <td align="center">
+                    <td class="text-center">
                         <a href="{% url 'transport:transport_category_delete' t.pk %}" class="btn">
                             <i class="fas fa-solid fa-trash"></i>
                         </a>

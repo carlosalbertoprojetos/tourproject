@@ -1,56 +1,261 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Empresa
+Empresa
 {% endblock title %}
 {% block dashboard %}
 
-<div class="container-fluid mt-2">
-    <div class="card">
-        <div class="container-form">
-            <div class="card-body col-md-8">
-                <h2 class="form-title">Atualizar dados</h2>
-                <form method="POST" enctype="multipart/form-data">
-                    <div class="row form-group">
-                        {% for hidden_field in form.hidden_fields %}
-                            {{ hidden_field.errors }}
-                            {{ hidden_field }}
-                        {% endfor %}
-                        {% csrf_token %}
-                        <div class="form-group col-md-6">{{ form|crispy }}</div>
-                        <div class="form-group col-md-6">
-                            <div class="form-group">
-                                {{ formset_destiny.management_form }}
-                                {{ formset_destiny.non_form_errors }}
-                                {% for field in formset_destiny %}
-                                    {{ field.errors }}
-                                    {{ field.label_tag }}
-                                    {{ field|crispy }}
-                                {% endfor %}
-                                {{ formset_phone.management_form }}
-                                {{ formset_phone.non_form_errors }}
-                                {% for field in formset_phone %}
-                                    {{ field.errors }}
-                                    {{ field.label_tag }}
-                                    {{ field|crispy }}
-                                {% endfor %}
-                                {{ formset_socmedia.management_form }}
-                                {{ formset_socmedia.non_form_errors }}
-                                {% for field in formset_socmedia %}
-                                    {{ field.errors }}
-                                    {{ field.label_tag }}
-                                    {{ field|crispy }}
-                                {% endfor %}
-                                <p class="pt-3 col-md-3">
-                                    <input type="submit" class="btn btn-dark" value="Save" />
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+
+<div class="p-2">
+    <h2 class="form-title">Atualizar dados</h2>
+    <!-- <form method="POST" enctype="multipart/form-data">
+        <div class="row form-group">
+            {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field.errors }}
+            {{ hidden_field }}
+            {% endfor %}
+            {% csrf_token %}
+            <div class="form-group col-md-6">{{ form|crispy }}</div>
+            <div class="form-group col-md-6">
+                <div class="form-group">
+                    {{ formset_destiny.management_form }}
+                    {{ formset_destiny.non_form_errors }}
+                    {% for field in formset_destiny %}
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                    {{ field|crispy }}
+                    {% endfor %}
+                    {{ formset_phone.management_form }}
+                    {{ formset_phone.non_form_errors }}
+                    {% for field in formset_phone %}
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                    {{ field|crispy }}
+                    {% endfor %}
+                    {{ formset_socmedia.management_form }}
+                    {{ formset_socmedia.non_form_errors }}
+                    {% for field in formset_socmedia %}
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+                    {{ field|crispy }}
+                    {% endfor %}
+                    <p class="pt-3 col-md-3">
+                        <input type="submit" class="btn btn-dark" value="Save" />
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </form> -->
+    <form method="POST" enctype="multipart/form-data">
+        <div class="row form-group">
+            {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field.errors }}
+            {{ hidden_field }}
+            {% endfor %}
+            {% csrf_token %}
+            <div class="form-group col-md-6">
+
+                <div id="div_id_responsible" class="form-group"> <label for="id_responsible" class=" requiredField">
+                        Nome Completo<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="responsible" value="Altamiro" maxlength="100"
+                            class="textinput form-control" required="" id="id_responsible"> </div>
+                </div>
+                <div id="div_id_company_name" class="form-group"> <label for="id_company_name" class=" requiredField">
+                        Razão Social<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="company_name" value="AltamiroTour" maxlength="100"
+                            class="textinput form-control" required="" id="id_company_name"> </div>
+                </div>
+                <div id="div_id_document_number" class="form-group"> <label for="id_document_number"
+                        class=" requiredField">
+                        CPF/CNPJ<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="document_number" value="11111111111111" maxlength="18"
+                            class="mask-cnpj textinput form-control" required="" id="id_document_number"> </div>
+                </div>
+                <div id="div_id_street" class="form-group"> <label for="id_street" class=" requiredField">
+                        Logradouro<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="street" value="Rua Um" maxlength="200" class="textinput form-control"
+                            required="" id="id_street"> </div>
+                </div>
+                <div id="div_id_number" class="form-group"> <label for="id_number" class=" requiredField">
+                        Número<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="number" value="31" maxlength="30" class="textinput form-control"
+                            required="" id="id_number"> </div>
+                </div>
+                <div id="div_id_complement" class="form-group"> <label for="id_complement" class="">
+                        Complemento
+                    </label>
+                    <div> <input type="text" name="complement" value="A" maxlength="100" class="textinput form-control"
+                            id="id_complement"> </div>
+                </div>
+                <div id="div_id_postal_code" class="form-group"> <label for="id_postal_code" class=" requiredField">
+                        CEP<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="postal_code" value="30000000" maxlength="11"
+                            class="mask-cep textinput form-control" required="" id="id_postal_code"> </div>
+                </div>
+                <div id="div_id_state" class="form-group"> <label for="id_state" class=" requiredField">
+                        Estado<span class="asteriskField">*</span> </label>
+                    <div> <select name="state" class="select form-control" required="" id="id_state">
+                            <option value="">---------</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS" selected="">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="PR">PR</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="RS">RS</option>
+                            <option value="SC">SC</option>
+                            <option value="SE">SE</option>
+                            <option value="SP">SP</option>
+                            <option value="TO">TO</option>
+
+                        </select> </div>
+                </div>
+                <div id="div_id_city" class="form-group"> <label for="id_city" class=" requiredField">
+                        Cidade<span class="asteriskField">*</span> </label>
+                    <div> <input type="text" name="city" value="Bonito" maxlength="100" class="textinput form-control"
+                            required="" id="id_city"> </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="form-group">
+                    <input type="hidden" name="companydestinies_set-TOTAL_FORMS" value="1"
+                        id="id_companydestinies_set-TOTAL_FORMS"><input type="hidden"
+                        name="companydestinies_set-INITIAL_FORMS" value="1"
+                        id="id_companydestinies_set-INITIAL_FORMS"><input type="hidden"
+                        name="companydestinies_set-MIN_NUM_FORMS" value="0"
+                        id="id_companydestinies_set-MIN_NUM_FORMS"><input type="hidden"
+                        name="companydestinies_set-MAX_NUM_FORMS" value="1000"
+                        id="id_companydestinies_set-MAX_NUM_FORMS">
+
+                    <div id="div_id_companydestinies_set-0-destiny" class="form-group"> <label
+                            for="id_companydestinies_set-0-destiny" class=" requiredField">
+                            Destino<span class="asteriskField">*</span> </label>
+                        <div> <select name="companydestinies_set-0-destiny" class="select form-control"
+                                id="id_companydestinies_set-0-destiny">
+                                <option value="">---------</option>
+                                <option value="1" selected="">Bonito: Bonito/MS</option>
+                                <option value="2">Caldas Novas: Caldas Novas/GO</option>
+                                <option value="3">Gramado: Gramado/RS</option>
+                                <option value="5">Ouro Preto: Ouro Preto/MG</option>
+                                <option value="4">Salvador: Salvador/BA</option>
+
+                            </select> </div>
+                    </div> <input type="hidden" name="companydestinies_set-0-id" value="1"
+                        id="id_companydestinies_set-0-id"> <input type="hidden" name="companydestinies_set-0-company"
+                        value="1" id="id_companydestinies_set-0-company">
+
+
+                    <input type="hidden" name="phone_set-TOTAL_FORMS" value="2" id="id_phone_set-TOTAL_FORMS"><input
+                        type="hidden" name="phone_set-INITIAL_FORMS" value="1" id="id_phone_set-INITIAL_FORMS"><input
+                        type="hidden" name="phone_set-MIN_NUM_FORMS" value="0" id="id_phone_set-MIN_NUM_FORMS"><input
+                        type="hidden" name="phone_set-MAX_NUM_FORMS" value="1000" id="id_phone_set-MAX_NUM_FORMS">
+
+
+                    <input type="hidden" name="phone_set-0-company" value="1" id="id_phone_set-0-company">
+                    <div id="div_id_phone_set-0-phone" class="form-group"> <label for="id_phone_set-0-phone" class="">
+                            Telefone
+                        </label>
+                        <div> <input type="text" name="phone_set-0-phone" value="31000000001" maxlength="16"
+                                class="mask-telefone textinput form-control" id="id_phone_set-0-phone"> </div>
+                    </div> <input type="hidden" name="phone_set-0-id" value="1" id="id_phone_set-0-id">
+                    <div class="form-group">
+                        <div id="div_id_phone_set-0-DELETE" class="form-check"> <input type="checkbox"
+                                name="phone_set-0-DELETE" class="checkboxinput form-check-input"
+                                id="id_phone_set-0-DELETE"> <label for="id_phone_set-0-DELETE" class="form-check-label">
+                                Apagar
+                            </label> </div>
+                    </div>
+
+
+                    <input type="hidden" name="phone_set-1-company" value="1" id="id_phone_set-1-company">
+                    <div id="div_id_phone_set-1-phone" class="form-group"> <label for="id_phone_set-1-phone" class="">
+                            Telefone
+                        </label>
+                        <div> <input type="text" name="phone_set-1-phone" maxlength="16"
+                                class="mask-telefone textinput form-control" id="id_phone_set-1-phone"> </div>
+                    </div> <input type="hidden" name="phone_set-1-id" id="id_phone_set-1-id">
+                    <div class="form-group">
+                        <div id="div_id_phone_set-1-DELETE" class="form-check"> <input type="checkbox"
+                                name="phone_set-1-DELETE" class="checkboxinput form-check-input"
+                                id="id_phone_set-1-DELETE"> <label for="id_phone_set-1-DELETE" class="form-check-label">
+
+                                Apagar
+
+                            </label> </div>
+                    </div>
+
+
+                    <input type="hidden" name="socialmedia_set-TOTAL_FORMS" value="2"
+                        id="id_socialmedia_set-TOTAL_FORMS"><input type="hidden" name="socialmedia_set-INITIAL_FORMS"
+                        value="1" id="id_socialmedia_set-INITIAL_FORMS"><input type="hidden"
+                        name="socialmedia_set-MIN_NUM_FORMS" value="0" id="id_socialmedia_set-MIN_NUM_FORMS"><input
+                        type="hidden" name="socialmedia_set-MAX_NUM_FORMS" value="1000"
+                        id="id_socialmedia_set-MAX_NUM_FORMS">
+
+
+                    <div id="div_id_socialmedia_set-0-socmedia" class="form-group"> <label
+                            for="id_socialmedia_set-0-socmedia" class="">
+                            Rede Social
+                        </label>
+                        <div> <input type="text" name="socialmedia_set-0-socmedia" value="Instagram" maxlength="100"
+                                class="textinput form-control" id="id_socialmedia_set-0-socmedia"> </div>
+                    </div> <input type="hidden" name="socialmedia_set-0-id" value="1" id="id_socialmedia_set-0-id">
+                    <div class="form-group">
+                        <div id="div_id_socialmedia_set-0-DELETE" class="form-check"> <input type="checkbox"
+                                name="socialmedia_set-0-DELETE" class="checkboxinput form-check-input"
+                                id="id_socialmedia_set-0-DELETE"> <label for="id_socialmedia_set-0-DELETE"
+                                class="form-check-label">
+
+                                Apagar
+
+                            </label> </div>
+                    </div> <input type="hidden" name="socialmedia_set-0-company" value="1"
+                        id="id_socialmedia_set-0-company">
+
+                    <div id="div_id_socialmedia_set-1-socmedia" class="form-group"> <label
+                            for="id_socialmedia_set-1-socmedia" class="">
+                            Rede Social
+                        </label>
+                        <div> <input type="text" name="socialmedia_set-1-socmedia" maxlength="100"
+                                class="textinput form-control" id="id_socialmedia_set-1-socmedia"> </div>
+                    </div> <input type="hidden" name="socialmedia_set-1-id" id="id_socialmedia_set-1-id">
+                    <div class="form-group">
+                        <div id="div_id_socialmedia_set-1-DELETE" class="form-check"> <input type="checkbox"
+                                name="socialmedia_set-1-DELETE" class="checkboxinput form-check-input"
+                                id="id_socialmedia_set-1-DELETE"> <label for="id_socialmedia_set-1-DELETE"
+                                class="form-check-label">
+
+                                Apagar
+
+                            </label> </div>
+                    </div> <input type="hidden" name="socialmedia_set-1-company" value="1"
+                        id="id_socialmedia_set-1-company">
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-2 col-lg-1 mt-2">
+            <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
+        </div>
+    </form>
 </div>
+
 
 {% endblock %}

@@ -111,18 +111,12 @@
                         Passeios
                     </a>
                     <div class="sb-sidenav-menu-heading">Produtos</div>
-                    <a class="nav-link" href="{% url 'transport:transport_list_create' %}">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#collapseRestaurante" aria-expanded="false" aria-controls="collapseRestaurante">
                         <div class="sb-nav-link-icon">
                             <i class="fas fa-solid fa-bus"></i>
                         </div>
                         Transporte
-                    </a>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#collapseRestaurante" aria-expanded="false" aria-controls="collapseRestaurante">
-                        <div class="sb-nav-link-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        Restaurante
                         <div class="sb-sidenav-collapse-arrow">
                             <i class="fas fa-angle-down"></i>
                         </div>
@@ -130,10 +124,20 @@
                     <div class="collapse" id="collapseRestaurante" aria-labelledby="headingOne"
                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">Tipos</a>
-                            <a class="nav-link" href="#">Reservas</a>
+                            <a class="nav-link" href="{% url 'transport:transport_list_create' %}">Lista</a>
+                            <a class="nav-link" href="{% url 'transport:transport_price_list_create' %}">Preços</a>
+                            <a class="nav-link"
+                                href="{% url 'transport:transport_category_list_create' %}">Categorias</a>
+                            <a class="nav-link" href="{% url 'transport:transport_catpax_list_create' %}">Categorias
+                                PAX</a>
                         </nav>
                     </div>
+                    <a class="nav-link" href="#">
+                        <div class="sb-nav-link-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        Restaurante
+                    </a>
 
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages2"
                         aria-expanded="false" aria-controls="collapsePages2">

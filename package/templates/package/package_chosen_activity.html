@@ -1,14 +1,14 @@
 {% extends 'package/package_base.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Passeios
+Passeios
 {% endblock title %}
 {% block activities %}
 
 
 <div class="tab-pane fade" id="trips" role="tabpanel" aria-labelledby="trips-tab">
     <div class="container-flex">
-        <h3 class="title px-3 pt-4 my-0" align="center">{{ city }}</h3>
+        <h3 class="title px-3 pt-4 my-0 text-center">{{ city }}</h3>
         <hr class='mb-0'>
     </div>
     <div class="container-flex">
@@ -16,35 +16,38 @@
             {% for t in trips %}
             <div class='row'>
                 <div class="col-sm-12 col-md-12">
-                    <h4 class="jumbotron form-title mb-0 p-2" align="center">{{ t.name }}<h4>
+                    <h4 class="jumbotron form-title mb-0 p-2 text-center">{{ t.name }}<h4>
                 </div>
                 <div class="row mt-2">
                     {% for a in activities %}
-                        {% if t == a.trip  %}
-                        <div class="col-sm-12 col-md-6">
-                            <h4 align="center"><b><i>{{ a.name }}</i></b><h4>
-                            <div class='row'>
-                                {% if a.image %}
-                                <img src="{{ a.image.url }}" class="img-responsive mb-2" height="300px" style="border-radius: 1%;" max-width="450px" align="center"/>
-                                {% endif %}
-                            </div>
-                            <div class='row'>
-                                <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{ a.description|truncatewords:50 }}</i></h6>
-                            </div>
-                            <div class="row">
-                            {% for p in activities_prices %}
-                                {% if a.id == p.activity_id %}
-                                <div class='col-sm-6 col-md-6 px-1 py-2'>
-                                    <div class="row p-0">
-                                        <input type="checkbox" class="col-1" value="" id="flexCheckDefault">
-                                        <h6 class='col-11 px-2 m-0'>{{ p.catpax }} - R$ {{ p.price}}</h6>
-                                    </div>
+                    {% if t == a.trip %}
+                    <div class="col-sm-12 col-md-6">
+                        <h4 class="text-center"><b><i>{{ a.name }}</i></b>
+                            <h4>
+                                <div class='row'>
+                                    {% if a.image %}
+                                    <img src="{{ a.image.url }}" class="img-responsive mb-2 text-center" height="300px"
+                                        style="border-radius: 1%;" max-width="450px" />
+                                    {% endif %}
                                 </div>
-                                {% endif %}
-                            {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
+                                <div class='row'>
+                                    <h6 class='px-3 mt-2' style='text-align: justify; font-weight: normal;'><i>{{
+                                            a.description|truncatewords:50 }}</i></h6>
+                                </div>
+                                <div class="row">
+                                    {% for p in activities_prices %}
+                                    {% if a.id == p.activity_id %}
+                                    <div class='col-sm-6 col-md-6 px-1 py-2'>
+                                        <div class="row p-0">
+                                            <input type="checkbox" class="col-1" value="" id="flexCheckDefault">
+                                            <h6 class='col-11 px-2 m-0'>{{ p.catpax }} - R$ {{ p.price}}</h6>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

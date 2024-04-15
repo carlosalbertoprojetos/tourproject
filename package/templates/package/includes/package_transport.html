@@ -1,15 +1,17 @@
 {% load i18n account static crispy_forms_tags %}
+
 {% block package_transport %}
 
 <div class='row'>
-    <div class='col-12 my-2'>
-        <button id='advance4' type='submit' class='btn btn-primary float-end'>Avançar</button>
+    <div class="col-12 mb-2">
+        <input type="submit" id='advance4' class="btn btn-primary btn-sm float-end" value="Avançar" />
     </div>
 </div>
 
 {% endblock %}
 
 {% block js %}
+
 <script type="text/javascript">
     $("#advance4").click(function (event) {
         event.preventDefault();

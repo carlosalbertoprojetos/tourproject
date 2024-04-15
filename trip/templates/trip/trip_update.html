@@ -10,10 +10,8 @@ Passeio
     {% csrf_token %}
     {{ form.non_field_errors }}
     {{ form|crispy }}
-    <div class="col-md-12 mb-2">
-        <div class="form-group form-button">
-            <input type="submit" class="form-submit" value="Salvar" />
-        </div>
+    <div class="col-3 col-lg-1 mt-2">
+        <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
     </div>
 </form>
 

@@ -1,27 +1,21 @@
 {% extends 'dashboard.html' %}
+
 {% load i18n account static crispy_forms_tags %}
+
 {% block title %}
 Passeio
 {% endblock title %}
+
 {% block dashboard %}
-
-
-
-
 
 <h2 class="form-title">Editar Atividade</h2>
 <form method="POST" class="register-form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.non_field_errors }}
     {{ form|crispy }}
-    <div class="row form-group form-button ">
-        <div class="col-md-1 p-1">
-            <input type="submit" class="btn btn-primary" value="Salvar" />
-        </div>
+    <div class="col-3 col-lg-1 float-end mt-2">
+        <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
     </div>
 </form>
-
-
-
 
 {% endblock %}

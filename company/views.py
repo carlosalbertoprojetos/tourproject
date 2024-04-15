@@ -14,20 +14,30 @@ from .models import Company, CompanyDestinies, Phone, SocialMedia
 
 def signup_step_2(request):
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CompanyForm(request.POST)
-        
-        Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
-        destiny_form = Formset_destiny_Factory(request.POST)
-        
-        Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
-        phone_form = Formset_phone_Factory(request.POST)
-        
-        Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1, can_delete=False)        
-        socmedia_form = Formset_social_Factory(request.POST)
-        
 
-        if form.is_valid() and phone_form.is_valid() and socmedia_form.is_valid() and destiny_form.is_valid():
+        Formset_destiny_Factory = inlineformset_factory(
+            Company, CompanyDestinies, fields=("destiny",), extra=1, can_delete=False
+        )
+        destiny_form = Formset_destiny_Factory(request.POST)
+
+        Formset_phone_Factory = inlineformset_factory(
+            Company, Phone, form=PhoneForm, extra=1, can_delete=False
+        )
+        phone_form = Formset_phone_Factory(request.POST)
+
+        Formset_social_Factory = inlineformset_factory(
+            Company, SocialMedia, fields=("socmedia",), extra=1, can_delete=False
+        )
+        socmedia_form = Formset_social_Factory(request.POST)
+
+        if (
+            form.is_valid()
+            and phone_form.is_valid()
+            and socmedia_form.is_valid()
+            and destiny_form.is_valid()
+        ):
             company = form.save()
             user = request.user
             user.company_id = company.id
@@ -39,65 +49,68 @@ def signup_step_2(request):
             phone_form.save()
             socmedia_form.instance = company
             socmedia_form.save()
-            messages.success(request, 'Empresa cadastrada com sucesso!!!')
-            return redirect('user:dashboard')
-            
+            messages.success(request, "Empresa cadastrada com sucesso!!!")
+            return redirect("user:dashboard")
+
         else:
             context = {
-                'form': form,
-                'formset_destiny': destiny_form,
-                'formset_phone': phone_form,
-                'formset_socmedia': socmedia_form
+                "form": form,
+                "formset_destiny": destiny_form,
+                "formset_phone": phone_form,
+                "formset_socmedia": socmedia_form,
             }
-        return render(request, 'dashboard.html', context)
+        return render(request, "dashboard.html", context)
 
-
-    elif request.method == 'GET':
+    elif request.method == "GET":
         form = CompanyForm()
-        
-        Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=1, can_delete=False)        
+
+        Formset_destiny_Factory = inlineformset_factory(
+            Company, CompanyDestinies, fields=("destiny",), extra=1, can_delete=False
+        )
         destiny_form = Formset_destiny_Factory()
-        
-        Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1, can_delete=False)
+
+        Formset_phone_Factory = inlineformset_factory(
+            Company, Phone, form=PhoneForm, extra=1, can_delete=False
+        )
         phone_form = Formset_phone_Factory()
-        
-        Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1, can_delete=False)        
+
+        Formset_social_Factory = inlineformset_factory(
+            Company, SocialMedia, fields=("socmedia",), extra=1, can_delete=False
+        )
         socmedia_form = Formset_social_Factory()
-        
+
         context = {
-            'form': form,
-            'formset_destiny': destiny_form,
-            'formset_phone': phone_form,
-            'formset_socmedia': socmedia_form
+            "form": form,
+            "formset_destiny": destiny_form,
+            "formset_phone": phone_form,
+            "formset_socmedia": socmedia_form,
         }
-        return render(request, 'company/company_signup.html', context)
+        return render(request, "company/company_signup.html", context)
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def companies_list(request):
     object = Company.objects.all()
     context = {
-        'object': object,
+        "object": object,
     }
-    return render(request, 'company/companies_list_create.html', context)
+    return render(request, "company/companies_list_create.html", context)
 
 
 @user_passes_test(lambda u: u.is_staff)
 def company_agents_list(request):
     user = request.user
     form = User.objects.filter(company_id=user.company_id)
-    template_name = 'company/company_users_list.html'
+    template_name = "company/company_users_list.html"
 
-    context = {
-        'form': form
-    }
+    context = {"form": form}
     return render(request, template_name, context)
 
 
-@user_passes_test(lambda u: u.option != '2')
+@user_passes_test(lambda u: u.option != "2")
 # @user_passes_test(lambda u: u.is_superuser)
 def company_update(request, pk):
-    
+
     user = request.user
     try:
         if user.is_superuser:
@@ -106,64 +119,90 @@ def company_update(request, pk):
             company = get_object_or_404(Company, pk=user.company_id)
         form = CompanyForm(instance=company)
 
-        if request.method == 'POST':
-            
-            form = CompanyForm(request.POST, instance=company)            
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=0, can_delete=False)        
-            destiny_form = Formset_destiny_Factory(request.POST, instance=company)            
-            Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1)
-            phone_form = Formset_phone_Factory(request.POST, instance=company)            
-            Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1)        
+        if request.method == "POST":
+
+            form = CompanyForm(request.POST, instance=company)
+            Formset_destiny_Factory = inlineformset_factory(
+                Company,
+                CompanyDestinies,
+                fields=("destiny",),
+                extra=0,
+                can_delete=False,
+            )
+            destiny_form = Formset_destiny_Factory(request.POST, instance=company)
+            Formset_phone_Factory = inlineformset_factory(
+                Company, Phone, form=PhoneForm, extra=1
+            )
+            phone_form = Formset_phone_Factory(request.POST, instance=company)
+            Formset_social_Factory = inlineformset_factory(
+                Company, SocialMedia, fields=("socmedia",), extra=1
+            )
             socmedia_form = Formset_social_Factory(request.POST, instance=company)
 
-            if form.is_valid() and phone_form.is_valid() and socmedia_form.is_valid() and destiny_form.is_valid():
+            if (
+                form.is_valid()
+                and phone_form.is_valid()
+                and socmedia_form.is_valid()
+                and destiny_form.is_valid()
+            ):
                 company = form.save()
                 destiny_form.save()
                 phone_form.save()
                 socmedia_form.save()
-                messages.success(request, 'Dados alterados com sucesso!!!')
-                return redirect('company:company_update', pk=pk)
-                
+                messages.success(request, "Dados alterados com sucesso!!!")
+                return redirect("company:company_update", pk=pk)
+
             else:
                 context = {
-                    'form': form,
-                    'formset_destiny' : destiny_form,
-                    'formset_phone': phone_form,
-                    'formset_socmedia': socmedia_form
+                    "form": form,
+                    "formset_destiny": destiny_form,
+                    "formset_phone": phone_form,
+                    "formset_socmedia": socmedia_form,
                 }
-            return render(request, 'company/company_update.html', context)
+            return render(request, "company/company_update.html", context)
 
-        elif request.method == 'GET':
-            
-            form = CompanyForm(instance=company)            
-            Formset_destiny_Factory = inlineformset_factory(Company, CompanyDestinies, fields=('destiny',), extra=0, can_delete=False)        
-            destiny_form = Formset_destiny_Factory(instance=company)            
-            Formset_phone_Factory = inlineformset_factory(Company, Phone, form=PhoneForm, extra=1)
-            phone_form = Formset_phone_Factory(instance=company)            
-            Formset_social_Factory = inlineformset_factory(Company, SocialMedia, fields=('socmedia',), extra=1)        
+        elif request.method == "GET":
+
+            form = CompanyForm(instance=company)
+            Formset_destiny_Factory = inlineformset_factory(
+                Company,
+                CompanyDestinies,
+                fields=("destiny",),
+                extra=0,
+                can_delete=False,
+            )
+            destiny_form = Formset_destiny_Factory(instance=company)
+            Formset_phone_Factory = inlineformset_factory(
+                Company, Phone, form=PhoneForm, extra=1
+            )
+            phone_form = Formset_phone_Factory(instance=company)
+            Formset_social_Factory = inlineformset_factory(
+                Company, SocialMedia, fields=("socmedia",), extra=1
+            )
             socmedia_form = Formset_social_Factory(instance=company)
-            
+
             context = {
-                'form': form,
-                'formset_destiny' : destiny_form,
-                'formset_phone': phone_form,
-                'formset_socmedia': socmedia_form
+                "form": form,
+                "formset_destiny": destiny_form,
+                "formset_phone": phone_form,
+                "formset_socmedia": socmedia_form,
             }
-            return render(request, 'company/company_update.html', context)
+            return render(request, "company/company_update.html", context)
 
     except:
-        return redirect('company:signup2')
+        return redirect("company:signup2")
 
 
-class CompanyDestinyDeleteView(LoginRequiredMixin,SuccessMessageMixin, DeleteView):
-    
+class CompanyDestinyDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+
     model = CompanyDestinies
-    template_name = 'company/company_delete.html'
-    success_url = _('company:company_list')
-    success_message = 'Destino deletado com sucesso!'
+    template_name = "company/company_delete.html"
+    success_url = _("company:company_list")
+    success_message = "Destino deletado com sucesso!"
 
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request,self.success_message)
+        messages.success(self.request, self.success_message)
         return super(CompanyDestinyDeleteView, self).delete(request, *args, **kwargs)
+
 
 company_delete = CompanyDestinyDeleteView.as_view()

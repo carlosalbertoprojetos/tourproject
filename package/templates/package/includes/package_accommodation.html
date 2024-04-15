@@ -1,50 +1,50 @@
-{% load i18n account static crispy_forms_tags %}
 {% block package_accommodation %}
 
-    
-    <div class='row'>
-        <div class='col-12 my-2'>
-            <button id='advance3' type='submit' class='btn btn-primary float-end'>Avançar</button>
-        </div>
+
+<div class='row'>
+    <div class="col-12 mb-2">
+        <input type="submit" id='advance3' class="btn btn-primary btn-sm float-end" value="Avançar" />
     </div>
+</div>
 
 
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript">
-        $("#advance3").click(function (event) {
-            event.preventDefault();
-            var ds = document.getElementsByClassName('accommodation_group');
-            for (var i = 0; i < ds.length; i++) {
-                var inputs = ds[i].getElementsByTagName('input');
-                for (var j = 0; j < inputs.length; j++) {
-                    if (`${inputs[j].checked}` == 'true')
+
+<script type="text/javascript">
+    $("#advance3").click(function (event) {
+        event.preventDefault();
+        var ds = document.getElementsByClassName('accommodation_group');
+        for (var i = 0; i < ds.length; i++) {
+            var inputs = ds[i].getElementsByTagName('input');
+            for (var j = 0; j < inputs.length; j++) {
+                if (`${inputs[j].checked}` == 'true')
                     console.log(`${inputs[j].id}`);
-                }
-            };
+            }
+        };
 
-            const start_date = $('#id_date_arrive').val();
-            const end_date = $('#id_date_departure').val();
-            const url = "{% url 'package:package_transport' city_destiny="+b_url.innerText+" %}";
-            const city_destiny = b_url.innerText;
+        const start_date = $('#id_date_arrive').val();
+        const end_date = $('#id_date_departure').val();
+        const url = "{% url 'package:package_transport' city_destiny=" + b_url.innerText + " %}";
+        const city_destiny = b_url.innerText;
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {
-                    start_date : start_date,
-                    end_date : end_date,
-                    city_destiny : city_destiny,
-                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
-                },
-                success: function(data){
-                    $('#id_transport').html(data);
-                    document.getElementById("transport-tab").removeAttribute("disabled");
-                    document.getElementById('transport-tab').click();
-                }
-            });
-        });  
-    </script>
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                start_date: start_date,
+                end_date: end_date,
+                city_destiny: city_destiny,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val(),
+            },
+            success: function (data) {
+                $('#id_transport').html(data);
+                document.getElementById("transport-tab").removeAttribute("disabled");
+                document.getElementById('transport-tab').click();
+            }
+        });
+    });  
+</script>
 
 {% endblock js %}

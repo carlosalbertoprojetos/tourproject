@@ -1,7 +1,7 @@
 {% extends 'package/package_base.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Pacotes
+Pacotes
 {% endblock title %}
 {% block package_create %}
 
@@ -14,24 +14,28 @@
 <div class='row'>
     <form action='.' method='POST' class='mb-2'>
         {% csrf_token %}
-        <div class='row'>    
+        <div class='row'>
             <div class='col-6 mb-2'>
                 <label for="id_date_arrive">Data da Chegada</label>
-                <input value="{{ form.date_arrive.value }}" type="date" name="date_arrive"  class="dateinput form-control mt-2" id="id_date_arrive" title="Escolha uma data">
+                <input value="{{ form.date_arrive.value }}" type="date" name="date_arrive"
+                    class="dateinput form-control mt-2" id="id_date_arrive" title="Escolha uma data">
             </div>
             <div class='col-6 mb-2'>
                 <label for="id_date_departure">Data da Partida</label>
-                <input type="date" name="date_departure" value="{{ form.date_departure.value }}" class="dateinput form-control mt-2" id="id_date_departure">
+                <input type="date" name="date_departure" value="{{ form.date_departure.value }}"
+                    class="dateinput form-control mt-2" id="id_date_departure">
             </div>
         </div>
         <div class='row'>
             <div class='col-6 mb-2'>
                 <label for="id_num_adults">Quantidade adultos</label>
-                <input type="text" name="num_adults" value="{{ form.num_adults.value|default:'' }}" class="dateinput form-control mt-2" id="id_num_adults">
+                <input type="text" name="num_adults" value="{{ form.num_adults.value|default:'' }}"
+                    class="dateinput form-control mt-2" id="id_num_adults">
             </div>
             <div class='col-6 mb-2'>
                 <label for="id_num_child">Quantidade crianças</label>
-                <input type="text" name="num_child" value="{{ form.num_child.value|default:'' }}" class="dateinput form-control mt-2" id="id_num_child">
+                <input type="text" name="num_child" value="{{ form.num_child.value|default:'' }}"
+                    class="dateinput form-control mt-2" id="id_num_child">
             </div>
         </div>
         {% if formset %}
@@ -40,7 +44,7 @@
         </div>
         <div class='row'>
             {{ formset.management_form }}
-            <div id='children_age_list' class='form-inline mt-1 my-1'> 
+            <div id='children_age_list' class='form-inline mt-1 my-1'>
                 {% for form in formset %}
                 <div class='child_age_form'>
                     {{ form|crispy }}

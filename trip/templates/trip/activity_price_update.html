@@ -31,23 +31,17 @@ Passeio
                         {% for c in catpax %}
                         {% if c.activity_id == a.id %}
                         <div class="col-md-3 card p-1 m-0">
-                            <h6>
-                                <center>{{c.catpax}}</center>
-                            </h6>
+                            <h6 class="text-center">{{c.catpax}}</h6>
                             <div class="row">
                                 {% for s in season %}
                                 <div class="col-md-6">
-                                    <h6 style="font-size:0.60em">
-                                        <center>{{ s }}</center>
-                                    </h6>
+                                    <h6 class="text-center" style="font-size:0.60em"> {{ s }} </h6>
                                 </div>
                                 {% endfor %}
                                 {% for field in formset %}
                                 {% if field.activity.value == a.id and field.catpax.value == c.catpax_id %}
                                 <div class="col-md-6 p-0 m-0">
-                                    <h6 style="font-size:0.9em">
-                                        <center>{{ field }}</center>
-                                    </h6>
+                                    <h6 class="text-center" style="font-size:0.9em"> {{ field }}</h6>
                                 </div>
                                 {% endif %}
                                 {% endfor %}
@@ -61,10 +55,8 @@ Passeio
         </div>
         <br>
         {% endfor %}
-        <div class="col-md-12 mb-2">
-            <div class="form-group form-button">
-                <input type="submit" class="form-submit form-group" value="Salvar" />
-            </div>
+        <div class="col-3 col-lg-1 mt-2">
+            <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
         </div>
     </form>
 </div>

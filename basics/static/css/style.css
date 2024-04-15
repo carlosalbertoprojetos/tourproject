@@ -581,9 +581,9 @@ label.valid:after {
         -ms-order: 2;
     }
 
-    .form-group:last-child {
+    /* .form-group:last-child {
         margin-bottom: 100px;
-    }
+    } */
 
     .signup2-content {
         padding-bottom: 10px;

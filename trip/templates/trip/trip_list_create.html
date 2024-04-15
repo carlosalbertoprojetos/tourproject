@@ -1,8 +1,11 @@
 {% extends 'dashboard.html' %}
+
 {% load i18n account static crispy_forms_tags %}
+
 {% block title %}
 Passeio
 {% endblock title %}
+
 {% block dashboard %}
 
 <div class="card-header p-1">
@@ -28,12 +31,11 @@ Passeio
                                 <div class="modal-body">
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
-                                    {{ form.media }}
                                     {{ form|crispy }}
                                 </div>
                                 <div class="modal-footer">
-                                    <div class="form-group form-button">
-                                        <input type="submit" class="form-submit" value="Salvar" />
+                                    <div class="col-3 col-lg-2 mt-2">
+                                        <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
                                     </div>
                                 </div>
                             </div>
