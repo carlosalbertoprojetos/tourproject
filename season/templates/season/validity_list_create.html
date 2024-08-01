@@ -1,8 +1,11 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static crispy_forms_tags %}
-{% block title %}
-Temporada
-{% endblock title %}
+
+{% load i18n account static %}
+
+
+{% block title %}Temporada{% endblock title %}
+
+
 {% block dashboard %}
 
 <div class="card-header p-1">
@@ -30,7 +33,6 @@ Temporada
                                     {{ form.non_field_errors }}
                                     {{ form.media }}
                                     {{ form.as_p }}
-
                                 </div>
                                 <div class="modal-footer">
                                     <div class="form-group form-button">
@@ -45,50 +47,51 @@ Temporada
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table id="myTable1" class="table table-striped table-bordered mt-5">
-            <thead>
-                <tr>
-                    <th>Ano</th>
-                    <th>Ativo Agência</th>
-                    <th>Ativo Venda</th>
-                    <th>Editar</th>
-                    <th>Deletar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for s in object_list %}
-                <tr>
-                    <td class="text-center">{{ s.year }}</td>
-                    <td class="text-center">
-                        {% if s.active %}
-                        <i class="fas fa-user-check"></i>
-                        {% else %}
-                        <i class="fas fa-user-times"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        {% if s.sell %}
-                        <i class="fas fa-user-check"></i>
-                        {% else %}
-                        <i class="fas fa-user-times"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'season:validity_update' s.id %}" class="btn">
-                            <i class="fas fa-user-edit"></i>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'season:validity_delete' s.pk %}" class="btn">
-                            <i class="fas fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            <tbody>
-        </table>
-    </div>
 </div>
+<div class="table-responsive">
+    <table id="myTable1" class="table table-striped table-bordered mt-5">
+        <thead>
+            <tr>
+                <th>Ano</th>
+                <th>Ativo Agência</th>
+                <th>Ativo Venda</th>
+                <th>Editar</th>
+                <th>Deletar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in object_list %}
+            <tr>
+                <td class="text-center">{{ s.year }}</td>
+                <td class="text-center">
+                    {% if s.active %}
+                    <i class="fas fa-user-check"></i>
+                    {% else %}
+                    <i class="fas fa-user-times"></i>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if s.sell %}
+                    <i class="fas fa-user-check"></i>
+                    {% else %}
+                    <i class="fas fa-user-times"></i>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="{% url 'season:validity_update' s.id %}" class="btn">
+                        <i class="fas fa-user-edit"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="{% url 'season:validity_delete' s.pk %}" class="btn">
+                        <i class="fas fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+</div>
+
 
 {% endblock %}

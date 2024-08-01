@@ -13305,7 +13305,7 @@ body {
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
-  /* padding-top: 56px; */
+  padding-top: 15px;
 }
 
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
@@ -14519,6 +14519,7 @@ body {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  padding-top: 30px;
 }
 
 .table-responsive>.table-bordered {
@@ -57932,14 +57933,6 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
   color: #343a40;
 }
 
-/**
-        * bootstrap-switch - Turn checkboxes and radio buttons into toggle switches.
-        *
-        * @version v3.4 (MODDED)
-        * @homepage https://bttstrp.github.io/bootstrap-switch
-        * @author Mattia Larentis <mattia@larentis.eu> (http://larentis.eu)
-        * @license MIT
-        */
 .bootstrap-switch {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -59796,10 +59789,6 @@ blockquote.quote-gray-dark h6 {
   .invoice-col {
     float: left;
     width: 33.3333333%;
-  }
-
-  .table-responsive {
-    overflow: auto;
   }
 
   .table-responsive>.table tr th,

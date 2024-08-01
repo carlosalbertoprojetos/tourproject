@@ -1,8 +1,11 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static crispy_forms_tags %}
-{% block title %}
-Clientes
-{% endblock title %}
+
+{% load i18n account static %}
+
+
+{% block title %}Clientes{% endblock title %}
+
+
 {% block dashboard %}
 
 <div class="card-header p-1">
@@ -28,7 +31,7 @@ Clientes
                                 <div class="modal-body">
                                     {% csrf_token %}
                                     {{ form.non_field_errors }}
-                                    {{ form|crispy }}
+                                    {{ form }}
                                 </div>
                                 <div class="modal-footer">
                                     <div class="col-3 mt-2">
@@ -43,40 +46,40 @@ Clientes
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table id="myTable1" class="table table-striped mt-5">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Telefone</th>
-                    <th>Conta Ativa</th>
-                    <th>Editar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for c in object_list %}
-                <tr>
-                    <td>{{ c.name }}</td>
-                    <td>{{ c.email }}</td>
-                    <td>{{ c.phoneNumber }}</td>
-                    <td class="text-center">
-                        {% if c.is_active is True %}
-                        <i class="fas fa-user-check text-success"></i>
-                        {% else %}
-                        <i class="fas fa-user-times text-danger"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'client:client_update' c.id %}" class="btn">
-                            <i class="fas fa-user-edit"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+</div>
+<div class="table-responsive">
+    <table id="myTable1" class="table table-striped mt-5">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Conta Ativa</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in object_list %}
+            <tr>
+                <td>{{ c.name }}</td>
+                <td>{{ c.email }}</td>
+                <td>{{ c.phoneNumber }}</td>
+                <td class="text-center">
+                    {% if c.is_active is True %}
+                    <i class="fas fa-user-check text-success"></i>
+                    {% else %}
+                    <i class="fas fa-user-times text-danger"></i>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="{% url 'client:client_update' c.id %}" class="btn">
+                        <i class="fas fa-user-edit"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

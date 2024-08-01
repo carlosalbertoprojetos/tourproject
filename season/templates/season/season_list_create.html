@@ -47,65 +47,66 @@ Temporadas
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table id="myTable1" class="table table-striped table-bordered mt-5">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Destino Turístico</th>
-                    <th>Vigência</th>
-                    <th>Agência</th>
-                    <th>Vender</th>
-                    <th>Eventos</th>
-                    <th>Editar</th>
-                    <th>Deletar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for s in object_list %}
-                <tr>
-                    <td>{{ s.name }}</td>
-                    <td>{{ s.destiny.name }} - {{ s.destiny.state }}</td>
-                    <td class="text-center">{{ s.validity }}</td>
-                    <td class="text-center">
-                        {% if s.active_company %}
-                        <i class="fas fa-user-check text-success"></i>
-                        {% else %}
-                        <i class="fas fa-user-times text-danger"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        {% if s.active_sell %}
-                        <i class="fas fa-user-check text-success"></i>
-                        {% else %}
-                        <i class="fas fa-user-times text-danger"></i>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'season:event_list' s.pk %}" class="btn">
-                            <i class="fas fa-calendar-check"></i>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'season:season_update' s.pk %}" class="btn">
-                            <i class="fas fa-user-edit"></i>
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <a href="{% url 'season:season_delete' s.pk%}" class="btn">
-                            <i class="fas fa-solid fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <script type="text/javascript">
-                    function myFunction() {
-                        window.open("http://127.0.0.1:8000/season/3/update", "_blank", "width=600, height=400");
-                    }
-                </script>
-                {% endfor %}
-            <tbody>
-        </table>
-    </div>
 </div>
+<div class="table-responsive">
+    <table id="myTable1" class="table table-striped table-bordered mt-5">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Destino Turístico</th>
+                <th>Vigência</th>
+                <th>Agência</th>
+                <th>Vender</th>
+                <th>Eventos</th>
+                <th>Editar</th>
+                <th>Deletar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in object_list %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.destiny.name }} - {{ s.destiny.state }}</td>
+                <td class="text-center">{{ s.validity }}</td>
+                <td class="text-center">
+                    {% if s.active_company %}
+                    <i class="fas fa-user-check text-success"></i>
+                    {% else %}
+                    <i class="fas fa-user-times text-danger"></i>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {% if s.active_sell %}
+                    <i class="fas fa-user-check text-success"></i>
+                    {% else %}
+                    <i class="fas fa-user-times text-danger"></i>
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="{% url 'season:event_list' s.pk %}" class="btn">
+                        <i class="fas fa-calendar-check"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="{% url 'season:season_update' s.pk %}" class="btn">
+                        <i class="fas fa-user-edit"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="{% url 'season:season_delete' s.pk%}" class="btn">
+                        <i class="fas fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <script type="text/javascript">
+                function myFunction() {
+                    window.open("http://127.0.0.1:8000/season/3/update", "_blank", "width=600, height=400");
+                }
+            </script>
+            {% endfor %}
+        <tbody>
+    </table>
+</div>
+
 
 {% endblock %}
