@@ -1,41 +1,52 @@
-
 from company.utils import sanitize_number
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Company, Phone
+from .models import Company, CompanyDestinies, Phone
 from user.models import User
+
 
 class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = "__all__"
+        widgets = {
+            "responsible": forms.TextInput(attrs={"class": ""}),
+            "company_name": forms.TextInput(attrs={"class": ""}),
+            "street": forms.TextInput(attrs={"class": ""}),
+            "number": forms.TextInput(attrs={"class": ""}),
+            "complement": forms.TextInput(attrs={"class": ""}),
+            "state": forms.Select(attrs={"class": "form-control"}),
+            "city": forms.TextInput(attrs={"class": ""}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(CompanyForm, self).__init__(*args, **kwargs)
-        self.fields['document_number'].widget.attrs.update(
-            {'class': 'mask-cnpj'})
-        self.fields['postal_code'].widget.attrs.update({'class': 'mask-cep'})
-        
+        self.fields["document_number"].widget.attrs.update({"class": "mask-cnpj"})
+        self.fields["postal_code"].widget.attrs.update({"class": "mask-cep"})
+
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get("email")
         email = sanitize_number(email)
         queryset = Company.objects.filter(email=email)
         if queryset.exists():
-            raise forms.ValidationError('Já existe um usuário cadastrado com esse email.')
+            raise forms.ValidationError(
+                "Já existe um usuário cadastrado com esse email."
+            )
         return email
 
     def clean_document_number(self):
-        document_number = self.cleaned_data['document_number']
+        document_number = self.cleaned_data["document_number"]
         document_number = sanitize_number(document_number)
-        queryset = Company.objects.filter(
-            document_number=document_number).exclude(pk=self.instance.pk)
+        queryset = Company.objects.filter(document_number=document_number).exclude(
+            pk=self.instance.pk
+        )
         if queryset.exists():
-            raise forms.ValidationError('Documento já cadastrado.')
+            raise forms.ValidationError("Documento já cadastrado.")
         return document_number
 
     def clean_postal_code(self):
-        data = self.cleaned_data['postal_code']
+        data = self.cleaned_data["postal_code"]
         return sanitize_number(data)
 
     def save(self, commit=False):
@@ -44,20 +55,28 @@ class CompanyForm(forms.ModelForm):
         return instance
 
 
+class CompanyDestiniesForm(forms.ModelForm):
+    class Meta:
+        model = CompanyDestinies
+        fields = ("destiny",)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Adiciona a classe 'form-control' ao campo 'destiny'
+        self.fields["destiny"].widget.attrs.update({"class": "form-control"})
+
 
 class PhoneForm(forms.ModelForm):
     class Meta:
         model = Phone
-        fields = '__all__'
-        
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(PhoneForm, self).__init__(*args, **kwargs)
-        self.fields['phone'].widget.attrs.update(
-            {'class': 'mask-telefone'})
+        self.fields["phone"].widget.attrs.update({"class": "mask-telefone"})
 
 
 class AgentCompanyForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"

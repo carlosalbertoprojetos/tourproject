@@ -8,17 +8,24 @@ from django.urls import reverse_lazy as _
 from django.views.generic.edit import DeleteView
 from user.models import User
 
-from .forms import CompanyForm, PhoneForm
+from .forms import CompanyDestiniesForm, CompanyForm, PhoneForm
 from .models import Company, CompanyDestinies, Phone, SocialMedia
 
 
 def signup_step_2(request):
-
     if request.method == "POST":
         form = CompanyForm(request.POST)
 
+        # Formset_destiny_Factory = inlineformset_factory(
+        #     Company, CompanyDestinies, fields=("destiny",), extra=1, can_delete=False
+        # )
         Formset_destiny_Factory = inlineformset_factory(
-            Company, CompanyDestinies, fields=("destiny",), extra=1, can_delete=False
+            Company,
+            CompanyDestinies,
+            form=CompanyDestiniesForm,
+            fields=("destiny",),
+            extra=1,
+            can_delete=False,
         )
         destiny_form = Formset_destiny_Factory(request.POST)
 
@@ -110,7 +117,6 @@ def company_agents_list(request):
 @user_passes_test(lambda u: u.option != "2")
 # @user_passes_test(lambda u: u.is_superuser)
 def company_update(request, pk):
-
     user = request.user
     try:
         if user.is_superuser:
@@ -120,7 +126,6 @@ def company_update(request, pk):
         form = CompanyForm(instance=company)
 
         if request.method == "POST":
-
             form = CompanyForm(request.POST, instance=company)
             Formset_destiny_Factory = inlineformset_factory(
                 Company,
@@ -162,7 +167,6 @@ def company_update(request, pk):
             return render(request, "company/company_update.html", context)
 
         elif request.method == "GET":
-
             form = CompanyForm(instance=company)
             Formset_destiny_Factory = inlineformset_factory(
                 Company,

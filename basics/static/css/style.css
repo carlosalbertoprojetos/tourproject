@@ -43,9 +43,10 @@ textarea {
     outline: none;
     appearance: unset !important;
     -moz-appearance: unset !important;
-    -webkit-appearance: unset !important;
+    /* -webkit-appearance: unset !important; */
     -o-appearance: unset !important;
     -ms-appearance: unset !important;
+
 }
 
 input::-webkit-outer-spin-button,
@@ -194,12 +195,16 @@ body {
     max-height: 1200px;
 }
 
-.signup-form,
 .signup-image,
 .signin-form,
 .signin-image {
     width: 50%;
     overflow: hidden;
+    margin-left: 90px;
+}
+
+.signup-form {
+    width: 50%;
     margin-left: 90px;
 }
 

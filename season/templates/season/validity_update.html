@@ -1,7 +1,7 @@
 {% extends 'dashboard.html' %}
 {% load i18n account static crispy_forms_tags %}
 {% block title %}
-    Temporada
+Temporada
 {% endblock title %}
 {% block dashboard %}
 
@@ -15,10 +15,10 @@
                     {{ form.non_field_errors }}
                     {{ form.as_p }}
                     {{ form.media }}
-                    
-                    <div class="row form-group form-button ">
+
+                    <div class="row form-button ">
                         <div class="col-md-1 p-1">
-                            <input type="submit" class="btn btn-primary" value="Salvar"/>
+                            <input type="submit" class="btn btn-primary" value="Salvar" />
                         </div>
                     </div>
                 </form>

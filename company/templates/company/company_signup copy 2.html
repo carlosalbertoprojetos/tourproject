@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load i18n account static %}
+
+{% block title %} Empresa {% endblock title %}
+
+{% block base %}
+
+
+
+<div class="container-fluid">
+    <div class="justify-content-center">
+        <div class="content-header">
+            <div class="container">
+                <div class="text-center">
+                    <div class="row">
+                        <section class="signup mt-5">
+                            <div class="container-form">
+                                <h2 class="form-title">Cadastrar Empresa</h2>
+                                <div class="signup-content">
+                                    <div class="col">
+                                        <figure>
+                                            <img src="{% static 'images/signup2-image.jpg' %}" alt="sing up image">
+                                        </figure>
+                                    </div>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                {{ form.company_name.label_tag }}
+                                                {{ form.company_name }}
+                                            </div>
+                                            <div class="col-12 mt-2">
+                                                {{ form.responsible.label_tag }}
+                                                {{ form.responsible }}
+                                            </div>
+                                            <div class="col-12">
+                                                {{ form.street.label_tag }}
+                                                {{ form.street }}
+                                            </div>
+                                            <div class="col-2">
+                                                {{ form.number.label_tag }}
+                                                {{ form.number }}
+                                            </div>
+                                            <div class="col-10">
+                                                {{ form.complement.label_tag }}
+                                                {{ form.complement }}
+                                            </div>
+                                            <div class="col-2">
+                                                {{ form.state.label_tag }}
+                                                {{ form.state }}
+                                            </div>
+                                            <div class="col-10">
+                                                {{ form.city.label_tag }}
+                                                {{ form.city }}
+                                            </div>
+                                            <div class="col-6">
+                                                {{ form.document_number.label_tag }}
+                                                {{ form.document_number }}
+                                            </div>
+                                            <div class="col-6">
+                                                {{ form.postal_code.label_tag }}
+                                                {{ form.postal_code }}
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            {{ formset_destiny.management_form }}
+                                            {% for field in formset_destiny %}
+                                            {{ field.label_tag }}
+                                            {{ field.as_p }}
+                                            {% endfor %}
+                                            {{ formset_phone.management_form }}
+                                            {% for field in formset_phone %}
+                                            {{ field.label_tag }}
+                                            {{ field.as_p }}
+                                            {% endfor %}
+                                            {{ formset_socmedia.management_form }}
+                                            {% for field in formset_socmedia %}
+                                            {{ field.label_tag }}
+                                            {{ field.as_p }}
+                                            {% endfor %}
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,18 +1,18 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static crispy_forms_tags %}
-{% block title %}
-Destino Turístico
-{% endblock title %}
-{% block dashboard %}
 
+{% load static%}
+
+{% block title %} Destino Turístico {% endblock title %}
+
+{% block dashboard %}
 
 <div class="p-2">
     <h2 class="form-title">Editar Destino Turístico</h2>
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" class="">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-        {{ form|crispy }}
-        <div class="col-3 col-lg-1 mt-2">
+        {{ form.errors }}
+        <div class="row">{{ form.as_p }}</div>
+        <div class="col-3 col-lg-1 mb-2">
             <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
         </div>
     </form>

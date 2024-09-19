@@ -23,6 +23,10 @@ class SeasonForm(forms.ModelForm):
                 "unique_together": "%(name)s %(destiny)s %(validity)s já está cadastrado.",
             }
         }
+        widgets = {
+            "destiny": forms.Select(attrs={"class": "col-lg-4 form-control"}),
+            "validity": forms.Select(attrs={"class": "col-3 col-lg-1 form-control"}),
+        }
 
 
 class EventForm(forms.ModelForm):

@@ -1,8 +1,11 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static crispy_forms_tags %}
+
+{% load static %}
+
 {% block title %}
 Passeio
 {% endblock title %}
+
 {% block dashboard %}
 
 <div class="card-header">
@@ -24,8 +27,7 @@ Passeio
                     </div>
                 </div>
                 {% csrf_token %}
-                {{ formset.management_form|crispy }}
-                {{ formset.non_form_errors }}
+                {{ formset.management_form }}
                 <div class="col-md-10 p-0 m-0">
                     <div class="row">
                         {% for c in catpax %}
@@ -41,7 +43,7 @@ Passeio
                                 {% for field in formset %}
                                 {% if field.activity.value == a.id and field.catpax.value == c.catpax_id %}
                                 <div class="col-md-6 p-0 m-0">
-                                    <h6 class="text-center" style="font-size:0.9em"> {{ field }}</h6>
+                                    <h6 class="text-center" style="font-size:0.9em"> {{ field.as_p }}</h6>
                                 </div>
                                 {% endif %}
                                 {% endfor %}

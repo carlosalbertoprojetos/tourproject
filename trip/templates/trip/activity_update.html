@@ -1,21 +1,129 @@
 {% extends 'dashboard.html' %}
 
-{% load i18n account static crispy_forms_tags %}
+{% load static %}
 
-{% block title %}
-Passeio
-{% endblock title %}
+{% block title %} Passeio {% endblock title %}
 
 {% block dashboard %}
 
-<h2 class="form-title">Editar Atividade</h2>
-<form method="POST" class="register-form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {{ form|crispy }}
-    <div class="col-3 col-lg-1 float-end mt-2">
-        <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
-    </div>
-</form>
+<div class="card-header">
+    <h2>Editar Atividade</h2>
+</div>
+
+<div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <div class="row">
+            <div class="col-4">
+                <label for="id_trip">Passeio</label>
+                {{ form.trip }}
+            </div>
+            <div class="col-8">
+                <label for="id_atividade">Atividade</label>
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="col mt-3">
+            <label for="id_image">Imagem da Atividade</label>
+            {{ form.image }}
+        </div>
+        <div class="col mt-3">
+            <label for="id_description">Descrição da Atividade</label>
+            {{ form.description }}
+        </div>
+        <div class="col-12 mt-3">
+            <label class="pb-2" for="id_catpax">Categoria Pax</label>
+            {{ form.catpax }}
+        </div>
+        {{ form.min_amount_pax.label_tag }}
+        <div class="col-6">{{ form.min_amount_pax }}</div>
+        {{ form.occ_scale.label_tag }}
+        <div class="col-6">{{ form.occ_scale }}</div>
+        {{ form.tariff_group.label_tag }}
+        <div class="col-6">{{ form.tariff_group }}</div>
+        {{ form.customer_option.label_tag }}
+        <div class="col-6">{{ form.customer_option }}</div>
+        {{ form.night_walk.label_tag }}
+        <div class="col-6">{{ form.night_walk }}</div> -->
+
+        <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+    </form>
+</div>
+
+<!-- 
+<h2 class="card-header">Editar Atividade</h2>
+
+
+<div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            {{ form.trip.label_tag }}
+            {{ form.trip }}
+            {{ form.trip.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.image.label_tag }}
+            {{ form.image }}
+            {{ form.image.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.catpax.label_tag }}
+            {{ form.catpax }}
+            {{ form.catpax.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.min_amount_pax.label_tag }}
+            {{ form.min_amount_pax }}
+            {{ form.min_amount_pax.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.occ_scale.label_tag }}
+            {{ form.occ_scale }}
+            {{ form.occ_scale.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.tariff_group.label_tag }}
+            {{ form.tariff_group }}
+            {{ form.tariff_group.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.customer_option.label_tag }}
+            {{ form.customer_option }}
+            {{ form.customer_option.errors }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.night_walk.label_tag }}
+            {{ form.night_walk }}
+            {{ form.night_walk.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div> -->
+
+
 
 {% endblock %}

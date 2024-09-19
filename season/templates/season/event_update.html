@@ -1,28 +1,25 @@
 {% extends 'dashboard.html' %}
 
-{% load i18n account static crispy_forms_tags %}
+{% load static %}
 
-{% block title %}
-Evento
-{% endblock title %}
+{% block title %} Evento {% endblock title %}
 
 {% block dashboard %}
 
 <div class="p-2">
     <h2 class="form-title">Editar Evento</h2>
     <form method="POST" enctype="multipart/form-data">
-        <div class="form-group"> <label class=" requiredField">
-                Temporada:<span class="asteriskField">*</span> </label>
-            <div class='form-group'>
+        <div class=""> <label class=" requiredField">
+                Temporada:</label>
+            <div class=''>
                 <div class="textinput textInput form-control" readonly>
-                    {{event.season}}
+                    {{ event.season }}
                 </div>
             </div>
         </div>
-        <div class="col-md-12 mb-2">
+        <div class="col-md-12 my-2 pt-2">
             {% csrf_token %}
-            {{ form.non_field_errors }}
-            {{ form|crispy }}
+            {{ form.as_p }}
         </div>
         <div class="col-3 col-lg-1 mb-2">
             <input type="submit" class="btn btn-primary btn-sm float-end" value="Salvar" />

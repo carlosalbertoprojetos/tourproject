@@ -1,15 +1,15 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static crispy_forms_tags %}
-{% block title %}
-Passeio
-{% endblock title %}
+
+{% load static %}
+
+{% block title %} Passeio {% endblock title %}
+
 {% block dashboard %}
 
 <h2 class="form-title">Editar Passeio</h2>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.non_field_errors }}
-    {{ form|crispy }}
+    {{ form.as_p }}
     <div class="col-3 col-lg-1 mt-2">
         <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
     </div>

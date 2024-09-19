@@ -1,24 +1,17 @@
 {% extends 'dashboard.html' %}
-{% load i18n account static crispy_forms_tags %}
-{% block title %}
-Usuário
-{% endblock title %}
+
+{% load static %}
+
+{% block title %} Usuário {% endblock title %}
+
 {% block dashboard %}
 
 <div class="p-2">
-    <h2 class="form-title">Trocar email</h2>
-    <form method="POST">
+    <h2 class="form-title">Alterar Email</h2>
+    <form method="POST" class="">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-        <label for="id_email">Email</label>
-        <input class="form-control my-2" type="email" name="email" id="id_email" value="{{ form.email.value }}">
-        {% if user.is_superuser %}
-        <label for="id_is_active">Usuário ativo</label>
-        <input class="form-control my-2" type="checkbox" name="is_active" id="id_is_active" checked="">
-        <span class="helptext">Indica que o usuário será tratado como ativo. Ao invés de excluir contas
-            de usuário, desmarque isso.</span>
-        {% endif %}
-        <div class="col-3 col-lg-1 mt-2">
+        {{ form.as_p }}
+        <div class="col-3 col-lg-1 mb-2">
             <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
         </div>
     </form>

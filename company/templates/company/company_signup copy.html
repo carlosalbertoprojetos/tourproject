@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load i18n account static %}
+
+{% block title %} Empresa {% endblock title %}
+
+{% block base %}
+
+
+
+<div class="container-fluid">
+    <div class="justify-content-center">
+        <div class="content-header">
+            <div class="container">
+                <div class="text-center">
+                    <div class="row">
+                        <section class="signup mt-5">
+                            <div class="container-form">
+                                <h2 class="form-title">Cadastrar Empresa</h2>
+                                <div class="signup-content">
+                                    <form method="POST" class="signup-form">
+                                        <div class="d-flex">
+                                            <div class="col">
+                                                <figure>
+                                                    <img src="{% static 'images/signup2-image.jpg' %}"
+                                                        alt="sing up image">
+                                                </figure>
+                                            </div>
+                                            <div class="col">
+                                                {% csrf_token %}
+                                                {{ form.as_p }}
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-lg-1 mb-2">
+                                            <input type="submit" class="btn btn-primary btn-sm" value="Salvar" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
