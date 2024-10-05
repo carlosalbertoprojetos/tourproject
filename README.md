@@ -1,126 +1,83 @@
-# Sistema para Gestão de Passeios e Pacotes Turísticos
+# Sistema de Gestão de Passeios e Pacotes Turísticos
 
-## Escopo
-
-O propósito deste projeto é desenvolver um sistema para cadastro e administração de atividades de turismo. Consiste no cadastro e login para empresas do ramo turístico e afins, bem como o registro de seus respectivos agentes para administrar a gestão de passeios e pacotes turísticos. O projeto utiliza o framework Django 4.0 e a linguagem de programação Python 3.9.5.
-
-## Estrutura
-
-### Models
-
-- **User**
-  - Campos: `id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `is_staff`, `is_active`, `date_joined`, `email`, `option`
-
-- **Company**
-  - Campos: `id`, `company_name`, `document_number`, `document_image`, `street`, `number`, `complement`, `postal_code`, `city`, `state`, `user_id`
-
-- **Contact**
-  - Campos: `id`, `cell_phone`, `user_id`
-
-- **SocialMedia**
-  - Campos: `id`, `social_media`, `user_id`
+## Descrição
+Este sistema foi criado para facilitar o cadastro e gerenciamento de empresas de turismo, seus agentes, passeios e pacotes turísticos. Utilizando o Django 4.0, permite a criação de usuários, empresas e a administração de informações relacionadas ao setor de turismo.
 
 ## Funcionalidades
+### Usuários
+- Cadastro de agentes e administradores.
+- Login com opções de recuperação de senha.
+- Edição de perfil.
 
-### Cadastro
+### Empresas
+- Cadastro e gestão de empresas turísticas.
+- Edição de informações empresariais e envio de documentos.
 
-- **Tela de Cadastro**
-  - Opções: Agência ou Fornecedor
-  - Campos: Nome de usuário, email, senha, confirmar senha
-  - Botões: Salvar cadastro, link para tela de login
+### Administração
+- Gestão de usuários e empresas (apenas para administradores).
+- Ativação/Inativação de usuários.
 
-- **Tela de Completar Cadastro**
-  - Campos: Razão social, CNPJ, logradouro, número, complemento, cidade, estado, CEP
-  - Botões: Upload de imagem, salvar cadastro
-  - Após cadastro, o usuário será automaticamente logado
+### Passeios e Pacotes
+- Cadastro e controle de pacotes turísticos e passeios.
+  
+## Estrutura de Dados
+### Models
+- **User:** Campos relacionados a usuários como nome, email, permissões.
+- **Company:** Informações empresariais (nome, CNPJ, endereço, etc.).
+- **Contact:** Informações de contato.
+- **SocialMedia:** Links para redes sociais da empresa.
 
-### Login
+## Como Rodar o Projeto
 
-- **Tela de Login**
-  - Campos: Usuário/email, senha
-  - Botões: Acessar, link para recuperar senha, link para tela de cadastro
+### 1. Pré-requisitos
+- Python 3.9.5+
+- pip
 
-### Configurações
+### 2. Instalação
 
-- **Username/Email**
-  - O usuário pode editar os campos Usuário e Email
+#### a) Criar ambiente virtual
+```bash
+python -m venv venv_tourproject
+```
 
-- **Empresa**
-  - O usuário pode editar os campos Razão social, CNPJ, Logradouro, Número, Complemento, Cidade, Estado, CEP, e fazer upload de uma imagem
+#### b) Ativar ambiente virtual
+- **Windows:**
+  ```bash
+  venv_tourproject\Scripts\activate.bat
+  ```
+- **Linux:**
+  ```bash
+  source venv_tourproject/bin/activate
+  ```
 
-### Administrador
+#### c) Clonar o repositório
+```bash
+git clone https://github.com/carlosalbertoprojetos/tourproject.git
+cd tourproject
+```
 
-- **Gestão de Usuários**
-  - Listar usuários com opções de entrada por página, campo de pesquisa, paginador, ícone para editar dados do usuário
-  - Opção para ativar/inativar usuário
+#### d) Instalar dependências
+```bash
+pip install -r requirements.txt
+```
 
-- **Gestão de Empresas**
-  - Listar empresas com opções de entrada por página, campo de pesquisa, paginador, ícone para editar dados da empresa
+#### e) Aplicar migrações
+```bash
+python manage.py migrate
+```
 
-  > Estas opções estão disponíveis apenas para usuários administradores
+#### f) Criar superusuário
+```bash
+python manage.py createsuperuser
+```
 
-### Logout
+#### g) Rodar o servidor local
+```bash
+python manage.py runserver
+```
 
-- **Opção Sair**
-  - O usuário pode clicar no botão 'sair' para confirmar o logout
+## Deployment
+Este projeto também pode ser implantado usando plataformas como o Vercel.
 
-## Instruções de Instalação
-
-1. Instalar e atualizar pip:
-    ```bash
-    pip install
-    python -m pip install --upgrade pip
-    ```
-
-2. Criar e acessar a pasta do projeto:
-    ```bash
-    mkdir tourproject
-    cd tourproject
-    ```
-
-3. Criar ambiente virtual:
-    ```bash
-    python -m venv venv_tourproject
-    ```
-
-4. Ativar ambiente virtual:
-    - **Windows**:
-        ```bash
-        venv_tourproject\scripts\activate.bat
-        ```
-    - **Linux**:
-        ```bash
-        source venv_tourproject/bin/activate
-        ```
-
-5. Clonar o projeto:
-    ```bash
-    git init
-    git clone https://github.com/carlosalbertoprojetos/tourproject.git
-    ```
-
-6. Acessar a pasta do projeto:
-    ```bash
-    cd tourproject
-    ```
-
-7. Instalar dependências:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-8. Aplicar migrações:
-    ```bash
-    python manage.py migrate
-    ```
-
-9. Criar super usuário:
-    ```bash
-    python manage.py createsuperuser
-    ```
-    > Obs.: O email será utilizado como username para login
-
-10. Rodar o projeto:
-    ```bash
-    python manage.py runserver
-    ```
+## Contribuições
+Contribuições são bem-vindas! Siga as práticas de código limpo e abra um pull request.
