@@ -1,126 +1,336 @@
-# Sistema para Gestão de Passeios e Pacotes Turísticos
+# TourProject — Sistema de Gestão de Passeios e Pacotes Turísticos
 
-## Escopo
+Aplicação web desenvolvida com **Django** para gerenciamento de **empresas do setor turístico**, permitindo o cadastro e administração de **agências, fornecedores e seus respectivos agentes** responsáveis pela gestão de **passeios e pacotes turísticos**.
 
-O propósito deste projeto é desenvolver um sistema para cadastro e administração de atividades de turismo. Consiste no cadastro e login para empresas do ramo turístico e afins, bem como o registro de seus respectivos agentes para administrar a gestão de passeios e pacotes turísticos. O projeto utiliza o framework Django 4.0 e a linguagem de programação Python 3.9.5.
+O sistema fornece uma base para plataformas de turismo que necessitam de **registro de empresas, autenticação de usuários e gestão administrativa**.
 
-## Estrutura
+---
 
-### Models
+# Visão Geral
 
-- **User**
-  - Campos: `id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `is_staff`, `is_active`, `date_joined`, `email`, `option`
+O **TourProject** foi desenvolvido utilizando **Python 3.9.5** e **Django 4.0**, com o objetivo de fornecer uma solução inicial para **gestão de empresas do setor turístico**.
 
-- **Company**
-  - Campos: `id`, `company_name`, `document_number`, `document_image`, `street`, `number`, `complement`, `postal_code`, `city`, `state`, `user_id`
+A aplicação permite que empresas se registrem na plataforma, completem seus dados institucionais e utilizem o sistema para administrar suas operações. Administradores possuem acesso a ferramentas adicionais para gerenciar usuários e empresas cadastradas.
 
-- **Contact**
-  - Campos: `id`, `cell_phone`, `user_id`
+---
 
-- **SocialMedia**
-  - Campos: `id`, `social_media`, `user_id`
+# Funcionalidades
 
-## Funcionalidades
+## Cadastro de Usuários
 
-### Cadastro
+* Registro de novos usuários
+* Escolha do tipo de conta:
 
-- **Tela de Cadastro**
-  - Opções: Agência ou Fornecedor
-  - Campos: Nome de usuário, email, senha, confirmar senha
-  - Botões: Salvar cadastro, link para tela de login
+  * Agência
+  * Fornecedor
+* Autenticação utilizando **email ou username**
+* Login automático após conclusão do cadastro
 
-- **Tela de Completar Cadastro**
-  - Campos: Razão social, CNPJ, logradouro, número, complemento, cidade, estado, CEP
-  - Botões: Upload de imagem, salvar cadastro
-  - Após cadastro, o usuário será automaticamente logado
+Campos de cadastro:
 
-### Login
+* Nome de usuário
+* Email
+* Senha
+* Confirmação de senha
 
-- **Tela de Login**
-  - Campos: Usuário/email, senha
-  - Botões: Acessar, link para recuperar senha, link para tela de cadastro
+---
 
-### Configurações
+## Completar Cadastro da Empresa
 
-- **Username/Email**
-  - O usuário pode editar os campos Usuário e Email
+Após o cadastro inicial, o usuário pode complementar os dados da empresa:
 
-- **Empresa**
-  - O usuário pode editar os campos Razão social, CNPJ, Logradouro, Número, Complemento, Cidade, Estado, CEP, e fazer upload de uma imagem
+* Razão social
+* CNPJ
+* Endereço completo
 
-### Administrador
+  * Logradouro
+  * Número
+  * Complemento
+  * Cidade
+  * Estado
+  * CEP
+* Upload de imagem do documento da empresa
 
-- **Gestão de Usuários**
-  - Listar usuários com opções de entrada por página, campo de pesquisa, paginador, ícone para editar dados do usuário
-  - Opção para ativar/inativar usuário
+---
 
-- **Gestão de Empresas**
-  - Listar empresas com opções de entrada por página, campo de pesquisa, paginador, ícone para editar dados da empresa
+## Autenticação
 
-  > Estas opções estão disponíveis apenas para usuários administradores
+* Login com **usuário ou email**
+* Logout seguro
+* Recuperação de senha
 
-### Logout
+---
 
-- **Opção Sair**
-  - O usuário pode clicar no botão 'sair' para confirmar o logout
+## Configurações da Conta
 
-## Instruções de Instalação
+Usuários autenticados podem atualizar informações pessoais e empresariais.
 
-1. Instalar e atualizar pip:
-    ```bash
-    pip install
-    python -m pip install --upgrade pip
-    ```
+### Dados do Usuário
 
-2. Criar e acessar a pasta do projeto:
-    ```bash
-    mkdir tourproject
-    cd tourproject
-    ```
+* Alterar username
+* Alterar email
 
-3. Criar ambiente virtual:
-    ```bash
-    python -m venv venv_tourproject
-    ```
+### Dados da Empresa
 
-4. Ativar ambiente virtual:
-    - **Windows**:
-        ```bash
-        venv_tourproject\scripts\activate.bat
-        ```
-    - **Linux**:
-        ```bash
-        source venv_tourproject/bin/activate
-        ```
+* Editar razão social
+* Editar CNPJ
+* Atualizar endereço
+* Atualizar imagem/documento da empresa
 
-5. Clonar o projeto:
-    ```bash
-    git init
-    git clone https://github.com/carlosalbertoprojetos/tourproject.git
-    ```
+---
 
-6. Acessar a pasta do projeto:
-    ```bash
-    cd tourproject
-    ```
+## Área Administrativa
 
-7. Instalar dependências:
-    ```bash
-    pip install -r requirements.txt
-    ```
+Funcionalidades disponíveis apenas para **usuários administradores**.
 
-8. Aplicar migrações:
-    ```bash
-    python manage.py migrate
-    ```
+### Gestão de Usuários
 
-9. Criar super usuário:
-    ```bash
-    python manage.py createsuperuser
-    ```
-    > Obs.: O email será utilizado como username para login
+* Listagem de usuários cadastrados
+* Paginação de resultados
+* Campo de pesquisa
+* Edição de dados de usuários
+* Ativação ou desativação de contas
 
-10. Rodar o projeto:
-    ```bash
-    python manage.py runserver
-    ```
+### Gestão de Empresas
+
+* Listagem de empresas cadastradas
+* Paginação de resultados
+* Campo de pesquisa
+* Edição de dados da empresa
+
+---
+
+# Modelos do Sistema
+
+## User
+
+Modelo responsável pela autenticação dos usuários.
+
+Campos principais:
+
+* id
+* username
+* email
+* password
+* first_name
+* last_name
+* is_superuser
+* is_staff
+* is_active
+* last_login
+* date_joined
+* option (tipo de usuário)
+
+---
+
+## Company
+
+Representa as empresas cadastradas no sistema.
+
+Campos:
+
+* id
+* company_name
+* document_number (CNPJ)
+* document_image
+* street
+* number
+* complement
+* postal_code
+* city
+* state
+* user_id
+
+---
+
+## Contact
+
+Armazena informações de contato dos usuários.
+
+Campos:
+
+* id
+* cell_phone
+* user_id
+
+---
+
+## SocialMedia
+
+Armazena redes sociais associadas ao usuário.
+
+Campos:
+
+* id
+* social_media
+* user_id
+
+---
+
+# Tecnologias Utilizadas
+
+## Backend
+
+* Python 3.9.5
+* Django 4.0
+
+## Frontend
+
+* HTML
+* CSS
+* JavaScript
+
+## Banco de Dados
+
+* SQLite (padrão do Django)
+
+---
+
+# Estrutura do Projeto
+
+```id="ojsgq4"
+tourproject/
+│
+├── manage.py
+├── requirements.txt
+│
+├── tourproject/
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── apps/
+│
+├── templates/
+│
+└── static/
+```
+
+---
+
+# Instalação
+
+Siga os passos abaixo para configurar o ambiente de desenvolvimento.
+
+---
+
+## 1. Atualizar o pip
+
+```bash id="o6tdal"
+python -m pip install --upgrade pip
+```
+
+---
+
+## 2. Criar pasta do projeto
+
+```bash id="3hpgbo"
+mkdir tourproject
+cd tourproject
+```
+
+---
+
+## 3. Criar ambiente virtual
+
+```bash id="wqvsh5"
+python -m venv venv_tourproject
+```
+
+---
+
+## 4. Ativar ambiente virtual
+
+### Windows
+
+```bash id="nmumzd"
+venv_tourproject\scripts\activate
+```
+
+### Linux / Mac
+
+```bash id="3cclu3"
+source venv_tourproject/bin/activate
+```
+
+---
+
+## 5. Clonar o repositório
+
+```bash id="5f4qwo"
+git clone https://github.com/carlosalbertoprojetos/tourproject.git
+```
+
+---
+
+## 6. Acessar a pasta do projeto
+
+```bash id="zqtqii"
+cd tourproject
+```
+
+---
+
+## 7. Instalar dependências
+
+```bash id="v8ld9c"
+pip install -r requirements.txt
+```
+
+---
+
+# Configuração do Banco de Dados
+
+Aplicar migrações:
+
+```bash id="c8oqc9"
+python manage.py migrate
+```
+
+---
+
+# Criar Usuário Administrador
+
+```bash id="y9goxh"
+python manage.py createsuperuser
+```
+
+Observação:
+
+O **email será utilizado como identificador principal para login**.
+
+---
+
+# Executar a Aplicação
+
+```bash id="05suzs"
+python manage.py runserver
+```
+
+A aplicação estará disponível em:
+
+```id="2l3n4n"
+http://127.0.0.1:8000
+```
+
+---
+
+# Possíveis Melhorias
+
+* Implementação de **API REST com Django REST Framework**
+* Sistema de **gestão de pacotes turísticos**
+* Integração com **gateways de pagamento**
+* Sistema de **reservas online**
+* Dashboard analítico para empresas
+* Dockerização da aplicação
+
+---
+
+# Autor
+
+**Carlos Alberto Medeiros**
+
+GitHub
+https://github.com/carlosalbertoprojetos
+
