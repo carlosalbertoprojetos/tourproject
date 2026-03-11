@@ -1,4 +1,4 @@
-# travel-agency-platform
+# Travel Agency Platform
 
 ## Sistema de Gestão de Passeios e Pacotes Turísticos
 
