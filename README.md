@@ -1,4 +1,6 @@
-# TourProject — Sistema de Gestão de Passeios e Pacotes Turísticos
+# travel-agency-platform
+
+## Sistema de Gestão de Passeios e Pacotes Turísticos
 
 Aplicação web desenvolvida com **Django** para gerenciamento de **empresas do setor turístico**, permitindo o cadastro e administração de **agências, fornecedores e seus respectivos agentes** responsáveis pela gestão de **passeios e pacotes turísticos**.
 
